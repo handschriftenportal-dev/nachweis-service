@@ -1,0 +1,282 @@
+/*!
+ * MIT License
+ *
+ * Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+body {
+    /* Messages */
+    .ui-messages {
+        > div {
+            padding: 1em;
+        }
+
+        ul {
+            display: inline-block;
+            margin-left: 0;
+        }
+
+        .ui-messages-info {
+            background-color: $hspInfoLightBlue;
+            border-color: $hspInfoLightBlue;
+            color: $primaryColor;
+
+            .ui-messages-close:hover {
+                background-color: $hspInfoLightBlue;
+            }
+        }
+
+        .ui-messages-warn {
+            background-color: $hspWarnLightRed;
+            border-color: $hspWarnLightRed;
+            color: $primaryColor;
+
+            .ui-messages-close:hover {
+                background-color: $hspWarnLightRed;
+            }
+        }
+
+        .ui-messages-error {
+            background-color: $hspLiver;
+            border-color: $hspLiver;
+            color: #ffffff;
+
+            .ui-messages-close:hover {
+                background-color: $hspLiver;
+            }
+        }
+
+        .ui-messages-fatal {
+            background-color: $hspLiver;
+            border-color: $hspLiver;
+            color: #ffffff;
+
+            .ui-messages-close:hover {
+                background-color: lighten(#212121,15%);
+            }
+        }
+    }
+
+    .ui-message {
+        padding: 4px 8px;
+
+        &.ui-message-info {
+            background-color: $hspInfoLightBlue;
+            border-color: $hspInfoLightBlue;
+            color:$primaryColor;
+        }
+
+        &.ui-message-warn {
+            background-color: $hspWarnLightRed;
+            border-color: $hspWarnLightRed;
+            color: $primaryColor;
+        }
+
+        &.ui-message-error {
+            background-color: $hspLiver;
+            border-color: $hspLiver;
+            color: #ffffff;
+        }
+
+        &.ui-message-fatal {
+            background-color: $hspLiver;
+            border-color: $hspLiver;
+            color: #ffffff;
+        }
+
+        &.ui-message-icon-only {
+            text-align: center;
+            width: 2.571em;
+            height: 1.857em;
+
+            span {
+                float: none;
+                margin-top: 0;
+                position: static;
+                position: relative;
+                top: -2px;
+            }
+        }
+    }
+
+    /* Info */
+    .ui-messages .ui-messages-info-icon,.ui-message .ui-message-info-icon {
+        background: none;
+        @include material-icon("\e88e");
+        font-size: 24px;
+        color: $hspLightBlueInfoSign;
+    }
+
+    .ui-message .ui-message-info-icon {
+        margin-top: -1px;
+        font-size: 18px;
+        right: 1px;
+    }
+
+    .ui-messages .ui-messages-info {
+        .ui-messages-close {
+            color: $textColor;
+        }
+    }
+
+    /* Error */
+    .ui-messages .ui-messages-error-icon, .ui-message .ui-message-error-icon {
+        background: none;
+        @include material-icon("\e000");
+        font-size: 24px;
+        color: $hspWhiteErrorFatalSign;
+    }
+
+    .ui-message .ui-message-error-icon {
+        margin-top: -1px;
+        font-size: 18px;
+        right: 1px;
+    }
+
+    /* Warn */
+    .ui-messages .ui-messages-warn-icon,.ui-message .ui-message-warn-icon {
+        background: none;
+        @include material-icon("\e002");
+        font-size: 24px;
+        color: $hspWarnSignRed;
+    }
+
+    .ui-messages .ui-messages-warn {
+        .ui-messages-close {
+            color: $textColor;
+        }
+    }
+
+    .ui-message .ui-message-warn-icon {
+        margin-top: -1px;
+        font-size: 18px;
+        right: 1px;
+    }
+
+    /* Fatal */
+    .ui-messages .ui-messages-fatal-icon,.ui-message .ui-message-fatal-icon {
+        background: none;
+        @include material-icon("\e000");
+        font-size: 24px;
+        color: $hspWhiteErrorFatalSign;
+    }
+
+    .ui-message .ui-message-fatal-icon {
+        margin-top: -1px;
+        font-size: 18px;
+    }
+
+    .ui-messages-close {
+        text-decoration: none;
+        color: #fff;
+        width: $iconWidth;
+        height: $iconWidth;
+        margin-top: -2px;
+        @include border-radius(50%);
+        @include transition(background-color $transitionDuration);
+    }
+
+    .md-inputfield {
+        .ui-message {
+            &.ui-message-error {
+                background-color: transparent;
+                border: 0 none;
+                margin: 0px;
+                color: $inputErrorTextColor;
+                font-size: $errorMessageFontSize;
+
+                .ui-message-error-icon {
+                    color: $inputErrorTextColor;
+                    font-size: $errorMessageIconFontSize;
+                }
+            }
+        }
+    }
+
+    .ui-growl {
+        top: 90px;
+
+        > .ui-growl-item-container {
+            opacity: 1;
+
+            &.ui-growl-info {
+                background-color: $hspInfoLightBlue;
+            }
+
+            &.ui-growl-warn {
+                background-color: $hspWarnLightRed;
+            }
+
+            &.ui-growl-error {
+                background-color: $hspLiver;
+            }
+
+            &.ui-growl-fatal {
+                background-color: $hspLiver;
+            }
+
+            &.ui-shadow {
+                @include overlay-content-shadow();
+            }
+        }
+
+        .ui-growl-item {
+            .ui-growl-image {
+                background: none;
+                padding: 4px;
+
+                &.ui-growl-image-info {
+                    color: $hspLightBlueInfoSign;
+                    @include material-icon("\e88e");
+                    font-size: 36px;
+                }
+
+                &.ui-growl-image-error {
+                    color: $hspWhiteErrorFatalSign;
+                    @include material-icon("\e002");
+                    font-size: 36px;
+                }
+
+                &.ui-growl-image-warn {
+                    color: $hspWarnSignRed;
+                    @include material-icon("\e002");
+                    font-size: 36px;
+                }
+
+                &.ui-growl-image-fatal {
+                    color: $hspWhiteErrorFatalSign;
+                    @include material-icon("\e002");
+                    font-size: 36px;
+                }
+            }
+
+            .ui-growl-message {
+                color: $primaryColor;
+            }
+
+            .ui-growl-icon-close {
+                @include material-icon("\e5cd");
+                font-size: 24px;
+                color: $primaryColor;
+            }
+        }
+    }
+}

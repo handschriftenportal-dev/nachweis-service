@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="templates/default.xhtml">
+    <f:metadata>
+        <f:viewAction action="#{sucheController.setup}" onPostback="false"/>
+    </f:metadata>
+    <ui:define name="content">
+        <ui:param name="kannAufrufen" value="#{sucheRechte.kannAufrufen()}"/>
+        <h:form id="sucheForm">
+            <div class="ui-g">
+                <div class="ui-g-12" style="margin-bottom: 8px">
+                    <h1>#{msg.suche_header}</h1>
+                </div>
+
+                <p:outputPanel rendered="#{not kannAufrufen}" class="ui-g-12">
+                    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                        <ui:param name="hasAccess" value="#{kannAufrufen}"/>
+                    </ui:include>
+                </p:outputPanel>
+            </div>
+            <p:outputPanel layout="block"
+                           styleClass="ui-g"
+                           rendered="#{kannAufrufen}">
+                <div class="ui-g-7 ui-lg-5 ui-fluid" style="margin-bottom: 32px">
+
+                    <div style="display: flex">
+                        <p:inputText id="queryInput" value="#{sucheModel.query}"
+                                     styleClass="ui-fluid"
+                                     style="padding-right:85px; font-size: 16px"
+                                     autocomplete="off">
+                        </p:inputText>
+
+                        <p:commandButton id="resetSearchButton"
+                                         icon="ui-icon ui-icon-close"
+                                         styleClass="switch-ui-button-color-black-no-bg resetsearchbutton"
+                                         style="margin-left: -80px;"
+                                         action="#{sucheController.resetSearch()}">
+                        </p:commandButton>
+
+                        <p:commandButton id="searchButton"
+                                         update="sucheForm"
+                                         icon="ui-icon ui-icon-search"
+                                         styleClass="switch-ui-button-color-black-no-bg searchbutton"
+                                         style="color: black; text-decoration:none; margin-left: 0px"
+                                         action="#{sucheController.search()}">
+                        </p:commandButton>
+
+                        <p:defaultCommand target="searchButton"/>
+                    </div>
+                </div>
+                <div class="ui-g-5 ui-lg-7"></div>
+
+                <p:outputPanel layout="block"
+                               styleClass="ui-g-10"
+                               rendered="#{not empty sucheModel.lazyErgebnisModel.ergebnis}">
+
+                    <h2 style="display: inline-block">
+                        <h:outputFormat value="#{msg.suche_ergebnisse}"
+                                        rendered="#{not empty sucheModel.lazyErgebnisModel.ergebnis}">
+                            <f:param value="#{sucheModel.lazyErgebnisModel.ergebnis.getNOfErgebnis()}"/>
+                        </h:outputFormat>
+                    </h2>
+
+                    <p:commandLink id="resetFiltersLink"
+                                   update="sucheForm"
+                                   actionListener="#{sucheController.resetFilters()}"
+                                   oncomplete="PF('sucheTableWidget').paginator.setPage(0);"
+                                   rendered="#{not empty sucheModel.suche.filter}"
+                                   style="margin-left: 25px">
+                        <i class="ui-icon ui-icon-clear"
+                           style="font-size: 9px;margin-bottom: 3px"></i> #{msg.suche_filter_reset}
+                    </p:commandLink>
+                </p:outputPanel>
+                <p:outputPanel layout="block"
+                               styleClass="ui-g-2"
+                               style="text-align: right"
+                               rendered="#{not empty sucheModel.lazyErgebnisModel.ergebnis}">
+                    <p:outputLabel for="sortCriteria" value="#{msg.suche_sorttext}"
+                                   style="margin-right: 6px; margin-top: 5px;line-height: 22px;"/>
+                    <p:selectOneMenu id="sortCriteria"
+                                     value="#{sucheModel.sortCriteria}"
+                                     style="min-width: 90px">
+                        <f:selectItem itemLabel="#{msg.suche_sortrelevanz}"
+                                      itemValue="RELEVANZ"/>
+                        <f:selectItem itemLabel="#{msg.suche_sortsignatur}"
+                                      itemValue="SIGNATUR"/>
+                        <p:ajax event="valueChange" update="sucheForm"
+                                listener="#{sucheController.searchWithoutRedirect()}"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
+
+                <div class="ui-g-4">
+                    <ui:include src="suche-filter.xhtml"/>
+                </div>
+                <div class="ui-g-8">
+                    <ui:include src="suche-ergebnis.xhtml"/>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

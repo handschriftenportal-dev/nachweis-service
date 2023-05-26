@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xml:id="file_someBib_obj-31575572_tei-msDesc" xml:lang="de" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Vaterunserauslegung · Katharinenlegende · Interrogatio St. Anselmi dt. · Tagzeiten vom Leiden Christi (Karlsruhe, Badische Landesbibliothek, Donaueschingen 116)</title>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Diese Datei wurde automatisch erzeugt, unter Verwendung der MXML-to-TEI-P5-Stylesheets, die an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt werden.</resp>
+                    <name type="person"/>
+                    <name type="org"/>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+                    <name type="org"/>
+                    <ptr target="http://some.url"/>
+                </publisher>
+                <date type="published"/>
+                <date type="issued"/>
+                <availability status="restricted">
+                    <licence target="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">
+                        <p>Dieses Dokument steht unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 3.0 Deutschland Lizenz(CC BY-NC-SA 3.0 DE).</p>
+                        <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere Lizenzen.</p>
+                    </licence>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Automatisch generierte Beschreibung aus einem  HiDA-4 Dokument.</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <creation>
+                <date when="2022-04-21">2022-04-21 15:05:30</date>
+            </creation>
+        </profileDesc>
+        <revisionDesc>
+            <change>
+                <date when="2022-04-21">2022-04-21 15:05:30</date>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <msDesc xml:id="HSP-87332024-06c1-3e6a-b565-cc502dab0944" xml:lang="de" type="hsp:description" status="intern">
+                <msIdentifier>
+                    <settlement ref="4d3e0acd-6166-3743-8bc3-7196cd875740">Karlsruhe</settlement>
+                    <repository key="soz_30002072" ref="http://d-nb.info/gnd/2005707-6 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-31 08c33f24-d9aa-3f38-a5b9-ada9732fa5d1">Badische Landesbibliothek</repository>
+                    <collection>Donaueschingen</collection>
+                    <collection type="baseShelfmarkGroup">A-Segment</collection>
+                    <idno>Cod. Donaueschingen 116</idno>
+                    <altIdentifier type="catalog">
+                        <idno>someBib_obj-31575572_tei-msDesc</idno>
+                    </altIdentifier>
+                </msIdentifier>
+                <head>
+
+
+
+                    <title>Vaterunserauslegung · Katharinenlegende · Interrogatio St. Anselmi dt. · Tagzeiten vom Leiden Christi</title>
+
+
+
+                    <note type="caption">Laßberg 31 ·
+
+
+                        <material>Pergament</material> ·
+
+
+                        <measure type="leavesCount">I + 206</measure> Bl. ·
+
+
+                        <measure type="pageDimensions">15 × 10</measure> · St. Katharinenthal bei
+
+
+                        <origPlace>Dießenhofen</origPlace> ·
+
+
+                        <origDate>1. Viertel 14. Jh</origDate>.</note>
+
+
+
+                    <index indexName="norm">
+                        <term type="title">Vaterunserauslegung · Katharinenlegende · Interrogatio St. Anselmi, dt. · Tagzeiten vom Leiden Christi</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="status">vorhanden</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="form" n="codex">Codex</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="origDate_type">Datierung</term>
+                        <term type="origDate">14. Jh., 1. Viertel</term>
+                        <term type="origDate_notBefore">1301</term>
+                        <term type="origDate_notAfter">1325</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="origPlace">Diessenhofen</term>
+                        <term type="origPlace_GND-ID">4090794-6</term>
+                        <term type="origPlace_GeoNames-ID">7285651</term>
+                        <term type="origPlace_Getty-ID">7007344</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="origPlace">Schweiz</term>
+                        <term type="origPlace_GND-ID">4053881-3</term>
+                        <term type="origPlace_GeoNames-ID">2658434</term>
+                        <term type="origPlace_Getty-ID">7011731</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="material" n="perg">Pergament</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="dimensions">15 × 10</term>
+                        <term type="height">15</term>
+                        <term type="width">10</term>
+                        <term type="format_typeOfInformation">real</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="measure_noOfLeaves" n="206">I + 206 Bl.</term>
+                    </index>
+
+
+
+                    <index indexName="norm">
+                        <term type="textLang" n="de">deutsch</term>
+                    </index>
+               </head>
+                <msContents>
+                    <textLang mainLang="de" otherLangs="gsw">deutsch &amp; südalemannisch</textLang>
+                    <msItem xml:id="text_31575574">
+                        <title>Vaterunserauslegung</title>
+                        <title>Vaterunserauslegung Adonay, gewaltiger herre</title>
+                        <note type="fulltext">1r-63v ‚
+
+
+                            <title>Vaterunserauslegung Adonay, gewaltiger herre</title>‘
+
+
+                            <quote xml:lang="de">&gt;W&lt;jr lesen, alse sante Matheus shribet&#13;
+</quote>, daz vnser lieber herre Jhesus Cristus ze ainem male giench vf ainen berch vnd rief sinen ivngeron, die er svnderlich lieb hatte, vf die hoehi des berges … - … ist, daz dv dich vlissest dirre lere mit triwen ze volgenne, so ist din wachon vri, din slafen rain, din erwachon vor, din gesvnthait vnverdrozenlich, din siechtage gedvlteklich, din tot vnershrochenlich vnd ein offenv porte gen dem ewigen lebenne. Daz verlihe mir vnd iv der vater vnd der svn vnd der hailige gaist. Amen. Amen.
+
+
+                            <lb/>Nicht ediert. Hier fehlt der mit Adonay, gewaltiger herre beginnende Prolog. Literatur: B. Adam, Vaterunserauslegungen in der Volkssprache (anonyme), in: 2VL 10 (1999), Sp. 170-182, hier Sp. 175f.; ders., Katechetische Vaterunserauslegungen (s. o., Lit.), S. 217-219. Dieser Text auch in BLB,
+
+
+                            <rs type="mss">Cod. St. Georgen 78</rs>, 221r-283v.</note>
+                    </msItem>
+                    <msItem xml:id="text_31575575">
+                        <title>Mariengebet &amp; Gebet</title>
+                        <note type="fulltext">63v-75r Mariengebet
+
+
+                            <quote xml:lang="de">&gt;A&lt;ve Maria. Ich manon dich, vrowe, daz der grvz, den dir der engel brahte&#13;
+</quote>, die naht vnd die vinstri des ewigen todes vertreib … - … (74v) waz ich ime in himelrich wirde gebende, daz wirt er wol bevinden(75r)de, so ers vrolich vnd trochlich wirt iemer ewiklich niezende an ende.</note>
+                    </msItem>
+                    <msItem xml:id="text_31575576">
+                        <title>Katharina von Alexandrien (Verslegende VIII)</title>
+                        <title>Verslegende &amp; Legende</title>
+                        <title>Verslegende &amp; Legende</title>
+                        <note type="fulltext">75r-137v
+
+
+                            <title>‚Katharina von Alexandrien‘</title> (Verslegende VIII)
+
+
+                            <quote xml:lang="de">Ze Rome hie vor ein keiser waz&#13;
+</quote>, / der trvg gegen gote vil grozen haz. /
+
+
+                            <rs type="person">Maxentius</rs> waz er genant. / Swa er cristen lv´te vant, / die mvzen von im liden groze not / vnd dar nach den grimmen tot … - … daz ir helfe da bi v´ns si, / daz wir der helle werden vri / vnd nach disem libe ein ewich leben, / daz mvoze v´ns got von himel geben. Amen.
+
+
+                            <lb/>Nicht ediert. Literatur: P. Assion, Katharina von Alexandrien, in: 2VL 4 (1983), Sp. 1055-1073, hier Sp. 1061; J. Lambel, Katharinen Marter, in: Germania 8 (1863), S. 129-186, hier S. 138; S. A. Bierhals Jefferis, Ein spätmittelalterliches Katharinenspiel aus dem
+
+
+                            <rs type="mss">Cod. ger. 4 der University of Pennsylvania</rs>: Text und Studien zu seiner legendengeschichtlichen Einordnung (GAG 430), Göppingen 2007, S. 72-77.</note>
+                        <index>
+                            <term>
+
+
+
+                                <persName key="pnd_118560573">Catharina &lt;de Alexandria&gt;</persName>
+                        </term>
+                        </index>
+                        <index>
+                            <term>
+
+
+
+                                <persName>Maxentius</persName>
+                        </term>
+                        </index>
+                    </msItem>
+                    <msItem xml:id="text_31575577">
+                        <title>Dialogus Beatae Mariae et Anselmi de passione Domini</title>
+                        <filiation>deutsche Übersetzung</filiation>
+                        <title>Interrogatio Sancti Anselmi de Passione Domini</title>
+                        <filiation>deutsche Übersetzung</filiation>
+                        <note type="fulltext">137v-186v
+
+
+                            <rs type="person">(Ps.-)Anselm von Canterbury</rs>:
+
+
+                            <title>‚Interrogatio Sancti Anselmi de Passione Domini‘</title>, dt.
+
+
+                            <quote xml:lang="de">&gt;S&lt;ant Ansheln der begerte von v´nser vrown von himelrich lange zit mit grozer begirde&#13;
+</quote>, mit vasten vnd mit wachen vnd mit menigem andehtigen gebete vnd mit herzeklichen trehen, daz si im kvnti ir einbornen kindes marter … - … der hiez eine Týtus vnd der ander Vespasian, die zerstorton Ierusalem vnd viengen da alse vil ivden, daz man ie drizich jvden vmbe einen phenning gab, alse sv´ min kint alleine vmbe drizich phenninge hatton geben, vnd rachen da mitte mines kindes tot vnd sine marter.
+
+
+                            <lb/>Edition: Zeller (s. o., Lit.), S. 1-60. Literatur: G. Steer, Anselm von Canterbury, in: 2VL 1 (1978), Sp. 375-381, hier Sp. 378f.; K. Ruh, Bonaventura deutsch. Ein Beitrag zur deutschen Franziskaner-Mystik und -Scholastik (Bibliotheca Germanica 7), Bern 1956, S. 30.</note>
+                        <index>
+                            <term>
+
+
+
+                                <persName role="aut" key="pnd_100936547">Anselmus &lt;Cantuariensis&gt;</persName>
+                        </term>
+                        </index>
+                    </msItem>
+                    <msItem xml:id="text_31575628">
+                        <title>Anaphorische Betrachtungen</title>
+                        <title>Tagzeiten vom Leiden Christi</title>
+                        <note type="fulltext">187r-206r
+
+
+                            <title>Tagzeiten vom Leiden Christi</title> (
+
+
+                            <title>‚Anaphorische Betrachtungen‘</title>)
+
+
+                            <quote xml:lang="de">&gt;D&lt;jz soltv gedenken ze meti: Ellv´ wizheit wart verraten&#13;
+</quote>, alle shaz wart verkofet, ellv´ fv´rbesihtekeit sorgete, ellv´ almahtekeit betote, ellv´ erbermede zeigete sich … - … (205v) Er sprach och: Daz gotes wort alse gewaltich ist in des menshen mvn(206r)de, got an sich zie [sic] ziehenne, alse got ist in sinem throne, aller der welte ze gebietenne.
+
+
+                            <lb/>206v leer.
+
+
+                            <lb/>Der Text besteht aus Betrachtungen zur Passion Christi, die durch die Anapher alle strukturiert und nach den Tagzeiten geordnet sind (187r-192v), sowie allgemeineren Betrachtungen ohne anaphorische Struktur (192v-206r). Bausteine dieses Textes sind in verschiedener Gestalt und Reihenfolge auch in folgenden Hss. überliefert:
+
+
+                            <rs type="mss"> BLB, Cod. L 48</rs>, 208v-270v; Augsburg, UB,
+
+
+                            <rs type="mss">Cod. III. 1. 8° 45</rs>, 2r-67r; Den Haag, Kon. Bibl.,
+
+
+                            <rs type="mss">Hs. 73 E 25</rs>, 71v-72v; München, BSB,
+
+
+                            <rs type="mss">Cgm 3900</rs>, 71vb-72rb (ebenfalls als Tagzeitenbetrachtung strukturiert, mit Gebetserweiterungen); Breslau,
+
+
+                            <rs type="mss"> UB, Cod. I O 9</rs>, 98r; ebd.,
+
+
+                            <rs type="mss">Cod. I O 28</rs>, 250r; Basel, UB,
+
+
+                            <rs type="mss">Cod. A X 138</rs>, 103v; (nur anaphorische Betrachtungen, nach den Tagzeiten angeordnet); Privatsammlung Eis, Heidelberg,
+
+
+                            <rs type="mss"> Hs. 107</rs>, 75v-77v (verschollen; nur anaphorische Betrachtungen, ohne expliziten Tagzeiten-Bezug); Berlin, Staatsbibl.,
+
+
+                            <rs type="mss">Mgo 467</rs> (nur anaphorische Betrachtungen, ohne expliziten Tagzeiten-Bezug). Zu den anaphorischen Betrachtungen vgl. R. Klemmt, Mitteilung zu einer „Anaphorischen Betrachtung“ der Spätgotik, in: Fachliteratur des Mittelalters (FS G. Eis), hg. v. G. Keil u. a., Stuttgart 1968, S. 93-100 (mit Abdruck der Texte der Berliner und Heidelberger Hss.). Don. 116 überliefert die Verse 1-22, 24-40, 42f., 48-50, 52-55 der Ausgabe von Klemmt in abweichender Reihenfolge, aber ähnlicher Textgestalt. Weitere Literatur: J. Klapper (Hg.), Schriften Johanns von Neumarkt, 4 Bde. (Vom Mittelalter zur Reformation VI, 1-4), Berlin 1930-1935, hier Bd. 4, S. 362-364 (mit Abdruck der Fassung von Breslau, UB, Cod. I O 9); W. J. Hoffmann, Die ostmitteldeutsche Übersetzung des ‚Evangelium Nicodemi‘ in der Den Haager Handschrift 73 E 25 (Übersetzung K). Untersuchungen und Text, in: Deutsche Bibelübersetzungen des Mittelalters, hg. v. H. Reinitzer (Vestigiae Bibliae 9/10 [1987/1988]), Bern 1991, S. 216-272, hier S. 219.  </note>
+                    </msItem>
+                </msContents>
+                <physDesc>
+                    <p>Gebrauchsspuren und Flecken; Bl. 3: Fehlstelle am unteren Rand. An mehreren Stellen aufgrund schlechter Pergamentqualität verwischte Schrift (z. B. 12-15). Moderne Bleistiftfoliierung 1-206 (wohl von Laßberg). Lagen: 1 + 10 VI120 + 2 IV136 + V146 + 2 VI170 + 2 IV186 + V196 + (V+1)[207]. Das letzte, ungezählte Bl. der letzten Lage ist als Spiegel aufgeklebt, Bl. 206 wurde nachträglich in die Lage eingefügt (Falz zwischen 197/198). Risse in manchen Bll. vor der Beschriftung genäht, z. B. Bl. 8, 17. Schriftraum, mit Tintenlinien begrenzt, Zeilenliniierung mit Tinte (teilweise Einstichlöcher am Blattrand sichtbar): 11 × 7. 1 Spalte, 18 Zeilen. Textualis des 1. Viertels des 14. Jh. (s. Don. 115) von drei Händen (die Zählung der Hände von Don. 115 wird fortgeführt): A, identisch mit der Schreiberin A von Don. 115 (63v-206r); C (1r-18v, 37v-63r); D (19r-37r). Verse nicht abgesetzt. Rubrizierung: zwei- und einzeilige rote Lombarden zum Beginn von Texten und Abschnitten.</p>
+                    <p n="bindingDesc">Einband wohl des
+
+
+                        <origDate>14. Jh.</origDate>: Holzdeckel, mit rotem Leder überzogen; Reste von zwei Langriemenschließen. Geflochtene Kapitale. Wohl zu einem späteren Zeitpunkt Rücken mit ungefärbtem Leinen überzogen (wie
+
+
+                        <rs type="mss">Don. 115</rs>). Bei der Erneuerung des Rückenleders wurde das Leinen wieder entfernt. Reste des Leinens sind unter dem wieder aufgeklebten Rückenschild sichtbar. Verfärbungen am Leder des Vorder- und Hinterdeckels weisen außerdem auf die Leinenbeklebung hin. Rückenschild des 17./18. Jh. (wegen Beschädigung schwer lesbar): 18 K M Legend 3 (…) Catharina in b[er]gamend (…). Vorderspiegel (nachträglich) aus Papier.</p>
+                    <p n="bindingDesc">Einband
+
+
+                        <origDate type="Datierung" from="1301" to="1400">14. Jh.</origDate>Schwesterhandschrift &amp; ähnlicher Einband &amp; Handschrift im Katalog zitiertKarlsruhe, BLBDonaueschingen 115</p>
+                    <p n="script">Textualis</p>
+                </physDesc>
+                <history>
+                    <summary>Geschichte: Entstanden im 1. Viertel des 14. Jh. (Schriftbefund) im
+
+
+                        <rs type="org">Dominikanerinnenkloster St. Katharinenthal</rs> bei Dießenhofen in der Nähe von Schaffhausen (Schreiberin A), vgl. Don. 115. Auf dem Vorsatzbl. von einer Hand des 15. Jh.: Dis ist sant Katterina legend buechlÿ. Die Hs. gelangte vor 1825 in den Besitz
+
+
+                        <rs type="person">Laßbergs</rs>, der sie in einem Schreiben an
+
+
+                        <rs type="person">Benecke</rs> vom 5. 7. 1825 erwähnt: Pergament=Handschrift: von der Legende der Heiligen Katharina, vgl. Baier, S. 61. Die Schwesternhss.
+
+
+                        <rs type="mss">Don. 115</rs> und 116 wurden anscheinend nicht gleichzeitig von Laßberg erworben. Im Meersburger Katalog steht Don. 116 an anderer Stelle als Don. 115, im Handschriftenverzeichnis Laßbergs erscheint nur Don. 116 als Nr. 34. Auf dem Vorderspiegel mit Bleistift alte Standortbezeichung in der Meersburger Bibliothek XIX. 6. Benutzungsspuren von Laßberg: auf dem Vorderspiegel die Bleistiftnotiz vid Lambec. II Sg: 780 sq, gemeint ist wohl
+
+
+                        <rs type="person">P. Lambeck</rs>,
+
+
+                        <title>Commentarii de augustissima Bibliotheca Caesarea Vindobonensi</title>, II, Wien 1769, Sp. 780f. (bezieht sich auf die Hs.
+
+
+                        <rs type="mss">Wien, ÖNB, Cod. 2841</rs>, die ebenfalls eine Katharinenlegende in Versen enthält); auf dem Vorsatzblatt Inhaltsverzeichnis von Laßberg (Bleistift, Majuskeln teilweise in gotisierender Schrift): j. Die siben Gezelt d. i. die sieben Bitten des vatter vnsers lxxiv Blätter. jj. Legend von St. Katrinen in Versen lxiii Blätter. bis Blat: 137. jjj. Eine legende von Sant Anshelm u. unser Frowen, wie die jm unsers Herren marter erzält; ebenfalls in teilweise gotisierender Schrift Rand- und Zwischentitel (Bleistift, z.B. 8v, 14v, 21v, 28v, 42v, 49v, 54v, 75r; in der Katharinenlegende auch Verszählung mit Bleistift.
+
+
+                        <lb/>Auf dem Rücken
+
+
+                        <rs type="org">Donaueschinger</rs> Signaturschild 115; auf dem Vorderspiegel Don 116; auf dem Vorsatzblatt recto und 206r Donaueschinger Bibliotheksstempel 2. Schreibsprache:
+
+
+                        <term type="textLang">Südalemannisch</term> (s. Don. 115). Im Gegensatz zu den Händen ABD schreibt Hand C ai für mhd. ei (vgl. HSS, Karte 62). </summary>
+                    <origin>
+
+
+
+                        <origDate type="Datierung" from="1301" to="1325">14. Jh., 1. Viertel</origDate>
+
+
+
+                        <origPlace>Diessenhofen</origPlace>
+
+
+
+                        <origPlace>Schweiz</origPlace>
+                  </origin>
+                </history>
+                <additional>
+                    <adminInfo>
+                        <recordHist>
+                            <source>
+
+
+
+                                <bibl type="label">
+
+
+
+                                    <author>Nicole Eichenberger &amp; Wolfgang Runschke</author>
+
+
+
+                                    <date type="published">2012</date>
+                           </bibl>
+                        </source>
+                        </recordHist>
+                    </adminInfo>
+                    <listBibl>
+                        <bibl>Literatur: Schwab 1840, S. 245; Scheffel, S. 36; Barack, S. 117f; K. Zeller, Die Interrogatio Anselmi in zwei deutschen Übersetzungen des frühen 14. Jahrhunderts, Diss. (masch.) Leipzig 1943, S. XVI, LXIX-LXIXd; B. Adam, Katechetische Vaterunserauslegungen. Texte und Untersuchungen zu deutschsprachigen Auslegungen des 14. und 15. Jahrhunderts (MTU 55), München 1976, S. 217; Bergmann, S. 418 (M 41); Schneider, Gotische Schriften II, S. 69f.
+
+
+                            <lb/>Archivbeschreibung: H. Niewöhner (1936), 12 Bll.
+
+
+                            <lb/>Handschriftencensus: http://www.handschriftencensus.de/10561 (M. Bauer/J. Heinzle, Januar 2010).
+
+
+                            <lb/>Weitere Lit. s. bei Don. 115.</bibl>
+                    </listBibl>
+                </additional>
+            </msDesc>
+        </body>
+    </text>
+</TEI>

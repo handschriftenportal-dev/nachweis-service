@@ -1,0 +1,88 @@
+/*!
+ * MIT License
+ *
+ * Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/* roboto-300 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url("\#{resource['ultima-layout:fonts/roboto-v15-latin-300.eot']}"); /* IE9 Compat Modes */
+  src: local('Roboto Light'), local('Roboto-Light'),
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-300.eot']}#iefix") format('embedded-opentype'), /* IE6-IE8 */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-300.woff2']}") format('woff2'), /* Super Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-300.woff']}") format('woff'), /* Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-300.ttf']}") format('truetype'), /* Safari, Android, iOS */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-300.svg']}#Roboto") format('svg'); /* Legacy iOS */
+}
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url("\#{resource['ultima-layout:fonts/roboto-v15-latin-regular.eot']}"); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-regular.eot']}#iefix") format('embedded-opentype'), /* IE6-IE8 */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-regular.woff2']}") format('woff2'), /* Super Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-regular.woff']}") format('woff'), /* Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-regular.ttf']}") format('truetype'), /* Safari, Android, iOS */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-regular.svg']}#Roboto") format('svg'); /* Legacy iOS */
+}
+/* roboto-700 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url("\#{resource['ultima-layout:fonts/roboto-v15-latin-700.eot']}"); /* IE9 Compat Modes */
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-700.eot']}#iefix") format('embedded-opentype'), /* IE6-IE8 */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-700.woff2']}") format('woff2'), /* Super Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-700.woff']}") format('woff'), /* Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-700.ttf']}") format('truetype'), /* Safari, Android, iOS */
+       url("\#{resource['ultima-layout:fonts/roboto-v15-latin-700.svg']}#Roboto") format('svg'); /* Legacy iOS */
+}
+/* roboto-500 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url("\#{resource['ultima-layout:fonts/roboto-v30-latin-500.eot']}"); /* IE9 Compat Modes */
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+       url("\#{resource['ultima-layout:fonts/roboto-v30-latin-500.eot']}#iefix") format('embedded-opentype'), /* IE6-IE8 */
+       url("\#{resource['ultima-layout:fonts/roboto-v30-latin-500.woff2']}") format('woff2'), /* Super Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v30-latin-500.woff']}") format('woff'), /* Modern Browsers */
+       url("\#{resource['ultima-layout:fonts/roboto-v30-latin-500.ttf']}") format('truetype'), /* Safari, Android, iOS */
+       url("\#{resource['ultima-layout:fonts/roboto-v30-latin-500.svg']}#Roboto") format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("\#{resource['ultima-layout:fonts/MaterialIcons-Regular.eot']}"); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url("\#{resource['ultima-layout:fonts/MaterialIcons-Regular.woff2']}") format('woff2'),
+       url("\#{resource['ultima-layout:fonts/MaterialIcons-Regular.woff']}") format('woff'),
+       url("\#{resource['ultima-layout:fonts/MaterialIcons-Regular.ttf']}") format('truetype');
+}

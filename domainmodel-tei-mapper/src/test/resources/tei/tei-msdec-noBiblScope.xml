@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<tei:TEI xmlns:tei="http://www.tei-c.org/ns/1.0">
+   <tei:teiHeader>
+      <tei:fileDesc>
+         <tei:titleStmt>
+            <tei:title>Beschreibung von Augsburg, Universitätsbibliothek Augsburg, Cod. II.1.4° 58 (HILG, Hardo:
+               Lateinische mittelalterliche Handschriften in Quarto der Universitätsbibliothek Augsburg. Die
+               Signaturengruppen Cod.I.2.4° und Cod.II.1.4°. - Wiesbaden: Harrassowitz, 2007. - (Die Handschriften der
+               Universitätsbibliothek Augsburg: Reihe 1. Die lateinischen Handschriften; Bd. 3))
+            </tei:title>
+            <tei:respStmt>
+               <tei:resp>Beschrieben von</tei:resp>
+               <tei:persName role="author">Hardo Hilg</tei:persName>
+               <tei:note>2007</tei:note>
+            </tei:respStmt>
+         </tei:titleStmt>
+         <tei:editionStmt>
+            <tei:edition>Elektronische Ausgabe nach TEI P5</tei:edition>
+            <tei:respStmt>
+               <tei:resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August
+                  Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem
+               </tei:resp>
+               <tei:name type="org">Handschriftenportal</tei:name>
+            </tei:respStmt>
+         </tei:editionStmt>
+         <tei:publicationStmt>
+            <tei:publisher>
+               <tei:name type="org">Handschriftenportal</tei:name>
+            </tei:publisher>
+            <tei:date type="primary" when="2007">2007</tei:date>
+            <tei:availability status="restricted">
+               <tei:licence target="http://rightsstatements.org/vocab/InC/1.0/">
+                  <tei:p>http://rightsstatements.org/vocab/InC/1.0/</tei:p>
+               </tei:licence>
+            </tei:availability>
+            <tei:idno type="hsk">662</tei:idno>
+         </tei:publicationStmt>
+         <tei:sourceDesc>
+            <tei:bibl>HILG, Hardo: Lateinische mittelalterliche Handschriften in Quarto der
+               Universitätsbibliothek Augsburg. Die Signaturengruppen Cod.I.2.4° und Cod.II.1.4°. - Wiesbaden:
+               Harrassowitz, 2007. - (Die Handschriften der Universitätsbibliothek Augsburg: Reihe 1. Die lateinischen
+               Handschriften; Bd. 3)
+            </tei:bibl>
+         </tei:sourceDesc>
+      </tei:fileDesc>
+      <tei:profileDesc>
+         <tei:creation>
+            <tei:date when="2020-09-21">21.09.2020</tei:date>
+         </tei:creation>
+      </tei:profileDesc>
+      <tei:revisionDesc>
+         <tei:change>
+            <tei:date when="2022-08-11">11.08.2022</tei:date>
+         </tei:change>
+      </tei:revisionDesc>
+   </tei:teiHeader>
+   <tei:text>
+      <tei:body>
+         <tei:msDesc xml:id="MXML-92000107"
+           xml:lang="de"
+           type="hsp:description_retro"
+           subtype="medieval"
+           status="extern">
+            <tei:msIdentifier>
+               <tei:settlement>Augsburg</tei:settlement>
+               <tei:repository key="soz_30002121"
+                 ref="http://d-nb.info/gnd/38966-3 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-384">
+                  Universitätsbibliothek Augsburg
+               </tei:repository>
+               <tei:idno>Cod. II.1.4° 58</tei:idno>
+            </tei:msIdentifier>
+            <tei:head>
+               <tei:index indexName="norm_title">
+                  <tei:term type="title">Bartholomaeus Pisanus · Nicolaus Magni de Jawor</tei:term>
+               </tei:index>
+               <tei:title>Bartholomaeus Pisanus • Nicolaus Magni de Jawor</tei:title>
+               <tei:note type="headline">Papier · 171 (Blatt) · 21x15 (cm) · Hörselgau (Thüringen) · 1458</tei:note>
+               <tei:index indexName="norm_material">
+                  <tei:term type="material">Papier</tei:term>
+                  <tei:term type="material_type">paper</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_measure">
+                  <tei:term type="measure">171 Bl.</tei:term>
+                  <tei:term type="measure_noOfLeaves">171</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_dimensions">
+                  <tei:term type="dimensions">21 × 15</tei:term>
+                  <tei:term type="height">21</tei:term>
+                  <tei:term type="width">15</tei:term>
+                  <tei:term type="depth"/>
+                  <tei:term type="dimensions_typeOfInformation">factual</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_format">
+                  <tei:term type="format">quarto</tei:term>
+                  <tei:term type="format_typeOfInformation">factual</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_origPlace">
+                  <tei:term type="origPlace">Hörselgau (Thüringen)</tei:term>
+                  <tei:term type="origPlace_norm" ref="http://d-nb.info/gnd/7599963-8">Hörselgau</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_origDate">
+                  <tei:term type="origDate">1458</tei:term>
+                  <tei:term type="origDate_notBefore">1458</tei:term>
+                  <tei:term type="origDate_notAfter">1458</tei:term>
+                  <tei:term type="origDate_type">dated</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_textLang">
+                  <tei:term type="textLang">lateinisch</tei:term>
+                  <tei:term type="textLang-ID">la</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_form">
+                  <tei:term type="form">codex</tei:term>
+               </tei:index>
+               <tei:index indexName="norm_status">
+                  <tei:term type="status"/>
+               </tei:index>
+               <tei:index indexName="norm_decoration">
+                  <tei:term type="decoration"/>
+               </tei:index>
+               <tei:index indexName="norm_musicNotation">
+                  <tei:term type="musicNotation"/>
+               </tei:index>
+            </tei:head>
+         </tei:msDesc>
+      </tei:body>
+   </tei:text>
+</tei:TEI>

@@ -1,0 +1,86 @@
+### DEV Configuration
+kafka:
+  bootstrapserver: locahost:9092
+  import:
+    topic: tei-import-dev-win
+    groupid: import-dev-k
+    startOffset: -1
+    active: true
+  index:
+    topic: tei-index-dev-win
+    startOffset: -1
+    groupid: index-dev-k
+  dataimport:
+    topic: data-import-dev-win
+    startOffset: -1
+    groupid: dataimport-dev-k
+  katalog:
+    topic: katalog-index-dev-win
+    startOffset: -1
+    groupid: katalog-index-dev-k
+importserverbaseurl: http://locahost:9296
+praesentationbaseurl: http://locahost:8080/
+nachweisserverbaseurl: http://localhost:9298/
+solr:
+  url:
+    master: http://locahost:8983/solr
+    slave: http://locahost:8983/solr
+  core: hsp-nachweis-dev-win
+
+javax:
+  faces:
+    PROJECT_STAGE: Development
+
+workaround:
+  KOD_LIST_DELETE_ENABLED: true
+  BESCHREIBUNG_LIST_DELETE_ENABLED: true
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: experte
+    jdbc:
+      url: jdbc:postgresql://locahost:5432/hsp-nachweis-dev1?stringtype=unspecified
+  log:
+    category:
+      "de.staatsbibliothek":
+        level: DEBUG
+oauth2:
+  filter:
+    enabled: false
+  logincheck:
+    enabled: false
+  permissioncheck:
+    enabled: false
+  client:
+    id: hsp
+    secret: HSPsecretHSP
+  redirect-uri:
+    grant-code: /dashboard.xhtml
+    revoke-token: /dashboard.xhtml
+    error: /error_authentication.xhtml
+  own:
+    url:
+      prefix: currentServerAddress
+
+de:
+  staatsbibliothek:
+    berlin:
+      hsp:
+        nachweis:
+          infrastructure:
+            purl:
+              SBBPURLGenPort/mp-rest/url: http://localhost:9298/rest/purl/example
+
+purlgen:
+  resolver:
+    url: https://resolver.staatsbibliothek-berlin.de/
+    directory: /tmp/
+    #format DB not supported for httxt2dbm.exe...
+    httxt2dbm: httxt2dbm.exe -f DB -i {0} -o {1}
+
+purl:
+  target:
+    kod: http://locahost:8080/search?hspobjectid={0}
+    beschreibung: http://locahost:8080/workspace?type=hsp:description&id={0}
+    beschreibung_retro: http://locahost:8080/workspace?type=hsp:description_retro&id={0}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <p:commandButton action="sprachen.xhtml?faces-redirect=true"
+                                 value="#{msg.sprache_zurueck_zu_sprachen}"
+                                 icon="ui-icon-keyboard-backspace">
+                </p:commandButton>
+
+                <h1 class="detail-view">#{msg.document_titel_sprache}</h1>
+            </div>
+            <ui:param name="kannLesen" value="#{normdatenRechte.kannAnzeigen()}"/>
+            <div class="ui-g-12">
+
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannLesen}"/>
+                </ui:include>
+
+                <h:form id="sprachedetailform" rendered="#{kannLesen}">
+                    <p:panel id="spracheDetail" style="padding-left:0px">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="#{msg.sprache_id}:"/>
+                            <h:outputText value="#{spracheDetailController.model.id} "/>
+                            <h:outputText value="#{msg.sprache_name}:"/>
+                            <h:outputText value="#{spracheDetailController.model.name} "/>
+                            <h:outputText value="#{msg.sprache_gnd}:"/>
+                            <p:link target="_blank"
+                                    href="#{spracheDetailController.model.gndUrl}"
+                                    value="#{spracheDetailController.model.gndID}"
+                                    rendered="#{not empty spracheDetailController.model.gndID}"/>
+                            <h:outputText value="" rendered="#{empty spracheDetailController.model.gndID}"/>
+                            <h:outputText value="#{msg.sprache_alternativenamen}:"/>
+                            <h:outputText value="#{spracheDetailController.model.varianteNamenAlsString} "/>
+
+                            <h:outputText value="ISO639-1:"/>
+                            <ui:repeat var="iso6391Identifier"
+                                       value="#{spracheDetailController.iso6391Identifikatoren}">
+                                <p:link target="_blank"
+                                        href="#{iso6391Identifier.url}"
+                                        value="#{iso6391Identifier.text}"
+                                        style="margin-right: 10px"/>
+                            </ui:repeat>
+
+                            <h:outputText value="ISO639-2:"/>
+                            <ui:repeat var="iso6392Identifier"
+                                       value="#{spracheDetailController.iso6392Identifikatoren}">
+                                <p:link target="_blank"
+                                        href="#{iso6392Identifier.url}"
+                                        value="#{iso6392Identifier.text}"
+                                        style="margin-right: 10px"/>
+                            </ui:repeat>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                <br/>
+                <p:commandButton update="@all" process="@all" style="margin-top: 10px;"
+                                 rendered="#{kannLesen}"
+                                 disabled="true"
+                                 value="#{msg.sprache_loeschen}"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,116 @@
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="col-md-8" style="display: flex">
+        <p:dataTable id="ergebnisTable"
+                     var="eintrag"
+                     value="#{sucheModel.lazyErgebnisModel}"
+                     paginator="true"
+                     widgetVar="sucheTableWidget"
+                     rows="25"
+                     reflow="true"
+                     rowKey="#{eintrag.id}"
+                     ajax="true"
+                     multiViewState="true"
+                     lazy="true"
+                     rendered="#{sucheRechte.kannErgebnisseSehen() and sucheModel.lazyErgebnisModel.ergebnis ne null}"
+                     styleClass="borderless"
+                     pageLinks="5">
+
+            <p:column style="width: 50px; vertical-align: top; font-size: medium">
+                <h:outputText value="#{eintrag.typ}"/>
+            </p:column>
+
+            <p:column style="vertical-align: top; font-size: medium;">
+                <h:outputLink style="font-weight: bold;" rendered="#{eintrag.typ=='BS'}"
+                              value="/beschreibung/beschreibung.xhtml?id=#{eintrag.id}"><h:outputText
+                        value="#{eintrag.signatur}" escape="false"/></h:outputLink>
+                <h:outputLink style="font-weight: bold;" rendered="#{eintrag.typ=='KOD'}"
+                              value="/kulturObjektDokument/kulturObjektDokument.xhtml?id=#{eintrag.id}"><h:outputText
+                        value="#{eintrag.signatur}" escape="false"/></h:outputLink>
+                <h:outputText
+                        value=" - " style="font-weight: bold;"
+                        rendered="#{eintrag.signatur != null and eintrag.title != null}"
+                        escape="false"/>
+                <h:outputText
+                        value="#{eintrag.title}" style="font-weight: bold"
+                        rendered="#{eintrag.title != null}" escape="false"/>
+                <h:outputText
+                        value="&#10;"
+                        escape="false" style="white-space: pre-line;"
+                        rendered="#{eintrag.bestandhaltendeInstitutionName != null or eintrag.bestandhaltendeInstitutionOrt != null}"/>
+                <h:outputText
+                        value="#{eintrag.bestandhaltendeInstitutionName}" escape="false"
+                        rendered="#{eintrag.bestandhaltendeInstitutionName != null}"/>
+                <h:outputText
+                        value=", " escape="false"
+                        rendered="#{eintrag.bestandhaltendeInstitutionName != null and eintrag.bestandhaltendeInstitutionOrt != null}"/>
+                <h:outputText
+                        value="#{eintrag.bestandhaltendeInstitutionOrt}" escape="false"
+                        rendered="#{eintrag.bestandhaltendeInstitutionOrt != null}"/>
+
+                <h:outputText
+                        value="&#10;"
+                        escape="false" style="white-space:pre-line;"
+                        rendered="#{not empty eintrag.autoren or not empty eintrag.jahrDerPublikation}"/>
+                <h:outputText
+                        value="#{eintrag.autoren.stream().reduce((a1, a2) -> a1 += '/' += a2).get()}"
+                        rendered="#{not empty eintrag.autoren}"/>
+                <h:outputText
+                        value="&#160;"
+                        rendered="#{not empty eintrag.autoren and not empty eintrag.jahrDerPublikation}"/>
+                <h:outputText
+                        value="(#{eintrag.jahrDerPublikation})"
+                        rendered="#{eintrag.jahrDerPublikation != null}"/>
+            </p:column>
+
+            <p:column style="width: 250px; vertical-align: top; font-size: medium">
+                <h:outputText value="#{msg.suche_ergebnis_nichtgesperrt} "
+                              rendered="#{eintrag.sichtbarkeit eq 'NICHT_GESPERRT'}"/>
+                <h:outputText value="#{msg.suche_ergebnis_gesperrt} "
+                              rendered="#{eintrag.sichtbarkeit eq 'GESPERRT'}"/>
+
+                <h:outputText value="#{msg.suche_ergebnis_mit_beschreibung} "
+                              rendered="#{not empty eintrag.containsBeschreibung and eintrag.containsBeschreibung}"/>
+                <h:outputText value="#{msg.suche_ergebnis_ohne_beschreibung} "
+                              rendered="#{not empty eintrag.containsBeschreibung and not eintrag.containsBeschreibung}"/>
+                <h:outputText value="#{msg.suche_ergebnis_publiziert} "
+                              rendered="#{not empty eintrag.publiziert and eintrag.publiziert}"/>
+                <h:outputText value="#{msg.suche_ergebnis_nicht_publiziert} "
+                              rendered="#{not empty eintrag.publiziert and not eintrag.publiziert}"/>
+                <h:outputText value="#{msg.suche_ergebnis_verwaltungs_typ_extern} "
+                              rendered="#{eintrag.verwaltungsTyp eq 'extern'}"
+                              style="display: block"/>
+                <h:outputText value="#{msg.suche_ergebnis_verwaltungs_typ_intern} "
+                              rendered="#{eintrag.verwaltungsTyp eq 'intern'}"
+                              style="display: block"/>
+            </p:column>
+
+        </p:dataTable>
+    </div>
+</ui:composition>

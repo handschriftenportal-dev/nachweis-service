@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>nachweis-service</artifactId>
+    <groupId>staatsbibliothek-berlin.hsp</groupId>
+    <version>1.4.114</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>domainmodel</artifactId>
+  <packaging>jar</packaging>
+  <description>HSP Domainmodel</description>
+  <url>https://staatsbibliothek-berlin.de</url>
+
+  <developers>
+    <developer>
+      <name>Piotr Czarnecki</name>
+      <email>piotr.czarnecki@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Constantijn Blondel</name>
+      <email>Constantijn.Blondel@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Marten Christoph</name>
+      <email>Christoph.Marten@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Konrad Eichstädt</name>
+      <email>Konrad.Eichstaedt@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Udo Boysen</name>
+      <email>Udo.Boysen@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Michael Hintersonnleitner</name>
+      <email>Michael.Hintersonnleitner@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+  </developers>
+
+  <profiles>
+    <profile>
+      <id>integration</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <sign.package>false</sign.package>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+        <maven.site.skip>false</maven.site.skip>
+        <skipITs>false</skipITs>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/${project.artifactId}/WEB-INF/lib
+                  </outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>${jakarta.persistence-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate-core.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-annotations</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-core</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.logmanager</groupId>
+      <artifactId>jboss-logmanager-embedded</artifactId>
+      <version>${jboss-logmanager-embedded.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-params</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+  </dependencies>
+</project>

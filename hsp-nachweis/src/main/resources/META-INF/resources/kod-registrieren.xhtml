@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <ui:param name="kannLesen" value="#{kODRechte.kannRegistrieren()}"/>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>#{msg.document_titel_kodregistrieren}</h1>
+            </div>
+            <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                <ui:param name="hasAccess" value="#{kannLesen}"/>
+            </ui:include>
+            <ui:fragment id="contentKodReg" rendered="#{kannLesen}">
+                <div class="ui-g-8">
+                    <p><h:outputText value="#{msg.kod_registrieren_line_1}"></h:outputText></p>
+                    <p><h:outputText escape="false" value="#{msg.kod_registrieren_line_2}"></h:outputText></p>
+                    <div style="border: black solid thin;padding: 5px">
+                        <p><h:outputText value="#{msg.kod_registrieren_line_3}"></h:outputText></p>
+                        <p><h:outputText value="#{msg.kod_registrieren_line_4}"></h:outputText></p>
+                    </div>
+                    <p class="toptwenty"><h:outputText escape="false"
+                                                       value="#{msg.kod_registrieren_line_5}"></h:outputText>
+                    </p>
+                </div>
+                <div class="ui-g-8">
+
+                    <h:form id="kodregistrieren" rendered="#{kannLesen}">
+                        <p:remoteCommand name="updateProgressbar" update="@form"
+                                         action="#{kulturObjektRegistrierenController.setRenderProgressbar(true)}"/>
+                        <div class="toptwenty">
+                            <p><h:outputText value="#{msg.kod_registrieren_line_6}"></h:outputText></p>
+                            <p:autoComplete id="orteAutocomplete"
+                                            value="#{kulturObjektRegistrierenController.orteViewModel}"
+                                            completeMethod="#{autocompleteNormdatenController.autocompleteOrt}"
+                                            placeholder="#{msg.kod_registrieren_orteingeben_placeholder}"
+                                            converter="normdatenReferenzConverter"
+                                            scrollHeight="200"
+                                            appendTo="orteAutocomplete"
+                                            forceSelection="true"
+                                            var="ort"
+                                            itemValue="#{ort}"
+                                            itemLabel="#{ort.name}"
+                                            style="width: 350px"
+                                            inputStyle="width: 350px">
+                                <p:ajax event="change" update="koerperschaftSelect"
+                                        listener="#{kulturObjektRegistrierenController.placeChangedListener}"></p:ajax>
+                                <p:column>#{ort.name}</p:column>
+                                <p:column styleClass="gnd-cell">
+                                    <h:outputLink
+                                            value="#{ort.gndUrl}"
+                                            rendered="#{not empty ort.gndID}"
+                                            target="_blank"
+                                            onclick="event.stopPropagation()">#{ort.gndID}</h:outputLink>
+                                </p:column>
+                            </p:autoComplete>
+                        </div>
+
+                        <div class="toptwenty">
+                            <p:selectOneMenu id="koerperschaftSelect"
+                                             converter="normdatenReferenzConverter"
+                                             disabled="#{empty kulturObjektRegistrierenController.orteViewModel}"
+                                             value="#{kulturObjektRegistrierenController.koerperschaftViewModel}">
+                                <p:ajax update="upload"/>
+                                <f:selectItem itemLabel="#{msg.kod_registrieren_koerperschaft_auswaehlen}"
+                                              itemValue="#{null}"
+                                              noSelectionOption="true"
+                                              itemDisabled="true"/>
+                                <f:selectItems var="koerperschaft"
+                                               itemValue="#{koerperschaft}"
+                                               value="#{kulturObjektRegistrierenController.koerperschaftViewModelMap}"/>
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="toptwenty">
+                            <h:outputText id="dateiauswahltext"
+                                          value="#{msg.kod_registrieren_csv_hochladen}"/>
+                            <p:fileUpload id="upload"
+                                          style="margin-top: 20px;"
+                                          onstart="updateProgressbar()"
+                                          listener="#{kulturObjektRegistrierenController.handleFileUpload}"
+                                          mode="advanced"
+                                          disabled="#{kulturObjektRegistrierenController.koerperschaftViewModel == null or kulturObjektRegistrierenController.orteViewModel == null}"
+                                          allowTypes="/(\.|\/)(csv)$/"
+                                          sizeLimit="100000000"
+                                          uploadLabel="#{msg.upload}"
+                                          label="#{msg.selection}"
+                                          cancelLabel="#{msg.cancel}"
+                                          update="@form"
+                                          multiple="false"
+                                          invalidFileMessage="#{msg.kod_registrieren_dateiupload_invalidfiletypemessage}"
+                                          invalidSizeMessage="#{msg.kod_registrieren_dateiupload_invalidfilesizemessage}"/>
+                        </div>
+
+                        <p:graphicImage rendered="#{kulturObjektRegistrierenController.renderProgressbar}"
+                                        name="images/ajax-loader.gif"/>
+                    </h:form>
+                </div>
+            </ui:fragment>
+        </div>
+    </ui:define>
+</ui:composition>

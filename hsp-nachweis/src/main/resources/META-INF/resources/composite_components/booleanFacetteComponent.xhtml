@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite">
+
+  <composite:interface>
+    <composite:attribute name="id"/>
+    <composite:attribute name="value" type="boolean"/>
+    <composite:attribute name="textKey" type="java.lang.String"/>
+    <composite:attribute name="amount" type="int"/>
+    <composite:attribute name="disabled" type="boolean"/>
+    <composite:attribute name="update" />
+    <composite:attribute name="listenerAction"/>
+  </composite:interface>
+
+  <composite:implementation>
+    <p:selectBooleanCheckbox id="#{cc.attrs.id}"
+                             value="#{cc.attrs.value}"
+                             disabled="#{cc.attrs.disabled}">
+        <p:ajax event="valueChange"
+                update="#{cc.attrs.update}"
+                listener="#{cc.attrs.listenerAction}"/>
+    </p:selectBooleanCheckbox>
+    <p:outputLabel for="#{cc.attrs.id}"
+                   style="white-space: pre-line; font-size: medium;#{cc.attrs.disabled ? 'color:Grey' : 'color:#212121'}">
+        <h:outputFormat value="#{msg[cc.attrs.textKey]}">
+            <f:param value="#{cc.attrs.amount}"/>
+        </h:outputFormat>
+    </p:outputLabel>
+  </composite:implementation>
+</ui:composition>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xml:id="aurich-ostfriesland_obj-90411537-T_AUR_NLA" xml:lang="de" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Beschreibung von Aurich (Ostfriesland), Niedersächsisches Staatsarchiv, Dep. IV Msc. IX, 1 (STAHL, Irene: Handschriften in Nordwestdeutschland: Aurich - Emden - Oldenburg. - Wiesbaden: Harrassowitz, 1993. - (Mittelalterliche Handschriften in Niedersachsen: Kurzkatalog; H. 3))</title>
+                <respStmt>
+                    <resp>Beschrieben von</resp>
+                    <persName role="author">Irene Stahl</persName>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem am 13.10.2021 15:35:25:214 erstellten HIDA-DOC1-XML-Dokument erstellt. Grundlage ist ein Retrokonversionsdokument.</resp>
+                    <name type="org">Handschriftenportal</name>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+                  
+                    
+                    
+                    <name type="org">Handschriftenportal</name>
+               </publisher>
+                <date when="1993" type="published">1993</date>
+                <availability status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-sa/3.0/de/">
+                     
+                        
+                        
+                        <p>http://creativecommons.org/licenses/by-sa/3.0/de/</p>
+                  </licence>
+                </availability>
+                <idno type="hsk">440</idno>
+            </publicationStmt>
+            <sourceDesc>
+                <bibl n="AUR_NLA">STAHL, Irene: Handschriften in Nordwestdeutschland: Aurich - Emden - Oldenburg. - Wiesbaden: Harrassowitz, 1993. - (Mittelalterliche Handschriften in Niedersachsen: Kurzkatalog; H. 3) 
+                    
+                    
+                    <biblScope from="Page32_Block1" to="Page33_Block2">32–33</biblScope>
+               </bibl>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <facsimile>
+        <graphic xml:id="HSK0440_a032_aurich-ostfriesland_obj-90411537-T_AUR_NLA" url="http://bilder.manuscripta-mediaevalia.de/hs/katalogseiten/HSK0440_a032_jpg.htm"/>
+    </facsimile>
+    <text>
+        <body>
+            <msDesc status="extern" xml:id="HSP-d7ae64ad-0568-373e-8b3e-5f44fc994d0d" xml:lang="de" subtype="medieval" type="hsp:description_retro">
+                <msIdentifier>
+                    <settlement key="5b2f6128-0219-3b03-b98e-2f69ce30fe5d">Aurich (Ostfriesland)</settlement>
+                    <repository key="318df10d-7abc-365d-b6e8-c39c8bafc6eb" ref="http://d-nb.info/gnd/1147794049 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-1811-AU" rend="SA">Niedersächsisches Staatsarchiv</repository>
+                    <collection>Dep. IV</collection>
+                    <collection type="baseShelfmarkGroup">Dep. IV Msc. IX, 1-74</collection>
+                    <idno>Dep. IV Msc. IX, 1</idno>
+                    <altIdentifier type="catalog">
+                        <idno>msDesc_aurich-ostfriesland_obj-90411537-T_AUR_NLA</idno>
+                    </altIdentifier>
+                    <altIdentifier type="hsp-ID">
+                        <collection>Handschriftenportal Kulturobjektdokument-ID</collection>
+                        <idno>HSP-81c08edc-03a8-389c-a6db-ebdb8b7e00a1</idno>
+                    </altIdentifier>
+                </msIdentifier>
+                <head>
+                  
+                    
+                    
+                    <title>Seifried. Buch von Troja. Ps.-Aristoteles (dt.)</title>
+                  
+                    
+                    
+                    <note type="headline">Papier · 265 (Blatt) · 29 x 21 (cm) · Oberpfalz · 1455</note>
+                  
+                    
+                    
+                    <index indexName="norm_title">
+                        <term type="title">Seifried · Buch von Troja · Ps.-Aristoteles, dt.</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_material">
+                        <term type="material">Papier</term>
+                        <term type="material_type">paper</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_measure">
+                        <term type="measure">265 Bl.</term>
+                        <term type="measure_noOfLeaves">265</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_dimensions">
+                        <term type="dimensions">29 × 21</term>
+                        <term type="height">29</term>
+                        <term type="width">21</term>
+                        <term type="depth"/>
+                        <term type="dimensions_typeOfInformation">factual</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_format">
+                        <term type="format">folio</term>
+                        <term type="format_typeOfInformation">computed</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_format">
+                        <term type="format">quarto</term>
+                        <term type="format_typeOfInformation">computed</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_origPlace">
+                        <term type="origPlace">Oberpfalz</term>
+                        <term type="origPlace_gnd-ID">4042961-1</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_origDate">
+                        <term type="origDate">1455</term>
+                        <term type="origDate_notBefore">1455</term>
+                        <term type="origDate_notAfter">1455</term>
+                        <term type="origDate_type">dated</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_textLang">
+                        <term type="textLang">deutsch</term>
+                        <term type="textLang-ID">de</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_form">
+                        <term type="form">codex</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_status">
+                        <term type="status"/>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_decoration">
+                        <term type="decoration">yes</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm_musicNotation">
+                        <term type="musicNotation"/>
+                    </index>
+               </head>
+                <msContents>
+                    <msItem xml:id="obj_90411540_INI">
+                        <note type="text">
+                        
+                            
+                            
+                            <locus>1r</locus>
+                        
+                            
+                            
+                            <index indexName="initien">
+                                <term facs="#HSK0440_a032" xml:lang="de">God vater herr Jesu Christ/ dein genad unzergäncklich ist</term>
+                            </index>
+                     </note>
+                    </msItem>
+                    <msItem xml:id="obj_90411544_INI">
+                        <note type="text">
+                        
+                            
+                            
+                            <locus>127r</locus>
+                        
+                            
+                            
+                            <index indexName="initien">
+                                <term facs="#HSK0440_a032" xml:lang="de">Ein stat hies Troya do was ain kunig inne der was gewaltig</term>
+                            </index>
+                     </note>
+                    </msItem>
+                    <msItem xml:id="obj_90411546_INI">
+                        <note type="text">
+                        
+                            
+                            
+                            <locus>223r</locus>
+                        
+                            
+                            
+                            <index indexName="initien">
+                                <term facs="#HSK0440_a032" xml:lang="de">Sovil die sunne liechter ist dann ander stern</term>
+                            </index>
+                     </note>
+                    </msItem>
+                    <msItem xml:id="obj_90411549_INI">
+                        <note type="text">
+                        
+                            
+                            
+                            <locus>225r</locus>
+                        
+                            
+                            
+                            <index indexName="initien">
+                                <term facs="#HSK0440_a032" xml:lang="de">Iohannes der ausgezogen hat diß puch, ain sun Patricii</term>
+                            </index>
+                     </note>
+                    </msItem>
+                    <msItem xml:id="obj_90411550_INI">
+                        <note type="text">
+                        
+                            
+                            
+                            <locus>225v</locus>
+                        
+                            
+                            
+                            <index indexName="initien">
+                                <term facs="#HSK0440_a032" xml:lang="de">Aller erenreichster sun, aller gerechtister keyser, got wölle dich bestercken</term>
+                            </index>
+                     </note>
+                    </msItem>
+                    <msItem xml:id="obj_90411551_INI">
+                        <note type="text">
+                        
+                            
+                            
+                            <locus/>
+                        
+                            
+                            
+                            <index indexName="initien">
+                                <term facs="#HSK0440_a032" xml:lang="de">Das schönest wappen acht ich fein</term>
+                            </index>
+                     </note>
+                    </msItem>
+                </msContents>
+                <msPart type="other">
+                    <msIdentifier>
+                        <idno>Sonstiges</idno>
+                    </msIdentifier>
+                    <p>
+                     
+                        
+                        
+                        <term type="publicationStmt_author">Irene Stahl</term>
+                     
+                        
+                        
+                        <term type="publicationStmt_date_published">1993</term>
+                     
+                        
+                        
+                        <term type="biblScope_page">32</term>
+                     
+                        
+                        
+                        <term type="biblScope_line">1</term>
+                     
+                        
+                        
+                        <term type="biblScope_Alto-Element-ID">Page32_Block1</term>
+                     
+                        
+                        
+                        <term type="biblScope_page">33</term>
+                     
+                        
+                        
+                        <term type="biblScope_line">2</term>
+                     
+                        
+                        
+                        <term type="biblScope_Alto-Element-ID">Page33_Block2</term>
+                     
+                        
+                        
+                        <index xml:id="obj_90411548_KRZ">
+                            <term facs="#HSK0440_a032">Schober, Hans</term>
+                            <index>
+                                <term>Übersetzer</term>
+                            </index>
+                        </index>
+                  </p>
+                </msPart>
+            </msDesc>
+        </body>
+    </text>
+</TEI>

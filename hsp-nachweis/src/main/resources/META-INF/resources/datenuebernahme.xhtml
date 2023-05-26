@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <p:remoteCommand name="updateTableFromServer" update="hspnachweisimport"
+                         actionListener="#{datenuebernahmeController.alleImporteAnzeigen}"/>
+        <ui:param name="kannLesen" value="#{kODRechte.kannRegistrieren()}"/>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>#{msg.document_titel_datenuebernahme}</h1>
+            </div>
+            <div class="ui-g-12 actionsBar" id="orteactions">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannLesen}"/>
+                </ui:include>
+
+                <h:form id="hspnachweisbuttons" rendered="#{kannLesen}">
+                    <p:commandButton id="refreshButton"
+                                     action="#{datenuebernahmeController.resetTable}"
+                                     update="hspnachweisimport"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerDatenuebernahmeTable" type="button"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerDatenuebernahmeTableTip" for="togglerDatenuebernahmeTable" position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+                </h:form>
+            </div>
+            <div class="ui-g-12">
+                <h:form id="hspnachweisimport" rendered="#{kannLesen}">
+                    <p:columnToggler id="columntogglerDatenuebernahmeTable" datasource="hspnachweisimportTable"
+                                     trigger="hspnachweisbuttons:togglerDatenuebernahmeTable">
+                        <p:ajax event="toggle" listener="#{datenuebernahmeController.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="importEntry"
+                                 value="#{datenuebernahmeModel.allImporte}"
+                                 filteredValue="#{datenuebernahmeModel.filteredImporte}"
+                                 emptyMessage="#{msg.datenuebernahme_keineimport}"
+                                 widgetVar="importTable"
+                                 rowKey="#{importEntry.id}"
+                                 rows="#{datenuebernahmeModel.currentHitProPage}"
+                                 first="#{datenuebernahmeModel.currentPage}"
+                                 paginator="true"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{datenuebernahmeModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{datenuebernahmeModel.allPossibleHitProPage}"
+                                 paginatorPosition="top"
+                                 liveScroll="true"
+                                 id="hspnachweisimportTable"
+                                 pageLinks="5">
+
+                        <p:ajax event="sort" listener="#{datenuebernahmeController.onSort}"/>
+                        <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                        <p:ajax event="colReorder" listener="#{datenuebernahmeController.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{datenuebernahmeController.columnsResized}"/>
+                        <c:forEach items="#{datenuebernahmeController.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'datenueberpruefen'}">
+                                    <p:column id="#{columnID}"
+                                              visible="true"
+                                              resizable="false"
+                                              filterable="false"
+                                              toggleable="false"
+                                              width="#{datenuebernahmeController.getColumnWidth(0)}"
+                                              style="width:30px">
+                                        <p:commandButton id="datenueberpruefenButton"
+                                                         action="#{datenuebernahmeModel.mapChoosenImport(importEntry.id)}"
+                                                         rendered="#{datenuebernahmeController.getImportStatusForImportView(importEntry).toString() eq 'offen'}"
+                                                         onstart="PF('idleDialog').show();"
+                                                         icon="ui-icon ui-icon-playlist-add-check"
+                                                         style="float: right">
+                                        </p:commandButton>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'importDatum'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{datenuebernahmeController.getColumnWidth(2)}"
+                                              visible="#{datenuebernahmeController.isColumnVisible(2)}"
+                                              filterBy="#{importEntry.importDatum}"
+                                              filterMatchMode="contains"
+                                              sortBy="#{importEntry.importDatum}"
+                                              headerText="#{msg.datenuebernahme_datum}">
+                                        <h:outputText value="#{importEntry.importDatum}">
+                                            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm:ss"/>
+                                        </h:outputText>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'benutzer'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{datenuebernahmeController.getColumnWidth(3)}"
+                                              visible="#{datenuebernahmeController.isColumnVisible(3)}"
+                                              filterBy="#{importEntry.benutzer}"
+                                              sortBy="#{importEntry.benutzer}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.datenuebernahme_benutzer}">
+                                        <h:outputText value="#{importEntry.benutzer}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'dateiName'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{datenuebernahmeController.getColumnWidth(4)}"
+                                              filterBy="#{importEntry.dateiName}"
+                                              filterMatchMode="contains"
+                                              sortBy="#{importEntry.dateiName}"
+                                              headerText="#{msg.datenuebernahme_dateiname}"
+                                              visible="true"
+                                              toggleable="false">
+
+                                        <h:outputLink value="#{importEntry.importUrl}"><h:outputText
+                                                value="#{importEntry.dateiName}"/></h:outputLink>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'fehler'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{datenuebernahmeController.getColumnWidth(5)}"
+                                              visible="#{datenuebernahmeController.isColumnVisible(5)}"
+                                              filterBy="#{importEntry.fehler}"
+                                              filterMatchMode="contains"
+                                              sortBy="#{importEntry.fehler}"
+                                              headerText="#{msg.datenuebernahme_fehler}">
+                                        <h:outputText value="#{importEntry.fehler}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'importStatus'}">
+                                    <ui:param name="statusAsString"
+                                              value="#{datenuebernahmeController.getImportStatusForImportView(importEntry)}"/>
+                                    <p:column id="#{columnID}"
+                                              width="#{datenuebernahmeController.getColumnWidth(6)}"
+                                              visible="#{datenuebernahmeController.isColumnVisible(6)}"
+                                              filterBy="#{statusAsString}"
+                                              filterMatchMode="contains"
+                                              sortBy="#{statusAsString}"
+                                              headerText="#{msg.datenuebernahme_status}">
+
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('importTable').filter();">
+                                                <f:selectItem itemLabel="Alle"/>
+                                                <f:selectItems
+                                                        value="#{datenuebernahmeController.importStatus}"
+                                                        var="importStatus"
+                                                        itemLabel="#{importStatus.toString()}"
+                                                        itemValue="#{importStatus.toString()}"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+
+                                        <h:outputText
+                                                value="#{datenuebernahmeController.getImportStatusForImportView(importEntry).toString()}"/>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+
+                </h:form>
+            </div>
+        </div>
+        <p:dialog widgetVar="idleDialog" closable="false" minHeight="40" responsive="true" height="80">
+            <p:graphicImage name="images/ajax-loader.gif"/>
+        </p:dialog>
+        <p:dialog id="datenPruefungsDialog" widgetVar="datenPruefungsDialog" closable="true" width="95vw" height="600px"
+                  top="10px !important"
+                  responsive="true">
+            <p:ajax event="open" listener="#{datenuebernahmeModel.checkBeschreibungen()}"
+                    update="dialogButtonsTop dialogButtonsBottom"/>
+            <div class="ui-g">
+                <div class="ui-g-12">
+                <h:form id="dialogButtonsTop">
+                    <div style="padding:0.857em 1em;">
+                        <p:commandButton style="margin-top: 10px;"
+                                         disabled="#{!datenuebernahmeModel.alleBeschreibungenZugeordnet and !datenuebernahmeModel.beschreibungsVerwaltungsType}"
+                                         actionListener="#{datenuebernahmeModel.importUebernehmen}"
+                                         oncomplete="PF('importTable').filter();PF('datenPruefungsDialog').hide()"
+                                         icon="pi pi-search"
+                                         onstart="PF('idleDialog').show();"
+                                         onsuccess="PF('idleDialog').hide();"
+                                         onerror="PF('idleDialog').hide();"
+                                         value="#{msg.datenuebernahme_uebernehmen}"/>
+                            <p:commandButton actionListener="#{datenuebernahmeModel.importAblehnen}"
+                                             oncomplete="PF('importTable').filter();PF('datenPruefungsDialog').hide()"
+                                             icon="pi pi-search" value="#{msg.datenuebernahme_ablehnen}"/>
+                            <p:commandButton id="excelDownloadCommandLinkID1"
+                                             style="vertical-align: middle; padding-left: 5px!important;"
+                                             ajax="false"
+                                             icon="fa fa-file-excel-o">
+                                <p:tooltip for="excelDownloadCommandLinkID1"
+                                           value="#{msg.datenuebernahme_tooltip_excel}"/>
+                                <p:dataExporter type="xls" target="beschreibungsDatatableDatenuebernahme"
+                                                fileName="#{datenuebernahmeModel.beschreibungImportJobToAnnehmenOrAblehnen.id}"
+                                                pageOnly="false"/>
+                            </p:commandButton>
+                            <section class="toptwenty">
+                                <h:panelGrid columns="2">
+                                    <p:selectOneRadio id="interextern" required="true"
+                                                      requiredMessage="Bitte geben Sie den Verwaltungstyp an."
+                                                      value="#{datenuebernahmeModel.beschreibungsVerwaltungsType}">
+                                        <f:selectItem itemLabel="#{msg.dateiupload_intern}" itemValue="intern"/>
+                                        <f:selectItem itemLabel="#{msg.dateiupload_extern}" itemValue="extern"/>
+                                        <p:ajax update="dialogButtonsTop"/>
+                                    </p:selectOneRadio>
+                                </h:panelGrid>
+                                <article class="internexterntext">
+                                    <h:outputText value="#{msg.datenuebernahme_intern_extern}"/>
+                                </article>
+                            </section>
+                    </div>
+                </h:form>
+                </div>
+                <div class="ui-g-12">
+                    <p:panelGrid id="beschreibungsPanel" columns="1"
+                                 style="width: 100%" styleClass="ui-noborder">
+                        <p:dataTable var="beschreibung" id="beschreibungsDatatableDatenuebernahme"
+                                     value="#{datenuebernahmeModel.beschreibungToCheck.beschreibung}"
+                                     emptyMessage="#{not empty datenuebernahmeModel.beschreibungToCheck.fehler ?
+                                        datenuebernahmeModel.beschreibungToCheck.fehler :
+                                        msg.datenuebernahme_keinebeschreibungen}"
+                                     rowKey="#{beschreibung.id}">
+                            <p:autoUpdate/>
+                            <f:facet name="header">
+                                <p:outputLabel value="#{msg.datenuebernahme_beschreibungen}"/>
+                            </f:facet>
+
+                            <p:column headerText="#{msg.datenuebernahme_id}">
+                                <h:outputText
+                                        value="#{beschreibung.id}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.datenuebernahme_titel}">
+                                <h:outputText value="#{beschreibung.titel}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.datenuebernahme_signatur}">
+                                <h:outputText value="#{beschreibung.signatur}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.datenuebernahme_externeids}">
+                                <h:outputText value="#{beschreibung.externeID}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.datenuebernahme_precondition}" encoding="">
+                                <h:outputText value="#{beschreibung.preconditionResult}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panelGrid>
+                </div>
+                <div class="ui-g-12">
+                    <h:form id="dialogButtonsBottom">
+                        <div style="padding:0.857em 1em;">
+                            <p:commandButton type="button" icon="ui-icon ui-icon-arrow-upward"
+                                             value="#{msg.datenuebernahme_top}"
+                                             style="float: right"
+                                             onclick="PF('datenPruefungsDialog').content.scrollTop('0')"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

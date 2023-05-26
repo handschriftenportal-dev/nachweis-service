@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+
+            <ui:include src="templates/datatype/header.xhtml">
+                <ui:param name="title" value="#{msg.document_titel_sprachen}"/>
+                <ui:param name="access" value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+            </ui:include>
+
+            <h:form id="spracheform" rendered="#{normdatenRechte.kannAlsListeAnzeigen()}">
+                <div class="ui-g-12 actionsBar" id="spracheactions">
+                    <p:commandButton id="refreshButton"
+                                     action="#{spracheModel.resetTable}"
+                                     update="spracheform"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerSpracheTable" type="button"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerSpracheTableTip" for="togglerSpracheTable"
+                                   position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="excelDownloadCommandLinkID"
+                                     icon="hsp-icon-download_file"
+                                     ajax="false"
+                                     disabled="#{not normdatenRechte.kannAlsExcelRunterladen()}">
+                        <p:tooltip for="excelDownloadCommandLinkID" position="top"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xls" target="spracheTable" fileName="SprachenTabelle"
+                                        pageOnly="false"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="sprachenImportierenButton"
+                                     action="/dateiupload.xhtml?faces-redirect=true&amp;dokumentTyp=SPRACHE"
+                                     icon="ui-icon-upload_file"
+                                     process="@this"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide()"
+                                     disabled="#{not importRechte.kannSpracheManuellImportieren()}">
+                        <p:tooltip for="sprachenImportierenButton" position="top"
+                                   value="#{msg.sprache_importieren}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="neueSpracheButton"
+                                     update="@all" process="@all"
+                                     icon="ui-icon-add"
+                                     disabled="true">
+                        <p:tooltip for="neueSpracheButton" position="top"
+                                   value="#{msg.sprache_neuanlegen}"/>
+                    </p:commandButton>
+                </div>
+
+                <div class="ui-g-12">
+
+                    <p:columnToggler id="columntogglerSpracheTable" datasource="spracheTable"
+                                     trigger="spracheform:togglerSpracheTable">
+                        <p:ajax event="toggle" listener="#{spracheModel.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="sprache" value="#{spracheModel.allSprachen}"
+                                 emptyMessage="Keine Sprachen gefunden"
+                                 id="spracheTable"
+                                 widgetVar="spracheTableWidget"
+                                 rowKey="#{sprache.id}"
+                                 rows="#{spracheModel.currentHitProPage}"
+                                 first="#{spracheModel.currentPage}"
+                                 ajax="true"
+                                 paginator="true"
+                                 filteredValue="#{spracheModel.filteredSprachen}"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{spracheModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{spracheModel.allPossibleHitProPage}"
+                                 paginatorPosition="top"
+                                 paginatorAlwaysVisible="true"
+                                 liveScroll="true"
+                                 style="width: auto !important;"
+                                 pageLinks="5">
+                        <p:ajax event="sort" listener="#{spracheModel.onSort}"/>
+                        <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                        <p:ajax event="colReorder" listener="#{spracheModel.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{spracheModel.columnsResized}"/>
+
+                        <c:forEach items="#{spracheModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'name'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{spracheModel.getColumnWidth(0)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              headerText="#{msg.sprache_name}"
+                                              filterBy="#{sprache.name}"
+                                              filterMatchMode="contains"
+                                              sortBy="#{sprache.name}">
+                                        <p:link outcome="sprache-detail-view.xhtml?faces-redirect=true"
+                                                value="#{sprache.name}">
+                                            <f:param name="id" value="#{sprache.id}"/>
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'varianteNamen'}">
+                                    <ui:param name="varianteNamen"
+                                              value="#{sprache.varianteNamenAlsString}"/>
+                                    <p:column id="#{columnID}"
+                                              width="#{spracheModel.getColumnWidth(1)}"
+                                              visible="#{spracheModel.isColumnVisible(1)}"
+                                              sortBy="#{varianteNamen}"
+                                              filterBy="#{varianteNamen}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.sprache_alternativenamen}">
+                                        <h:outputText style="white-space: pre-wrap;" value="#{varianteNamen}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'spracheId'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{spracheModel.getColumnWidth(2)}"
+                                              visible="#{spracheModel.isColumnVisible(2)}"
+                                              sortBy="#{sprache.id}"
+                                              filterBy="#{sprache.id}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.sprache_id}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{sprache.id}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gndID'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{spracheModel.getColumnWidth(3)}"
+                                              visible="#{spracheModel.isColumnVisible(3)}"
+                                              sortBy="#{sprache.gndID}"
+                                              filterBy="#{sprache.gndID}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.sprache_gnd}">
+                                        <p:link target="_blank"
+                                                href="#{sprache.gndUrl}"
+                                                value="#{sprache.gndID}"
+                                                rendered="#{not empty sprache.gndID}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'iso6391'}">
+                                    <ui:param name="iso6391Identifikatoren"
+                                              value="#{spracheModel.iso6391Identifikatoren(sprache)}"/>
+                                    <ui:param name="iso6391String"
+                                              value="#{spracheModel.identifikatorenAsString(iso6391Identifikatoren)}"/>
+                                    <p:column id="#{columnID}"
+                                              width="#{spracheModel.getColumnWidth(4)}"
+                                              visible="#{spracheModel.isColumnVisible(4)}"
+                                              sortBy="#{iso6391String}"
+                                              filterBy="#{iso6391String}"
+                                              exportValue="#{iso6391String}"
+                                              filterMatchMode="contains"
+                                              headerText="ISO639-1">
+                                        <ui:repeat var="iso6391Identifikator"
+                                                   value="#{iso6391Identifikatoren}">
+                                            <p:link target="_blank"
+                                                    href="#{iso6391Identifikator.url}"
+                                                    value="#{iso6391Identifikator.text}"
+                                                    style="margin-right: 10px"/>
+                                        </ui:repeat>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'iso6392'}">
+                                    <ui:param name="iso6392Identifikatoren"
+                                              value="#{spracheModel.iso6392Identifikatoren(sprache)}"/>
+                                    <ui:param name="iso6392String"
+                                              value="#{spracheModel.identifikatorenAsString(iso6392Identifikatoren)}"/>
+                                    <p:column id="#{columnID}"
+                                              width="#{spracheModel.getColumnWidth(5)}"
+                                              visible="#{spracheModel.isColumnVisible(5)}"
+                                              sortBy="#{iso6392String}"
+                                              filterBy="#{iso6392String}"
+                                              exportValue="#{iso6392String}"
+                                              filterMatchMode="contains"
+                                              headerText="ISO639-2">
+                                        <ui:repeat var="iso6392Identifikator"
+                                                   value="#{iso6392Identifikatoren}">
+                                            <p:link target="_blank"
+                                                    href="#{iso6392Identifikator.url}"
+                                                    value="#{iso6392Identifikator.text}"
+                                                    style="margin-right: 10px"/>
+                                        </ui:repeat>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

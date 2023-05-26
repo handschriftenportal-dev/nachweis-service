@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite">
+
+  <composite:interface>
+    <composite:attribute name="label"
+                         type="java.lang.String"
+                         required="true"/>
+    <composite:attribute name="model"
+                         type="de.staatsbibliothek.berlin.hsp.nachweis.application.model.FilteredFacetteModel"
+                         required="true"/>
+    <composite:attribute name="selectedValues"
+                         type="java.lang.String[]"
+                         required="true"/>
+    <composite:attribute name="searchAction"
+                         required="true"/>
+  </composite:interface>
+
+  <composite:implementation>
+
+    <p:panel id="facetPanel"
+             styleClass="facette-styling-hsp ui-panel-content ui-widget-content ui-fluid"
+             header="#{cc.attrs.label}">
+      <div style="display: flex;">
+        <p:inputText id="filterQuery"
+                     value="#{cc.attrs.model.query}"
+                     disabled="#{empty cc.attrs.model.facetten}"
+                     styleClass="ui-fluid"
+                     style="padding:0 85px 0 0;font-size: 16px;"
+                     autocomplete="off">
+          <p:ajax event="keyup"
+                  process="@this"
+                  update="facetFilterSelect facetteFilterClearBtn facetFilterSearchBtn facetFilterExpandBtns"
+                  listener="#{cc.attrs.model.matchQuery}"/>
+        </p:inputText>
+        <p:commandButton id="facetteFilterClearBtn"
+                         icon="ui-icon ui-icon-clear"
+                         styleClass="switch-ui-button-color-black-no-bg resetsearchbutton"
+                         style="border: none; background: none; margin-left: -80px;"
+                         action="#{cc.attrs.model.clearQuery}"
+                         disabled="#{empty cc.attrs.model.facetten or empty cc.attrs.model.query}"
+                         process="@this"
+                         update="facetPanel"/>
+        <p:commandButton id="facetFilterSearchBtn"
+                         icon="ui-icon ui-icon-search"
+                         styleClass="switch-ui-button-color-black-no-bg searchbutton"
+                         action="#{cc.attrs.model.matchQuery}"
+                         disabled="#{empty cc.attrs.model.facetten or empty cc.attrs.model.query}"
+                         process="@this"
+                         update="facetPanel"/>
+      </div>
+      <p:selectManyCheckbox
+              id="facetFilterSelect"
+              value="#{cc.attrs.selectedValues}"
+              layout="grid"
+              columns="1"
+              style="margin-top: 10px"
+              styleClass="grid-checkbox">
+        <f:selectItems var="facette"
+                       value="#{cc.attrs.model.filteredFacetten}"
+                       itemLabel="#{facette.value} (#{facette.amount})"
+                       itemDisabled="#{facette.amount eq 0}"
+                       itemValue="#{facette.value}"/>
+        <p:ajax event="valueChange"
+                update="@form"
+                listener="#{cc.attrs.searchAction}"/>
+      </p:selectManyCheckbox>
+      <p:outputPanel id="facetFilterExpandBtns"
+                     layout="block"
+                     rendered="#{cc.attrs.model.showExpandButton() or cc.attrs.model.showCollapseButton()}"
+                     style="margin-left: 24px;margin-top: 6px">
+        <p:commandLink id="facetFilterExpandBtn"
+                       rendered="#{cc.attrs.model.showExpandButton()}"
+                       action="#{cc.attrs.model.toggleExpanded}"
+                       process="@this"
+                       update="facetPanel">
+          <h:outputText value="#{msg.suche_mehr_anzeigen}"/>
+        </p:commandLink>
+        <p:commandLink id="facetFilterCollapsBtn"
+                       rendered="#{cc.attrs.model.showCollapseButton()}"
+                       action="#{cc.attrs.model.toggleExpanded}"
+                       process="@this"
+                       update="facetPanel">
+          <h:outputText value="#{msg.suche_weniger_anzeigen}"/>
+        </p:commandLink>
+      </p:outputPanel>
+    </p:panel>
+  </composite:implementation>
+</ui:composition>
+
+

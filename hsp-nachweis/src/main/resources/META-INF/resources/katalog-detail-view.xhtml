@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:hspcc="http://java.sun.com/jsf/composite/composite_components"
+                template="templates/default.xhtml">
+    <f:metadata>
+        <f:viewAction action="#{katalogViewController.setup}" onPostback="false"/>
+        <f:viewParam name="id" value="#{katalogViewController.katalogId}" />
+    </f:metadata>
+    <ui:define name="content">
+        <ui:param name="kannLesen" value="#{katalogRechte.kannAnzeigen()}"/>
+        <h:form id="katalogform">
+            <div class="ui-g ui-g-nopad-top section">
+                <c:if test="#{kannLesen and not empty katalogViewController.katalogViewModel}">
+                    <div class="ui-g-offset-10 ui-g-2 ui-g-nopad-horizontal">
+                        <div id="teiDownloadDiv" class="button-align-right">
+                            <p:commandButton styleClass="ui-button-icon-only-big switch-ui-button-color-black-white"
+                                             id="katalogTEIDownloadButton"
+                                             ajax="false"
+                                             icon="ui-icon-file-download"
+                                             disabled="#{empty katalogViewController.katalogViewModel.id or empty katalogViewController.katalogViewModel.teiXML}">
+                                <p:fileDownload
+                                        value="#{katalogViewController.katalogViewModel.teiFile}"/>
+                                <p:tooltip for="katalogTEIDownloadButton"
+                                           position="top"
+                                           value="#{msg.katalog_teidownload}"/>
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-g-nopad-horizontal ui-g-nopad-bottom">
+                        <p:separator/>
+                    </div>
+                </c:if>
+
+                <div class="ui-g-12 ui-g-nopad">
+                    <h:outputText styleClass="detailview-header-top"
+                                  value="#{msg.document_titel_katalog}"/>
+                    <c:if test="#{empty katalogViewController.katalogViewModel}">
+                        <h4 class="beschreibungs-header-label">#{msg.katalog_nicht_gefunden}</h4>
+                    </c:if>
+
+                    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                        <ui:param name="hasAccess" value="#{kannLesen}"/>
+                    </ui:include>
+
+                    <c:if test="#{kannLesen and not empty katalogViewController.katalogViewModel}">
+                        <h1 id="katalog-header-label">#{katalogViewController.katalogViewModel.titel}</h1>
+                    </c:if>
+                </div>
+            </div>
+
+            <h:panelGroup layout="block"
+                          styleClass="ui-g section"
+                          style="padding-top: 0px"
+                          rendered="#{kannLesen and not empty katalogViewController.katalogViewModel}">
+                <div class="ui-g-12 ui-g-nopad-horizontal ui-g-nopad-top">
+                    <p:separator/>
+                </div>
+                <div class="ui-g-12 ui-g-nopad-horizontal">
+                    <h2>#{msg.katalog_metadaten}</h2>
+                </div>
+
+                <div class="ui-g-12 ui-lg-8 card ui-g-nopad" style="padding:30px; margin-top: 8px;">
+                    <div class="ui-g-12 ui-lg-9 ui-g spreadsheet">
+                        <div class="ui-g-5">#{msg.katalog_hsp_id}:</div>
+                        <div class="ui-g-7">#{katalogViewController.katalogViewModel.id}</div>
+                        <div class="ui-g-5">#{msg.katalog_autoren}:</div>
+                        <div class="ui-g-7">#{katalogViewController.katalogViewModel.autoren}</div>
+                        <div class="ui-g-5">#{msg.katalog_publikationsdatum}:</div>
+                        <div class="ui-g-7">#{katalogViewController.katalogViewModel.publikationsJahr}</div>
+                        <div class="ui-g-5">#{msg.katalog_lizenz}:</div>
+                        <div class="ui-g-7">
+                            <h:outputLink target="_blank"
+                                          value="#{katalogViewController.katalogViewModel.lizenz}"
+                                          rendered="#{not empty katalogViewController.katalogViewModel.lizenz}">
+                                #{katalogViewController.katalogViewModel.lizenz}
+                            </h:outputLink>
+                        </div>
+                        <div class="ui-g-5">#{msg.katalog_erstelldatum}:</div>
+                        <div class="ui-g-7">
+                            <h:outputText value="#{katalogViewController.katalogViewModel.erstellDatum}"
+                            rendered="#{not empty katalogViewController.katalogViewModel.erstellDatum}">
+                                <f:convertDateTime type="localDateTime" dateStyle="medium"/>
+                            </h:outputText>
+                        </div>
+                        <div class="ui-g-5">#{msg.katalog_aenderungsdatum}:</div>
+                        <div class="ui-g-7">
+                            <h:outputText value="#{katalogViewController.katalogViewModel.aenderungsDatum}"
+                                          rendered="#{not empty katalogViewController.katalogViewModel.aenderungsDatum}">
+                                <f:convertDateTime type="localDateTime" dateStyle="medium"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup id="beschreibungenPanel"
+                          layout="block"
+                          styleClass="ui-g section bg_platinum"
+                          rendered="#{kannLesen and not empty katalogViewController.katalogViewModel}">
+                <div class="ui-g-12 ui-g-nopad-horizontal">
+                    <h2>#{msg.katalog_beschreibungen}</h2>
+                    <h:outputFormat value="#{msg.katalog_beschreibungen_verfuegbar}">
+                        <f:param value="#{katalogViewController.katalogViewModel.anzahlBeschreibungen}"/>
+                        <f:param value="#{katalogViewController.katalogViewModel.anzahlReferenzen}"/>
+                    </h:outputFormat>
+                    <hspcc:hilfetextComponent textKey="katalog_beschreibungen_hilfe"/>
+                </div>
+
+                <div class="ui-g-12 ui-g-nopad-horizontal tiles_container">
+                    <ui:repeat var="beschreibung" value="#{katalogViewController.katalogBeschreibungen}">
+                        <div class="tile ui-g card">
+                            <div class="ui-g-12 ui-g-nopad">
+                                <h3><p:link outcome="/beschreibung/beschreibung.xhtml?id=#{beschreibung.id}"
+                                            value="#{beschreibung.signatur}"/></h3>
+                            </div>
+                           <div class="ui-g-12 ui-g-nopad">#{beschreibung.titel}</div>
+                           <h:panelGroup layout="block"
+                                         styleClass="ui-g-12 ui-g-nopad"
+                                         rendered="#{not empty beschreibung.bestandhaltendeInstitutionOrt or not empty beschreibung.bestandhaltendeInstitutionName}">
+                               <h:outputText value="#{beschreibung.bestandhaltendeInstitutionOrt}"/>
+                               <h:outputText value=", "
+                                             rendered="#{not empty beschreibung.bestandhaltendeInstitutionOrt and not empty beschreibung.bestandhaltendeInstitutionName}"/>
+                               <h:outputText value="#{beschreibung.bestandhaltendeInstitutionName}"/>
+                           </h:panelGroup>
+                           <h:panelGroup layout="block"
+                                         styleClass="ui-g-12 ui-g-nopad"
+                                         rendered="#{not empty beschreibung.autoren or not empty beschreibung.jahrDerErstpublikation}">
+                               <h:outputText value="#{beschreibung.autoren}"/>
+                               <h:outputText value=" (#{beschreibung.jahrDerErstpublikation})"
+                                             rendered="#{not empty beschreibung.jahrDerErstpublikation}"/>
+                            </h:panelGroup>
+                        </div>
+                    </ui:repeat>
+                </div>
+
+                <h:panelGroup layout="block"
+                              styleClass="ui-g-12 ui-g-nopad"
+                              rendered="#{katalogViewController.katalogViewModel.anzahlBeschreibungen gt 6}">
+                        <p:commandLink styleClass="ui-g-2 ui-g-offset-5"
+                                       action="#{katalogViewController.toggleShowAllBeschreibungen()}"
+                                       process="@this"
+                                       update="beschreibungenPanel"
+                                       oncomplete="window.scrollTo(0, 0);">
+                            <div style="display: block; text-align: center">
+                                <h:outputText value="#{katalogViewController.showAllBeschreibungen ? msg.katalog_wenigeranzeigen : msg.katalog_mehranzeigen}"/>
+                            </div>
+                            <div style="display: block; text-align: center">
+                                <i class="ui-icon #{katalogViewController.showAllBeschreibungen ? 'ui-icon-expand-less' : 'ui-icon-expand-more'}"></i></div>
+                        </p:commandLink>
+                </h:panelGroup>
+                <p:separator styleClass="ui-g-12 ui-g-nopad" style="border-top: 1px solid #362d3d;"
+                             rendered="#{katalogViewController.katalogViewModel.anzahlBeschreibungen gt 6}"/>
+            </h:panelGroup>
+
+            <h:panelGroup id="digitalisatPanel"
+                          layout="block"
+                          styleClass="ui-g section bg_black"
+                          rendered="#{kannLesen and not empty katalogViewController.katalogViewModel}">
+                <div class="ui-g-12 ui-g-nopad-horizontal">
+                    <h2 id="digitalisate"><h:outputText value="#{msg.katalog_digitalisat}"/></h2>
+                </div>
+
+                <div class="ui-g-12 ui-g-nopad-horizontal tiles_container">
+                    <div class="tile ui-g card bg_white">
+                        <div class="ui-g-12 ui-g-nopad-horizontal">
+                            <h:graphicImage
+                                    rendered="#{empty katalogViewController.katalogViewModel.digitalisat.thumbnail}"
+                                    name="images/default_thumbnail.jpg"
+                                    alt="default_thumbnail"
+                                    width="167"/>
+                            <h:graphicImage rendered="#{not empty katalogViewController.katalogViewModel.digitalisat.thumbnail}"
+                                            url="#{katalogViewController.katalogViewModel.digitalisat.thumbnail}"
+                                            width="167"
+                                            alt="thumbnail"/>
+                        </div>
+                        <h:panelGroup layout="block"
+                                      styleClass="ui-g-12 ui-g-nopad-horizontal"
+                                      rendered="#{not empty katalogViewController.katalogViewModel.digitalisat.manifestURL}">
+                            <h:outputText value="#{msg.katalog_digitalisat_manifesturi}:"/><br/>
+                            <h:outputLink value="#{katalogViewController.katalogViewModel.digitalisat.manifestURL}"
+                                          target="_blank">#{katalogViewController.katalogViewModel.digitalisat.manifestURL}</h:outputLink>
+                        </h:panelGroup>
+
+                        <div class="ui-g-3 ui-g-nopad">#{msg.katalog_digitalisat_typ}:</div>
+                        <div class="ui-g-9 ui-g-nopad">
+                            <h:outputText value="#{msg['digitalisattyp_'.concat(katalogViewController.katalogViewModel.digitalisat.digitalisatTyp)]}"
+                                rendered="#{not empty katalogViewController.katalogViewModel.digitalisat.digitalisatTyp}"/>
+                        </div>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

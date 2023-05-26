@@ -1,0 +1,93 @@
+/*!
+ * MIT License
+ *
+ * Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+$textColor: #212121;
+$textSecondaryColor: #757575;
+$textboxBgColor:#f7f7f7;
+$fontSize: 16px;
+$lineHeight: 24px;
+$iconFontSize: 24px;
+$inputOptionPadding: 10px 14px;
+$hoverBgColor: #e8e8e8;
+$hoverTextColor: #000000;
+$dividerColor: #bdbdbd;
+$transitionDuration:.2s;
+$borderRadius:2px;
+$fontFamily:"Roboto","Helvetica Neue",sans-serif;
+
+/* Compact */
+$c-fontSize: 14px;
+$c-lineHeight: 18px;
+$c-headerFontSize: 14px;
+$c-headerPadding: 8px 14px;
+$c-contentFontSize: 14px;
+$c-contentPadding: 8px 14px;
+$c-iconFontSize: 20px;
+$c-buttonFontSize: 14px;
+$c-inputFontSize: 14px;
+$c-inputHeaderFontSize: 14px;
+$c-inputHeaderPadding: 6px 10px;
+$c-inputOptionFontSize: 14px;
+$c-inputOptionPadding: 6px 10px;
+$c-dtPadding: 6px 10px;
+$c-errorMessageFontSize: 11px;
+$c-errorMessageIconFontSize: 13px;
+
+$blueGrey:#607D8B;
+$blueGreyHover:#37474F;
+$cyan:#00BCD4;
+$cyanHover:#00838F;
+$teal:#009688;
+$tealHover:#00695C;
+$red:#F44336;
+$redHover:#C62828;
+$green:#4CAF50;
+$greenHover:#2E7D32;
+$deepOrange:#FF5722;
+$deepOrangeHover:#D84315;
+$purple:#673AB7;
+$purpleHover:#4527A0;
+$pink:#E91E63;
+$pinkHover:#AD1457;
+$amber:#FFC107;
+$amberHover:#FF8F00;
+$orange:#FF9800;
+$orangeHover:#EF6C00;
+$brown:#795548;
+$brownHover:#4E342E;
+$grayBgColor:#757575;
+
+$hspHeaderPanelColor: #FFFFFF;
+$hspTuerkis:#1DCFBE;
+$hspDunkelTerraCotta:#D65151;
+$hspGreen:#00838B;
+$hspRed:#D35150;
+$hspLightGrey:#E7E5E4;
+$hspLiver:#4F4D4B;
+$hspLighDarkGrey:#909090;
+$hspInfoLightBlue:#CEF0FF;
+$hspWarnLightRed:#FFCECE;
+$hspLightBlueInfoSign:#00B2FF;
+$hspWhiteErrorFatalSign:#FFFFFF;
+$hspWarnSignRed:#CD0000;

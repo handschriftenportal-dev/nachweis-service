@@ -1,0 +1,199 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.26" xml:lang="de">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Beschreibung von München, Bayerische Staatsbibliothek, Clm 14464 (KLEMM, Elisabeth, Die ottonischen und frühromanischen Handschriften der Bayerischen Staatsbibliothek. Wiesbaden: Reichert, 2004 (Katalog der illuminierten Handschriften der Bayerischen Staatsbibliothek in München; 2))S. 53–54</title>
+                <respStmt>
+                    <resp>Beschrieben von</resp>
+                    <persName role="author">Elisabeth Klemm</persName>
+                    <note>2004</note>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem am 07.10.2022 15:05:57:772 erstellten HIDA-DOC1-XML-Dokument erstellt.</resp>
+                    <name type="org">Handschriftenportal</name>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+                    <name type="org">Handschriftenportal</name>
+               </publisher>
+                <date when="2004" type="primary">2004</date>
+                <availability status="restricted">
+                    <licence target="http://rightsstatements.org/vocab/InC/1.0/">
+                        <p>http://rightsstatements.org/vocab/InC/1.0/</p>
+                  </licence>
+                </availability>
+                <idno type="hsk">628</idno>
+                <date when="2022-11-23" type="secondary">2022-11-23 17:13:05</date>
+                <pubPlace>
+                    <ptr xml:id="HSP-f9fcbbdf-327d-3339-ad94-d8df676f4595" target="https://resolver.staatsbibliothek-berlin.de/HSP5026296811996238" subtype="hsp" type="purl"/>
+                </pubPlace>
+            </publicationStmt>
+            <sourceDesc>
+                <bibl n="M_SB_Illum_2_Text">KLEMM, Elisabeth, Die ottonischen und frühromanischen Handschriften der Bayerischen Staatsbibliothek. Wiesbaden: Reichert, 2004 (Katalog der illuminierten Handschriften der Bayerischen Staatsbibliothek in München; 2) S.
+                    <biblScope from="Page53_Block9" to="Page54_Block7">53–54</biblScope>
+               </bibl>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <creation>
+                 <date when="2014-11-18">18.11.2014</date>
+            </creation>
+        </profileDesc>
+        <revisionDesc>
+            <change>
+                <date when="2022-08-18">2022-08-18 00:00:00</date>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <msDesc status="extern" xml:id="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001" xml:lang="de" subtype="medieval" type="hsp:description_retro"><msIdentifier>
+                    <settlement key="NORM-d0a6343a-081a-3335-baa9-65ce4fd0845c">München</settlement>
+                    <repository key="NORM-83c5a34d-300e-3b8d-af1e-2d5582778963" ref="http://d-nb.info/gnd/2031351-2 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-12">Bayerische Staatsbibliothek</repository>
+                    <collection>Clm</collection>
+                    <collection type="baseShelfmarkGroup">Clm 14401-14700</collection>
+                    <idno>Clm 14464</idno>
+                    <altIdentifier type="mxml-ID">
+                        <idno>MXML-31700114</idno>
+                    </altIdentifier>
+                    <altIdentifier type="hsp-ID">
+                        <collection>Handschriftenportal Kulturobjektdokument-ID</collection>
+                        <idno>HSP-0037fea7-58e0-3df9-a45c-488a7ee7e752</idno>
+                    </altIdentifier>
+                </msIdentifier>
+                <head>
+                    <index indexName="norm_title">
+                        <term type="title">Johannes Cassianus: Collationes, pars II, III</term>
+                    </index>
+                    <title>Johannes Cassianus, Collationes, pars II, III</title>
+                    <note type="headline">Einleitung: Berno von Reichenau, Epistola 6 (Exzerpt) Regensburg, um oder bald nach Mitte 11. Jh.</note>
+                    <index indexName="norm_material">
+                      <term type="material">Pergament, Papyrus</term>
+                      <term type="material_type">parchment</term>
+                      <term type="material_type">papyrus</term>
+                    </index>
+                    <index indexName="norm_measure">
+                        <term type="measure">I + 208 Bl.</term>
+                        <term type="measure_noOfLeaves">208</term>
+                    </index>
+                    <index indexName="norm_dimensions">
+                        <term type="dimensions">24 × 18,5</term>
+                        <term type="height">24</term>
+                        <term type="width">18,5</term>
+                        <term type="depth">1,5</term>
+                        <term type="dimensions_typeOfInformation">factual</term>
+                    </index>
+                    <index indexName="norm_dimensions">
+                        <term type="dimensions">22 × 16,5</term>
+                        <term type="height">22</term>
+                        <term type="width">16,5</term>
+                        <term type="depth">2,5</term>
+                        <term type="dimensions_typeOfInformation">deduced</term>
+                    </index>
+                    <index indexName="norm_format">
+                        <term type="format">quarto</term>
+                        <term type="format_typeOfInformation">computed</term>
+                    </index>
+                    <index indexName="norm_origPlace">
+                        <term type="origPlace">Regensburg</term>
+                        <term key="NORM-26cf9267-82fe-3bf1-a37a-c9960658499f" ref="http://d-nb.info/gnd/4048989-9" type="origPlace_norm">Regensburg</term>
+                    </index>
+                    <index indexName="norm_origDate">
+                        <term type="origDate">11. Jh., Mitte</term>
+                        <term type="origDate_notBefore">1046</term>
+                        <term type="origDate_notAfter">1055</term>
+                        <term type="origDate_type">datable</term>
+                    </index>
+                    <index indexName="norm_origDate">
+                        <term type="origDate">um 11. Jh., Mitte</term>
+                        <term type="origDate_notBefore">1026</term>
+                        <term type="origDate_notAfter">1075</term>
+                        <term type="origDate_type">datable</term>
+                    </index>
+                    <index indexName="norm_origDate">
+                        <term type="origDate">bald nach 11. Jh., Mitte</term>
+                        <term type="origDate_notBefore">1046</term>
+                        <term type="origDate_notAfter">1075</term>
+                        <term type="origDate_type">datable</term>
+                    </index>
+                    <index indexName="norm_textLang">
+                      <term type="textLang">Mittelhochdeutsch</term>
+                      <term type="textLang-ID">4039687-3</term>
+                    </index>
+                    <index indexName="norm_form">
+                        <term type="form">codex</term>
+                    </index>
+                    <index indexName="norm_status">
+                        <term type="status">displaced</term>
+                    </index>
+                    <index indexName="norm_decoration">
+                        <term type="decoration">yes</term>
+                    </index>
+                    <index indexName="norm_musicNotation">
+                        <term type="musicNotation">no</term>
+                    </index>
+                </head>
+                <msPart type="other"><msIdentifier>
+                        <idno>Sonstiges</idno>
+                    </msIdentifier>
+                    <p>
+                        <index>
+                            <term>
+                                <orgName key="30001342">Sankt Emmeram</orgName>
+                            </term>
+                        </index>
+                        <index>
+                            <term>Erwähnung</term>
+                            <index>
+                                <term>
+                                    <persName role="Bibliothekar">Pleystainer, Konrad</persName>
+                                </term>
+                            </index>
+                        </index>
+                        <index>
+                            <term>Erwähung</term>
+                            <index>
+                                <term>
+                                    <persName role="Prior, Bibliothekar" key="z001_137996373"
+                                        >Menger, Dionysius</persName>
+                                </term>
+                            </index>
+                        </index>
+                        <index>
+                            <term>Teilband</term>
+                            <index>
+                                <term>München, BSB, Clm 14463</term>
+                            </index>
+                        </index>
+                    </p></msPart></msDesc>
+        </body>
+    </text>
+</TEI>

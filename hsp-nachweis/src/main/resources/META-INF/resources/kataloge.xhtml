@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <ui:insert name="header">
+            <ui:include src="templates/datatype/header.xhtml">
+                <ui:param name="title" value="#{msg.document_titel_kataloge}"/>
+                <ui:param name="access" value="#{katalogRechte.kannAlsListeAnzeigen()}"/>
+            </ui:include>
+        </ui:insert>
+        <h:form id="katalogeform" rendered="#{katalogRechte.kannAlsListeAnzeigen()}">
+            <div class="ui-g-12 actionsBar">
+                <p:commandButton id="refreshButton"
+                                 action="#{katalogModel.resetTable}"
+                                 update="katalogeform"
+                                 icon="hsp-icon-undo_table">
+                    <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                               value="#{msg.table_reset_layout_to_defaults}"/>
+                </p:commandButton>
+
+                <p:commandButton id="togglerKatalogButton" type="button"
+                                 icon="hsp-icon-edit_table">
+                    <p:tooltip id="togglerKatalogButtonTip" for="togglerKatalogButton"
+                               position="top"
+                               value="#{msg.table_toggle_visable_columns}"/>
+                </p:commandButton>
+
+                <p:commandButton id="excelDownloadCommandLinkID"
+                                 ajax="false"
+                                 icon="hsp-icon-download_file">
+                    <p:tooltip for="excelDownloadCommandLinkID" position="top"
+                               value="#{msg.datenuebernahme_tooltip_excel}"/>
+                    <p:dataExporter type="xls" target="katalogeform:katalogTable"
+                                    fileName="KatalogTabelle"
+                                    pageOnly="false"/>
+                </p:commandButton>
+
+                <p:commandButton update="katalogeform"
+                                 process="katalogeform"
+                                 id="katalogReloadButton"
+                                 actionListener="#{katalogModel.loadAllData()}"
+                                 icon="ui-icon-cached"
+                                 onstart="PF('statusDialog').show()"
+                                 onsuccess="PF('statusDialog').hide();"
+                                 disabled="false">
+                    <p:tooltip id="katalogReloadButtonButtonTip"
+                               for="katalogReloadButton"
+                               position="top"
+                               value="#{msg.katalog_datatype_reload}"/>
+                </p:commandButton>
+
+                <p:commandButton id="katalogImportierenButton"
+                                 action="/dateiupload.xhtml?faces-redirect=true&amp;dokumentTyp=KATALOG"
+                                 icon="ui-icon-upload_file"
+                                 process="@this"
+                                 onstart="PF('statusDialog').show()"
+                                 onsuccess="PF('statusDialog').hide()"
+                                 disabled="#{not importRechte.kannKatalogManuellImportieren()}">
+                    <p:tooltip for="katalogImportierenButton" position="top"
+                               value="#{msg.katalog_datatype_import}"/>
+                </p:commandButton>
+            </div>
+
+            <div class="ui-g-12">
+                <p:columnToggler id="columntogglerKatalogTable" datasource="katalogTable"
+                                 trigger="katalogeform:togglerKatalogButton">
+                    <p:ajax event="toggle" listener="#{katalogModel.onToggleColumns}"/>
+                </p:columnToggler>
+
+                <p:dataTable var="katalog" value="#{katalogDatatypController.allKataloge}"
+                             emptyMessage="#{msg.katalog_datatype_nodatafound}"
+                             id="katalogTable"
+                             widgetVar="katalogTableWidget"
+                             rowKey="#{katalog.id}"
+                             rows="#{katalogModel.currentHitProPage}"
+                             first="#{katalogModel.currentPage}"
+                             filteredValue="#{katalogModel.allfilteredKataloge}"
+                             ajax="true"
+                             paginator="true"
+                             multiViewState="true"
+                             reflow="true"
+                             sortMode="multiple"
+                             sortBy="#{katalogModel.sortMetaColumns.values()}"
+                             resizableColumns="true"
+                             liveResize="true"
+                             draggableColumns="true"
+                             tableStyle="'width:auto'"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                             rowsPerPageTemplate="#{katalogModel.allPossibleHitProPage}"
+                             paginatorPosition="top"
+                             paginatorAlwaysVisible="true"
+                             liveScroll="true"
+                             style="width: auto !important;"
+                             pageLinks="5">
+                    <p:ajax event="sort" listener="#{katalogModel.onSort}"/>
+                    <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                    <p:ajax event="colReorder" listener="#{katalogModel.columnsReordered}"/>
+                    <p:ajax event="colResize" listener="#{katalogModel.columnsResized}"/>
+
+                    <c:forEach items="#{katalogModel.positionColumnIDs}" var="columnID">
+                        <c:choose>
+                            <c:when test="#{columnID eq 'id'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_id}"
+                                          width="#{katalogModel.getColumnWidth(0)}"
+                                          visible="#{katalogModel.isColumnVisible(0)}"
+                                          sortBy="#{katalog.id}"
+                                          filterBy="#{katalog.id}"
+                                          filterMatchMode="contains">
+                                    <p:link outcome="katalog-detail-view.xhtml?faces-redirect=true"
+                                            value="#{katalog.id}">
+                                        <f:param name="id" value="#{katalog.id}"/>
+                                    </p:link>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'title'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_title}"
+                                          width="#{katalogModel.getColumnWidth(1)}"
+                                          visible="#{katalogModel.isColumnVisible(1)}"
+                                          sortBy="#{katalog.title}"
+                                          filterBy="#{katalog.title}"
+                                          filterMatchMode="contains">
+                                    <p:link outcome="katalog-detail-view.xhtml?faces-redirect=true"
+                                            value="#{katalog.title}">
+                                        <f:param name="id" value="#{katalog.id}"/>
+                                    </p:link>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'autoren'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_autoren}"
+                                          width="#{katalogModel.getColumnWidth(2)}"
+                                          visible="#{katalogModel.isColumnVisible(2)}"
+                                          sortBy="#{katalogModel.getAutoren(katalog)}"
+                                          filterBy="#{katalogModel.getAutoren(katalog)}"
+                                          filterMatchMode="contains">
+                                    <h:outputText style="white-space: pre-wrap;"
+                                                  value="#{katalogModel.getAutoren(katalog)}"/>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'publikationsJahr'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_pubyear}"
+                                          width="#{katalogModel.getColumnWidth(3)}"
+                                          visible="#{katalogModel.isColumnVisible(3)}"
+                                          sortBy="#{katalog.publikationsJahr}"
+                                          filterBy="#{katalog.publikationsJahr}"
+                                          filterMatchMode="contains">
+                                    <h:outputText style="white-space: pre-wrap;"
+                                                  value="#{katalog.publikationsJahr}"/>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'verlag'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_publisher}"
+                                          width="#{katalogModel.getColumnWidth(4)}"
+                                          visible="#{katalogModel.isColumnVisible(4)}"
+                                          sortBy="#{katalogModel.getVerlag(katalog)}"
+                                          filterBy="#{katalogModel.getVerlag(katalog)}"
+                                          filterMatchMode="contains">
+                                    <h:outputText style="white-space: pre-wrap;"
+                                                  value="#{katalogModel.getVerlag(katalog)}"/>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'lizenzUri'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_license}"
+                                          width="#{katalogModel.getColumnWidth(5)}"
+                                          visible="#{katalogModel.isColumnVisible(5)}"
+                                          sortBy="#{katalog.lizenzUri}"
+                                          filterBy="#{katalog.lizenzUri}"
+                                          filterMatchMode="contains">
+                                    <h:outputLink value="#{katalog.lizenzUri}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{katalog.lizenzUri}"/>
+                                    </h:outputLink>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'erstellDatum'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_creationdate}"
+                                          width="#{katalogModel.getColumnWidth(6)}"
+                                          visible="#{katalogModel.isColumnVisible(6)}"
+                                          sortBy="#{katalog.erstellDatum}"
+                                          filterBy="#{katalogModel.getDatumAsString(katalog.erstellDatum)}"
+                                          filterMatchMode="contains">
+                                    <h:outputText style="white-space: pre-wrap;"
+                                                  value="#{katalogModel.getDatumAsString(katalog.erstellDatum)}"/>
+                                </p:column>
+                            </c:when>
+
+                            <c:when test="#{columnID eq 'aenderungsDatum'}">
+                                <p:column id="#{columnID}"
+                                          headerText="#{msg.katalog_datatype_modificationdate}"
+                                          width="#{katalogModel.getColumnWidth(7)}"
+                                          visible="#{katalogModel.isColumnVisible(7)}"
+                                          sortBy="#{katalog.aenderungsDatum}"
+                                          filterBy="#{katalogModel.getDatumAsString(katalog.aenderungsDatum)}"
+                                          filterMatchMode="contains">
+                                    <h:outputText style="white-space: pre-wrap;"
+                                                  value="#{katalogModel.getDatumAsString(katalog.aenderungsDatum)}"/>
+                                </p:column>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
+                </p:dataTable>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

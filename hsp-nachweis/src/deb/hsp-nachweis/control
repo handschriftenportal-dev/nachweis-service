@@ -1,0 +1,8 @@
+Package: [[artifactId]]
+Version: [[version]]
+Section: misc
+Priority: low
+Architecture: all
+Description: [[name]]
+Maintainer: SBB-IDM2.2 <SBB-IDM2.2@pk.de>
+Depends: openjdk-11-jdk-headless, logrotate, apache2-utils

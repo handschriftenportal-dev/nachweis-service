@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="../templates/default.xhtml">
+    <ui:define name="content">
+        <ui:param name="kannLesen" value="#{beschreibungsRechte.kannEigeneLesen()}"/>
+
+        <div class="ui-g" id="beschreibungListTop">
+
+            <ui:include src="../templates/datatype/header.xhtml">
+                <ui:param name="title" value="#{msg.document_titel_beschreibungen}"/>
+                <ui:param name="access" value="#{kannLesen}"/>
+            </ui:include>
+
+            <div class="ui-g-12 actionsBar" id="beschreibungListactions">
+
+                <h:form id="beschreibungListButtonsform" rendered="#{kannLesen}">
+                    <p:commandButton id="refreshButton"
+                                     action="#{beschreibungModel.resetTable}"
+                                     update="beschreibungListform"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip"
+                                   for="refreshButton"
+                                   position="top"
+                                   hideEvent="mouseleave click"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerbeschreibungListTable" type="button"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerbeschreibungListTableTip"
+                                   for="togglerbeschreibungListTable"
+                                   position="top"
+                                   hideEvent="mouseleave click"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="excelDownloadCommandLinkID"
+                                     ajax="false"
+                                     icon="hsp-icon-download_file">
+                        <p:tooltip id="excelDownloadCommandLinkIDTip"
+                                   for="excelDownloadCommandLinkID"
+                                   position="top"
+                                   hideEvent="mouseleave click"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xls"
+                                        target="beschreibungListform:beschreibungListTable"
+                                        fileName="KulturObjekteTabelle"
+                                        pageOnly="true"/>
+                    </p:commandButton>
+
+                    <p:commandButton update="beschreibungListform beschreibungListButtonsform"
+                                     process="beschreibungListform"
+                                     id="beschreibungListReloadButton"
+                                     actionListener="#{beschreibungModel.reloadTableRecords}"
+                                     icon="ui-icon-cached"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide();"
+                                     disabled="false">
+                        <p:tooltip id="beschreibungListReloadButtonTip"
+                                   for="beschreibungListReloadButton"
+                                   position="top"
+                                   hideEvent="mouseleave click"
+                                   value="#{msg.beschreibungList_reloadObjects}"/>
+                    </p:commandButton>
+
+                    <p:commandButton update="beschreibungListButtonsform beschreibungListform"
+                                     process="beschreibungListButtonsform beschreibungListform"
+                                     id="beschreibungListDeleteButton"
+                                     actionListener="#{beschreibungModel.deleteSelectedBeschreibungen}"
+                                     icon="ui-icon-delete"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide();"
+                                     disabled="#{beschreibungModel.selectionDisabled}"
+                                     rendered="#{beschreibungModel.deleteEnabled}">
+                        <p:tooltip id="beschreibungListDeleteButtonTip"
+                                   for="beschreibungListDeleteButton"
+                                   position="top"
+                                   hideEvent="mouseleave click"
+                                   value="#{msg.beschreibungList_deleteSelected}"/>
+                        <p:confirm
+                                header="#{msg.beschreibungList_deleteSelected} (#{beschreibungModel.selectedBeschreibungenCount})"
+                                message="#{msg.beschreibungList_deleteConfirmText}"
+                                icon="pi pi-info-circle"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="beschreibungenImportierenButton"
+                                     action="/dateiupload.xhtml?faces-redirect=true&amp;dokumentTyp=BESCHREIBUNG"
+                                     icon="ui-icon-upload_file"
+                                     process="@this"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide()"
+                                     disabled="#{not importRechte.kannBeschreibungManuellImportieren()}">
+                        <p:tooltip id="beschreibungenImportierenButtonTip"
+                                   for="beschreibungenImportierenButton"
+                                   position="top"
+                                   hideEvent="mouseleave click"
+                                   value="#{msg.beschreibungen_liste_importieren}"/>
+                    </p:commandButton>
+
+                    <p:commandButton update="beschreibungListform" process="beschreibungListform"
+                                     id="beschreibungListReindexButton"
+                                     actionListener="#{beschreibungModel.reindexAllBeschreibungen}"
+                                     value="#{msg.beschreibungList_indexAktualisieren}"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide();"
+                                     disabled="#{beschreibungModel.reindexDisabled}"
+                                     style="margin-left:42px;">
+                        <p:confirm header="#{msg.beschreibungList_indexAktualisieren}"
+                                   message="#{msg.beschreibungList_indexAktualisierenConfirm}"
+                                   icon="pi pi-exclamation-triangle"/>
+                        <p:tooltip id="beschreibungListReindexButtonTip"
+                                   for="beschreibungListReindexButton"
+                                   position="top"
+                                   value="#{msg.beschreibungList_indexAktualisieren}"/>
+                    </p:commandButton>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+                                     responsive="true">
+                        <p:commandButton value="Ja" type="button"
+                                         styleClass="ui-confirmdialog-yes"/>
+                        <p:commandButton value="Nein" type="button"
+                                         styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    </p:confirmDialog>
+
+                </h:form>
+            </div>
+
+            <div class="ui-g-12">
+                <h:form id="beschreibungListform" rendered="#{kannLesen}">
+                    <p:growl for="beschreibungListform:beschreibungListTable" showDetail="true"
+                             sticky="true"/>
+
+                    <p:columnToggler id="columntogglerbeschreibungListTable"
+                                     datasource="beschreibungListTable"
+                                     trigger="beschreibungListButtonsform:togglerbeschreibungListTable">
+                        <p:ajax event="toggle" listener="#{beschreibungModel.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="beschreibung"
+                                 value="#{beschreibungModel.beschreibungenDataModel}"
+                                 lazy="true"
+                                 emptyMessage="#{msg.beschreibungList_noRecordsFound}"
+                                 id="beschreibungListTable"
+                                 widgetVar="beschreibungListTableWidget"
+                                 rowKey="#{beschreibung.hspId}"
+                                 rows="#{beschreibungModel.currentHitProPage}"
+                                 first="#{beschreibungModel.currentPage}"
+                                 filteredValue="#{beschreibungModel.filteredBeschreibungen}"
+                                 selection="#{beschreibungModel.selectedBeschreibungen}"
+                                 disabledSelection="#{not beschreibungModel.deleteEnabled}"
+                                 rowSelectMode="checkbox"
+                                 ajax="true"
+                                 paginator="true"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{beschreibungModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{beschreibungModel.allPossibleHitProPage}"
+                                 paginatorPosition="top"
+                                 paginatorAlwaysVisible="true"
+                                 liveScroll="false"
+                                 style="width: auto !important;"
+                                 pageLinks="5">
+                        <p:ajax event="sort"
+                                listener="#{beschreibungModel.onSort}"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide()"/>
+                        <p:ajax event="filter"
+                                partialSubmit="true"
+                                ignoreAutoUpdate="true"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide()"/>
+                        <p:ajax event="page"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide()"/>
+                        <p:ajax event="colReorder"
+                                listener="#{beschreibungModel.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{beschreibungModel.columnsResized}"/>
+                        <p:ajax event="rowUnselectCheckbox" partialSubmit="true"
+                                update="beschreibungListButtonsform"/>
+                        <p:ajax event="rowSelectCheckbox" partialSubmit="true"
+                                update="beschreibungListButtonsform"/>
+                        <p:ajax event="toggleSelect" partialSubmit="true"
+                                update="beschreibungListButtonsform"
+                                listener="#{beschreibungModel.onSelectAll}"/>
+                        <c:forEach items="#{beschreibungModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'selection'}">
+                                    <p:column id="#{columnID}" selectionMode="multiple"
+                                              headerText=" "
+                                              width="#{beschreibungModel.getColumnWidth(0)}"
+                                              onComplete="#{beschreibungModel.onSelect}"
+                                              style="max-width:32px;text-align: center;"
+                                              visible="true"
+                                              toggleable="false"
+                                              rendered="#{beschreibungModel.deleteEnabled}"
+                                              exportable="false">
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'verwaltungsTyp'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_verwaltungstyp}"
+                                              sortBy="#{beschreibung.verwaltungsTyp}"
+                                              width="#{beschreibungModel.getColumnWidth(1)}"
+                                              visible="#{beschreibungModel.isColumnVisible(1)}"
+                                              filterBy="#{beschreibung.verwaltungsTyp}"
+                                              filterMatchMode="contains"
+                                              exportValue="#{beschreibung.verwaltungsTyp}">
+                                        #{beschreibung.verwaltungsTyp}
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gueltigeSignatur'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_validSignature}"
+                                              width="#{beschreibungModel.getColumnWidth(2)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              sortBy="#{beschreibung.gueltigeSignatur}"
+                                              filterBy="#{beschreibung.gueltigeSignatur}"
+                                              exportValue="#{beschreibung.gueltigeSignatur}">
+                                        <p:link style="font-weight: bold;white-space: pre-wrap;"
+                                                outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                                                value="#{beschreibung.gueltigeSignatur}">
+                                            <f:param name="id" value="#{beschreibung.hspId}"/>
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'besitzer'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_besitzer}"
+                                              width="#{beschreibungModel.getColumnWidth(3)}"
+                                              visible="#{beschreibungModel.isColumnVisible(3)}"
+                                              sortBy="#{beschreibung.besitzer}"
+                                              filterBy="#{beschreibung.besitzer}"
+                                              exportValue="#{beschreibung.besitzer}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{beschreibung.besitzer}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'aufbewahrungsort'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_aufbewahrungsort}"
+                                              width="#{beschreibungModel.getColumnWidth(4)}"
+                                              visible="#{beschreibungModel.isColumnVisible(4)}"
+                                              sortBy="#{beschreibung.aufbewahrungsort}"
+                                              filterBy="#{beschreibung.aufbewahrungsort}"
+                                              exportValue="#{beschreibung.aufbewahrungsort}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{beschreibung.aufbewahrungsort}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'autor'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_autor}"
+                                              width="#{beschreibungModel.getColumnWidth(5)}"
+                                              visible="#{beschreibungModel.isColumnVisible(5)}"
+                                              sortBy="#{beschreibung.autoren}"
+                                              filterBy="#{beschreibung.autoren}"
+                                              exportValue="#{beschreibung.autoren}">
+                                        <ui:repeat value="#{beschreibung.autorenAsList}"
+                                                   var="autoren">
+                                            <h:outputText style="white-space: pre-wrap;" value="#{autoren}"/>
+                                            <br/>
+                                        </ui:repeat>
+
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'hspId'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.beschreibungList_hspid}"
+                                              sortBy="#{beschreibung.hspId}"
+                                              width="#{beschreibungModel.getColumnWidth(6)}"
+                                              visible="#{beschreibungModel.isColumnVisible(6)}"
+                                              filterBy="#{beschreibung.hspId}"
+                                              exportValue="#{beschreibung.hspId}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{beschreibung.hspId}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'kodId'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.beschreibungList_kodid}"
+                                              width="#{beschreibungModel.getColumnWidth(7)}"
+                                              visible="#{beschreibungModel.isColumnVisible(7)}"
+                                              sortBy="#{beschreibung.kodId}"
+                                              filterBy="#{beschreibung.kodId}"
+                                              exportValue="#{beschreibung.kodId}">
+                                        <p:link style="font-weight: bold;white-space: pre-wrap;"
+                                                outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?id=#{beschreibung.kodId}"
+                                                value="#{beschreibung.kodId}">
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'aenderungsdatum'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_aenderungsdatum}"
+                                              width="#{beschreibungModel.getColumnWidth(8)}"
+                                              visible="#{beschreibungModel.isColumnVisible(8)}"
+                                              sortBy="#{beschreibung.aenderungsdatum}"
+                                              filterBy="#{beschreibung.aenderungsdatumString}"
+                                              exportValue="#{beschreibung.aenderungsdatumString}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{beschreibung.aenderungsdatumString}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'erstellungsdatum'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_erstellungsdatum}"
+                                              width="#{beschreibungModel.getColumnWidth(9)}"
+                                              visible="#{beschreibungModel.isColumnVisible(9)}"
+                                              sortBy="#{beschreibung.erstellungsdatum}"
+                                              filterBy="#{beschreibung.erstellungsdatumString}"
+                                              exportValue="#{beschreibung.erstellungsdatumString}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{beschreibung.erstellungsdatumString}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'katalogId'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_katalogID}"
+                                              width="#{beschreibungModel.getColumnWidth(10)}"
+                                              visible="#{beschreibungModel.isColumnVisible(10)}"
+                                              sortBy="#{beschreibung.katalogId}"
+                                              filterBy="#{beschreibung.katalogId}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{beschreibung.katalogId}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'dokumentObjektType'}">
+                                    <ui:param name="dokumentObjektTypeValue"
+                                              value="#{beschreibungsDataTypeViewController.getDokumentObjectType(beschreibung)}"/>
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.beschreibungList_fromPrintedKatalog}"
+                                              width="#{beschreibungModel.getColumnWidth(11)}"
+                                              visible="#{beschreibungModel.isColumnVisible(11)}"
+                                              sortBy="#{beschreibung.dokumentObjektTyp.toString()}"
+                                              filterBy="#{'hsp:description_retro' == dokumentObjektTypeValue ? 'Ja': 'nein'}"
+                                              filterMatchMode="contains">
+                                        <h:outputText
+                                          value="#{'hsp:description_retro' == dokumentObjektTypeValue ? 'Ja': 'nein'}"/>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

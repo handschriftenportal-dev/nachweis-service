@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="templates/default.xhtml">
+    <f:metadata>
+        <f:viewAction action="#{werkzeugeController.setup}" onPostback="false"/>
+    </f:metadata>
+    <ui:define name="content">
+        <ui:param name="kannWerkzeugeAnwenden" value="#{werkzeugeRechte.kannWerkzeugeAnwenden()}"/>
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-lg-8">
+                <h1>#{msg.document_titel_werkzeuge}</h1>
+            </div>
+
+            <div class="ui-g-12">
+                <p:separator/>
+            </div>
+
+            <div class="ui-g-12">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannWerkzeugeAnwenden}"/>
+                </ui:include>
+            </div>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true">
+                <p:commandButton value="#{msg.ja}" type="button" styleClass="ui-confirmdialog-yes"/>
+                <p:commandButton value="#{msg.nein}" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            </p:confirmDialog>
+
+            <p:outputPanel id="sperrenPrüfung"
+                           layout="block"
+                           class="ui-g-12"
+                           style="vertical-align: center; text-align: center;margin-bottom: 50px"
+                           rendered="#{kannWerkzeugeAnwenden and werkzeugeController.speereExists}">
+                <div class="card">
+                    <h3><h:outputText value="#{msg.werkzeuge_sperre_existiert}"/></h3>
+                </div>
+
+            </p:outputPanel>
+
+            <h:panelGroup id="werkzeugeFormPanel"
+                          layout="block"
+                          styleClass="ui-g-12 ui-lg-8"
+                          rendered="#{kannWerkzeugeAnwenden}">
+                <div class="card">
+                    <h:form id="werkzeugeForm"
+                            styleClass="hsp-form">
+
+                        <div class="ui-g">
+                            <div class="ui-g-9" style="display: block">
+                            #{msg.werkzeuge_attributsreferenzen_migirieren}
+                            </div>
+                            <div class="ui-g-3" style="text-align: center">
+                                <p:commandButton
+                                        id="migrateAttributsReferenzenBtn"
+                                        icon="ui-icon-play-arrow"
+                                        title="#{msg.werkzeuge_attributsreferenzen_migirieren}"
+                                        value="#{msg.werkzeuge_attributsreferenzen_migirieren_button}"
+                                        action="#{werkzeugeController.migrateAttributsReferenzen()}"
+                                        process="@this"
+                                        update="@form"
+                                        onstart="PF('statusDialog').show()"
+                                        oncomplete="PF('statusDialog').hide();"
+                                        disabled="#{werkzeugeController.speereExists}">
+                                    <p:confirm
+                                            header="#{msg.werkzeuge_attributsreferenzen_migirieren}"
+                                            message="#{msg.werkzeuge_attributsreferenzen_migirieren_confirm}"
+                                            icon="ui-icon-info"/>
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+</ui:composition>

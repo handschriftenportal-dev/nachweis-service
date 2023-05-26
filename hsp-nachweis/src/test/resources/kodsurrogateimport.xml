@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+  schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Surrogates</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Publication Information</p>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>.</repository>
+          </msIdentifier>
+          <additional>
+            <adminInfo/>
+            <surrogates>
+              <!--  include digitized objects
+                # required: insert KOD-ID
+                # required: link to an
+                ## IIIF-Manifest -> subtype="manifest" if digitized object is capable of beeing depicted in an IIIF- viewer
+                ## any other digitized depiction -> subtype="other"
+                # recommended: insert type="thumbnail" for depicting a selected preview
+                # recommended: insert date of digitalization, place and name of the organization that issued the digitized object
+              -->
+              <bibl>
+                <ref type="hsp:object" target="Mus.ms. A I(1"/>
+                <ref type="manifest" subtype="komplettVomOriginal"
+                  target="https://iiif.ub.uni-leipzig.de/0000009089/manifest.json"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009089/00000057.jpx/full/500,/0/default.jpg"/>
+                <ref type="other"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009089/00000057.jpx/full/100,/0/default.jpg"/>
+                <date when="2020-10-06" type="digitized">2020-10-06</date>
+                <date when="2020-10-07" type="issued">2020-10-07</date>
+                <orgName ref="2031351-2">BSB</orgName>
+                <placeName ref="4127793-4">München</placeName>
+              </bibl>
+            	<bibl>
+                <ref type="hsp:object" target="Mus.ms. A I(1"/>
+                <ref type="manifest" subtype="completeFromOriginal"
+                  target="https://iiif.ub.uni-leipzig.de/0000009090/manifest.json"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009090/00000057.jpx/full/500,/0/default.jpg"/>
+                <date when="2020-10-06" type="digitized">2020-11-06</date>
+                <date when="2020-10-07" type="issued">2020-10-12</date>
+                <orgName ref="5036103-X" type="digitalising">Staatsbibliothek zu Berlin</orgName>
+                <placeName ref="4005728-8" type="digitalising">Berlin</placeName>
+                <orgName ref="2031351-2">BSB</orgName>
+                <placeName ref="4127793-4">München</placeName>
+              </bibl>
+            	<bibl>
+                <ref type="hsp:object" target="Mus ms A I 1"/>
+                <ref type="manifest" subtype="completeFromOriginal"
+                  target="https://iiif.ub.uni-leipzig.de/0000009091/manifest.json"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009091/00000057.jpx/full/500,/0/default.jpg"/>
+                <date when="2020-10-06" type="digitized">2020-11-06</date>
+                <date when="2020-10-07" type="issued">2020-10-12</date>
+                <orgName ref="2031351-2">BSB</orgName>
+                <placeName ref="4127793-4">München</placeName>
+                <orgName ref="5036103-X" type="digitalising">Staatsbibliothek zu Berlin</orgName>
+                <placeName ref="4005728-8" type="digitalising">Berlin</placeName>
+              </bibl>
+            </surrogates>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p>Some text here.</p>
+    </body>
+  </text>
+</TEI>

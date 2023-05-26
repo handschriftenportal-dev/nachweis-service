@@ -1,0 +1,149 @@
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+  <ui:param name="kannAktualisieren" value="#{pURLsRechte.kannAktualisieren()}"/>
+  <div class="ui-g-12 ui-lg-8">
+    <h:panelGroup id="purlsEditTemplatesFormPanel"
+                  layout="block"
+                  styleClass="card"
+                  rendered="#{kannAktualisieren}">
+      <h:form id="purlsEditTemplatesForm"
+              styleClass="hsp-form"
+              autocomplete="off"
+              rendered="#{kannAktualisieren}">
+        <p:growl for="purlsEditTemplatesForm" showDetail="true" sticky="true"/>
+
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h2 style="margin: 6px 0px"><h:outputText value="#{msg.purls_templates}"/></h2>
+          </div>
+          <div class="ui-g-2 ui-g-nopad-horizontal">
+            <div class="button-align-right">
+              <p:commandButton id="purlsEditTemplatesBtn"
+                               icon="ui-icon-edit"
+                               rendered="#{not pURLsController.edit}"
+                               action="#{pURLsController.editieren()}"
+                               process="@this"
+                               update="@form"
+                               onstart="PF('statusDialog').show()"
+                               oncomplete="PF('statusDialog').hide();"
+                               styleClass="ui-button-icon-only-big">
+                <p:tooltip for="purlsEditTemplatesBtn"
+                           position="left"
+                           hideEvent="mouseleave click"
+                           value="#{msg.purls_templates_bearbeiten}"/>
+              </p:commandButton>
+            </div>
+          </div>
+
+          <div class="ui-g-4">
+            <p:outputLabel for="inputKodTargetUrlTemplate"
+                           value="#{msg.purls_kod_target_url_template}"/>
+          </div>
+          <div class="ui-g-7 ui-fluid">
+            <p:inputText id="inputKodTargetUrlTemplate"
+                         value="#{pURLsController.kodTargetUrlTemplate}"
+                         rendered="#{pURLsController.edit}"
+                         required="#{pURLsController.edit}"
+                         validator="#{pURLsController.validateTargetTemplate}"
+                         autocomplete="off">
+            </p:inputText>
+            <h:outputText id="textKodTargetUrlTemplate"
+                          rendered="#{not pURLsController.edit}"
+                          value="#{pURLsController.kodTargetUrlTemplate}"
+                          styleClass="ui-outputlabel ui-widget"/>
+          </div>
+
+          <div class="ui-g-4">
+            <p:outputLabel for="inputBeschreibungTargetUrlTemplate"
+                           value="#{msg.purls_beschreibung_target_url_template}"/>
+          </div>
+          <div class="ui-g-7 ui-fluid">
+            <p:inputText id="inputBeschreibungTargetUrlTemplate"
+                         value="#{pURLsController.beschreibungTargetUrlTemplate}"
+                         rendered="#{pURLsController.edit}"
+                         required="#{pURLsController.edit}"
+                         validator="#{pURLsController.validateTargetTemplate}"
+                         autocomplete="off">
+            </p:inputText>
+            <h:outputText id="textBeschreibungTargetUrlTemplate"
+                          rendered="#{not pURLsController.edit}"
+                          value="#{pURLsController.beschreibungTargetUrlTemplate}"
+                          styleClass="ui-outputlabel ui-widget"/>
+          </div>
+
+          <div class="ui-g-4">
+            <p:outputLabel for="inputBeschreibungRetroTargetUrlTemplate"
+                           value="#{msg.purls_beschreibung_retro_target_url_template}"/>
+          </div>
+          <div class="ui-g-7 ui-fluid">
+            <p:inputText id="inputBeschreibungRetroTargetUrlTemplate"
+                         value="#{pURLsController.beschreibungRetroTargetUrlTemplate}"
+                         rendered="#{pURLsController.edit}"
+                         required="#{pURLsController.edit}"
+                         validator="#{pURLsController.validateTargetTemplate}"
+                         autocomplete="off">
+            </p:inputText>
+            <h:outputText id="textBeschreibungRetroTargetUrlTemplate"
+                          rendered="#{not pURLsController.edit}"
+                          value="#{pURLsController.beschreibungRetroTargetUrlTemplate}"
+                          styleClass="ui-outputlabel ui-widget"/>
+          </div>
+
+          <div class="ui-g-11" style="text-align:right">
+            <p:commandButton id="templatesAktualisierenBtn"
+                             ajax="true"
+                             style="margin-top: 24px"
+                             icon="ui-icon-save"
+                             update="@form"
+                             process="@form"
+                             action="#{pURLsController.templatesAktualisieren}"
+                             title="#{msg.purls_templates_aktualisieren}"
+                             value="#{msg.purls_templates_aktualisieren}"
+                             onstart="PF('statusDialog').show()"
+                             oncomplete="PF('statusDialog').hide();"
+                             rendered="#{pURLsController.edit}"/>
+            <p:commandButton id="abbrechenBtn"
+                             ajax="true"
+                             immediate="true"
+                             style="margin-top: 24px; margin-left:12px;"
+                             icon="ui-icon-cancel"
+                             update="@form"
+                             process="@this"
+                             action="#{pURLsController.abbrechen}"
+                             title="#{msg.purls_templates_abbrechen}"
+                             value="#{msg.purls_templates_abbrechen}"
+                             onstart="PF('statusDialog').show()"
+                             oncomplete="PF('statusDialog').hide();"
+                             rendered="#{pURLsController.edit}"/>
+          </div>
+        </div>
+      </h:form>
+    </h:panelGroup>
+  </div>
+</ui:composition>

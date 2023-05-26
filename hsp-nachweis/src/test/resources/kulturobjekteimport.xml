@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+				<title>KODs für Bautzen</title>
+			</titleStmt>
+			<publicationStmt>
+				<p>Publication Information</p>
+			</publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="HSP-bautzen_1" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement key="4004968-1">Bautzen</settlement>
+            <repository key="1027608000">Domstiftsbibliothek St. Petri</repository>
+            <idno>M II 104</idno>
+            <altIdentifier type="alternative">
+              <idno>M II 104 alt1</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>M II 104 alt2</idno>
+            </altIdentifier>
+          </msIdentifier>
+        </msDesc>
+				<msDesc xml:id="HSP-bautzen_2" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement key="4004968-1">Bautzen</settlement>
+            <repository key="1027608000">Domstiftsbibliothek St. Petri</repository>
+            <idno>M I 4</idno>
+					</msIdentifier>
+          <additional></additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

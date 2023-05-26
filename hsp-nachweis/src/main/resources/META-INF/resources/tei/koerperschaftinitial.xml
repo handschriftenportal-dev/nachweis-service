@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Liste der bestandshaltenden Körperschaften</title>
+            </titleStmt>
+            <publicationStmt>
+                <p/>
+            </publicationStmt>
+            <sourceDesc>
+                <p/>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <listOrg>
+                <org>
+                    <country ref="#___UUID___">Deutschland</country>
+                    <region ref="#___UUID___">Berlin</region>
+                    <settlement ref="#___UUID___">Berlin</settlement>
+                    <orgName xml:lang="de" type="main" notBefore="1992">Staatsbibliothek zu Berlin</orgName>
+                    <orgName xml:lang="de" type="alternative">Staatsbibliothek Preußischer Kulturbesitz</orgName>
+                    <orgName xml:lang="de" type="alternative">Staatsbibliothek (Berlin)</orgName>
+                    <orgName xml:lang="de" type="alternative">Staatsbibliothek zu Berlin - PK</orgName>
+                    <orgName xml:lang="de" type="alternative">Staatsbibliothek zu Berlin - Preußischer Kulturbesitz</orgName>
+                    <orgName xml:lang="en" type="alternative">Berlin State Library – Prussian Cultural Heritage Foundation</orgName>
+                    <orgName xml:lang="en" type="alternative">Berlin State Library</orgName>
+                    <orgName xml:lang="en" type="alternative">State Library at Berlin</orgName>
+                    <orgName xml:lang="en" type="alternative">State Library at Berlin - Prussian Cultural Heritage Foundation</orgName>
+                    <orgName xml:lang="fr" type="alternative">Bibliothèque d'État de Berlin</orgName>
+                    <orgName xml:lang="pl" type="alternative">Biblioteka Państwowa w Berlinie</orgName>
+                    <orgName xml:lang="pl" type="alternative">Biblioteka Państwowa w Berlinie - Dziedzictwo Kultury Pruskiej</orgName>
+                    <orgName xml:lang="ru" type="alternative">Gosudarstvennaja Biblioteka v Berline</orgName>
+                    <orgName xml:lang="ru" type="alternative">Gosudarstvennaja Biblioteka v Berline - Prusskoe Kulʹturnoe Nasledie</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1962" notAfter="1991">Staatsbibliothek Preußischer Kulturbesitz</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1949" notAfter="1961">Westdeutsche Bibliothek</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1946" notAfter="1949">Hessische Bibliothek (Marburg)</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1954" notAfter="1991">Deutsche Staatsbibliothek</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1946" notAfter="1954">Öffentliche Wissenschaftliche Bibliothek</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1918" notAfter="1945">Preußische Staatsbibliothek</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1701" notAfter="1918">Königliche Bibliothek zu Berlin</orgName>
+                    <orgName xml:lang="de" type="former" notBefore="1661" notAfter="1700">Churfürstliche Bibliothek zu Cölln an der Spree</orgName>
+					<orgName type="short">Stabi</orgName>
+                    <orgName type="short">SBB</orgName>
+                    <orgName type="short">SBB-PK</orgName>
+                    <orgName type="short">SBBPK</orgName>
+                    <idno type="gnd" xml:id="gnd_5036103-X">http://d-nb.info/gnd/5036103-X</idno>
+                    <idno type="gnd_former" xml:id="gnd_1011349-6">http://d-nb.info/gnd/1011349-6</idno>
+                    <idno type="gnd_former" xml:id="gnd_2026638-8">http://d-nb.info/gnd/2026638-8</idno>
+                    <idno type="gnd_former" xml:id="gnd_5186244-X">http://d-nb.info/gnd/5186244-X</idno>
+                    <idno type="gnd_former" xml:id="gnd_37102-6">http://d-nb.info/gnd/37102-6</idno>
+                    <idno type="gnd_former" xml:id="gnd_37103-8">http://d-nb.info/gnd/37103-8</idno>
+                    <idno type="gnd_former" xml:id="gnd_1011355-1">http://d-nb.info/gnd/1011355-1</idno>
+                    <idno type="gnd_former" xml:id="gnd_37101-4">http://d-nb.info/gnd/37101-4</idno>
+                    <idno type="gnd_former" xml:id="gnd_1088125778">http://d-nb.info/gnd/1088125778</idno>
+                    <idno type="isil" xml:id="isil_DE-1">http://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-1</idno>
+                </org>
+                <org>
+                    <country ref="#___UUID___">Deutschland</country>
+                    <region ref="#___UUID___">Sachsen</region>
+                    <settlement ref="#___UUID___">Leipzig</settlement>
+                    <orgName xml:lang="de" type="main" notBefore="1543">Universitätsbibliothek Leipzig</orgName>
+                    <orgName xml:lang="la" type="alternative">Bibliotheca Paulina</orgName>
+                    <orgName xml:lang="la" type="alternative">Bibliotheca Universitatis Lipsiensis</orgName>
+                    <orgName xml:lang="la" type="alternative">Bibliotheca Albertina</orgName>
+                    <orgName xml:lang="de" type="alternative">Universitäts-Bibliothek Leipzig</orgName>
+                    <orgName xml:lang="de" type="alternative">Universität Leipzig. Bibliotheca Albertina</orgName>
+                    <orgName xml:lang="de" type="alternative">Universitätsbibl. Leipzig</orgName>
+                    <orgName xml:lang="de" type="alternative">Universität Leipzig. Universitäts-Bibliothek Albertina (Leipzig)</orgName>
+                    <orgName xml:lang="de" type="alternative">Bibliotheca Albertina Leipzig</orgName>
+                    <orgName xml:lang="de" type="alternative">Karl-Marx-Universität Leipzig. Universitätsbibliothek</orgName>
+                    <orgName xml:lang="de" type="alternative">UB Leipzig</orgName>
+                    <orgName xml:lang="de" type="alternative">Universitäts-Bibliothek "Bibliotheca Albertina"</orgName>
+                    <orgName xml:lang="en" type="alternative">University library (Leipzig)</orgName>
+                    <orgName type="short">UBL</orgName>
+                    <idno type="gnd" xml:id="gnd_30026-3">http://d-nb.info/gnd/30026-3</idno>
+                    <idno type="isil" xml:id="isil_DE-15">http://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-15</idno>
+                </org>
+                <org>
+                    <country ref="#___UUID___">Deutschland</country>
+                    <region ref="#___UUID___">Bayern</region>
+                    <settlement ref="#___UUID___">München</settlement>
+                    <orgName xml:lang="de" type="main" notBefore="1919">Bayerische Staatsbibliothek</orgName>
+                    <orgName xml:lang="la" type="alternative">Bibliotheca Monacensis</orgName>
+                    <orgName xml:lang="en" type="alternative">Bavarian State Library</orgName>
+                    <orgName xml:lang="en" type="alternative">State Library Munich</orgName>
+                    <orgName xml:lang="ca" type="alternative">Biblioteca del Estáu de Baviera</orgName>
+                    <orgName xml:lang="es" type="alternative">Biblioteca Estatal de Baviera</orgName>
+                    <orgName xml:lang="de" type="former" notBefore="1829" notAfter="1919">Königliche Hof- und Staatsbibliothek zu München</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1803" notAfter="1829">Königliche Hof- und Centralbibliothek zu München</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1801" notAfter="1803">Kurfürstliche Hof- und Nationalbibliothek zu München</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1558" notAfter="1801">Hofbibliothek zu München</orgName>
+					<orgName type="short">BSB</orgName>
+                    <orgName type="short">BSBM</orgName>
+                    <idno type="gnd" xml:id="gnd_2031351-2">http://d-nb.info/gnd/2031351-2</idno>
+                    <idno type="gnd_former" xml:id="gnd_2015908-0">http://d-nb.info/gnd/2015908-0</idno>
+                    <idno type="gnd_former" xml:id="gnd_10158857-4">http://d-nb.info/gnd/10158857-4</idno>
+                    <idno type="gnd_former" xml:id="gnd_1113564733">http://d-nb.info/gnd/1113564733</idno>
+                    <idno type="gnd_former" xml:id="gnd_1113564717">http://d-nb.info/gnd/1113564717</idno>
+                    <idno type="isil" xml:id="isil_DE-12">http://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-12</idno>
+                </org>
+				<org>
+				    <country ref="#___UUID___">Deutschland</country>
+				    <region ref="#___UUID___">Niedersachsen</region>
+				    <settlement ref="#___UUID___">Wolfenbüttel</settlement>
+				    <orgName xml:lang="de" type="main" notBefore="1927">Herzog August Bibliothek Wolfenbüttel</orgName>
+                    <orgName xml:lang="la" type="alternative">Bibliotheca Augusta</orgName>
+                    <orgName xml:lang="en" type="alternative">Library of Duke August of Brunswick-Wolfenbüttel</orgName>
+                    <orgName xml:lang="en" type="alternative">Library of Duke August</orgName>
+                    <orgName xml:lang="en" type="alternative">Herzog August Library</orgName>
+                    <orgName xml:lang="en" type="alternative">Duke August Library</orgName>
+                    <orgName xml:lang="en" type="alternative">Wolfenbüttel Library</orgName>
+                    <orgName xml:lang="de" type="alternative">Herzog August Bibliothek</orgName>
+                    <orgName xml:lang="de" type="alternative">Herzog-August-Bibliothek</orgName>
+                    <orgName xml:lang="de" type="alternative">Bibliothek zu Wolfenbüttel</orgName>
+                    <orgName xml:lang="de" type="alternative">Bibliotheca Augusta zu Wolfenbüttel</orgName>
+                    <orgName xml:lang="de" type="alternative">HAB Wolfenbüttel</orgName>
+                    <orgName xml:lang="es" type="alternative">Biblioteca Ducal</orgName>
+                    <orgName xml:lang="fr" type="alternative">Bibliothèque Augustéenne</orgName>
+                    <orgName xml:lang="de" type="former" notBefore="1919" notAfter="1927">Landesbibliothek Wolfenbüttel</orgName>
+					<orgName xml:lang="de" type="former" notBefore="1572" notAfter="1919">Herzogliche Bibliothek Wolfenbüttel</orgName>
+					<orgName type="short">HAB</orgName>
+				    <idno type="gnd" xml:id="gnd_8989-8">http://d-nb.info/gnd/8989-8</idno>
+				    <idno type="gnd_former" xml:id="gnd_11561-7">http://d-nb.info/gnd/11561-7</idno>
+				    <idno type="gnd_former" xml:id="gnd_11566-6">http://d-nb.info/gnd/11566-6</idno>
+				    <idno type="isil" xml:id="isil_DE-23">http://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-23</idno>
+                </org>
+            </listOrg>
+        </body> 
+    </text>
+</TEI>

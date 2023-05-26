@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+
+            <ui:include src="templates/datatype/header.xhtml">
+                <ui:param name="title" value="#{msg.document_titel_koerperschaften}"/>
+                <ui:param name="access" value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+            </ui:include>
+
+            <h:form id="koerperschaftform" rendered="#{normdatenRechte.kannAlsListeAnzeigen()}">
+                <div class="ui-g-12 actionsBar" id="koerperschaftactions">
+                    <p:commandButton id="refreshButton"
+                                     action="#{koerperschaftModel.resetTable}"
+                                     update="koerperschaftform"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerKoerperschaftTable" type="button"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerKoerperschaftTableTip" for="togglerKoerperschaftTable"
+                                   position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="excelDownloadCommandLinkID" icon="hsp-icon-download_file"
+                                     ajax="false"
+                                     disabled="#{not normdatenRechte.kannAlsExcelRunterladen()}">
+                        <p:tooltip for="excelDownloadCommandLinkID" position="top"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xls" target="koerperschaftTable"
+                                        fileName="KoerperschaftTabelle"
+                                        pageOnly="false"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="koerperschaftenImportierenButton"
+                                     action="/dateiupload.xhtml?faces-redirect=true&amp;dokumentTyp=KOERPERSCHAFT"
+                                     icon="ui-icon-upload_file"
+                                     process="@this"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide()"
+                                     disabled="#{not importRechte.kannKoerperschaftManuellImportieren()}">
+                        <p:tooltip for="koerperschaftenImportierenButton" position="top"
+                                   value="#{msg.koerperschaft_importieren}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="neueKoerperschaftButton"
+                                     update="@all" process="@all"
+                                     icon="ui-icon-add"
+                                     disabled="true">
+                        <p:tooltip for="neueKoerperschaftButton" position="top"
+                                   value="#{msg.koerperschaft_neuanlegen}"/>
+                    </p:commandButton>
+                </div>
+
+                <div class="ui-g-12">
+
+                    <p:columnToggler id="columntogglerKoerperschaftTable"
+                                     datasource="koerperschaftTable"
+                                     trigger="koerperschaftform:togglerKoerperschaftTable">
+                        <p:ajax event="toggle" listener="#{koerperschaftModel.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="koerperschaft"
+                                 value="#{koerperschaftModel.allKoerperschaften}"
+                                 emptyMessage="Keine Körperschaften gefunden"
+                                 id="koerperschaftTable"
+                                 widgetVar="koerperschaftTableWidget"
+                                 rowKey="#{koerperschaft.id}"
+                                 rows="#{koerperschaftModel.currentHitProPage}"
+                                 first="#{koerperschaftModel.currentPage}"
+                                 ajax="true"
+                                 paginator="true"
+                                 filteredValue="#{koerperschaftModel.filteredKoerperschaften}"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{koerperschaftModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{koerperschaftModel.allPossibleHitProPage}"
+                                 paginatorPosition="top"
+                                 paginatorAlwaysVisible="true"
+                                 liveScroll="true"
+                                 style="width: auto !important;"
+                                 pageLinks="5">
+
+                        <p:ajax event="sort" listener="#{koerperschaftModel.onSort}"/>
+                        <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                        <p:ajax event="colReorder"
+                                listener="#{koerperschaftModel.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{koerperschaftModel.columnsResized}"/>
+
+                        <c:forEach items="#{koerperschaftModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'name'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{koerperschaftModel.getColumnWidth(0)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              headerText="#{msg.koerperschaft_name}"
+                                              filterBy="#{koerperschaft.name}"
+                                              filterMatchMode="contains"
+                                              sortBy="#{koerperschaft.name}">
+                                        <p:link outcome="koerperschaft-detail-view.xhtml?faces-redirect=true"
+                                                value="#{koerperschaft.name}">
+                                            <f:param name="id" value="#{koerperschaft.id}"/>
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'varianteNamen'}">
+                                    <ui:param name="varianteNamen"
+                                              value="#{koerperschaft.varianteNamenAlsString}"/>
+                                    <p:column id="#{columnID}"
+                                              width="#{koerperschaftModel.getColumnWidth(1)}"
+                                              visible="#{koerperschaftModel.isColumnVisible(1)}"
+                                              filterMatchMode="contains"
+                                              filterBy="#{varianteNamen}"
+                                              sortBy="#{varianteNamen}"
+                                              headerText="#{msg.koerperschaft_alternativenamen}">
+                                        <h:outputText escape="false" style="white-space:normal"
+                                                      value="#{varianteNamen}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'koerperschaftId'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{koerperschaftModel.getColumnWidth(2)}"
+                                              visible="#{koerperschaftModel.isColumnVisible(2)}"
+                                              sortBy="#{koerperschaft.id}"
+                                              filterBy="#{koerperschaft.id}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.koerperschaft_id}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{koerperschaft.id}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gndID'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{koerperschaftModel.getColumnWidth(3)}"
+                                              visible="#{koerperschaftModel.isColumnVisible(3)}"
+                                              sortBy="#{koerperschaft.gndID}"
+                                              filterBy="#{koerperschaft.gndID}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.koerperschaft_gnd}">
+                                        <p:link target="_blank"
+                                                href="#{koerperschaft.gndUrl}"
+                                                value="#{koerperschaft.gndID}"
+                                                rendered="#{not empty koerperschaft.gndID}">
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'isilID'}">
+                                    <ui:param name="isil"
+                                              value="#{koerperschaftModel.findIsil(koerperschaft)}"/>
+                                    <p:column id="#{columnID}"
+                                              width="#{koerperschaftModel.getColumnWidth(4)}"
+                                              visible="#{koerperschaftModel.isColumnVisible(4)}"
+                                              sortBy="#{isil.text}"
+                                              filterBy="#{isil.text}"
+                                              filterMatchMode="contains"
+                                              headerText="#{msg.koerperschaft_isil}">
+                                        <p:link target="_blank"
+                                                href="#{isil.url}"
+                                                value="#{isil.text}"
+                                                rendered="#{not empty isil}">
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

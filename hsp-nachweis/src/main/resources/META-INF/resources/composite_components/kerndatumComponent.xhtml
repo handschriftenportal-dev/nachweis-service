@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+  <composite:interface componentType="normdatumComponent">
+    <composite:attribute name="id"
+            type="java.lang.String"
+            required="true"/>
+    <composite:attribute name="labelKey"
+            type="java.lang.String"
+            required="true"/>
+    <composite:attribute name="attributsRefrenz"
+            required="false"/>
+    <composite:attribute name="attributsRefrenzen"
+            type="java.util.Map"
+            required="true"/>
+    <composite:attribute name="selectedAttributsRefrenzId"
+            type="java.lang.String"
+            required="true"/>
+    <composite:attribute name="beschreibungen"
+            type="java.util.Map"
+            required="true"/>
+    <composite:attribute name="edit"
+            type="boolean"
+            required="true"/>
+    <composite:attribute name="textKey"
+            type="java.lang.String"
+            required="false"/>
+    <composite:attribute name="styleClass"
+            type="java.lang.String"
+            required="false"/>
+
+  </composite:interface>
+
+  <composite:implementation>
+    <div class="ui-g-4 #{not empty cc.attrs.styleClass ? cc.attrs.styleClass : ''} ">
+      <p:outputLabel for="#{cc.attrs.id.concat('Input')}" value="#{msg[cc.attrs.labelKey]}:"/>
+    </div>
+
+    <div class="ui-g-8 #{not empty cc.attrs.styleClass ? cc.attrs.styleClass : ''} ui-fluid">
+        <a class="hsp-info left_top"
+           jsf:rendered="#{not cc.attrs.edit and not empty cc.attrs.attributsRefrenz}"
+           style="float: right">
+            <i class="ui-icon ui-icon-info"></i>
+            <div class="ui-widget-content ui-shadow">
+                <p class="compact"
+                   jsf:rendered="#{not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId].datumErstpublikation}">
+                    #{msg.kod_kerndaten_info_publiziert}:
+                        <h:outputText value="#{cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId].datumErstpublikation}">
+                                <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+                        </h:outputText>
+                </p>
+                <p class="compact" jsf:rendered="#{not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId].autoren}">
+                    #{msg.kod_kerndaten_info_von}: #{cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId].formattedAutoren}
+                </p>
+            </div>
+        </a>
+
+        <h:outputText id="#{cc.attrs.id.concat('Text')}"
+                      value="#{cc.formatText(cc.attrs.textKey, cc.attrs.attributsRefrenz.text)}"
+                      rendered="#{not empty cc.attrs.attributsRefrenz and not cc.attrs.edit}"/>
+
+        <p:selectOneMenu id="#{cc.attrs.id.concat('Input')}"
+                         value="#{cc.attrs.selectedAttributsRefrenzId}"
+                         var="itemId"
+                         styleClass="kerndaten_auswahl"
+                         autoWidth="false"
+                         rendered="#{cc.attrs.edit and not empty cc.attrs.attributsRefrenzen}">
+            <f:selectItem itemLabel="#{msg.select}" itemValue="#{null}" noSelectionOption="true"/>
+            <f:selectItems var="var"
+                           value="#{cc.attrs.attributsRefrenzen.values()}"
+                           itemValue="#{var.id}"
+                           itemLabel="#{cc.formatText(cc.attrs.textKey, var.text)}"/>
+            <p:column style="">
+                <p class="compact">
+                    <strong>#{cc.formatText(cc.attrs.textKey, cc.attrs.attributsRefrenzen[itemId].text)}</strong>
+                </p>
+                <p class="compact"
+                        jsf:rendered="#{not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].datumErstpublikation}">
+                    #{msg.kod_kerndaten_info_publiziert}:
+                    <h:outputText value="#{cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].datumErstpublikation}">
+                            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+                    </h:outputText>
+                </p>
+                <p class="compact" jsf:rendered="#{not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].autoren}">
+                    #{msg.kod_kerndaten_info_von}: #{cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].formattedAutoren}
+                </p>
+            </p:column>
+            <p:ajax event="change"
+                    update="@form"
+                    listener="#{kodKerndatenModel.resetSelectedBeschreibungsID()}"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"/>
+        </p:selectOneMenu>
+        <h:outputText value="#{msg.kod_kerndaten_keine_werte}"
+                      rendered="#{cc.attrs.edit and empty cc.attrs.attributsRefrenzen}"/>
+    </div>
+  </composite:implementation>
+</ui:composition>

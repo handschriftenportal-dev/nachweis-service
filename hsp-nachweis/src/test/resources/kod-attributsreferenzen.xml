@@ -1,0 +1,242 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <teiHeader xml:lang="de">
+        <fileDesc>
+            <titleStmt>
+                <title>Kulturobjektdokument von Augsburg, Staats- und Stadtbibliothek Augsburg, 2 Cod 572</title>
+                <respStmt>
+                    <resp>Herausgegeben vom</resp>
+                    <name type="org">Handschriftenportal</name>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Automatisch generierte Ausgabe</resp>
+                    <orgName>Handschriftenportal</orgName>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+
+
+
+                    <name type="org">Handschriftenportal</name>
+
+
+
+                    <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+                <date when="2022-11-23" type="issued">2022-11-23</date>
+                <distributor>Handschriftenportal</distributor>
+                <availability status="free">
+                    <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+
+
+
+                        <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+              Nutzungsrechte.
+            </p>
+
+
+
+                        <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+              Lizenzen. Vgl. die
+
+
+                            <ref target="http://www.handschriftenportal.de">Copyright
+                Information
+              </ref> des Handschriftenportals.
+            </p>
+          </licence>
+                </availability>
+                <pubPlace>
+
+
+                    <ptr xml:id="HSP-f4dd0237-c6bb-36ae-8fbd-eb18810ddd86" target="https://resolver.staatsbibliothek-berlin.de/HSP7258419967198268" subtype="hsp" type="purl"/>
+                </pubPlace>
+            </publicationStmt>
+            <sourceDesc>
+                <msDesc xml:id="HSP-88c3b59e-19ad-3798-a61f-eb7e9201106c" xml:lang="de" type="hsp:object"><msIdentifier>
+                        <settlement key="NORM-21dba34d-74f8-31cb-8d42-e34579c40946" ref="4003614-5">Augsburg</settlement>
+                        <repository key="NORM-100197a2-836b-3804-bd0c-c1506caacced" ref="2022500-3">Staats- und Stadtbibliothek Augsburg</repository>
+                        <idno>2 Cod 572</idno>
+                        <altIdentifier type="alternative">
+                            <idno>2° Cod 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>fol. Cod 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Fol. Cod. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2º Cod 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2o Cod 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2o Msc 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Fol. Msc. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>fol. msc. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2 o Cod. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2 Cod. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2º Cod. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2o Cod. 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2 o Cod 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>fol Cod 572</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>2° Cod. 572</idno>
+                        </altIdentifier>
+                    </msIdentifier>
+					<head>
+           <index indexName="norm_title" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="title">Johannes Cassianus: Collationes, pars II, III</term>
+            </index>
+            <index indexName="norm_material" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="material">Pergament, Papyrus</term>
+              <term type="material_type">parchment</term>
+              <term type="material_type">papyrus</term>
+            </index>
+            <index indexName="norm_measure" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="measure">I + 208 Bl.</term>
+              <term type="measure_noOfLeaves">208</term>
+            </index>
+            <index indexName="norm_dimensions" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+                <term type="dimensions">24 × 18,5</term>
+                <term type="height">24</term>
+                <term type="width">18,5</term>
+                <term type="depth">1,5</term>
+                <term type="dimensions_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_dimensions" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+                <term type="dimensions">22 × 16,5</term>
+                <term type="height">22</term>
+                <term type="width">16,5</term>
+                <term type="depth">2,5</term>
+                <term type="dimensions_typeOfInformation">deduced</term>
+            </index>
+            <index indexName="norm_format" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+                <term type="format">smaller than octavo</term>
+                <term type="format_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_format" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+                <term type="format">long and narrow</term>
+                <term type="format_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_origPlace" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="origPlace">Regensburg</term>
+              <term key="NORM-26cf9267-82fe-3bf1-a37a-c9960658499f" ref="http://d-nb.info/gnd/4048989-9" type="origPlace_norm">Regensburg</term>
+            </index>
+            <index indexName="norm_origDate" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="origDate">11. Jh., Mitte</term>
+              <term type="origDate_notBefore">1046</term>
+              <term type="origDate_notAfter">1055</term>
+              <term type="origDate_type">datable</term>
+            </index>
+            <index indexName="norm_origDate" source="https://erfassung.handschriftenportal.de/rest/beschreibungen/HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="origDate">um 11. Jh., Mitte</term>
+              <term type="origDate_notBefore">1026</term>
+              <term type="origDate_notAfter">1075</term>
+              <term type="origDate_type">datable</term>
+            </index>
+            <index indexName="norm_textLang" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="textLang">Mittelhochdeutsch</term>
+              <term type="textLang-ID">4039687-3</term>
+            </index>
+            <index indexName="norm_form" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="form">codex</term>
+            </index>
+            <index indexName="norm_status" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="status">displaced</term>
+            </index>
+            <index indexName="norm_decoration" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="decoration">yes</term>
+            </index>
+            <index indexName="norm_musicNotation" copyOf="HSP-b4dec8f6-88d3-329f-8bc9-cecd6d13c001">
+              <term type="musicNotation">no</term>
+            </index>
+					</head>
+
+
+					<additional>
+                        <adminInfo>
+                            <availability status="free">
+                                <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+
+
+
+                                    <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+                    Nutzungsrechte.
+                  </p>
+
+
+
+                                    <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+                    Lizenzen. Vgl. die
+
+
+                                        <ref target="http://www.handschriftenportal.de">Copyright
+                      Information
+                    </ref> des Handschriftenportals.
+                  </p>
+                </licence>
+                            </availability>
+                        </adminInfo>
+                        <listBibl>
+                            <bibl>
+
+                                <ref target="HSP-a927486b-5374-3e3d-b044-f14cf3869240"/>
+                            </bibl>
+                        </listBibl>
+                    </additional></msDesc>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p/>
+        </body>
+    </text>
+</TEI>

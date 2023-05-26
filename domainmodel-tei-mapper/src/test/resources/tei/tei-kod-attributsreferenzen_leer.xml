@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+        <title>Kulturobjektdokument von München, Bayerische Staatsbibliothek, Clm 14464</title>
+        <respStmt>
+          <resp>Herausgegeben vom</resp>
+          <name type="org">Handschriftenportal</name>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>Elektronische Ausgabe nach TEI P5</edition>
+        <respStmt>
+          <resp>Automatisch generierte Ausgabe</resp>
+          <orgName>Handschriftenportal</orgName>
+        </respStmt>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>
+          <name type="org">Handschriftenportal</name>
+          <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+        <date when="2020-01-01">2020-01-01</date>
+        <distributor>Handschriftenportal</distributor>
+        <availability status="free">
+          <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+            <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle Nutzungsrechte.</p>
+          </licence>
+        </availability>
+        <pubPlace>
+          <ptr xml:id="HSP-e9d0bdee-35af-355d-9035-ea53c336839d" target="https://resolver.staatsbibliothek-berlin.de/HSP6724806817305401" subtype="hsp" type="purl"/>
+        </pubPlace>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="HSP-0037fea7-58e0-3df9-a45c-488a7ee7e752" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement key="NORM-d0a6343a-081a-3335-baa9-65ce4fd0845c" ref="4127793-4">München</settlement>
+            <repository key="NORM-83c5a34d-300e-3b8d-af1e-2d5582778963" ref="2031351-2">Bayerische Staatsbibliothek</repository>
+            <idno>Clm 14464</idno>
+            <altIdentifier type="alternative">
+              <idno>Codex latinus monacensis 14464</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <head>
+            <index indexName="norm_title">
+              <term type="title"></term>
+            </index>
+            <index indexName="norm_material">
+              <term type="material"></term>
+              <term type="material_type"></term>
+            </index>
+            <index indexName="norm_measure">
+              <term type="measure"></term>
+              <term type="measure_noOfLeaves"></term>
+            </index>
+            <index indexName="norm_dimensions">
+              <term type="dimensions"></term>
+              <term type="height"></term>
+              <term type="width"></term>
+              <term type="depth"/>
+              <term type="dimensions_typeOfInformation"></term>
+            </index>
+            <index indexName="norm_format">
+              <term type="format"></term>
+              <term type="format_typeOfInformation"></term>
+            </index>
+            <index indexName="norm_origPlace">
+              <term type="origPlace"></term>
+              <term type="origPlace_norm"></term>
+            </index>
+            <index indexName="norm_origDate">
+              <term type="origDate"></term>
+              <term type="origDate_notBefore"></term>
+              <term type="origDate_notAfter"></term>
+              <term type="origDate_type"></term>
+            </index>
+            <index indexName="norm_textLang">
+              <term type="textLang"></term>
+              <term type="textLang-ID"></term>
+            </index>
+            <index indexName="norm_form">
+              <term type="form"></term>
+            </index>
+            <index indexName="norm_status">
+              <term type="status"></term>
+            </index>
+            <index indexName="norm_decoration">
+              <term type="decoration"/>
+            </index>
+            <index indexName="norm_musicNotation">
+              <term type="musicNotation"></term>
+            </index>
+          </head>
+          <additional>
+            <adminInfo>
+              <availability status="free">
+              <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+                <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle Nutzungsrechte.</p>
+              </licence>
+              </availability>
+            </adminInfo>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

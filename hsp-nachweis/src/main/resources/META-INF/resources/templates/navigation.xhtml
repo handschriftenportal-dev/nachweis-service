@@ -1,0 +1,347 @@
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:pu="http://primefaces.org/ultima"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <h:form id="menuform">
+        <div class="layout-menu #{guestPreferences.menuClass}">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <ui:fragment rendered="#{loginController.loggedIn}">
+                        <div class="profile">
+                            <div class="#{loginController.profileImageCssClass}"></div>
+                            <a id="profile-options" href="#">
+                                <span class="profile-name">#{loginController.name}
+                                    <br/><small>(#{loginController.role})</small></span>
+                                <i class="material-icons">&#xE313;</i>
+                            </a>
+                        </div>
+
+                        <ul id="profile-menu" class="ultima-menu">
+                            <ui:param name="currentRight"
+                                      value="#{bearbeiterRechte.kannAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/bearbeiter.xhtml?faces-redirect=true"/>
+                            <li role="menuitem" style="pointer-events:none;">
+                                <p:commandLink role="menuitem"
+                                               action="#{bearbeiterRechte.getAllowedAction(currentAction, currentRight)}"
+                                               class="ripplelink"
+                                               style="#{bearbeiterRechte.getAllowedStyle(currentRight)}"
+                                               onstart="PF('statusDialog').show()"
+                                               onsuccess="PF('statusDialog').hide();">
+                                    <i class="material-icons">&#xE7FD;</i>
+                                    <span>#{msg.nav_user_profile}</span>
+                                </p:commandLink>
+                            </li>
+                            <li role="menuitem" style="pointer-events:none;opacity:0.6;"
+                                jsf:rendered="false">
+                                <a href="#" class="ripplelink">
+                                    <i class="material-icons">&#xE8B9;</i>
+                                    <span>#{msg.nav_settings}</span>
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <p:commandLink role="menuitem" update="menuform"
+                                               action="#{loginController.logout()}"
+                                               class="ripplelink">
+                                    <i class="material-icons">&#xE8AC;</i>
+                                    <span>#{msg.nav_logout}</span>
+                                </p:commandLink>
+                            </li>
+                        </ul>
+                    </ui:fragment>
+
+
+                    <pu:menu widgetVar="me">
+                        <ui:param name="currentAction"
+                                  value="/dashboard.xhtml?faces-redirect=true"/>
+                        <p:menuitem value="#{msg.nav_dashboard}" icon="&#xE871;"
+                                    action="#{kODRechte.getAllowedAction(currentAction, currentRight)}">
+                        </p:menuitem>
+
+                        <ui:param name="currentRight" value="#{sucheRechte.kannAufrufen()}"/>
+                        <ui:param name="currentAction" value="/suche.xhtml"/>
+                        <p:menuitem value="#{msg.nav_search}" icon="&#xE8B6;"
+                                    outcome="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                                    update="@all"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"/>
+
+                        <p:submenu label="#{msg.nav_data}" icon="&#xE880;">
+                            <ui:param name="currentRight"
+                                      value="#{kODRechte.kannListeLesen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/kulturobjekte.xhtml"/>
+                            <p:menuitem
+                                    outcome="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_kod}"
+                                    icon="menu_book"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{beschreibungsRechte.kannListeAllerDritterLesen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/beschreibung/beschreibungen.xhtml"/>
+                            <p:menuitem
+                                    outcome="#{beschreibungsRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_manueldescription}"
+                                    icon="description"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction" value="/orte.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                                    actionListener="#{orteController.setup}"
+                                    value="#{msg.nav_places}" icon="room"
+                                    update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/koerperschaften.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.nav_repository}" icon="apartment"
+                                        action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                                        disabled="#{not currentRight}"
+                                        style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                                        actionListener="#{koerperschaftModel.setup}"
+                                        update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/person/personen.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.nav_person}" icon="person"
+                                        action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                                        disabled="#{not currentRight}"
+                                        style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                                        actionListener="#{personModel.setup}"
+                                        onstart="PF('statusDialog').show()"
+                                        onsuccess="PF('statusDialog').hide();"
+                                        update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/sprachen.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.nav_writelanguage}" icon="language"
+                                        action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                                        disabled="#{not currentRight}"
+                                        style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                                        actionListener="#{spracheModel.setup}"
+                                        update="@all"/>
+                            <ui:param name="currentRight"
+                                      value="#{katalogRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/kataloge.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_cataloges}" icon="book"
+                                    update="@all"/>
+                        </p:submenu>
+                        <p:submenu label="#{msg.nav_dataimport}" icon="cloud">
+                            <ui:param name="currentRight"
+                                      value="#{importRechte.kannDateiupload()}"/>
+                            <ui:param name="currentAction"
+                                      value="/dateiupload.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{importRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{importRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_dateiupload}" icon="&#xE226;"
+                                    ajax="true"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{importRechte.kannAlleImportvorgaengeAnschauen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/importvorgaenge.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{importRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{importRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_importjobs}" icon="storage"
+                                    actionListener="#{importVorgangController.loadAllVorgaenge}"
+                                    ajax="true"/>
+                        </p:submenu>
+                        <p:submenu label="#{msg.nav_projects}" icon="&#xE14F;"
+                                   rendered="false">
+                        </p:submenu>
+                        <p:submenu label="#{msg.nav_redaction}"
+                                   icon="edit"
+                                   rendered="#{navigationRechte.kannRedaktionAnzeigen()}">
+                            <ui:param name="currentRight" value="#{kODRechte.kannRegistrieren()}"/>
+                            <ui:param name="currentAction"
+                                      value="/datenuebernahme.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    icon="ui-icon ui-icon-check-circle"
+                                    actionListener="#{datenuebernahmeModel.alleImporteAnzeigen}"
+                                    value="#{msg.nav_datatakeover}"
+                                    ajax="true"
+                                    update="@all"/>
+
+                            <ui:param name="currentRight" value="#{kODRechte.kannRegistrieren()}"/>
+                            <ui:param name="currentAction"
+                                      value="/kod-registrieren.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_registerofkod}"
+                                    icon="ui-icon ui-icon-library-add"
+                                    ajax="true"
+                                    update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{pURLsRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/purls.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{pURLsRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_purls}"
+                                    actionListener="#{pURLsModel.setup}"
+                                    onstart="PF('statusDialog').show()"
+                                    onsuccess="PF('statusDialog').hide();"
+                                    icon="ui-icon ui-icon-link"
+                                    ajax="true"
+                                    update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{werkzeugeRechte.kannWerkzeugeAnwenden()}"/>
+                            <ui:param name="currentAction"
+                                      value="/werkzeuge.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{werkzeugeRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_werkzeuge}"
+                                    onstart="PF('statusDialog').show()"
+                                    onsuccess="PF('statusDialog').hide();"
+                                    icon="ui-icon ui-icon-build"
+                                    ajax="true"
+                                    update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{schemaPflegeRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/schemapflege.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{schemaPflegeRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{schemaPflegeRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_schema}"
+                                    icon="ui-icon ui-icon-settings_applications"
+                                    ajax="true"
+                                    update="@all"/>
+
+                            <ui:param name="currentRight"
+                                      value="#{papierkorbRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/papierkorb.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                    action="#{pURLsRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    value="#{msg.nav_papierkorb}"
+                                    icon="ui-icon ui-icon-delete"
+                                    actionListener="#{papierkorbModel.setup}"
+                                    onstart="PF('statusDialog').show()"
+                                    onsuccess="PF('statusDialog').hide();"
+                                    ajax="true"
+                                    update="@all"/>
+
+                        </p:submenu>
+                        <p:submenu label="#{msg.nav_usermanagement}" icon="&#xE7FB;"
+                                   disabled="true"
+                                   style="pointer-events:none;opacity:0.6;"
+                                   rendered="false">
+                        </p:submenu>
+                        <p:submenu label="#{msg.nav_misc}" icon="ui-icon ui-icon-apps">
+                            <ui:param name="currentRight"
+                                      value="#{sperrenRechte.kannAlsListeAnzeigen()}"/>
+                            <ui:param name="currentAction"
+                                      value="/sperren.xhtml?faces-redirect=true"/>
+                            <p:menuitem
+                                  action="/bestand.xhtml?faces-redirect=true"
+                                  style="#{navigationRechte.getAllowedStyle(true)}"
+                                  icon="ui-icon ui-icon-equalizer"
+                                  value="#{msg.bestand_navigationpage}"
+                                  ajax="true"
+                                  update="@all"/>
+                            <p:menuitem
+                                    action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                                    disabled="#{not currentRight}"
+                                    style="#{kODRechte.getAllowedStyle(currentRight)}"
+                                    icon="ui-icon ui-icon-lock"
+                                    actionListener="#{sperrenModel.alleSperrenAnzeigen}"
+                                    onstart="PF('statusDialog').show()"
+                                    onsuccess="PF('statusDialog').hide();"
+                                    value="#{msg.nav_lock}"
+                                    ajax="true"
+                                    update="@all"/>
+
+                            <p:menuitem
+                                    action="/barrierefreiheit.xhtml?faces-redirect=true"
+                                    style="#{navigationRechte.getAllowedStyle(true)}"
+                                    icon="ui-icon ui-icon-accessibility"
+                                    onstart="PF('statusDialog').show()"
+                                    onsuccess="PF('statusDialog').hide();"
+                                    value="#{msg.nav_barrierefreiheit}"
+                                    ajax="true"
+                                    update="@all"/>
+                        </p:submenu>
+                    </pu:menu>
+                </div>
+            </div>
+        </div>
+
+        <p:remoteCommand name="collapsedTrue"
+                         actionListener="#{sideBarController.setSidebarCollapsed(true)}"
+                         style="display: none;"/>
+        <p:remoteCommand name="collapsedFalse"
+                         actionListener="#{sideBarController.setSidebarCollapsed(false)}"
+                         style="display: none;"/>
+
+    </h:form>
+    <p:dialog widgetVar="statusDialog" draggable="false" closable="false" resizable="false"
+              showHeader="false">
+        <p:graphicImage name="images/ajax-loader.gif"/>
+    </p:dialog>
+</ui:composition>

@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ -d "/var/log/SBB/hsp-nachweis" && ! -L "/var/log/SBB/hsp-nachweis" ] 
+then
+    mv  "/var/log/SBB/hsp-nachweis"  "/data/log/"
+fi

@@ -1,0 +1,8 @@
+## ignore files ##
+**
+!/pom.xml
+!/src/*
+!/target/hsp-nachweis_*_all.deb
+!/mvnsettings.xml
+!/commands.sh
+!/apt.conf

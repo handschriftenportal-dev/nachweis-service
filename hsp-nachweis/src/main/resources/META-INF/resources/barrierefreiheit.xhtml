@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <f:view transient="true">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <h1>#{msg.document_titel_barrierefreiheit}</h1>
+                </div>
+                <p:outputPanel id="accessibilityTxtDe"
+                               rendered="#{languageController.language eq 'de'}"
+                               styleClass="ui-g-12 ui-lg-8">
+                    <p>Um eine weitestgehende Barrierefreiheit zu ermöglichen, ist die Staatsbibliothek zu Berlin – Preußischer Kulturbesitz als Betreiberin der Handschriftenportal bemüht, die Anwendung
+                        <em>Erfassung</em> des Portals, welche über die Internetseite <a
+                                href="https://erfassung.handschriftenportal.de"
+                                target="_blank">https://erfassung.handschriftenportal.de</a> erreichbar ist, entsprechend zu optimieren. Rechtsgrundlage sind das Behindertengleichstellungsgesetz (BGG) und die Barrierefreie Informationstechnik-Verordnung (BITV 2.0) in ihrer jeweils gültigen Fassung.
+                    </p>
+                    <p>Zu diesem Zweck wurde ein manueller von der Web Accessibility Initiative (W3C) entwickelter Test durchgeführt (
+                        <a href="https://bik-fuer-alle.de/easy-checks.html"
+                           target="_blank">https://bik-fuer-alle.de/easy-checks.html</a>): Metadaten, Kontraste, die Vergrößerbarkeit angezeigter Inhalte etc. wurden auf ihre Barrierefreiheit hin geprüft.
+                    </p>
+                    <ul>
+                        <li>Wie barrierefrei ist das Angebot?
+                            <ul>
+                                <li>Diese Webanwendung ist nicht vollständig barrierefrei, damit werden die Anforderungen der BITV 2.0 nicht vollständig erfüllt.</li>
+                            </ul>
+                        </li>
+                        <li>Welche Bereiche sind nicht barrierefrei?
+                            <ul>
+                                <li>Die Überprüfung der Einhaltung der Anforderungen beruht auf dem Prüfergebnis vom 14. Juni 2022.</li>
+                                <li>Im Rahmen der Überprüfung wurden die folgenden Bereiche als nicht vollständig barrierefrei identifiziert:
+                                    <ul>
+                                        <li>Einige grafische Elemente haben keinen aussagekräftigen Alternativtext.</li>
+                                        <li>Einige grafische Bedienelemente erfüllen nicht den geforderten Kontrast von 4,5:1.</li>
+                                        <li>Bei starker Vergrößerung kann es teilweise zu Überlappungen oder abgeschnittenen Inhalten kommen.</li>
+                                        <li>Es gibt wenige Elemente, die nicht mit der Tatstatur erreichbar sind.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Wir arbeiten daran, die noch vorhandenen Barrieren zu beheben. Die Barrierefreiheit ist Bestandteil des gegenwärtigen Entwicklungsprozesses.</p>
+                    <p>Diese Erklärung wurde am 04.07.2022 erstellt.</p>
+
+                    <h2>Möglichkeit der Kontaktaufnahme:</h2>
+                    <p>Falls Sie der Meinung sind, dass die Barrierefreiheit in unserem Webangebot nicht ausreichend umgesetzt wurde, bitten wir Sie um Kontaktaufnahme. Wir versuchen, den Mangel schnellstmöglich zu beheben.</p>
+                    <p>Bitte wenden Sie sich dazu per E-Mail an:<br/>
+                        <a class="email" href="mailto:bitv@sbb.spk-berlin.de">bitv@sbb.spk-berlin.de</a>
+                    </p>
+                    <p>oder per Post an:<br/>Staatsbibliothek zu Berlin – Preußischer Kulturbesitz<br/>Handschriftenabteilung<br/>Potsdamer Str. 33<br/>10785 Berlin
+                    </p>
+                </p:outputPanel>
+
+                <p:outputPanel id="accessibilityTxtEn"
+                               rendered="#{languageController.language ne 'de'}"
+                               styleClass="ui-g-12 ui-lg-8">
+                    <p>In order to provide the greatest possible accessibility, the
+                        <em>Staatsbibliothek zu Berlin – Preußischer Kulturbesitz</em> (Berlin State Library) is committed to optimizing their website. The legal basis for this is the
+                        <em>Behindertengleichstellungsgesetz </em>(Disability Discrimination Act, BGG) and the
+                        <em>Barrierefreie-Informationstechnik-Verordnung </em>(Information Technology Accessibility Act,&#160;BITV).
+                    </p>
+                    <p>For this purpose a manual test will be run, developed by the Web Accessibility Initiative (W3C): metadata, contrast, the adjustable size of the content, etc., will be tested for accessibility.</p>
+                    <p>The current
+                        <em>Handschriftenportal</em> (Manuscripts Portal) website is a temporary solution. This concerns especially its design, as the portal is under development. At the conclusion of its development and after the online portal will have been released, professional BITV-Tests will be run on the entire website. This will be carried out by a certified agency.
+                    </p>
+                    <h3>Contact</h3>
+                    <p>If you feel that our website is not sufficiently accessible, please contact us. We will try to find a solution as soon as possible.</p>
+                    <p>Please contact us via email:<br/>
+                        <a href="mailto:bitv@sbb.spk-berlin.de">bitv@sbb.spk-berlin.de</a></p>
+                    <p>or by post:<br/>
+                        Staatsbibliothek zu Berlin – Preußischer Kulturbesitz<br/>
+                        Handschriftenabteilung<br/>
+                        Potsdamer Str. 33<br/>
+                        10785 Berlin<br/>
+                        Germany
+                    </p>
+                </p:outputPanel>
+            </div>
+        </f:view>
+    </ui:define>
+</ui:composition>

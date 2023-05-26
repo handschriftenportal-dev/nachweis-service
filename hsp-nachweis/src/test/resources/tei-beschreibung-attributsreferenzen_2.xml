@@ -1,0 +1,1421 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.26" xml:lang="de">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Beschreibung von München, Bayerische Staatsbibliothek, Clm 14464 (Katalog der lateinischen Handschriften der Bayerischen Staatsbibliothek München. Die Handschriften aus St. Emmeram in Regensburg. Bd. 4: Clm 14401–14540, neu beschrieben von Friedrich Helmer und Julia Knödler unter Mitarbeit von Günter Glauche. Wiesbaden: Harrassowitz, 2015 (Catalogus codicum manu scriptorum Bibliothecae Monacensis T. 4, Series Nova, Ps. 2,4))</title>
+                <respStmt>
+                    <resp>Beschrieben von</resp>
+                    <persName role="author">Friedrich Helmer</persName>
+                    <persName role="author">Julia Knödler</persName>
+                    <note>2015</note>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem am 06.10.2022 12:16:19:406 erstellten HIDA-DOC1-XML-Dokument erstellt.</resp>
+                    <name type="org">Handschriftenportal</name>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <name type="org">Handschriftenportal</name>
+               </publisher>
+                <date when="2015" type="primary">2015</date>
+                <availability status="restricted">
+                    <licence target="http://rightsstatements.org/vocab/InC/1.0/">
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <p>http://rightsstatements.org/vocab/InC/1.0/</p>
+                  </licence>
+                </availability>
+                <idno type="hsk">640</idno>
+                <date when="2022-11-23" type="secondary">2022-11-23 17:43:43</date>
+                <pubPlace>
+                    
+                    <ptr xml:id="HSP-0d1ccd0c-a4f0-3614-a351-7a60516f9adb" target="https://resolver.staatsbibliothek-berlin.de/HSP6176048530988298" subtype="hsp" type="purl"/>
+                </pubPlace>
+            </publicationStmt>
+            <sourceDesc>
+                <bibl>Katalog der lateinischen Handschriften der Bayerischen Staatsbibliothek München. Die Handschriften aus St. Emmeram in Regensburg. Bd. 4: Clm 14401–14540, neu beschrieben von Friedrich Helmer und Julia Knödler unter Mitarbeit von Günter Glauche. Wiesbaden: Harrassowitz, 2015 (Catalogus codicum manu scriptorum Bibliothecae Monacensis T. 4, Series Nova, Ps. 2,4)</bibl>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <creation>
+               
+                
+                
+                
+                
+                
+                
+                <date when="2012-06-12">12.06.2012</date>
+            </creation>
+        </profileDesc>
+        <revisionDesc>
+            <change>
+               
+                
+                
+                
+                
+                
+                
+                <date when="2022-10-05">2022-10-05 00:00:00</date>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <msDesc status="extern" xml:id="HSP-f9f6eb32-068c-3089-a7d4-bbc3e55f3235" xml:lang="de" subtype="medieval" type="hsp:description"><msIdentifier>
+                    <settlement key="NORM-d0a6343a-081a-3335-baa9-65ce4fd0845c">München</settlement>
+                    <repository key="NORM-83c5a34d-300e-3b8d-af1e-2d5582778963" ref="http://d-nb.info/gnd/2031351-2 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-12">Bayerische Staatsbibliothek</repository>
+                    <collection>Clm</collection>
+                    <collection type="baseShelfmarkGroup">Clm 14401-14700</collection>
+                    <idno>Clm 14464</idno>
+                    <altIdentifier type="mxml-ID">
+                        <idno>MXML-31724901</idno>
+                    </altIdentifier>
+                    <altIdentifier type="hsp-ID">
+                        <collection>Handschriftenportal Kulturobjektdokument-ID</collection>
+                        <idno>HSP-0037fea7-58e0-3df9-a45c-488a7ee7e752</idno>
+                    </altIdentifier>
+                </msIdentifier><head>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_title">
+                        <term type="title">Johannes Cassianus</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <title>Johannes Cassianus</title>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <note type="headline">Pergament I + 208 Bl. 24 × 19 St. Emmeram Mitte 11. Jh. (vor 1062)</note>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_material">
+                        <term type="material">Pergament</term>
+                        <term type="material_type">parchment</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_measure">
+                        <term type="measure">I + 208 Bl.</term>
+                        <term type="measure_noOfLeaves">208</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_dimensions">
+                        <term type="dimensions">24 × 19</term>
+                        <term type="height">24</term>
+                        <term type="width">19</term>
+                        <term type="depth"/>
+                        <term type="dimensions_typeOfInformation">factual</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_format">
+                        <term type="format">quarto</term>
+                        <term type="format_typeOfInformation">computed</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_origPlace">
+                        <term type="origPlace">Regensburg</term>
+                        <term key="NORM-26cf9267-82fe-3bf1-a37a-c9960658499f" ref="http://d-nb.info/gnd/4048989-9" type="origPlace_norm">Regensburg</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_origDate">
+                        <term type="origDate">11. Jh., Mitte</term>
+                        <term type="origDate_notBefore">1046</term>
+                        <term type="origDate_notAfter">1055</term>
+                        <term type="origDate_type">datable</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_origDate">
+                        <term type="origDate">vor 1062</term>
+                        <term type="origDate_notBefore">1012</term>
+                        <term type="origDate_notAfter">1062</term>
+                        <term type="origDate_type">datable</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_textLang">
+                        <term type="textLang">lateinisch</term>
+                        <term type="textLang-ID">la</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_form">
+                        <term type="form">codex</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_status">
+                        <term type="status">existent</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_decoration">
+                        <term type="decoration">yes</term>
+                    </index>
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    <index indexName="norm_musicNotation">
+                        <term type="musicNotation"/>
+                    </index>
+               </head><physDesc>
+                    <p>Foliierung 18./19. Jh. Lagen: 1
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">I</hi>; (II + 1)
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">5</hi> + 16 IV
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">133</hi> + (III + 2)
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">141</hi> + 3 IV
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">165</hi> + V
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">175</hi> + 2 IV
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">191</hi> + (III + 2)
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">199</hi> + (V - 2)
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">207</hi>; 1
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">208</hi>. Schriftraum bis 3
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">v</hi> 18×13,5, dann 17-18×12-12,5. Bis 3
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">v</hi> 26, dann 25 Zeilen. 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <ref type="script">Karolingische Minuskel</ref> bis 5
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">v</hi> von 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <ref type="persName">Otloh</ref>, dann wohl mehrere, untereinander sehr ähnliche Hände im Wechsel. Auszeichnungsschriften: Incipit und Explicit zu den beiden Praefationes zu Teil I und II sowie den Capitulationes und Texten der Conlationes überwiegend in roter Rustica, teilweise auch in roter Minuskel; erste Textzeile bei den Praefationes und Conlationes in vergrößerten braunen Ziermajuskeln (Rustica- und Unzialformen); hervorgehobene Namen in vergrößerten roten Ziermajuskeln (Formen ebenfalls gemischt); römische Kapitelzählung rot. Am Anfang der Conlatio XI (6
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">r</hi>) etwa siebenzeilige 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <ref type="5270[0]">Rankeninitiale</ref> in roter Federzeichnung mit farbigem Hintergrund; an den Textanfängen der Conlationes und Kapitel bis zu vierzeilige (meist etwa zweizeilige) rote Initialmajuskeln.</p>
+                </physDesc><msPart type="binding"><msIdentifier>
+                        <idno>Einband</idno>
+                    </msIdentifier><head>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_title">
+                            <term type="title"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <title/>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <note type="headline"/>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_material">
+                            <term type="material"/>
+                            <term type="material_type"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_measure">
+                            <term type="measure"/>
+                            <term type="measure_noOfLeaves"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_dimensions">
+                            <term type="dimensions"/>
+                            <term type="height"/>
+                            <term type="width"/>
+                            <term type="depth"/>
+                            <term type="dimensions_typeOfInformation"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_format">
+                            <term type="format"/>
+                            <term type="format_typeOfInformation"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_origPlace">
+                            <term type="origPlace"/>
+                            <term type="origPlace_norm"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_origDate">
+                            <term type="origDate"/>
+                            <term type="origDate_notBefore"/>
+                            <term type="origDate_notAfter"/>
+                            <term type="origDate_type"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_textLang">
+                            <term type="textLang"/>
+                            <term type="textLang-ID"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_form">
+                            <term type="form">binding</term>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_status">
+                            <term type="status"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_decoration">
+                            <term type="decoration"/>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index indexName="norm_musicNotation">
+                            <term type="musicNotation"/>
+                        </index>
+                  </head><physDesc>
+                        <p>Ehemaliger 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="5240">Holzdeckelband</ref> restauriert; Rest des hellbraunem Lederüberzugs auf Außenseite des vorderen und hinteren Deckels geklebt; 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="5300[0]">Streicheisenlinien</ref>. Spuren von fünf Metallbeschlägen je Deckel; Metallschließe; Spuren einer Kettenöse. Titelschild, Pergament, 15. Jh.: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Secunda et tercia pars collacionum</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Cassiani</hi>; auf Lederüberzug des vorderen Deckels die Signatur 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">k 4</hi> geschrieben (s. unten Katalog von Menger). Auf leerer Seite des vorderen Spiegels Titel im gleichen Wortlaut wie auf Titelschild, 15. Jh. Rückentitel: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Cassiani</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Collationum pars II et III</hi>. 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Sæc</hi>. 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">XI</hi>. (daneben mit Rötel 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">E 8</hi>[7]) und -signatur: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">E</hi>. 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">LXXXVII</hi>. Vorsatz, Pergamentblatt, beschnitten und querständig; Nachsatz, Pergamentblatt, beschnitten; beide Blätter mit Ostertafeln, Hervorhebungen in Rot, 11. Jh. Vorderer und hinterer Spiegel bei Restaurierung freigestellt; vorderer Spiegel enthält zwei Papierstreifen (wieder zusammengefügt) mit Resten von zwei Bücherverzeichnissen, wohl Mitte 15. Jh., davon eine Seite mit Werken aus dem Besitz 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="persName">Hermann Pötzlingers</ref>; ediert in MBK 4/1, S. 177-179 Nr. 34a; vgl. dazu 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Rumbold</hi>, Pötzlinger, S. 330 und 337-340 mit Anm. 56; Rest eines Papierblatts, auf einer Seite mit Lektionen, 15. Jh.: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Lectio libri sapiencie</hi>. [A]
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">b inicio</hi> … (Sir 24,14-16) und 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">In diebus rogacionum lectio eppistule</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">beati Ia</hi>(
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">cobi</hi>) 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">apostoli</hi>. [C]
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">onfitemini alterutrum</hi> … (Iac 5,16-17); darunter kurze Notizen von anderer Hand; kleines Papierblatt mit Notizen zum Priesteramt usw., 15. Jh.; hinterer Spiegel, Papierblatt, beidseitig beschrieben mit Erläuterungen zu den rhethorischen Figuren 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">prolemsis</hi> (Prolepsis) und 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">sewma</hi> oder 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">zewma</hi> (Zeugma); möglicherweise von Hermann Pötzlinger geschrieben; vgl. MBK 4/1, S. 178.</p>
+                    </physDesc><msPart type="other"><msIdentifier>
+                            <idno>Sonstiges</idno>
+                        </msIdentifier><p>
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                            <index>
+                                <term>
+                              
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <orgName key="30001342">St. Emmeram</orgName>
+                           </term>
+                                <index>
+                                    <term>E. LXXXVII</term>
+                                </index>
+                            </index>
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                            <index>
+                                <term>E. LXXXVII</term>
+                            </index>
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                            <index>
+                                <term>Erwähnung</term>
+                                <index>
+                                    <term>
+                                 
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        <persName role="Rector Scolarium des Kloster St. Emmeram, Regensburg" key="z001_122194845">Pötzlinger, Hermann</persName>
+                              </term>
+                                </index>
+                            </index>
+                     </p></msPart></msPart><history>
+                    <p>Gemäß Schrift (erste Lage von Otloh) und Initialstil Entstehungsort und -zeit wie 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <ref type="shelfmark">Clm 14463</ref> (Conlationum pars I). Zwei wortgleiche 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <ref type="5650[0]">Besitzeinträge</ref> untereinander (zweiter von anderer Hand) auf 207
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="sup">v</hi>, 13./14. Jh.: 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="italic">Iste</hi> 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="italic">liber pertinet ad sanctum Emmerammum</hi>. Im Katalog von 1347 (10. pulpitum), in dem Pleystainers von 1449/52 (15. pulpitum) und in dem Mengers von 1500/01 unter der Signatur 
+                        
+                        
+                        
+                        
+                        
+                        
+                        <hi rend="italic">K 4</hi> verzeichnet; vgl. ebd. S. 157, 169f., 214.</p>
+                </history><additional>
+                    <listBibl>
+                        <bibl>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Bischoff</hi>, Literarisches und künstlerisches Leben, S. 93. – 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Klemm</hi>, Ott. u. frührom. Hss., S. 54f. Nr. 25.</bibl>
+                    </listBibl>
+                </additional><msContents>
+                    <msItem>
+                        <note type="text">1
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi>-4
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="persName">Berno Augiensis</ref>: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="workTitle">Epistula 6 (Auszug)</ref>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="initium" xml:lang="la">
+                                
+                                
+                                
+                                
+                                
+                                
+                                <hi rend="italic">Cassiodorus ex senatore monachus</hi>
+                            </ref> … – … 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">in hac parte iure culpatum</hi>; die Autoren Cassiodorus, Cassianus und Prosper de Aquitania am Rand vermerkt (ab 2
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi> schlecht getilgt).
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>Edition: Franz-Josef 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Schmale</hi>, Die Briefe des Abtes Bern von Reichenau. Stuttgart 1961 (Veröffentlichungen der Kommission für geschichtliche Landeskunde in Baden-Württemberg, Reihe A, 6. Bd.), S. 25-31, diese Hs. mit Sigle E
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sub">1</hi> bezeichnet (vgl. ebd. S. 9). – Zur Überlieferung dieses Briefs (mit E
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sub">1</hi>) vgl. 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">ders</hi>., Zu den Briefen Berns von Reichenau, in: Zeitschrift für Kirchengeschichte 68 (1957), S. 69-95, hierzu S. 74-76 (vermutetes Stemma Anm. 43); Dieter 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Blume</hi>, Bern von Reichenau (1008–1048): Abt, Gelehrter, Biograph. Ostfildern 2008 (Vorträge und Forschungen, Sonderbd. 52), S. 88 (4). – Vgl. auch 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Bischoff</hi>, Literarisches und künstlerisches Leben, S. 98.</note>
+                    </msItem>
+                    <msItem>
+                        <note type="text">4
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi>-207
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="persName">Johannes Cassianus</ref>: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="workTitle">Conlationes (pars II, III)</ref>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>(4
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi>-5
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi>) ›
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Incipit prefatio libri huivs qui est II pars collationum ad Honoratum et Eucherium</hi>‹; (5
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r-v</hi>) Capitulatio zu Conlatio XI (auch bei den folgenden Conlationes vorangestellt): ›
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Incipiunt capitula seqventis collationis</hi>‹; (6
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi>-101
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi>) Conlationes XI–XVII (pars II): ›
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Incipiunt collationes VII sanctorum</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">patrum</hi>, 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">idest</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Cheremonis</hi>, 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Nesterotis et Ioseph a uenerabili Cassiano prolatae</hi>‹; (101
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi>) leer; (102
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r-v</hi>) ›
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Incipit prefatio libri huivs qvi est tertia</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">pars collationvm</hi>‹; (102
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi>-103
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi>) ›
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Incipiunt collationes VII quę et ultimę</hi>. 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Capitula collationis</hi> 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">seqventis</hi>‹; (103
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">r</hi>-207
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi>) Conlationes XVIII – XXIIII (pars III): ›
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Incipit conlatio abbatis Piamonis de diuersis</hi>‹; (207
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">v</hi>) nach Textende und Zeile mit einigen getilgten Majuskelbuchstaben (erste drei rot): 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">M U L T</hi> lesbar; zwei Besitzeinträge (s. oben) und von gleicher Hand wie der zweite Besitzeintrag 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="5650[0]">Bücherfluch</ref>, 13./14. Jh.: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Quis te furetur</hi>, 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">in culum percucietur</hi>; darunter: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Quis me scribebat</hi>, 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">nomen Fridericus habebat</hi> sowie aus Cassiodorus, Institutiones lib. II tit.1 c. 2: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Roma Tyberis communiter vt urbs flumen</hi>; dazwischen radierte Zeile und darunter ein durch Rasur getilgter Eintrag (zwei und eine angefangene Zeile) in gotischer Kursive, erste Hälfte 14. Jh., erste Zeile: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Dem erberm vnd</hi> […] 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">Hermann</hi> […]; zweite Zeile: 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="italic">purger ze</hi> (?) … .
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <lb/>Edition: CSEL 13a, ed. Michael 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Petschenig</hi> / Gottfried 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="small-caps">Kreuz</hi> (
+                            
+                            
+                            
+                            
+                            
+                            
+                            <hi rend="sup">2</hi>2004), S. 309-711; Abweichungen in der Kapiteleinteilung sowie im Text des zweiten Teils in der Regel wie St. Gallen, StiftsB, 
+                            
+                            
+                            
+                            
+                            
+                            
+                            <ref type="shelfmark">Cod. Sang. 576</ref> (Sigle Y). – CPL 512.</note>
+                    </msItem>
+                </msContents><msPart type="other"><msIdentifier>
+                        <idno>Sonstiges</idno>
+                    </msIdentifier><p>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index>
+                            <term>
+                           
+                                
+                                
+                                
+                                
+                                
+                                
+                                <orgName key="30001342">St. Emmeram</orgName>
+                        </term>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index>
+                            <term>Herstellung</term>
+                            <index>
+                                <term>
+                              
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <persName role="scribe" key="z001_118590677">Otloh, de Sancto Emmeramo</persName>
+                           </term>
+                            </index>
+                        </index>
+                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        <index>
+                            <term>Handschrift im Katalog zitiert</term>
+                            <index>
+                                <term>München, BSB, Clm 14463</term>
+                            </index>
+                        </index>
+                  </p></msPart></msDesc>
+        </body>
+    </text>
+</TEI>

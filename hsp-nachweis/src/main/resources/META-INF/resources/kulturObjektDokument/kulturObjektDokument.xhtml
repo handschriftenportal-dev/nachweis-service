@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                template="../templates/default.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{kulturObjektDokumentViewController.id}"/>
+        <f:viewAction action="#{kulturObjektDokumentViewController.setup}" onPostback="false"/>
+    </f:metadata>
+    <ui:define name="content">
+        <script type="text/javascript">
+          function copyToClipboard(message) {
+            console.log("Copy To Clipboard " + message);
+            // Temporäres Element erzeugen
+            var el = document.createElement('textarea');
+            // Den zu kopierenden String dem Element zuweisen
+            el.value = message;
+            // Element nicht editierbar setzen und aus dem Fenster schieben
+            el.setAttribute('readonly', '');
+            el.style = {position: 'absolute', left: '-9999px'};
+            document.body.appendChild(el);
+            // Text innerhalb des Elements auswählen
+            el.select();
+            // Ausgewählten Text in die Zwischenablage kopieren
+            document.execCommand('copy');
+            // Temporäres Element löschen
+            document.body.removeChild(el);
+          }
+        </script>
+        <ui:param name="kannLesen" value="#{kODRechte.kannLesen()}"/>
+        <h:form id="kodform">
+            <div class="ui-g ui-g-nopad-top section">
+                <c:if test="#{kannLesen and kulturObjektDokumentViewController.kulturObjektDokumentViewModel ne null}">
+                    <div class="ui-g-offset-10 ui-g-2 ui-g-nopad-horizontal">
+                        <div id="teiDownloadDiv" class="button-align-right">
+                            <p:commandButton styleClass="ui-button-icon-only-big switch-ui-button-color-black-white"
+                                             id="kulturObjektDokumentTEIDownloadButton"
+                                             ajax="false"
+                                             icon="ui-icon-file-download"
+                                             disabled="#{empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.id or empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.teiXML}">
+                                <p:fileDownload
+                                        value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.teiFile}"/>
+                                <p:tooltip for="kulturObjektDokumentTEIDownloadButton"
+                                           position="top"
+                                           value="#{msg.kod_teidownload}"/>
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-g-nopad-horizontal ui-g-nopad-bottom">
+                        <p:separator/>
+                    </div>
+                </c:if>
+
+                <div class="ui-g-12 ui-g-nopad">
+                    <h:outputText styleClass="detailview-header-top"
+                                  value="#{msg.document_titel_kulturobjektdokument}"/>
+                    <h:outputFormat value="#{msg.kod_detail_sperre}"
+                                    rendered="#{kannLesen and kulturObjektDokumentViewController.fremdeSperreVorhanden}"
+                                    styleClass="detailview-typ-color headline_sperre">
+                        <f:param value="#{kulturObjektDokumentViewController.sperre.bearbeiter.name}"/>
+                    </h:outputFormat>
+                    <c:if test="#{empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel}">
+                        <h4 class="beschreibungs-header-label">
+                            <h:outputText value="#{msg.kod_nicht_gefunden}"/>
+                        </h4>
+                    </c:if>
+
+                    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                        <ui:param name="hasAccess" value="#{kannLesen}"/>
+                    </ui:include>
+
+                    <c:if test="#{kannLesen and not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel}">
+                        <h1 id="kod-header-label">
+                            <h:outputText
+                                    value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.signatur}"/>
+                        </h1>
+                        <h:outputText styleClass="detailview-header-sub"
+                                      value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.bestandhaltendeInstitutionName} , #{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.bestandhaltendeInstitutionOrt}"/>
+                    </c:if>
+                </div>
+            </div>
+
+            <ui:include src="kulturObjektDokument_kerndaten.xhtml"/>
+
+            <h:panelGroup layout="block"
+                          styleClass="ui-g section"
+                          rendered="#{kannLesen and not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel}">
+                <div class="ui-g-3 ui-g-nopad-horizontal">
+                    <h:outputText value="#{msg.kod_detail_alternativesignaturen}" style="font-weight: bold"/>
+                    <h:outputText id="infoIcon"
+                                  styleClass="ui-icon ui-icon-info"
+                                  style="font-size: 17px; line-height: 17px; color: #ADABA8;"
+                                  title="info">
+                        <p:tooltip for="infoIcon"
+                                   position="top"
+                                   value="Hier finden Sie - manchmal auch falsch angesetzte - Varianten der korrekten Signatur"/>
+                    </h:outputText>:
+                </div>
+
+                <div class="ui-g-6 ui-g ui-g-nopad">
+                    <ui:repeat var="alternativeSignatur"
+                               value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.alternativeSignaturen}">
+                        <div class="ui-g-6 ui-g-nopad-bottom">
+                            <h:outputText value="#{alternativeSignatur}"/></div>
+                    </ui:repeat>
+                    <p:outputPanel layout="block"
+                                   styleClass="ui-g-6 ui-g-nopad-bottom"
+                                   rendered="#{empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.alternativeSignaturen}">
+                        <h:outputText value="#{msg.kod_detail_keine}"/>
+                    </p:outputPanel>
+                </div>
+                <div class="ui-g-offset-1 ui-g-2 ui-g-nopad-horizontal">
+                    <div class="button-align-right">
+                        <p:commandButton
+                                icon="ui-icon-edit"
+                                disabled="true"
+                                styleClass="ui-button-icon-only-big">
+                        </p:commandButton>
+                    </div>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block"
+                          styleClass="ui-g section"
+                          rendered="#{kannLesen
+                                and not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel
+                                and (not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.hspPurl
+                                    or not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.externeLinks)}">
+                <div class="ui-g-12 ui-g-nopad-horizontal">
+                    <p:separator/>
+                </div>
+
+                <div class="ui-g-10 ui-g-nopad-horizontal">
+                    <h2><h:outputText value="#{msg.kod_detail_links}"/></h2>
+                </div>
+                <div class="ui-g-2 ui-g-nopad">
+                    <div class="button-align-right">
+                        <p:commandButton
+                                icon="ui-icon-edit"
+                                disabled="true"
+                                styleClass="ui-button-icon-only-big">
+                        </p:commandButton>
+                    </div>
+                </div>
+
+                <h:panelGroup layout="block"
+                              styleClass="ui-g-3 ui-g-nopad-horizontal"
+                              rendered="#{not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.hspPurl}">
+                    #{msg.kod_detail_purl_intern}
+                </h:panelGroup>
+                <h:panelGroup layout="block"
+                              styleClass="ui-g-9"
+                              rendered="#{not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.hspPurl}">
+                    <h:outputLink target="_blank"
+                                  value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.hspPurl}">
+                        #{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.hspPurl}
+                    </h:outputLink>
+                </h:panelGroup>
+                <ui:repeat var="externerLink"
+                           value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.externeLinks}">
+                    <h:panelGroup layout="block"
+                                  styleClass="ui-g-3 ui-g-nopad-horizontal">
+                        <h:outputText value="#{msg.kod_detail_purl_extern}"/>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block"
+                                  styleClass="ui-g-9">
+                        <h:outputLink target="_blank"
+                                      value="#{externerLink}">
+                            #{externerLink}
+                        </h:outputLink>
+                    </h:panelGroup>
+                </ui:repeat>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block"
+                          styleClass="ui-g section bg_platinum"
+                          rendered="#{kannLesen and kulturObjektDokumentViewController.kulturObjektDokumentViewModel ne null}">
+                <div class="ui-g-12 ui-g-nopad-horizontal">
+                    <h2><h:outputText value="#{msg.datenuebernahme_beschreibungen}"/></h2>
+                </div>
+
+                <div class="ui-g-12 ui-g-nopad-horizontal tiles_container">
+                    <ui:repeat var="beschreibung"
+                               value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.beschreibungen}">
+                        <div class="tile ui-g card">
+                            <div class="ui-g-10 ui-g-nopad">
+                                <h3><p:link outcome="/beschreibung/beschreibung.xhtml?id=#{beschreibung.id}"
+                                            value="#{beschreibung.signatur}"/></h3>
+                            </div>
+                            <div class="ui-g-2 ui-g-nopad">
+                                <p:menuButton icon="ui-icon-more-vert"
+                                              style="float: right"
+                                              styleClass="ui-button-icon-only-big switch-ui-button-color-black-white"
+                                              disabled="#{kulturObjektDokumentViewController.editKerndaten}">
+                                    <p:menuitem ajax="false"
+                                                value="#{msg.kod_detail_beschreibung_bearbeiten}"
+                                                outcome="/beschreibung/beschreibung.xhtml?id=#{beschreibung.id}&amp;edit=true">
+                                    </p:menuitem>
+                                    <p:menuitem ajax="false"
+                                                update="confirmbeschreibung"
+                                                action="#{kulturObjektDokumentViewController.beschreibungLoeschen(beschreibung.id)}"
+                                                value="#{msg.kod_detail_beschreibung_loeschen}"
+                                                rendered="#{kulturObjektDokumentViewController.deleteEnabled}">
+                                        <p:confirm
+                                          header="#{msg.bestaetigung}"
+                                          message="#{msg.kod_detail_beschreibungloeschen}"
+                                          icon="pi pi-info-circle"/>
+                                    </p:menuitem>
+                                </p:menuButton>
+                                  <p:confirmDialog id="confirmbeschreibung" global="true"
+                                                   showEffect="fade"
+                                                   hideEffect="fade">
+                                      <p:commandButton value="#{msg.ja}" type="button"
+                                                       update="kodform"
+                                                       ajax="false"
+                                                       styleClass="ui-confirmdialog-yes"
+                                                       icon="pi pi-check"/>
+                                      <p:commandButton value="#{msg.nein}" type="button"
+                                                       styleClass="ui-confirmdialog-no"
+                                                       icon="pi pi-times"/>
+                                  </p:confirmDialog>
+                            </div>
+                            <div class="ui-g-12 ui-g-nopad">
+                                <h:outputText value="#{beschreibung.titel}"/>
+                            </div>
+                            <ui:repeat var="beteiligt" value="#{beschreibung.beteiligte}">
+                                <div class="ui-g-12 ui-g-nopad">
+                                    <h:outputText value="#{beteiligt.name}"/>
+                                </div>
+                            </ui:repeat>
+                            <h:panelGroup layout="block"
+                                          styleClass="ui-g-12 ui-g-nopad"
+                                          rendered="#{empty beschreibung.publikationen}">
+                                <p:outputLabel value="#{msg.auflage_nicht_publiziert}"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block"
+                                          styleClass="ui-g-12 ui-g-nopad"
+                                          rendered="#{not empty beschreibung.datumErstpublikation}">
+                                <h:outputText value="#{beschreibung.datumErstpublikation}">
+                                    <f:convertDateTime type="localDateTime" pattern="yyyy"/>
+                                </h:outputText>
+                            </h:panelGroup>
+                            <div class="ui-g-12 ui-g-nopad">
+                                #{msg.erste_auflage}
+                            </div>
+                            <div class="ui-g-12 ui-g-nopad">
+                                #{msg.nicht_gesperrt}
+                            </div>
+                        </div>
+                    </ui:repeat>
+
+                    <p:commandLink styleClass="tile card bg_liver"
+                                   title="#{msg.kod_detail_add_beschreibung}"
+                                   style="display: flex"
+                                   action="#{kulturObjektDokumentViewController.neueBeschreibungErstellen()}"
+                                   disabled="#{not beschreibungsRechte.kannInterneAnlegen()
+                                        or kulturObjektDokumentViewController.fremdeSperreVorhanden
+                                        or kulturObjektDokumentViewController.automatischeUebernahmeAktiv
+                                        or kulturObjektDokumentViewController.editKerndaten}"
+                                   update="@form">
+                        <div style="margin: auto">
+                            <div style="text-align: center;">
+                                <i class="ui-icon hsp-icon-add_black" style="width:30px; height:30px;"></i>
+                            </div>
+                            <div style="text-align: center">
+                                <h:outputText value="#{msg.kod_detail_add_beschreibung_br}" escape="false"/>
+                            </div>
+                        </div>
+                        <p:ajax event="dialogReturn"
+                                listener="#{kulturObjektDokumentViewController.neueBeschreibungAnzeigen}"/>
+                    </p:commandLink>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block"
+                          styleClass="ui-g section bg_black"
+                          rendered="#{kannLesen and not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel}">
+                <div class="ui-g-12 ui-g-nopad-horizontal">
+                    <h2 id="digitalisate"><h:outputText value="#{msg.kod_detail_digitalisate}"/></h2>
+                </div>
+
+                <div class="ui-g-12 ui-g-nopad-horizontal tiles_container">
+                    <ui:repeat var="digitalisat"
+                               value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.digitalisate}">
+                        <div class="tile ui-g card bg_white">
+                            <div class="ui-g-10 ui-g-nopad-horizontal">
+                                <h:graphicImage
+                                        rendered="#{empty digitalisat.thumbnail}"
+                                        name="images/default_thumbnail.jpg"
+                                        alt="default_thumbnail"
+                                        width="167"/>
+                                <h:graphicImage rendered="#{not empty digitalisat.thumbnail}"
+                                                url="#{digitalisat.thumbnail}"
+                                                width="167"
+                                                alt="thumbnail"/>
+                            </div>
+                            <div class="ui-g-2 ui-g-nopad-horizontal">
+                                <p:menuButton icon="ui-icon-more-vert"
+                                              style="float: right"
+                                              styleClass="ui-button-icon-only-big switch-ui-button-color-black-white"
+                                              disabled="#{kulturObjektDokumentViewController.editKerndaten}">
+                                    <p:menuitem ajax="false"
+                                                disabled="#{not kODRechte.kannRegistrieren() or kulturObjektDokumentViewController.fremdeSperreVorhanden}"
+                                                value="#{msg.kod_digitalisate_bearbeiten}"
+                                                action="#{kulturObjektDokumentViewController.digitalisatBearbeiten(digitalisat)}">
+                                    </p:menuitem>
+                                    <p:menuitem ajax="false"
+                                                value="#{msg.kod_digitalisate_loeschen}"
+                                                action="#{kulturObjektDokumentViewController.digitalisatLoeschen(digitalisat)}"
+                                                disabled="#{not kODRechte.kannHartLoeschen() or kulturObjektDokumentViewController.fremdeSperreVorhanden}"
+                                                update="confirm">
+                                        <p:confirm header="#{msg.bestaetigung}"
+                                                   message="#{msg.kod_digitalisat_loeschen_bestaetigung}"
+                                                   icon="ui-icon-warning"/>
+                                    </p:menuitem>
+                                    <p:menuitem value="#{msg.kod_digitalisat_clipboard}"
+                                                disabled="#{not kODRechte.kannLesen()}"
+                                                onstart="copyToClipboard('#{digitalisat.manifestURL != 'null' ? digitalisat.manifestURL : digitalisat.alternativeUrl}')"
+                                                actionListener="#{kulturObjektDokumentViewController.copyToClipboard(digitalisat)}"
+                                                ajax="true" update="@form">
+                                    </p:menuitem>
+                                </p:menuButton>
+                                <p:confirmDialog id="confirm" global="true"
+                                                 showEffect="fade"
+                                                 hideEffect="fade">
+                                    <p:commandButton value="#{msg.ja}" type="button"
+                                                     update="kodform"
+                                                     ajax="false"
+                                                     styleClass="ui-confirmdialog-yes"
+                                                     icon="pi pi-check"/>
+                                    <p:commandButton value="#{msg.nein}" type="button"
+                                                     styleClass="ui-confirmdialog-no"
+                                                     icon="pi pi-times"/>
+                                </p:confirmDialog>
+                            </div>
+                            <h:panelGroup layout="block"
+                                          styleClass="ui-g-12 ui-g-nopad-horizontal"
+                                          rendered="#{not empty digitalisat.manifestURL}">
+                                <h:outputText value="#{msg.digitalisat_erfassen_manifesturi}"/><br/>
+                                <h:outputLink value="#{digitalisat.manifestURL}"
+                                              target="_blank">#{digitalisat.manifestURL}</h:outputLink>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block"
+                                          styleClass="ui-g-12 ui-g-nopad-horizontal"
+                                          rendered="#{not empty digitalisat.alternativeUrl}">
+                                <h:outputText value="#{msg.digitalisat_erfassen_alternativeurl}"/><br/>
+                                <h:outputLink value="#{digitalisat.alternativeUrl}"
+                                              target="_blank">#{digitalisat.alternativeUrl}</h:outputLink>
+                            </h:panelGroup>
+
+                            <div class="ui-g-5 ui-g-nopad"><h:outputText value="Typ"/></div>
+                            <div class="ui-g-7 ui-g-nopad"><h:outputText
+                                    rendered="#{digitalisat.digitalisatTyp != null}"
+                                    value="#{digitalisat.digitalisatTyp.toLabel()}"/>
+                            </div>
+
+                            <div class="ui-g-5 ui-g-nopad"><h:outputText
+                                    value="#{msg.kod_digitalisat_datumdererfassung}"/>
+                            </div>
+                            <div class="ui-g-7 ui-g-nopad"><h:outputText
+                                    rendered="#{digitalisat.erstellungsdatum != null}"
+                                    value="#{digitalisat.erstellungsdatum}">
+                                <f:convertDateTime type="localDate" pattern="dd.MM.yyyy"/>
+                            </h:outputText></div>
+
+                            <div class="ui-g-12 ui-g-nopad-horizontal">
+                                <p:outputLabel style="font-weight: bolder;"
+                                               value="#{msg.digitalisat_erfassen_einrichtung}"/>
+                            </div>
+
+                            <div class="ui-g-5 ui-g-nopad"><h:outputText
+                                    value="#{msg.kod_digitalisat_ort}"/></div>
+                            <div class="ui-g-7 ui-g-nopad"><h:outputText
+                                    rendered="#{digitalisat.ort != null}"
+                                    value="#{digitalisat.ort.name}"/></div>
+
+                            <div class="ui-g-5 ui-g-nopad"><h:outputText
+                                    value="#{msg.kod_digitalisat_koerperschaft}"/>
+                            </div>
+                            <div class="ui-g-7 ui-g-nopad"><h:outputText
+                                    rendered="#{digitalisat.einrichtung != null}"
+                                    value="#{digitalisat.einrichtung.name}"/>
+                            </div>
+
+                            <div class="ui-g-5 ui-g-nopad"><h:outputText
+                                    value="#{msg.digitalisat_erfassen_datum}"/>
+                            </div>
+                            <div class="ui-g-7 ui-g-nopad"><h:outputText
+                                    rendered="#{digitalisat.digitalisierungsdatum != null}"
+                                    value="#{digitalisat.digitalisierungsdatum}">
+                                <f:convertDateTime type="localDate" pattern="dd.MM.yyyy"/>
+                            </h:outputText></div>
+                        </div>
+                    </ui:repeat>
+
+                    <p:commandLink id="digitalisatAnlegenLink"
+                                   action="#{kulturObjektDokumentViewController.digitalisatAnlegen()}"
+                                   ajax="false"
+                                   title="#{msg.kod_detail_add_digitalisat}"
+                                   styleClass="tile ui-g card bg_liver"
+                                   style="display:flex;"
+                                   disabled="#{not digitalisatsRechte.kannManuellAnlegen()
+                                        or kulturObjektDokumentViewController.fremdeSperreVorhanden
+                                        or kulturObjektDokumentViewController.editKerndaten}">
+                        <div style="margin: auto">
+                            <div style="text-align: center">
+                                <i class="ui-icon hsp-icon-add_black" style="width:30px; height:30px;"></i></div>
+                            <div style="text-align: center">
+                                <h:outputText value="#{msg.kod_detail_add_digitalisat_br}" escape="false"/>
+                            </div>
+                        </div>
+                    </p:commandLink>
+                </div>
+            </h:panelGroup>
+        </h:form>
+        <div jsf:id="showTEI" class="ui-g">
+            <c:if test="#{kulturObjektDokumentViewController.showTEI == true}">
+                <ui:include src="../viewTEI.xhtml"/>
+            </c:if>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.staatsbibliothek-berlin.hsp</groupId>
+  <artifactId>nachweis-service</artifactId>
+  <name>Staatsbibliothek zu Berlin Handschriftenportal Nachweis Service</name>
+  <version>1.4.114</version>
+  <modules>
+    <module>hsp-nachweis</module>
+    <module>domainmodel-tei-mapper</module>
+    <module>domainmodel</module>
+  </modules>
+  <packaging>pom</packaging>
+  <url>https://github.com/handschriftenportal-dev/nachweis-service</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Piotr Czarnecki</name>
+      <email>piotr.czarnecki@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Constantijn Blondel</name>
+      <email>Constantijn.Blondel@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Marten Christoph</name>
+      <email>Christoph.Marten@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Konrad Eichstädt</name>
+      <email>Konrad.Eichstaedt@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+    <developer>
+      <name>Udo Boysen</name>
+      <email>Udo.Boysen@sbb.spk-berlin.de</email>
+      <organization>Staatsbibliothek zu Berlin</organization>
+      <organizationUrl>http://www.staatsbibliothek-berlin.de</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <developerConnection>scm:git:https://code.dev.sbb.berlin/HSP/nachweis-service.git
+    </developerConnection>
+    <tag>HEAD</tag>
+    <url>scm:git:https://github.com/handschriftenportal-dev/nachweis-service.git</url>
+  </scm>
+
+  <properties>
+    <nachweis-service.version>${project.version}</nachweis-service.version>
+    <handschriftenportal.version>1.0.4</handschriftenportal.version>
+    <hsp-messaging.version>1.1.36</hsp-messaging.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+
+    <jackson.version>2.13.1</jackson.version>
+
+    <slf4j.version>1.7.36</slf4j.version>
+
+    <jaxb-api.version>2.3.1</jaxb-api.version>
+    <jaxb-core.version>2.3.0.1</jaxb-core.version>
+    <jaxb-impl.version>2.3.8</jaxb-impl.version>
+    <jakarta.xml.bind-api.version>2.3.3</jakarta.xml.bind-api.version>
+
+    <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+    <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
+    <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+    <maven-release-plugin.version>3.0.0-</maven-release-plugin.version>
+    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+
+    <junit-jupiter.version>5.9.3</junit-jupiter.version>
+    <jacoco.version>0.8.10</jacoco.version>
+    <mockito-core.version>5.3.1</mockito-core.version>
+    <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
+
+    <kafka-clients.version>3.4.0</kafka-clients.version>
+
+    <lombok.version>1.18.26</lombok.version>
+    <Saxon-HE.version>10.9</Saxon-HE.version>
+    <jing.version>20151127.0.1</jing.version>
+
+    <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
+    <quarkus.version>2.16.6.Final</quarkus.version>
+    <myfaces.version>2.3-next-M7</myfaces.version>
+    <oauth2.version>3.0.20</oauth2.version>
+    <hibernate-core.version>5.6.15.Final</hibernate-core.version>
+
+    <mockito-inline.version>5.2.0</mockito-inline.version>
+    <juniversalchardet.version>2.4.0</juniversalchardet.version>
+
+    <jakarta.persistence-api.version>2.2.3</jakarta.persistence-api.version>
+    <jakarta.servlet.jsp.jstl-api.version>2.0.0</jakarta.servlet.jsp.jstl-api.version>
+    <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
+
+
+    <!-- Remove third party resources / generated sources from the sonar scan-->
+    <sonar.exclusions>
+      **/src/test/resources/tei/*/**,**/src/main/java/org/tei_c/*/**,**/src/main/xsd/*,**/src/main/jaxb/*
+    </sonar.exclusions>
+
+    <primefaces.version>10.0.17</primefaces.version>
+    <all-themes.version>1.0.10</all-themes.version>
+    <javaee-api.version>8.0</javaee-api.version>
+
+    <guava.version>31.1-jre</guava.version>
+
+    <moco-core.version>1.4.0</moco-core.version>
+    <jdeb.version>1.10</jdeb.version>
+    <wiremock-jre8.version>2.35.0</wiremock-jre8.version>
+    <ultima.version>2.1.1</ultima.version>
+    <jackson-jsonld.version>0.1.1</jackson-jsonld.version>
+    <solr-solrj.version>8.11.1</solr-solrj.version>
+    <validation-api.version>2.0.1.Final</validation-api.version>
+    <jandex-maven-plugin.version>3.1.1</jandex-maven-plugin.version>
+    <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+    <jboss-logmanager-embedded.version>1.1.2</jboss-logmanager-embedded.version>
+    <xmlunit.version>1.6</xmlunit.version>
+    <xmlunit-core.version>2.9.1</xmlunit-core.version>
+    <iiif-apis.version>0.3.10</iiif-apis.version>
+    <h2.version>2.1.214</h2.version>
+    <copy-rename-maven-plugin.version>1.0.1</copy-rename-maven-plugin.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka-clients</artifactId>
+        <version>${kafka-clients.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- JAVA11 -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${jakarta.xml.bind-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>${jaxb-impl.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <!-- JAVA11 END -->
+  </dependencies>
+
+  <profiles>
+    <!-- Default profile. -->
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <sign.package>false</sign.package>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+        <maven.site.skip>true</maven.site.skip>
+        <maven.source.skip>false</maven.source.skip>
+        <skipITs>true</skipITs>
+      </properties>
+    </profile>
+
+    <!-- Profile for the CI server. -->
+    <profile>
+      <id>integration</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <sign.package>false</sign.package>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+        <maven.site.skip>false</maven.site.skip>
+        <skipITs>false</skipITs>
+      </properties>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+                <configuration>
+                  <exclClassLoaders>*QuarkusClassLoader</exclClassLoaders>
+                  <destfile>${project.build.directory}/jacoco-unit.exec</destfile>
+                  <datafile>${project.build.directory}/jacoco-unit.exec</datafile>
+                  <append>true</append>
+                </configuration>
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+                <configuration>
+                  <destfile>${project.build.directory}/jacoco-unit.exec</destfile>
+                  <datafile>${project.build.directory}/jacoco-unit.exec</datafile>
+                  <append>true</append>
+                  <excludes>
+                    <exclude>org.*</exclude>
+                  </excludes>
+                </configuration>
+              </execution>
+              <execution>
+                <id>prepare-agent-integration</id>
+                <goals>
+                  <goal>prepare-agent-integration</goal>
+                </goals>
+                  <configuration>
+                    <exclClassLoaders>*QuarkusClassLoader</exclClassLoaders>
+                    <append>true</append>
+                  </configuration>
+              </execution>
+              <execution>
+                <id>report-integration</id>
+                <goals>
+                  <goal>report-integration</goal>
+                </goals>
+                  <configuration>
+                    <append>true</append>
+                    <excludes>
+                      <exclude>org.*</exclude>
+                    </excludes>
+                  </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${maven-failsafe-plugin.version}</version>
+            <configuration>
+              <skipITs>${skipITs}</skipITs>
+              <dependenciesToScan>staatsbibliothek-berlin.hsp:nachweis-service</dependenciesToScan>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+              <reportsDirectory>${project.build.directory}/test-reports</reportsDirectory>
+              <systemPropertyVariables>
+                <java.util.logging.manager>org.jboss.logmanager.LogManager
+                </java.util.logging.manager>
+                <quarkus.log.level>DEBUG</quarkus.log.level>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <configuration>
+              <failOnError>false</failOnError>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>${maven-deploy-plugin.version}</version>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-install-plugin</artifactId>
+            <groupId>org.apache.maven.plugins</groupId>
+            <version>${maven-install-plugin.version}</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>deb</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <skipITs>true</skipITs>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <delimiters>
+            <delimiter>@</delimiter>
+          </delimiters>
+          <encoding>UTF-8</encoding>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-resources-plugin.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus3-releases</id>
+      <url>https://artefakt.dev.sbb.berlin/repository/sbb-maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus3-snapshots</id>
+      <url>https://artefakt.dev.sbb.berlin/repository/sbb-maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>

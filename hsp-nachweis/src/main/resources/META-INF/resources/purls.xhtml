@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition template="templates/default.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <ui:define name="content">
+    <ui:param name="alsListeAnzeigen" value="#{pURLsRechte.kannAlsListeAnzeigen()}"/>
+    <ui:param name="kannGenerieren" value="#{pURLsRechte.kannGenerieren()}"/>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>#{msg.document_titel_purls}</h1>
+      </div>
+      <div class="ui-g-12">
+        <p:separator/>
+      </div>
+      <div class="ui-g-12">
+        <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+          <ui:param name="hasAccess" value="#{alsListeAnzeigen}"/>
+        </ui:include>
+      </div>
+
+      <ui:include src="purls_templates.xhtml"/>
+
+      <div class="ui-g-12" style="margin: 16px 0px 16px 0px">
+        <p:separator/>
+      </div>
+
+      <h:form id="purlsform" rendered="#{alsListeAnzeigen}">
+        <div class="ui-g-12 actionsBar">
+          <p:commandButton action="#{pURLsModel.resetTable}"
+                           icon="hsp-icon-undo_table"
+                           id="refreshButton"
+                           update="purlsform">
+            <p:tooltip for="refreshButton"
+                       id="refreshButtonTip"
+                       position="top"
+                       hideEvent="mouseleave click"
+                       value="#{msg.table_reset_layout_to_defaults}"/>
+          </p:commandButton>
+
+          <p:commandButton icon="hsp-icon-edit_table"
+                           id="togglerPurlsTable"
+                           type="button">
+            <p:tooltip for="togglerPurlsTable"
+                       id="togglerPurlsTableTip"
+                       position="top"
+                       hideEvent="mouseleave click"
+                       value="#{msg.table_toggle_visable_columns}"/>
+          </p:commandButton>
+
+          <p:commandButton ajax="false"
+                           icon="hsp-icon-download_file"
+                           id="excelDownloadCommandLinkID">
+            <p:tooltip for="excelDownloadCommandLinkID"
+                       position="top"
+                       hideEvent="mouseleave click"
+                       value="#{msg.purls_tooltip_excel}"/>
+            <p:dataExporter fileName="PURLsTabelle"
+                            pageOnly="true"
+                            target="purlsTable"
+                            type="xls"/>
+          </p:commandButton>
+
+          <p:commandButton id="purlsReloadButton"
+                           update="purlsform"
+                           process="purlsform"
+                           actionListener="#{pURLsModel.loadAllData()}"
+                           icon="ui-icon-cached"
+                           onstart="PF('statusDialog').show()"
+                           onsuccess="PF('statusDialog').hide();"
+                           disabled="false">
+              <p:tooltip id="purlsReloadButtonTip"
+                         for="purlsReloadButton"
+                         position="top"
+                         hideEvent="mouseleave click"
+                         value="#{msg.purls_tooltip_reload}"/>
+          </p:commandButton>
+
+          <p:commandButton id="purlsGenerierenButton"
+                           icon="ui-icon-add"
+                           disabled="#{empty pURLsModel.selectedPURLViewModels}"
+                           rendered="#{kannGenerieren}"
+                           actionListener="#{pURLsController.purlsGenerieren}"
+                           onstart="PF('idleDialog').show()"
+                           oncomplete="PF('idleDialog').hide();PF('purlsTableWidget').unselectAllRows();PF('purlsGenerierenErgebnisDialog').show();"
+                           process=":purlsform"
+                           update=":purlsform :purlsGenerierenErgebnisDialog">
+            <p:confirm header="#{msg.purls_purls_generieren}"
+                       message="#{msg.purls_purls_generieren_confirm}"
+                       icon="pi pi-info-circle"/>
+            <p:tooltip for="purlsGenerierenButton"
+                       position="top"
+                       value="#{msg.purls_purls_generieren}"
+                       hideEvent="mouseleave click"/>
+          </p:commandButton>
+
+          <p:commandButton id="purlsAktualisierenButton"
+                           update="purlsform"
+                           process="@this"
+                           actionListener="#{pURLsController.purlsAktualisieren}"
+                           onstart="PF('idleDialog').show()"
+                           oncomplete="PF('idleDialog').hide();"
+                           value="#{msg.purls_purls_aktualisieren}"
+                           rendered="#{pURLsRechte.kannAktualisieren()}"
+                           style="margin-left: 42px">
+            <p:confirm header="#{msg.purls_purls_aktualisieren}"
+                       message="#{msg.purls_purls_aktualisieren_confirm}"
+                       icon="pi pi-info-circle"/>
+            <p:tooltip for="purlsAktualisierenButton"
+                       position="top"
+                       value="#{msg.purls_purls_aktualisieren}"/>
+          </p:commandButton>
+
+          <p:commandButton id="resolverDateiGenerierenButton"
+                           update="purlsform"
+                           process="@this"
+                           actionListener="#{pURLsController.resolverDateiGenerieren}"
+                           onstart="PF('idleDialog').show()"
+                           oncomplete="PF('idleDialog').hide();"
+                           value="#{msg.purls_resolver_generieren}"
+                           rendered="#{pURLsRechte.kannResolverDateiGenerieren()}">
+            <p:confirm header="#{msg.purls_resolver_generieren}"
+                       message="#{msg.purls_resolver_generieren_confirm}"
+                       icon="pi pi-info-circle"/>
+            <p:tooltip for="resolverDateiGenerierenButton"
+                       position="top"
+                       value="#{msg.purls_resolver_generieren}"/>
+          </p:commandButton>
+        </div>
+
+        <div class="ui-g-12">
+
+          <p:columnToggler id="columntogglerPurlsTable"
+                           datasource="purlsTable"
+                           trigger="purlsform:togglerPurlsTable">
+            <p:ajax event="toggle" listener="#{pURLsModel.onToggleColumns}"/>
+          </p:columnToggler>
+
+          <p:dataTable id="purlsTable"
+                       widgetVar="purlsTableWidget"
+                       ajax="true"
+                       var="purl"
+                       value="#{pURLsModel.purlViewModels}"
+                       currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                       draggableColumns="true"
+                       emptyMessage="Keine PURLs gefunden"
+                       filteredValue="#{pURLsModel.filteredPURLViewModels}"
+                       rowSelectMode="checkbox"
+                       selection="#{pURLsModel.selectedPURLViewModels}"
+                       selectionPageOnly="true"
+                       first="#{pURLsModel.currentPage}"
+                       liveResize="true"
+                       multiViewState="true"
+                       paginator="true"
+                       paginatorAlwaysVisible="true"
+                       paginatorPosition="top"
+                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                       reflow="true"
+                       resizableColumns="true"
+                       rowKey="#{purl.dokumentId}"
+                       rows="#{pURLsModel.currentHitProPage}"
+                       rowsPerPageTemplate="#{pURLsModel.allPossibleHitProPage}"
+                       sortBy="#{pURLsModel.sortMetaColumns.values()}"
+                       sortMode="multiple"
+                       pageLinks="5"
+                       disabledSelection="#{not empty purl.internalPURLs}">
+            <p:ajax event="sort" listener="#{pURLsModel.onSort}"
+                    onstart="PF('idleDialog').show()"
+                    oncomplete="PF('idleDialog').hide()"/>
+            <p:ajax event="filter" ignoreAutoUpdate="true" partialSubmit="true"
+                    onstart="PF('idleDialog').show()"
+                    oncomplete="PF('idleDialog').hide()"/>
+            <p:ajax event="colReorder" listener="#{pURLsModel.columnsReordered}"/>
+            <p:ajax event="colResize" listener="#{pURLsModel.columnsResized}"/>
+            <p:ajax event="rowSelectCheckbox" update=":purlsform:purlsGenerierenButton"/>
+            <p:ajax event="rowUnselectCheckbox" update=":purlsform:purlsGenerierenButton"/>
+            <p:ajax event="toggleSelect" update=":purlsform:purlsGenerierenButton"/>
+
+            <c:forEach items="#{pURLsModel.positionColumnIDs}" var="columnID">
+              <c:choose>
+                <c:when test="#{columnID eq 'selection'}">
+                  <p:column id="#{columnID}"
+                            selectionMode="multiple"
+                            headerText=" "
+                            width="#{pURLsModel.getColumnWidth(0)}"
+                            onComplete="#{pURLsModel.onSelect}"
+                            style="text-align: center;"
+                            visible="true"
+                            resizable="true"
+                            toggleable="false"
+                            exportable="false">
+                  </p:column>
+                </c:when>
+                <c:when test="#{columnID eq 'dokumentId'}">
+                  <p:column filterBy="#{purl.dokumentId}"
+                            filterMatchMode="contains"
+                            headerText="#{msg.purls_dokumentId}"
+                            id="#{columnID}"
+                            resizable="true"
+                            sortBy="#{purl.dokumentId}"
+                            toggleable="false"
+                            visible="true"
+                            width="#{pURLsModel.getColumnWidth(1)}">
+                    <p:link style="font-weight: bold;white-space: pre-wrap;"
+                            outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?faces-redirect=true"
+                            value="#{purl.dokumentId}"
+                            rendered="#{purl.dokumentObjektTyp eq 'HSP_OBJECT'}">
+                      <f:param name="id" value="#{purl.dokumentId}"/>
+                    </p:link>
+                    <p:link style="font-weight: bold;white-space: pre-wrap;"
+                            outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                            value="#{purl.dokumentId}"
+                            rendered="#{purl.dokumentObjektTyp eq 'HSP_DESCRIPTION' or purl.dokumentObjektTyp eq 'HSP_DESCRIPTION_RETRO'}">
+                      <f:param name="id" value="#{purl.dokumentId}"/>
+                    </p:link>
+                  </p:column>
+                </c:when>
+
+                <c:when test="#{columnID eq 'dokumentObjektTyp'}">
+                    <ui:param name="dokumentObjektTypString"
+                        value="#{msg['purls_dokumentObjektTyp_'.concat(purl.dokumentObjektTyp)]}"/>
+                  <p:column filterBy="#{dokumentObjektTypString}"
+                            filterMatchMode="contains"
+                            headerText="#{msg.purls_dokumentObjektTyp}"
+                            id="#{columnID}"
+                            resizable="true"
+                            sortBy="#{dokumentObjektTypString}"
+                            toggleable="false"
+                            visible="true"
+                            width="#{pURLsModel.getColumnWidth(2)}"
+                            exportValue="#{dokumentObjektTypString}">
+                    #{dokumentObjektTypString}
+                  </p:column>
+                </c:when>
+                <c:when test="#{columnID eq 'purlsINTERNAL'}">
+                  <ui:param name="purlsINTERNALString"
+                            value="#{pURLsModel.purlsAsString(purl.internalPURLs)}"/>
+                  <p:column filterBy="#{purlsINTERNALString}"
+                            filterMatchMode="contains"
+                            headerText="#{msg.purls_purl_hsp}"
+                            id="#{columnID}"
+                            resizable="true"
+                            sortBy="#{purlsINTERNALString}"
+                            exportValue="#{purlsINTERNALString}"
+                            visible="#{pURLsModel.isColumnVisible(3)}"
+                            width="#{pURLsModel.getColumnWidth(3)}">
+                    <ui:repeat var="purlInternal"
+                               value="#{purl.internalPURLs}"
+                               rendered="#{not empty purl.internalPURLs}">
+                      <h:outputLink id="purlInternalLink"
+                                    target="_blank"
+                                    value="#{purlInternal.purl}"
+                                    style="display: block">
+                        #{purlInternal.purl}
+                        <p:tooltip for="purlInternalLink"
+                                   position="top"
+                                   value="#{purlInternal.target}"/>
+                      </h:outputLink>
+                    </ui:repeat>
+                  </p:column>
+                </c:when>
+                <c:when test="#{columnID eq 'purlsEXTERNAL'}">
+                  <ui:param name="purlsExternalString"
+                            value="#{pURLsModel.purlsAsString(purl.externalPURLs)}"/>
+                  <p:column filterBy="#{purlsExternalString}"
+                            filterMatchMode="contains"
+                            headerText="#{msg.purls_purl_external}"
+                            id="#{columnID}"
+                            resizable="true"
+                            sortBy="#{purlsExternalString}"
+                            exportValue="#{purlsExternalString}"
+                            visible="#{pURLsModel.isColumnVisible(4)}"
+                            width="#{pURLsModel.getColumnWidth(4)}">
+                    <ui:repeat var="purlExternal"
+                               value="#{purl.externalPURLs}"
+                               rendered="#{not empty purl.externalPURLs}">
+                      <h:outputLink id="purlExternalLink"
+                                    target="_blank"
+                                    value="#{purlExternal.purl}"
+                                    style="display: block">
+                        #{purlExternal.purl}
+                      </h:outputLink>
+                    </ui:repeat>
+                  </p:column>
+                </c:when>
+              </c:choose>
+            </c:forEach>
+          </p:dataTable>
+        </div>
+
+        <p:confirmDialog global="true"
+                         showEffect="fade"
+                         hideEffect="fade"
+                         responsive="true">
+          <p:commandButton value="#{msg.ja}"
+                           type="button"
+                           styleClass="ui-confirmdialog-yes"/>
+          <p:commandButton value="#{msg.nein}"
+                           type="button"
+                           styleClass="ui-confirmdialog-no ui-button-flat"/>
+        </p:confirmDialog>
+      </h:form>
+    </div>
+
+    <p:dialog widgetVar="idleDialog" closable="false" minHeight="40" responsive="true" height="80">
+      <p:graphicImage name="images/ajax-loader.gif"/>
+    </p:dialog>
+
+    <p:dialog id="purlsGenerierenErgebnisDialog"
+              widgetVar="purlsGenerierenErgebnisDialog"
+              closable="true"
+              width="900px"
+              height="700px"
+              responsive="false"
+              header="#{msg.purls_purls_generieren}">
+
+      <h:form id="purlsGenerierenErgebnisForm">
+        <p:outputPanel id="purlsGenerierenErfolg"
+                       rendered="#{kannGenerieren and not empty pURLsController.generiertePURLsErfolg}">
+          <div class="ui-g">
+            <div class="ui-g-12 ui-g-nopad-top ui-g-nopad-horizontal">
+              <h4>#{msg.purls_erfolg_purls_generieren}</h4>
+            </div>
+            <br/>
+            <div class="ui-g-12 ui-g-nopad-horizontal">
+              <p:dataTable var="entry"
+                           value="#{pURLsController.generiertePURLsErfolg.entrySet()}"
+                           id="generiertePURLsErfolgTable"
+                           widgetVar="generiertePURLsErfolgTable"
+                           rowKey="#{entry.key.dokumentId}"
+                           rows="5"
+                           ajax="true"
+                           reflow="true"
+                           paginator="true"
+                           paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                           rowsPerPageTemplate="5,10,15"
+                           paginatorPosition="top"
+                           paginatorAlwaysVisible="false"
+                           liveScroll="true"
+                           style="width: auto !important;">
+
+                <p:column headerText="#{msg.purls_dokumentId}"
+                          id="dokumentIdErfolg"
+                          width="300px">
+                  <p:link style="font-weight: bold;white-space: pre-wrap;"
+                          outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?faces-redirect=true"
+                          value="#{entry.key.dokumentId}"
+                          rendered="#{entry.key.dokumentTyp eq 'KOD'}">
+                    <f:param name="id" value="#{entry.key.dokumentId}"/>
+                  </p:link>
+                  <p:link style="font-weight: bold;white-space: pre-wrap;"
+                          outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                          value="#{entry.key.dokumentId}"
+                          rendered="#{entry.key.dokumentTyp eq 'BESCHREIBUNG'}">
+                    <f:param name="id" value="#{entry.key.dokumentId}"/>
+                  </p:link>
+                </p:column>
+                <p:column headerText="#{msg.purls_dokumentTyp}"
+                          id="dokumentTypErfolg"
+                          width="120px">
+                  #{entry.key.dokumentTyp.name()}
+                </p:column>
+                <p:column headerText="#{msg.purls_purl}"
+                          id="purl">
+                  <p:link target="_blank"
+                          href="#{entry.value.purl.toASCIIString()}"
+                          value="#{entry.value.purl.toASCIIString()}"
+                          style="display: block"/>
+                </p:column>
+              </p:dataTable>
+            </div>
+          </div>
+        </p:outputPanel>
+        <p:outputPanel id="spacer"
+                       layout="block"
+                       style="height:30px;"
+                       rendered="#{kannGenerieren and not empty pURLsController.generiertePURLsErfolg and not empty pURLsController.generiertePURLsFehler}"/>
+        <p:outputPanel id="purlsGenerierenFehler"
+                       rendered="#{kannGenerieren and not empty pURLsController.generiertePURLsFehler}">
+          <div class="ui-g">
+            <div class="ui-g-12 ui-g-nopad-top ui-g-nopad-horizontal">
+              <h4>#{msg.purls_fehler_purls_generieren}</h4>
+            </div>
+            <div class="ui-g-12 ui-g-nopad-horizontal">
+              <p:dataTable var="entry"
+                           value="#{pURLsController.generiertePURLsFehler}"
+                           id="kulturobjektFailure"
+                           widgetVar="kodTableWidget"
+                           rowKey="#{entry.key.dokumentId}"
+                           rows="5"
+                           ajax="true"
+                           paginator="true"
+                           paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                           rowsPerPageTemplate="5,10,15"
+                           paginatorPosition="top"
+                           paginatorAlwaysVisible="false"
+                           liveScroll="true"
+                           style="width: auto !important;">
+
+                <p:column id="dokumentIdFehler"
+                          headerText="#{msg.purls_dokumentId}"
+                          toggleable="false"
+                          width="300px">
+                  <p:link style="font-weight: bold;white-space: pre-wrap;"
+                          outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?faces-redirect=true"
+                          value="#{entry.key.dokumentId}"
+                          rendered="#{entry.key.dokumentTyp eq 'KOD'}">
+                    <f:param name="id" value="#{entry.key.dokumentId}"/>
+                  </p:link>
+                  <p:link style="font-weight: bold;white-space: pre-wrap;"
+                          outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                          value="#{entry.key.dokumentId}"
+                          rendered="#{entry.key.dokumentTyp eq 'BESCHREIBUNG'}">
+                    <f:param name="id" value="#{entry.key.dokumentId}"/>
+                  </p:link>
+                </p:column>
+                <p:column headerText="#{msg.purls_dokumentTyp}"
+                          id="dokumentTypFehler"
+                          width="120px">
+                  #{entry.key.dokumentTyp.name()}
+                </p:column>
+                <p:column headerText="#{msg.purls_fehler}"
+                          id="fehler"
+                          style="white-space:normal !important;">
+                  <h:outputText value="#{entry.value}"/>
+                </p:column>
+              </p:dataTable>
+            </div>
+          </div>
+        </p:outputPanel>
+      </h:form>
+    </p:dialog>
+  </ui:define>
+</ui:composition>

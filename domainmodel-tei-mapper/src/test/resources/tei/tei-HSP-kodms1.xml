@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <teiHeader xml:lang="de">
+        <fileDesc>
+            <titleStmt>
+                <title>Kulturobjektdokument von Leipzig, Universitätsbibliothek Leipzig, Ms 1</title>
+                <respStmt>
+                    <resp>Herausgegeben vom</resp>
+                    <name type="org">Handschriftenportal</name>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Automatisch generierte Ausgabe</resp>
+                    <orgName>Handschriftenportal</orgName>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+          
+                    
+                    <name type="org">Handschriftenportal</name>
+          
+                    
+                    <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+                <date when="2020-10-06" type="issued">2020-10-06</date>
+                <distributor>Handschriftenportal</distributor>
+                <availability status="free">
+                    <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+            
+                        
+                        <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+              Nutzungsrechte.
+            </p>
+            
+                        
+                        <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+              Lizenzen. Vgl. die 
+                            
+                            <ref target="http://www.handschriftenportal.de">Copyright
+                Information
+              </ref> des Handschriftenportals.
+            </p>
+          </licence>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <msDesc xml:id="HSP-36a88bd1-987b-4ac9-8c67-212a43681b02" xml:lang="de" type="hsp:object">
+                    <msIdentifier>
+                        <settlement ref="4a887b8a-68ac-39b0-8d9d-027bddedb06b">Leipzig</settlement>
+                        <repository ref="016bc785-54a5-3c23-a276-7162a959306e">Universitätsbibliothek Leipzig</repository>
+                        <idno>Ms 1</idno>
+                        <altIdentifier type="alternative">
+                            <idno>Ms.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Ms. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Cod. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Hs. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Hs 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Cod. Lips. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Ms. lat. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>MS 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>MS. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Lips. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Lipsiensis 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Cod. lat. 1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Ms1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Cod.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Hs1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Hs.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>MS1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>MS.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Cod.Lips.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Ms.lat.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Lips.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Cod.lat.1</idno>
+                        </altIdentifier>
+                        <altIdentifier type="alternative">
+                            <idno>Lipsiensis1</idno>
+                        </altIdentifier>
+                    </msIdentifier>
+                    <additional>
+                        <adminInfo>
+                            <availability status="free">
+                                <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+                  
+                                    
+                                    <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+                    Nutzungsrechte.
+                  </p>
+                  
+                                    
+                                    <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+                    Lizenzen. Vgl. die 
+                                        
+                                        <ref target="http://www.handschriftenportal.de">Copyright
+                      Information
+                    </ref> des Handschriftenportals.
+                  </p>
+                </licence>
+                            </availability>
+                        </adminInfo>
+                        <listBibl>
+                            <bibl>
+                                <ref target="HSP-d3d89a5b-9621-477e-b918-8190af7ee9d4"/>
+                            </bibl>
+                        </listBibl>
+                    </additional>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p/>
+        </body>
+    </text>
+</TEI>

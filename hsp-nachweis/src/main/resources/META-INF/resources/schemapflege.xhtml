@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <ui:param name="kannAlsListeAnzeigen" value="#{schemaPflegeRechte.kannAlsListeAnzeigen()}"/>
+        <ui:param name="kannDateienErsetzen" value="#{schemaPflegeRechte.kannDateienErsetzen()}"/>
+        <ui:param name="kannAutomatischeUebernahmeAktivieren"
+                  value="#{schemaPflegeRechte.kannAutomatischeUebernahmeAktivieren()}"/>
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-lg-8">
+                <h1>#{msg.document_titel_schema}</h1>
+            </div>
+
+            <div class="ui-g-12">
+                <p:separator/>
+            </div>
+
+            <div class="ui-g-12">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannAlsListeAnzeigen}"/>
+                </ui:include>
+            </div>
+
+            <h:panelGroup class="ui-g-12"
+                          rendered="#{kannAlsListeAnzeigen}">
+                <h2><h:outputText value="#{msg.schemapflege_skripte}"/></h2>
+            </h:panelGroup>
+
+            <h:panelGroup id="skripteFormPanel"
+                          layout="block"
+                          styleClass="ui-g-12 ui-lg-8"
+                          rendered="#{kannDateienErsetzen}">
+                <div class="card">
+                    <h:form enctype="multipart/form-data"
+                            id="dateiauswahlform"
+                            styleClass="hsp-form">
+
+                        <div class="ui-g">
+                            <div class="ui-g-4" style="display: block">
+                                <p:outputLabel for="dateiId" value="#{msg.schemapflege_dateiersetzen}"/>
+                            </div>
+                            <div class="ui-g-8 ui-fluid">
+                                <p:selectOneMenu id="dateiId"
+                                                 value="#{schemaPflegeController.dateiId}">
+
+                                    <p:ajax update="dateiauswahlform:dateiauswahl"/>
+
+                                    <f:selectItem itemLabel="#{msg.select}"
+                                                  itemValue=""
+                                                  noSelectionOption="true"/>
+                                    <f:selectItems var="datei"
+                                                   value="#{schemaPflegeDateienModel.schemaPflegeDateien}"
+                                                   itemValue="#{datei.id}"
+                                                   itemLabel="#{datei.dateiName}"
+                                    />
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="ui-g-4" style="display: block">
+                                <p:outputLabel for="version" value="#{msg.schemapflege_version}"/>
+                            </div>
+                            <div class="ui-g-8 ui-fluid">
+                                <p:inputText id="version"
+                                             value="#{schemaPflegeController.version}"
+                                             autocomplete="off"
+                                             maxlength="50"
+                                             placeholder="#{msg.schemapflege_version_beispiel}"
+                                             validatorMessage="#{msg.schemapflege_version_fehler}">
+                                    <p:ajax event="keyup" update="dateiauswahlform:dateiauswahl"/>
+                                    <p:ajax event="click" update="dateiauswahlform:dateiauswahl"/>
+                                    <f:validateRegex pattern="#{schemaPflegeController.versionPattern}"/>
+                                </p:inputText>
+                            </div>
+
+                            <div class="ui-g-8 ui-g-offset-4" style="margin-top: 24px">
+                                <p:fileUpload id="dateiauswahl"
+                                              disabled="#{schemaPflegeController.auswahlButtonDisabled}"
+                                              listener="#{schemaPflegeController.handleFileUpload}"
+                                              update="dateiauswahlform schemapflegedateienform"
+                                              dragDropSupport="false"
+                                              mode="advanced"
+                                              skinSimple="true"
+                                              multiple="false"
+                                              fileLimit="1"
+                                              allowTypes="/(\.|\/)(xsl|xslt|xml|rng|isosch)$/"
+                                              sizeLimit="104857600"
+                                              uploadLabel="#{msg.upload}"
+                                              label="#{msg.selection}"
+                                              cancelLabel="#{msg.cancel}"
+                                              invalidFileMessage="#{msg.schemapflege_invalidfiletypemessage}"
+                                              invalidSizeMessage="#{msg.schemapflege_invalidfilesizemessage}"
+                                              fileLimitMessage="#{msg.schemapflege_filelimitmessage}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+            <h:form id="schemapflegedateienform"
+                    rendered="#{kannAlsListeAnzeigen}">
+
+                <div class="ui-g-12 actionsBar" id="schemapflegedateienactions">
+                    <p:commandButton id="refreshButton"
+                                     action="#{schemaPflegeDateienModel.resetTable}"
+                                     update="schemapflegedateienform"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+                    <p:commandButton id="togglerSchemaPflegeDateienTable"
+                                     type="button"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerSchemaPflegeDateienTableTip"
+                                   for="togglerSchemaPflegeDateienTable"
+                                   position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+                </div>
+
+                <div class="ui-g-12">
+                    <p:columnToggler id="columntogglerSchemaPflegeDateienTable"
+                                     datasource="schemaPflegeDateienTable"
+                                     trigger="schemapflegedateienform:togglerSchemaPflegeDateienTable">
+                        <p:ajax event="toggle" listener="#{schemaPflegeDateienModel.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="schemapflegedatei"
+                                 value="#{schemaPflegeDateienModel.schemaPflegeDateien}"
+                                 emptyMessage="Keine Schemapflege-Dateien gefunden"
+                                 id="schemaPflegeDateienTable"
+                                 widgetVar="schemaPflegeDateienTableWidget"
+                                 rowKey="#{schemapflegedatei.id}"
+                                 rows="#{schemaPflegeDateienModel.currentHitProPage}"
+                                 first="#{schemaPflegeDateienModel.currentPage}"
+                                 filteredValue="#{schemaPflegeDateienModel.filteredSchemaPflegeDateien}"
+                                 ajax="true"
+                                 paginator="true"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{schemaPflegeDateienModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{schemaPflegeDateienModel.allPossibleHitProPage}"
+                                 paginatorPosition="top"
+                                 paginatorAlwaysVisible="true"
+                                 liveScroll="true"
+                                 style="width: auto !important;"
+                                 pageLinks="5">
+                        <p:ajax event="sort" listener="#{schemaPflegeDateienModel.onSort}"/>
+                        <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                        <p:ajax event="colReorder" listener="#{schemaPflegeDateienModel.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{schemaPflegeDateienModel.columnsResized}"/>
+                        <c:forEach items="#{schemaPflegeDateienModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'dateiName'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.schemapflege_dateiname}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(0)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              sortBy="#{schemapflegedatei.dateiName}"
+                                              filterBy="#{schemapflegedatei.dateiName}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{schemapflegedatei.dateiName}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'dateiTyp'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.schemapflege_dateiTyp}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(1)}"
+                                              visible="#{schemaPflegeDateienModel.isColumnVisible(1)}"
+                                              sortBy="#{schemapflegedatei.schemaResourceTyp}"
+                                              filterBy="#{schemapflegedatei.schemaResourceTyp}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{schemapflegedatei.schemaResourceTyp}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'xmlFormat'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.schemapflege_xmlFormat}"
+                                              sortBy="#{schemaPflegeDateienModel.xmlFormat}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(2)}"
+                                              visible="#{schemaPflegeDateienModel.isColumnVisible(2)}"
+                                              filterBy="#{schemapflegedatei.xmlFormat}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{schemapflegedatei.xmlFormat}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'dateiId'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.schemapflege_id}"
+                                              sortBy="#{schemapflegedatei.id}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(3)}"
+                                              visible="#{schemaPflegeDateienModel.isColumnVisible(3)}"
+                                              filterBy="#{schemapflegedatei.id}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{schemapflegedatei.id}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'bearbeitername'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.schemapflege_bearbeitet_von}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(4)}"
+                                              visible="#{schemaPflegeDateienModel.isColumnVisible(4)}"
+                                              sortBy="#{schemapflegedatei.bearbeitername}"
+                                              filterBy="#{schemapflegedatei.bearbeitername}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{schemapflegedatei.bearbeitername}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'version'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.schemapflege_version}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(5)}"
+                                              visible="#{schemaPflegeDateienModel.isColumnVisible(5)}"
+                                              sortBy="#{schemapflegedatei.version}"
+                                              filterBy="#{schemapflegedatei.version}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{schemapflegedatei.version}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'aenderungsDatum'}">
+                                    <ui:param name="aenderungsDatumValue"
+                                              value="#{schemaPflegeDateienModel.getAenderungsDatum(schemapflegedatei)}"/>
+                                    <p:column id="#{columnID}" headerText="#{msg.schemapflege_letzte_aenderung}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(6)}"
+                                              visible="#{schemaPflegeDateienModel.isColumnVisible(6)}"
+                                              sortBy="#{schemapflegedatei.aenderungsDatum}"
+                                              filterBy="#{aenderungsDatumValue}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{aenderungsDatumValue}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'download'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.schemapflege_download}"
+                                              width="#{schemaPflegeDateienModel.getColumnWidth(7)}"
+                                              visible="true">
+                                        <p:commandButton styleClass="switch-ui-button-color-black-white"
+                                                         id="schemaPflegeDateiDownloadButton"
+                                                         ajax="false"
+                                                         icon="ui-icon-file-download">
+                                            <p:fileDownload
+                                                    value="#{schemaPflegeDateienModel.loadDatei(schemapflegedatei.id)}"/>
+                                            <p:tooltip for="schemaPflegeDateiDownloadButton"
+                                                       position="top"
+                                                       value="#{msg.schemapflege_download_tooltip}"/>
+                                        </p:commandButton>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+            <div class="ui-g-12" style="margin: 56px 0px 16px 0px">
+                <p:separator/>
+            </div>
+
+            <h:panelGroup styleClass="ui-g-12"
+                          rendered="#{kannAutomatischeUebernahmeAktivieren}">
+                <h2><h:outputText value="#{msg.schemapflege_datenuebernahme}"/></h2>
+            </h:panelGroup>
+
+            <h:panelGroup id="uebernahmeFormPanel"
+                          layout="block"
+                          styleClass="ui-g-12 ui-lg-8"
+                          rendered="#{kannAutomatischeUebernahmeAktivieren}">
+                <div class="card ui-g">
+                    <h:form id="kannAutomatischeUebernahmeAktivieren" styleClass="hsp-form">
+                        <div class="ui-g-2">
+                            <p:toggleSwitch id="automatischeUebernahmeToggle"
+                                            value="#{schemaPflegeController.automatischenUebernahmeAktiv}"
+                                            valueChangeListener="#{schemaPflegeController.changeAutomatischenUebernahme}">
+                                <p:ajax update="uebernahmeFormPanel"/>
+                            </p:toggleSwitch>
+                        </div>
+                        <div class="ui-g-10">
+                            <h:outputText value="#{msg.schemapflege_datenuebernahme_aktiviert}"
+                                          rendered="#{schemaPflegeController.automatischenUebernahmeAktiv}"/>
+                            <h:outputText value="#{msg.schemapflege_datenuebernahme_deaktiviert}"
+                                          rendered="#{not schemaPflegeController.automatischenUebernahmeAktiv}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+</ui:composition>

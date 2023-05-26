@@ -1,0 +1,173 @@
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:hspcc="http://java.sun.com/jsf/composite/composite_components"
+>
+    <h:outputScript library="js" name="datePicker.de.js"/>
+    <p:outputPanel layout="block" id="suchefilter"
+                   rendered="#{sucheRechte.kannFilternUndFacettieren()}">
+
+        <p:panel id="kodBooleanFacettes" styleClass="facette-styling-hsp">
+          <h:panelGrid columns="1">
+            <hspcc:booleanFacetteComponent id="containsBeschreibungCB"
+                                value="#{sucheModel.containsBeschreibung}"
+                                disabled="#{empty sucheModel.lazyErgebnisModel.ergebnis or sucheModel.selectedDokumentTyp.name() == 'BS' or sucheModel.lazyErgebnisModel.ergebnis.facetCountContainsBeschreibung == 0}"
+                                textKey="suche_enthaeltbeschreibung"
+                                amount="#{sucheModel.lazyErgebnisModel.ergebnis.facetCountContainsBeschreibung}"
+                                listenerAction="#{sucheController.searchWithoutRedirect()}"
+                                update="sucheForm"/>
+
+            <hspcc:booleanFacetteComponent id="containsDigitalisatCB"
+                                value="#{sucheModel.containsDigitalisat}"
+                                disabled="#{empty sucheModel.lazyErgebnisModel.ergebnis or sucheModel.selectedDokumentTyp.name() == 'BS' or sucheModel.lazyErgebnisModel.ergebnis.facetCountContainsDigitalisat == 0}"
+                                textKey="suche_enthaeltdigitalisat"
+                                amount="#{sucheModel.lazyErgebnisModel.ergebnis.facetCountContainsDigitalisat}"
+                                listenerAction="#{sucheController.searchWithoutRedirect()}"
+                                update="sucheForm"/>
+
+            <hspcc:booleanFacetteComponent id="containsBuchschmuckCB"
+                                value="#{sucheModel.containsBuchschmuck}"
+                                disabled="#{empty sucheModel.lazyErgebnisModel.ergebnis or sucheModel.selectedDokumentTyp.name() == 'BS' or sucheModel.lazyErgebnisModel.ergebnis.facetCountContainsBuchschmuck == 0}"
+                                textKey="suche_enthaeltbuchschmuck"
+                                amount="#{sucheModel.lazyErgebnisModel.ergebnis.facetCountContainsBuchschmuck}"
+                                listenerAction="#{sucheController.searchWithoutRedirect()}"
+                                update="sucheForm"/>
+          </h:panelGrid>
+        </p:panel>
+
+        <p:panel id="typFacette"
+                 class="facette-styling-hsp"
+                 header="#{msg.suche_dokumenttyp}">
+            <p:selectOneRadio value="#{sucheModel.selectedDokumentTyp}"
+                              layout="grid"
+                              columns="1">
+                <f:selectItems value="#{sucheController.dokumentTypFilter}"/>
+                <p:ajax event="click" update="sucheForm"
+                        listener="#{sucheController.searchWithoutRedirect()}"/>
+            </p:selectOneRadio>
+        </p:panel>
+
+        <p:panel id="verwaltungsTypFacette"
+                 class="facette-styling-hsp"
+                 header="#{msg.suche_verwaltungs_typ}">
+            <p:selectOneRadio value="#{sucheModel.selectedVerwaltungsTyp}"
+                              layout="grid"
+                              columns="1">
+                <f:selectItems value="#{sucheController.verwaltungsTypFilter}"/>
+                <p:ajax event="click" update="sucheForm"
+                        listener="#{sucheController.searchWithoutRedirect()}"/>
+            </p:selectOneRadio>
+        </p:panel>
+
+        <hspcc:filteredFacetteComponent
+                id="bestandshaltendeInstitutionFacette"
+                label="#{msg.suche_bestandshaltendeinstitution}"
+                model="#{sucheController.institutionenFilter}"
+                selectedValues="#{sucheModel.selectedInstitutionen}"
+                searchAction="#{sucheController.searchWithoutRedirect()}"/>
+
+        <hspcc:filteredFacetteComponent
+                id="autorenFacette"
+                label="#{msg.suche_autoren}"
+                model="#{sucheController.autorenFilter}"
+                selectedValues="#{sucheModel.selectedAutoren}"
+                searchAction="#{sucheController.searchWithoutRedirect()}"/>
+
+        <p:panel id="zeitraumFacette"
+                 styleClass="facette-styling-hsp"
+                 header="#{msg.suche_zeitraum}">
+
+            <div class="ui-g ui-g-nopad ui-inputgroup">
+                <p:outputLabel for="fromUpdate"
+                               value="#{msg.suche_zeitraum_von}"
+                               styleClass="ui-g-2 ui-g-nopad"
+                               style="white-space: pre-line; font-size: medium;"/>
+                <div class="ui-g-10 ui-g-nopad">
+                    <p:datePicker id="fromUpdate"
+                                  value="#{sucheModel.fromUpdate}"
+                                  maxdate="#{sucheModel.toUpdate}"
+                                  showTime="false"
+                                  monthNavigator="false"
+                                  pattern="dd.MM.yyyy"
+                                  styleClass="searchDateField"
+                                  mask="false"
+                                  timeInput="false"
+                                  readonlyInput="true"
+                                  disabled="#{empty sucheModel.lazyErgebnisModel.ergebnis}">
+                        <p:ajax event="dateSelect"
+                                update="sucheForm"
+                                listener="#{sucheController.searchWithoutRedirect()}"/>
+                    </p:datePicker>
+                    <p:commandButton id="resetFromUpdateBtn"
+                                     icon="ui-icon ui-icon-clear"
+                                     styleClass="switch-ui-button-color-black-no-bg"
+                                     style="border: none; background: none"
+                                     action="#{sucheController.resetFromUpdate()}"
+                                     disabled="#{empty sucheModel.fromUpdate}"
+                                     process="@this"
+                                     update="sucheForm"/>
+                </div>
+            </div>
+            <div class="ui-g ui-g-nopad ui-inputgroup">
+                <p:outputLabel for="toUpdate"
+                               value="#{msg.suche_zeitraum_bis}"
+                               style="white-space: pre-line; font-size: medium;"
+                               styleClass="ui-g-2 ui-g-nopad"/>
+                <div class="ui-g-10 ui-g-nopad">
+                    <p:datePicker id="toUpdate"
+                                  widgetVar="toUpdateWidget"
+                                  value="#{sucheModel.toUpdate}"
+                                  mindate="#{sucheModel.fromUpdate}"
+                                  showTime="false"
+                                  monthNavigator="false"
+                                  pattern="dd.MM.yyyy"
+                                  styleClass="searchDateField"
+                                  mask="false"
+                                  timeInput="false"
+                                  readonlyInput="true"
+                                  disabled="#{empty sucheModel.lazyErgebnisModel.ergebnis}">
+                        <p:ajax event="dateSelect"
+                                update="sucheForm"
+                                listener="#{sucheController.searchWithoutRedirect()}"/>
+                    </p:datePicker>
+                    <p:commandButton id="resetToUpdateBtn"
+                                     icon="ui-icon ui-icon-clear"
+                                     styleClass="switch-ui-button-color-black-no-bg"
+                                     style="border: none; background: none"
+                                     action="#{sucheController.resetToUpdate()}"
+                                     disabled="#{empty sucheModel.toUpdate}"
+                                     process="@this"
+                                     update="sucheForm"/>
+                </div>
+            </div>
+        </p:panel>
+
+    </p:outputPanel>
+
+</ui:composition>

@@ -1,0 +1,117 @@
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{languageController.locale}" transient="false">
+    <f:metadata>
+        <f:viewParam name="lang" value="#{requestController.locale}"/>
+    </f:metadata>
+</f:view>
+<h:head>
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon/favicon-256x256.png"/>
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta http-equiv="refresh"
+              content="#{userRequestController.sessionInactivityTimeout};url=#{userRequestController.uriWithRedirect}"/>
+        <meta name="theme-color" content="#{guestPreferences.themeColors[guestPreferences.theme]}"/>
+    </f:facet>
+    <title>
+        <ui:insert id="erfassungtitle"
+                   name="title">#{erfassungsTitleController.getTitle()}</ui:insert>
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description"
+          content="Zentrales Erfassungssystem für mittelalterliche Handschriften"/>
+
+    <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+    <h:outputScript name="js/layout.js" library="ultima-layout"/>
+    <h:outputScript name="js/ripple.js" library="ultima-layout"/>
+    <h:outputScript name="js/swipe.js" library="ultima-layout"/>
+    <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/ripple.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/hspnachweis.css"/>
+
+    <script>
+      function onMessage(message, channel, event) {
+        console.log(
+            'jsf push message::' + message + ", channel ::" + channel + ", event::"
+            + event);
+
+        PF('websocketclient').renderMessage({
+          "summary": "Update Importvorgänge",
+          "detail": message,
+          "severity": "info"
+        });
+
+        updateTableFromServer();
+      }
+
+    </script>
+</h:head>
+<h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}">
+    <f:event listener="#{loginController.checkLogin}" type="preRenderView"></f:event>
+    <div class="layout-wrapper #{guestPreferences.menuLayout} #{guestPreferences.orientationRTL ? 'layout-rtl' : null}">
+        <ui:include src="topbar.xhtml"/>
+        <ui:include src="navigation.xhtml"/>
+        <main id="maincontent" class="layout-main">
+            <p:growl widgetVar="websocketclient" globalOnly="true"/>
+            <p:messages id="globalmessages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <ui:insert name="content"/>
+        </main>
+    </div>
+    <f:websocket channel="importMessagePush" onmessage="onMessage"/>
+</h:body>
+</html>

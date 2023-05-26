@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<teiCorpus xmlns="http://www.tei-c.org/ns/1.0" version="1.0.9">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Automatisch generierter Handschriftenkatalog</title>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>Handschriftenportal</publisher>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Automatisch generierter Handschriftenkatalog aus einem im HIDA-DOC1-XML-Format am 08.04.2022 12:56:47:453 erstellten MXML-Dokument.</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <TEI version="1.0.9" xml:lang="de">
+      <teiHeader>
+         <fileDesc>
+            <titleStmt>
+               <title>Beschreibung von Biberach an der Riß, Stadtarchiv (Biberach an der Riß), B 3519 (Boese, Helmut: Die Handschriften und Inkunabeln des Spitalarchivs zu Biberach. - Wiesbaden: Harrassowitz, 1979.)S. 15–15</title>
+               <respStmt>
+                  <resp>Beschrieben von</resp>
+                  <persName role="author">Helmut Boese</persName>
+               </respStmt>
+            </titleStmt>
+            <editionStmt>
+               <edition>Elektronische Ausgabe nach TEI P5</edition>
+               <respStmt>
+                  <resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem am 08.04.2022 12:56:47:453 erstellten HIDA-DOC1-XML-Dokument erstellt. Grundlage ist ein Retrokonversionsdokument.</resp>
+                  <name type="org">Handschriftenportal</name>
+               </respStmt>
+            </editionStmt>
+            <publicationStmt>
+               <publisher>
+                  <name type="org">Handschriftenportal</name>
+               </publisher>
+               <date type="primary" when="1979">1979</date>
+               <availability status="restricted">
+                  <licence target="http://creativecommons.org/licenses/by-sa/3.0/de/">
+                     <p>http://creativecommons.org/licenses/by-sa/3.0/de/</p>
+                  </licence>
+               </availability>
+               <idno type="hsk">011</idno>
+            </publicationStmt>
+            <sourceDesc>
+               <bibl n="BC_SpitalA">Boese, Helmut: Die Handschriften und Inkunabeln des Spitalarchivs zu Biberach. - Wiesbaden: Harrassowitz, 1979.S. <biblScope from="Page15_Block5" to="Page15_Block6">15–15</biblScope>
+               </bibl>
+            </sourceDesc>
+         </fileDesc>
+         <profileDesc>
+            <creation>
+               <date when="2009-10-14">14.10.2009</date>
+            </creation>
+         </profileDesc>
+         <revisionDesc>
+            <change>
+               <date when="2022-02-10">10.02.2022</date>
+            </change>
+         </revisionDesc>
+      </teiHeader>
+      <facsimile>
+         <graphic xml:id="HSK0011_a015_90034276-T"
+                  url="http://bilder.manuscripta-mediaevalia.de/hs/katalogseiten/HSK0011_a015_jpg.htm"/>
+      </facsimile>
+      <text>
+         <body>
+            <msDesc status="extern" xml:id="HSP-66def941-2651-310d-ad6c-fa7e25fc8e1b" xml:lang="de" subtype="medieval" type="hsp:description_retro">
+                <msIdentifier>
+                   <settlement key="8081a911-a0bd-3a93-bff8-bf3154fa50a3">Biberach an der Riß</settlement>
+                   <repository key="7db2eb02-05c2-3213-8f5a-0ff63774bb14" ref="http://d-nb.info/gnd/2031996-4 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-Bib2">Stadtarchiv (Biberach an der Riß)</repository>
+                   <collection>B 3513-3541</collection>
+                   <collection type="baseShelfmarkGroup">B 3513-3541</collection>
+                   <idno>B 3519</idno>
+                   <altIdentifier type="mxml-ID">
+                       <idno>MXML-90034276-T</idno>
+                   </altIdentifier>
+                   <altIdentifier type="hsp-ID">
+                       <collection>Handschriftenportal Kulturobjektdokument-ID</collection>
+                       <idno>HSP-27aa5dab-7155-3d5b-bfae-b9cbeb063da4</idno>
+                   </altIdentifier>
+               </msIdentifier>
+               <head>
+                  <index indexName="norm_title">
+                     <term type="title">Bibliorum pars finalis, partim cum postillis Nicolai de Lyra</term>
+                  </index>
+                  <note type="headline">Papier · 177 (Blatt) · 30 X 21 (cm) · 15. Jh. (II) / 1425 (I)</note>
+                  <title>Bibliorum pars finalis, partim cum postillis Nicolai de Lyra</title>
+                  <index indexName="norm_material">
+                     <term type="material">Papier</term>
+                     <term type="material_type">paper</term>
+                  </index>
+                  <index indexName="norm_measure">
+                     <term type="measure">177 Bl.</term>
+                     <term type="measure_noOfLeaves">177</term>
+                  </index>
+                  <index indexName="norm_dimensions">
+                     <term type="dimensions">30 × 21</term>
+                     <term type="height">30</term>
+                     <term type="width">21</term>
+                     <term type="depth"/>
+                     <term type="dimensions_typeOfInformation">factual</term>
+                  </index>
+                  <index indexName="norm_format">
+                     <term type="format">folio</term>
+                     <term type="format_typeOfInformation">computed</term>
+                  </index>
+                  <index indexName="norm_format">
+                     <term type="format">quarto</term>
+                     <term type="format_typeOfInformation">computed</term>
+                  </index>
+                  <index indexName="norm_origPlace">
+                     <term type="origPlace"/>
+                     <term type="origPlace_norm"/>
+                  </index>
+                  <index indexName="norm_origDate">
+                     <term type="origDate">15. Jh. (Fasz. II)</term>
+                     <term type="origDate_notBefore">1401</term>
+                     <term type="origDate_notAfter">1500</term>
+                     <term type="origDate_type">datable</term>
+                  </index>
+                  <index indexName="norm_origDate">
+                     <term type="origDate">1425 (Fasz. I)</term>
+                     <term type="origDate_notBefore">1425</term>
+                     <term type="origDate_notAfter">1425</term>
+                     <term type="origDate_type">dated</term>
+                  </index>
+                  <index indexName="norm_textLang">
+                     <term type="textLang">hebräisch</term>
+                     <term type="textLang-ID">he</term>
+                  </index>
+                  <index indexName="norm_form">
+                     <term type="form">composite</term>
+                  </index>
+                  <index indexName="norm_status">
+                     <term type="status"/>
+                  </index>
+                  <index indexName="norm_decoration">
+                     <term type="decoration"/>
+                  </index>
+                  <index indexName="norm_musicNotation">
+                     <term type="musicNotation"/>
+                  </index>
+               </head>
+               <msPart type="other">
+                  <msIdentifier>
+                     <idno>Sonstiges</idno>
+                  </msIdentifier>
+                  <p>
+                     <index n="t2_90034277_KRZ">
+                        <term facs="#HSK0011_a015">Biblia sacra</term>
+                        <index>
+                           <term>Prologi</term>
+                        </index>
+                     </index>
+                     <index n="t2_90034278_KRZ">
+                        <term facs="#HSK0011_a015">Hebräisch</term>
+                        <index>
+                           <term>Fragmente einer hebr. Hs. als Einbandfalze</term>
+                        </index>
+                     </index>
+                     <index n="t2_90034279_KRZ">
+                        <term facs="#HSK0011_a015">Andreas Rießmann</term>
+                        <index>
+                           <term>Vorbesitzer</term>
+                        </index>
+                     </index>
+                     <index n="t2_90034280_KRZ">
+                        <term facs="#HSK0011_a015">Datierung der Handschriften</term>
+                        <index>
+                           <term>15. Jh., erste Hälfte</term>
+                        </index>
+                     </index>
+                     <index n="t2_90034281_KRZ">
+                        <term facs="#HSK0011_a015">Datierung der Handschriften</term>
+                        <index>
+                           <term>1425</term>
+                        </index>
+                     </index>
+                     <index n="t2_90034282_KRZ">
+                        <term facs="#HSK0011_a015">Burcardus Ort</term>
+                        <index>
+                           <term>Schreiber</term>
+                        </index>
+                     </index>
+                     <index n="t2_90034283_KRZ">
+                        <term facs="#HSK0011_a015">Nicolaus de Lyra</term>
+                        <index>
+                           <term>Postilla litteralis super Act</term>
+                           <index>
+                              <term>Exzerpt</term>
+                           </index>
+                        </index>
+                     </index>
+                     <index n="t2_90034284_KRZ">
+                        <term facs="#HSK0011_a015">Biblia sacra</term>
+                        <index>
+                           <term>Glossa ordinaria</term>
+                           <index>
+                              <term>Exzerpt zu Act, Ep. canon.</term>
+                           </index>
+                        </index>
+                     </index>
+                     <index n="t2_90034285_KRZ">
+                        <term facs="#HSK0011_a015">Nicolaus de Lyra</term>
+                        <index>
+                           <term>Postilla litteralis super Epist. canon.</term>
+                           <index>
+                              <term>Exzerpt</term>
+                           </index>
+                        </index>
+                     </index>
+                     <index n="t2_90034286_KRZ">
+                        <term facs="#HSK0011_a015">Biblia sacra</term>
+                        <index>
+                           <term>Glossa ordinaria</term>
+                           <index>
+                              <term>Exzerpt zu Act, Ep. canon.</term>
+                           </index>
+                        </index>
+                     </index>
+                  </p>
+               </msPart>
+            </msDesc>
+         </body>
+      </text>
+   </TEI>
+</teiCorpus>

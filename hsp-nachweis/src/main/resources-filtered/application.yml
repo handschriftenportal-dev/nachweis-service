@@ -1,0 +1,196 @@
+quarkus:
+  package:
+    type: fast-jar
+  native:
+    container-build: false
+  arc:
+    remove-unused-beans: none
+  http:
+    cors:
+      ~: true
+      origins: /.*/
+    port: 9298
+    root-path: /
+    limits:
+      max-body-size: 100M
+    enable-compression: false
+  transaction-manager:
+    object-store-directory: target/tx-object-store
+  servlet:
+    context-path: /
+  index-dependency:
+    domainmodel:
+      group-id: staatsbibliothek-berlin.hsp
+      artifact-id: domainmodel
+    oauth2:
+      group-id: staatsbibliothek-berlin
+      artifact-id: oauth2
+    auth-api:
+      group-id: staatsbibliothek-berlin
+      artifact-id: auth-api
+    activitystreams-hsp:
+      group-id: de.staatsbibliothek-berlin.hsp
+      artifact-id: activitystreams-hsp
+  swagger-ui:
+    always-include: true
+    path: /docs
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: experte
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/hsp-nachweis-dev1?stringtype=unspecified
+  log:
+    console:
+      level: INFO
+      format: "%d{dd.MM.yyyy HH:mm:ss.SSS} %-5p [%c{2.}] (%t) %s%e%n"
+    category:
+      "io.quarkus.arc.processor":
+        level: INFO
+  flyway:
+    migrate-at-start: true
+    baseline-on-migrate: true
+  cache:
+    caffeine:
+      GraphQlDataByQuery:
+        expire-after-write=300S:
+        maximum-size: 10
+  jackson:
+    write-dates-as-timestamps: true
+  eureka:
+    "service-url.default": http://localhost:8761/serviceregistry/eureka
+  kafka:
+    devservices:
+      enabled: false
+
+oauth2:
+  filter:
+    enabled: true
+  logincheck:
+    enabled: true
+  permissioncheck:
+    enabled: true
+  client:
+    id: hsp
+    secret: HSPsecretHSP
+  redirect-uri:
+    grant-code: /dashboard.xhtml
+    revoke-token: /dashboard.xhtml
+    error: /error_authentication.xhtml
+  own:
+    url:
+      prefix: currentServerAddress
+
+hsp:
+  version: @handschriftenportal.version@
+
+nachweis:
+  version: @project.version@
+
+workaround:
+  ADD_BESCHREIBUNG_MSDESC_IN_KOD_SOURCE_DESC: true
+  KOD_LIST_DELETE_ENABLED: true
+  BESCHREIBUNG_LIST_DELETE_ENABLED: true
+
+org:
+  apache:
+    el:
+      parser:
+        SKIP_IDENTIFIER_CHECK: false
+    myfaces:
+      USE_LAMBDA_METAFACTORY: false
+
+javax:
+  faces:
+    ENABLE_WEBSOCKET_ENDPOINT: true
+    FACELETS_BUFFER_SIZE: 32768
+    STATE_SAVING_METHOD: client
+
+
+# kafka startOffset values:
+# -999  : set the offset to the end
+# -1    : leave the offset unchanged
+#  0    : set the offset at the beginning
+# >0    : set the offset to the provided value
+
+kafka:
+  bootstrapserver: localhost:9092,localhost:9093,localhost:9094
+  transaction:
+    timeout: 900
+  import:
+    topic: tei-import
+    startOffset: -1
+    groupid: nachweis
+    active: false
+  index:
+    topic: tei-index
+    startOffset: -1
+    groupid: nachweis-index
+  dataimport:
+    topic: data-import
+    startOffset: -1
+    groupid: data-nachweis
+  katalog:
+    topic: katalog-index
+    startOffset: -1
+    groupid: katalog-index
+importserverbaseurl: http://localhost:9296
+praesentationbaseurl: http://localhost:8080/
+nachweisserverbaseurl: http://localhost:8080/
+
+solr:
+  url:
+    master: http://localhost/solr
+    slave: http://localhost/solr
+  core: hsp-nachweis
+  connectionTimeout: 10000
+  socketTimeout: 90000
+
+proxy:
+  http:
+    host: proxy-dev.spk-berlin.de
+    port: 3128
+
+de:
+  staatsbibliothek:
+    berlin:
+      hsp:
+        nachweis:
+          infrastructure:
+            normdaten:
+              NormdatenGraphQLPort/mp-rest/url: http://NORMDATENSERVICE/rest/graphql
+              DNBCulturgraphPort/mp-rest/url: http://hub.culturegraph.org/entityfacts/
+              LobidOrgPort/mp-rest/url: https://lobid.org/gnd/
+            importservice:
+              ImportServicePort/mp-rest/url: http://IMPORTSERVICE/rest/
+              SchemaPflegeDateiServicePort/mp-rest/url: http://IMPORTSERVICE/rest/
+              TeiXmlValidationServicePort/mp-rest/url: http://IMPORTSERVICE/rest/
+              TeiXmlTransformationServicePort/mp-rest/url: http://IMPORTSERVICE/rest/
+            purl:
+              SBBPURLGenPort/mp-rest/url: http://purlgen.sbb.spk-berlin.de/sbbpurl/purlgen.pl
+            hsp_frontend:
+              DiscoveryServicePort/mp-rest/url: http://HSP-FO-DISCOVERY/
+wiremock:
+  server:
+    port: 0
+
+purlgen:
+  resolver:
+    url: https://resolver.staatsbibliothek-berlin.de/
+    directory: /tmp/
+    httxt2dbm: httxt2dbm -f DB -i {0} -o {1}
+
+purl:
+  target:
+    kod: http://locahost:8080/search?hspobjectid={0}
+    beschreibung: http://locahost:8080/workspace?type=hsp:description&id={0}
+    beschreibung_retro: http://locahost:8080/workspace?type=hsp:description_retro&id={0}
+  autogenerate:
+    enabled: true
+
+suchdokumentservice:
+  reindexall:
+    documents_per_update: 20
+indexservice:
+  reindexall:
+    documents_per_update: 1000

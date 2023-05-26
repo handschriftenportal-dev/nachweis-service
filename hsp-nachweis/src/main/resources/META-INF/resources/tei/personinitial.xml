@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+         <titleStmt>
+            <title>Normdaten Person</title>
+         </titleStmt>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <listPerson>
+            <person sex="M|F|O" xml:id="___UUID___">
+               <birth>
+                  <date when="___ISO-Datum___">___Datum___</date>
+                  <placeName ref="###GND-URL###">___Ortsname___</placeName>
+               </birth>
+               <death>
+                  <date when="___ISO-Datum___">___Datum___</date>
+                  <placeName ref="###GND-URL###">___Ortsname___</placeName>
+               </death>
+               <idno type="gnd" xml:id="gnd_###GND-ID###">http://d-nb.info/gnd/___GND-ID___</idno>
+               <idno type="orchid" xml:id="orcid_###ORCID-ID###"
+               >https://orcid.org/___ORCID-ID___
+               </idno>
+               <idno type="z001" xml:id="z001_###HIDA-ID###">HIDA-ID</idno>
+               <note>___Bemerkungen___</note>
+               <occupation ref="#___UUID___">occupation</occupation>
+               <!-- z001 dient temporär dem Abgleich mit dem Normdatenmodul, soll später nicht in das release-Template übernommen werden!  -->
+               <persName type="alternative" xml:lang="___Sprachkuerzel___">___Personenname___
+                  <forename>___Vorname___</forename>
+                  <surname>___Generationssname___</surname>
+               </persName>
+               <persName type="default" xml:lang="___Sprachkuerzel___">
+                  <forename>___Vorname___</forename>
+                  <genName>___Generationssname___</genName>
+                  <nameLink>___Namenslink___</nameLink>
+                  <roleName>___Rollenname___</roleName>
+                  <surname>___Nachname___</surname>
+               </persName>
+            </person>
+         </listPerson>
+      </body>
+   </text>
+</TEI>

@@ -1,0 +1,63 @@
+{
+  "@context" : "https://hub.culturegraph.org/entityfacts/context/v1/entityfacts.jsonld",
+  "@type" : "place",
+  "@id" : "https://d-nb.info/gnd/4007721-4",
+  "location" : {
+    "type" : "Feature",
+    "geometry" : {
+      "type" : "Point",
+      "coordinates" : [ "10.016669", "54.183329" ]
+    }
+  },
+  "preferredName" : "Bordesholm",
+  "describedBy" : {
+    "valid" : "2022-06-03T09:19:26Z",
+    "license" : "https://creativecommons.org/publicdomain/zero/1.0/",
+    "@id" : "https://hub.culturegraph.org/entityfacts/4007721-4"
+  },
+  "associatedCountry" : [ {
+    "@id" : "https://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE-SH",
+    "preferredName" : "Schleswig-Holstein"
+  } ],
+  "biographicalOrHistoricalInformation" : "Gemeinde im Kreis Rendsburg-Eckernförde in Schleswig-Holstein",
+  "depiction" : {
+    "@id" : "https://commons.wikimedia.org/wiki/Special:FilePath/Bordesholm%20Klosterkirche%2001.jpg",
+    "thumbnail" : {
+      "@id" : "https://commons.wikimedia.org/wiki/Special:FilePath/Bordesholm%20Klosterkirche%2001.jpg?width=270"
+    },
+    "url" : "https://commons.wikimedia.org/wiki/File:Bordesholm%20Klosterkirche%2001.jpg?uselang=de"
+  },
+  "sameAs" : [ {
+    "@id" : "https://d-nb.info/gnd/4007721-4/about",
+    "collection" : {
+      "abbr" : "DNB",
+      "name" : "Gemeinsame Normdatei (GND) im Katalog der Deutschen Nationalbibliothek",
+      "publisher" : "Deutsche Nationalbibliothek",
+      "icon" : "https://www.dnb.de/SiteGlobals/Frontend/DNBWeb/Images/favicon.png?__blob=normal&v=4"
+    }
+  }, {
+    "@id" : "https://sws.geonames.org/2946321",
+    "collection" : {
+      "abbr" : "geonames",
+      "name" : "GeoNames",
+      "publisher" : "GeoNames",
+      "icon" : "https://www.geonames.org/geonames.ico"
+    }
+  }, {
+    "@id" : "http://viaf.org/viaf/242514809",
+    "collection" : {
+      "abbr" : "VIAF",
+      "name" : "Virtual International Authority File (VIAF)",
+      "publisher" : "OCLC",
+      "icon" : "https://viaf.org/viaf/images/viaf.ico"
+    }
+  }, {
+    "@id" : "http://www.wikidata.org/entity/Q570362",
+    "collection" : {
+      "abbr" : "WIKIDATA",
+      "name" : "Wikidata",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://www.wikidata.org/static/favicon/wikidata.ico"
+    }
+  } ]
+}

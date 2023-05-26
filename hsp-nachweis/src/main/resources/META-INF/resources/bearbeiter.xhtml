@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <ui:param name="bearbeiterAnzeigen" value="#{bearbeiterRechte.kannAnzeigen()}"/>
+        <f:view>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-lg-8">
+                    <h1>#{msg.document_titel_bearbeiter}</h1>
+                </div>
+
+                <div class="ui-g-12">
+                    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                        <ui:param name="hasAccess" value="#{bearbeiterAnzeigen}"/>
+                    </ui:include>
+                </div>
+
+                <h:panelGroup id="bearbeiterBeschreibungPanel"
+                              layout="block"
+                              styleClass="ui-g-12 ui-lg-8 ui-g-nopad-top"
+                              style="margin-bottom: 37px;"
+                              rendered="#{bearbeiterAnzeigen and bearbeiterViewController.bearbeiterNew}">
+                    <h:outputText value="#{msg.bearbeiter_beschreibung}"/>
+                </h:panelGroup>
+
+                <div class="ui-g-12 ui-lg-8">
+                    <h:panelGroup id="bearbeiterFormPanel"
+                                  layout="block"
+                                  styleClass="card"
+                                  rendered="#{bearbeiterAnzeigen}">
+                        <h:form id="bearbeiterForm"
+                                styleClass="hsp-form"
+                                autocomplete="off"
+                                rendered="#{bearbeiterAnzeigen}">
+                            <p:growl for="bearbeiterForm" showDetail="true" sticky="true"/>
+
+                            <dl class="ui-g">
+                                <dt class="ui-g-4">#{msg.bearbeiter_vorname}</dt>
+                                <dd class="ui-g-8">#{bearbeiterViewController.bearbeiter.vorname}</dd>
+
+                                <dt class="ui-g-4">#{msg.bearbeiter_nachname}</dt>
+                                <dd class="ui-g-8">#{bearbeiterViewController.bearbeiter.nachname}</dd>
+
+                                <dt class="ui-g-4">#{msg.bearbeiter_email}</dt>
+                                <dd class="ui-g-8">#{bearbeiterViewController.bearbeiter.email}</dd>
+
+                                <dt class="ui-g-4">#{msg.bearbeiter_rolle}</dt>
+                                <dd class="ui-g-8">#{bearbeiterViewController.bearbeiter.rolle}</dd>
+                            </dl>
+
+                            <div class="ui-g">
+                                <div class="ui-g-10">
+                                    <h2 style="margin: 6px 0px"><h:outputText value="#{msg.bearbeiter_normdaten}"/></h2>
+                                </div>
+                                <div class="ui-g-2 ui-g-nopad-horizontal">
+                                    <div class="button-align-right">
+                                        <p:commandButton id="editNormdatenBtn"
+                                                         icon="ui-icon-edit"
+                                                         rendered="#{not bearbeiterViewController.edit}"
+                                                         action="#{bearbeiterViewController.editieren()}"
+                                                         process="@this"
+                                                         update="@form"
+                                                         onstart="PF('statusDialog').show()"
+                                                         oncomplete="PF('statusDialog').hide();"
+                                                         styleClass="ui-button-icon-only-big">
+                                            <p:tooltip for="editNormdatenBtn"
+                                                       position="left"
+                                                       hideEvent="mouseleave click"
+                                                       value="#{msg.bearbeiter_normdaten_bearbeiten}"/>
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-4">
+                                    <p:outputLabel for="inputPerson" value="#{msg.bearbeiter_person}"/>
+                                </div>
+                                <div class="ui-g-7 ui-fluid">
+                                    <p:autoComplete id="inputPerson"
+                                                    emptyMessage="#{msg.bearbeiter_keine_person}"
+                                                    cache="true"
+                                                    value="#{bearbeiterViewController.selectedPerson}"
+                                                    completeMethod="#{autocompleteNormdatenController.autocompletePerson}"
+                                                    at="bottom"
+                                                    forceSelection="true"
+                                                    converter="normdatenReferenzConverter"
+                                                    var="person"
+                                                    itemLabel="#{person.name}"
+                                                    itemValue="#{person}"
+                                                    scrollHeight="200"
+                                                    appendTo="inputPerson"
+                                                    minQueryLength="3"
+                                                    pt:autofocus="#{empty bearbeiterViewController.selectedPerson ? true : null}"
+                                                    rendered="#{bearbeiterViewController.edit}">
+                                        <p:ajax event="itemSelect" update="personLoeschenPanel"/>
+                                        <p:ajax event="itemUnselect" update="personLoeschenPanel"/>
+                                        <p:column>#{person.name}</p:column>
+                                        <p:column styleClass="gnd-cell">
+                                            <h:outputLink
+                                                    value="#{person.gndUrl}"
+                                                    rendered="#{not empty person.gndID}"
+                                                    target="_blank"
+                                                    onclick="event.stopPropagation()">#{person.gndID}</h:outputLink>
+                                        </p:column>
+                                    </p:autoComplete>
+                                    <h:outputText id="textPerson"
+                                                  rendered="#{not bearbeiterViewController.edit and not empty bearbeiterViewController.selectedPerson}"
+                                                  value="#{bearbeiterViewController.selectedPerson.name}"
+                                                  styleClass="ui-outputlabel ui-widget"/>
+                                    <h:outputText id="textPersonEmpty"
+                                                  rendered="#{not bearbeiterViewController.edit and empty bearbeiterViewController.selectedPerson}"
+                                                  value="#{msg.bearbeiter_keine_angabe}"
+                                                  styleClass="ui-outputlabel ui-widget"/>
+                                </div>
+                                <p:outputPanel id="personLoeschenPanel" layout="block" styleClass="ui-g-1"
+                                               style="display: flex; margin: auto 0">
+                                    <p:commandButton id="personLoeschen"
+                                                     ajax="true"
+                                                     update="personLoeschenPanel inputPerson"
+                                                     process="@this"
+                                                     actionListener="#{bearbeiterViewController.setSelectedPerson(null)}"
+                                                     rendered="#{bearbeiterViewController.edit and not empty bearbeiterViewController.selectedPerson}"
+                                                     icon="ui-icon-delete">
+                                    </p:commandButton>
+                                    <p:tooltip for="personLoeschen"
+                                               position="left"
+                                               hideEvent="mouseleave click"
+                                               value="#{msg.bearbeiter_person_remove}"/>
+                                </p:outputPanel>
+
+                                <div class="ui-g-4">
+                                    <p:outputLabel for="inputInstitution" value="#{msg.bearbeiter_institution}"/>
+                                </div>
+                                <div class="ui-g-7 ui-fluid">
+                                    <p:autoComplete id="inputInstitution"
+                                                    emptyMessage="#{msg.bearbeiter_keine_institution}"
+                                                    cache="true"
+                                                    value="#{bearbeiterViewController.selectedInstitution}"
+                                                    completeMethod="#{autocompleteNormdatenController.autocompleteKoerperschaft}"
+                                                    at="bottom"
+                                                    forceSelection="true"
+                                                    converter="normdatenReferenzConverter"
+                                                    var="institution"
+                                                    itemLabel="#{institution.name}"
+                                                    itemValue="#{institution}"
+                                                    scrollHeight="200"
+                                                    appendTo="inputInstitution"
+                                                    minQueryLength="3"
+                                                    pt:autofocus="#{empty bearbeiterViewController.selectedInstitution and not empty bearbeiterViewController.selectedPerson ? true : null}"
+                                                    rendered="#{bearbeiterViewController.edit}">
+                                        <p:ajax event="itemSelect" update="institutionLoeschenPanel"/>
+                                        <p:ajax event="itemUnselect" update="institutionLoeschenPanel"/>
+                                        <p:column>#{institution.name}</p:column>
+                                        <p:column styleClass="gnd-cell">
+                                            <h:outputLink
+                                                    value="#{institution.gndUrl}"
+                                                    rendered="#{not empty institution.gndID}"
+                                                    target="_blank"
+                                                    onclick="event.stopPropagation()">#{institution.gndID}</h:outputLink>
+                                        </p:column>
+                                    </p:autoComplete>
+                                    <h:outputText id="textInstitution"
+                                                  rendered="#{not bearbeiterViewController.edit and not empty bearbeiterViewController.selectedInstitution}"
+                                                  value="#{bearbeiterViewController.selectedInstitution.name}"
+                                                  styleClass="ui-outputlabel ui-widget"/>
+                                    <h:outputText id="textInstitutionEmpty"
+                                                  rendered="#{not bearbeiterViewController.edit and empty bearbeiterViewController.selectedInstitution}"
+                                                  value="#{msg.bearbeiter_keine_angabe}"
+                                                  styleClass="ui-outputlabel ui-widget"/>
+                                </div>
+                                <p:outputPanel id="institutionLoeschenPanel"
+                                               layout="block"
+                                               styleClass="ui-g-1">
+                                    <p:commandButton id="institutionLoeschen"
+                                                     ajax="true"
+                                                     update="institutionLoeschenPanel inputInstitution"
+                                                     process="@this"
+                                                     actionListener="#{bearbeiterViewController.setSelectedInstitution(null)}"
+                                                     rendered="#{bearbeiterViewController.edit and not empty bearbeiterViewController.selectedInstitution}"
+                                                     icon="ui-icon-delete">
+                                    </p:commandButton>
+                                    <p:tooltip for="institutionLoeschen"
+                                               position="left"
+                                               hideEvent="mouseleave click"
+                                               value="#{msg.bearbeiter_institution_remove}"/>
+                                </p:outputPanel>
+
+                                <div class="ui-g-11" style="text-align:right">
+                                    <p:commandButton
+                                            id="bearbeiterSpeichern"
+                                            ajax="true"
+                                            style="margin-top: 24px"
+                                            icon="ui-icon-save"
+                                            update="@form"
+                                            process="@form"
+                                            action="#{bearbeiterViewController.bearbeiterAktualisieren}"
+                                            title="#{msg.bearbeiter_speichern}"
+                                            value="#{msg.bearbeiter_speichern}"
+                                            onstart="PF('statusDialog').show()"
+                                            oncomplete="PF('statusDialog').hide();"
+                                            rendered="#{bearbeiterViewController.edit}"/>
+                                    <p:commandButton
+                                            id="abbrechen"
+                                            ajax="true"
+                                            immediate="true"
+                                            style="margin-top: 24px; margin-left:12px;"
+                                            icon="ui-icon-cancel"
+                                            update="@form"
+                                            process="@this"
+                                            action="#{bearbeiterViewController.abbrechen}"
+                                            title="#{msg.bearbeiter_abbrechen}"
+                                            value="#{msg.bearbeiter_abbrechen}"
+                                            onstart="PF('statusDialog').show()"
+                                            oncomplete="PF('statusDialog').hide();"
+                                            rendered="#{bearbeiterViewController.edit and not bearbeiterViewController.bearbeiterNew}"/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </f:view>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xml:id="dresden_obj-31587809_Hoffmann" xml:lang="de" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Beschreibung von Dresden, Sächsische Landesbibliothek – Staats- und Universitätsbibliothek Dresden, Mscr.Dresd.R.52.t,Nr.1</title>
+                <respStmt>
+                    <resp>Beschrieben von</resp>
+                    <persName role="author">Werner Hoffmann</persName>
+                    <persName>Thea Hoffmann</persName>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>Elektronische Ausgabe nach TEI P5</edition>
+                <respStmt>
+                    <resp>Diese Datei wurde automatisch erzeugt, unter Verwendung der MXML-to-TEI-P5-Stylesheets, die an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt werden. 2021-10-28</resp>
+                    <name type="org">Handschriftenportal</name>
+                </respStmt>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>
+                  
+                    
+                    
+                    <name type="org">Handschriftenportal</name>
+               </publisher>
+                <date when="2021-10-28" type="published">2017</date>
+                <date when="2017-03-24" type="issued">2017-03-24</date>
+                <availability status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-sa/3.0/de/">
+                     
+                        
+                        
+                        <p>http://creativecommons.org/licenses/by-sa/3.0/de/</p>
+                  </licence>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Automatisch generierte Beschreibung aus einem HiDA-4 Dokument.</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <msDesc status="extern" xml:id="HSP-415828e6-8b2a-305c-8b4a-52f609c62c5e" xml:lang="de" subtype="medieval" type="hsp:description">
+                <msIdentifier>
+                    <settlement key="19ed5f8c-eab4-36af-bee6-b3ba5c88884d">Dresden</settlement>
+                    <repository key="41ef91b5-ea32-3907-9edf-481693386bb2" ref="http://d-nb.info/gnd/5165770-3 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-14">Sächsische Landesbibliothek – Staats- und Universitätsbibliothek Dresden</repository>
+                    <collection>mittelalterliche deutschsprachige Archivalien</collection>
+                    <collection type="baseShelfmarkGroup">Mscr.Dresd.R.</collection>
+                    <idno>Mscr.Dresd.R.52.t,Nr.1</idno>
+                    <altIdentifier type="catalog">
+                        <idno>msDesc_dresden_obj-31587809_Hoffmann</idno>
+                    </altIdentifier>
+                    <altIdentifier type="catalog">
+                        <collection>Handschriftenportal Kulturobjektdokument-ID</collection>
+                        <idno>HSP-702ef1ee-5579-3414-b257-7298ad2a5791</idno>
+                    </altIdentifier>
+                </msIdentifier>
+                <head>
+                  
+                    
+                    
+                    <title>Notariatsinstrument für die Nürnberger Jüdin Sara Liechtenfelserin, Fragment</title>
+                  
+                    
+                    
+                    <note type="headline">Pergament • Fragment eines Bl. • noch 53 x 38,3 • Nürnberg • 1476</note>
+                  
+                    
+                    
+                    <index>
+                        <term>Erwähnung</term>
+                        <index>
+                            <term>
+                           
+                                
+                                
+                                <persName>Liechtenfelserin, Sara</persName>
+                        </term>
+                        </index>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="title">Notariatsinstrument für die Nürnberger Jüdin Sara Liechtenfelserin (Fragm.)</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="status">vorhanden</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="form">Codex</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="origDate_type">datiert</term>
+                        <term type="origDate">1476</term>
+                        <term type="origDate_notBefore">1476</term>
+                        <term type="origDate_notAfter">1476</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="origPlace">Nürnberg</term>
+                        <term type="origPlace_gnd-ID">4042742-0</term>
+                        <term type="origPlace_geonames-ID">6556832</term>
+                        <term type="origPlace_getty-ID">7004334</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="material">Pergament</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="dimensions">53 × 38,3</term>
+                        <term type="dimensions_height">53</term>
+                        <term type="dimensions_width">38,3</term>
+                        <term type="dimensions_typeOfInformation">real</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="measure">Fragment eines Bl.</term>
+                        <term type="measure_noOfLeaves">1</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="norm">
+                        <term type="textLang">deutsch</term>
+                        <term type="textLang-ID">de</term>
+                    </index>
+                  
+                    
+                    
+                    <index indexName="namensachen">
+                        <term>Trägerband, ehemaliger &amp; Handschrift im Katalog zitiert</term>
+                        <index>
+                            <term>Dresden, SLUB, Lit.Graec.B.391</term>
+                        </index>
+                    </index>
+               </head>
+                <msContents>
+                    <msItem xml:id="obj_31587810" class="Text">
+                        <note>Notariatsinstrument für die Jüdin 
+                            
+                            
+                            <persName role="kaiserlicher Notar" key="Kreytter von Neuenburg, Johannes">Sara Liechtenfelserin</persName>, wohnhaft in Nürnberg, ausgestellt von dem kaiserlichen Notar 
+                            
+                            
+                            <persName role="Erwähnung" key="Puhlerin, Dorothea">Johannes Kreytter von Neuenburg</persName>: Appellation der Sara Liechtenfelserin an das kaiserliche Gericht gegen ein Urteil des Nürnberger Stadtgerichts im Rechtsstreit mit 
+                            
+                            
+                            <persName role="Erwähnung" key="Schorbach, Jörg">Dorothea Puhlerin</persName> vnd 
+                            
+                            
+                            <persName role="Zeuge" key="Weyssenfels, Wolffganng">Jörg Schorbach</persName> betreffs Pfandleihgeschäften. Als Zeugen anwesend: die Nürnberger Bürger 
+                            
+                            
+                            <persName role="Zeuge" key="Gschwind, Hanns">Wolffganng Weyssenfels</persName> und 
+                            
+                            
+                            <persName>Hanns Gschwind</persName>. Datierung: 
+                            
+                            
+                            <quote>nach Cristi gepurt viertzehenhundert vnd im sechsundsibentzigisten ... auff pfintztag der do was der achtzehendt tag des monats </quote>[danach Loch]
+                            
+                            
+                            <quote> ... in der keyserlichen reichstatt </quote>Nuremberg.</note>
+                        <note>Als Tag der Ausfertigung kommen der 18. Jan., der 18. Apr. und der 18. Juli in Frage, die 1476 jeweils auf einen Donnerstag fielen. </note>
+                    </msItem>
+                </msContents>
+                <physDesc>
+                    <p>Weitgehend vollständig erhalten. An allen vier Ecken schräg beschnitten, dadurch leichter Textverlust an den beiden oberen Ecken. In der Mitte des Blattes, im Bereich des ehemaligen Buchrückens, Schrift weitgehend abgerieben und größere Fehlstellen im Pergament. Blatt durchgehend stark gebräunt. 73 Zeilen Haupttext. Kursive. Darunter durch Leerzeilen abgesetzt 9 Zeilen Beglaubigung durch den Notar, mit Notarssignet des 
+                        
+                        
+                        <persName role="Erwähnung" key="Liechtenfelserin, Sara">Johannes Kreytter</persName> (Abb. eines identischen Signets von Johannes Kreytter nach einem Notariatsinstrument von 1482: Elfriede 
+                        
+                        
+                        <quote>Kern</quote> u. a., Notare und Notarssignete vom Mittelalter bis zum Jahr 1600 aus den Beständen der staatlichen Archive Bayerns, München 2008, S. 358, Nr. 1717). – Schreibsprache: ostfränkisch-nordbair. (nürnbergisch). </p>
+                    <p>Auf der Verso-Seite Dorsalvermerk von Johannes Kreytter für 
+                        
+                        
+                        <persName>Sara Liechtenfelserin</persName>, etwa ein Drittel der Seite füllend, mit Notarssignet, Schrift durch Bräunung und Abrieb weitgehend unleserlich bis auf Teile der ersten beiden Zeilen: 
+                        
+                        
+                        <quote>Ich Johannes Kreytter von Newnburg ... notarius bekenne ... die beschaiden Sara Liechtenfelsserin judin wonhafft zu Nurenberg</quote>. Unten auf der Verso-Seite in sehr flüchtigen gleichzeitigen Kursive: 
+                        
+                        
+                        <quote>Sara Liechtenfelserin contra</quote> (?) 
+                        
+                        
+                        <quote>Puhlerin vnd Jorg Schorbach</quote> ...</p>
+                </physDesc>
+                <history>
+                    <p>Diente – querständig mit der Rectoseite aufgeklebt – als Einbanddecke für einen Druck. Rückentitel auf der Versoseite des Fragments: [Eustr]ati[us] [in] [LIB]ROS A[RIST]OTEL[IS] [D]E MORIBUS ad Nicomach[um] Venetiis 1536. Der Trägerband war wohl das Exemplar der SLUB mit der Signatur 
+                        
+                        
+                        <rs type="mss" role="Erwähnung" key="Dresden, SLUB, Lit.Graec.B.391">Lit.Graec.B.391</rs>. Im 19. Jh. abgelöst und in einer Mappe mit der Signatur Mscr.Dresd.R.52.t zusammen mit weiteren aus Bucheinbänden ausgelösten Urkunden und Urkundenfragmenten aufbewahrt. In dieser Mappe auch eine „Anzahl unbrauchbarer bzw. unbestimmbarer Fragmente“ (
+                        
+                        
+                        <quote>Schmidt</quote>, S. 304), jetzt Mscr.Dresd.R.52.t,Nr.5, Nr.6, Nr.7, Nr.8 (siehe dort).  </p>
+                </history>
+                <additional>
+                    <listBibl>
+                        <bibl>Literatur:  Schmidt , Kat. Bd. 3, S. 304; http://kalliope-verbund.info/de/ead?ead.id=DE-611-HS-3036791.</bibl>
+                        <bibl>Digitalisat: http://digital.slub-dresden.de/id476407052. </bibl>
+                    </listBibl>
+                </additional>
+            </msDesc>
+        </body>
+    </text>
+</TEI>

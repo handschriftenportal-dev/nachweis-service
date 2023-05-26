@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI version="5.0" xml:lang="de" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title/>
+        <respStmt>
+          <resp>Herausgegeben von</resp>
+          <persName role="author" key="45345345" ref="sdfsdfsdf">Konrad E.</persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <publisher/>
+        <availability status="free">
+          <licence
+            target="https://creativecommons.org/publicdomain/mark/1.0/ https://creativecommons.org/publicdomain/mark/1.0/deed.de">
+
+            <p>Die Katalogdaten sind Public Domain.</p>
+          </licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+    <profileDesc>
+      <creation>
+        <date when="2021-05-04">2021-05-04 13:00:00</date>
+      </creation>
+    </profileDesc>
+    <revisionDesc>
+      <change>
+        <date when="2021-06-04">2021-06-04 13:00:00</date>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <msDesc status="intern" xml:id="BS1" xml:lang="de" subtype="medieval" type="hsp:description">
+        <msIdentifier>
+          <settlement>Dresden</settlement>
+          <repository>Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden
+          </repository>
+          <idno>Mscr.Dresd.A.111</idno>
+        </msIdentifier>
+        <head>
+
+          <index indexName="norm_title">
+            <term type="title"/>
+          </index>
+
+          <title>Flavius Josephus, de bello Judaico</title>
+
+          <note type="headline"/>
+
+          <index indexName="norm_material">
+            <term type="material"/>
+            <term type="material_type"/>
+          </index>
+
+          <index indexName="norm_measure">
+            <term type="measure"/>
+            <term type="measure_noOfLeaves"/>
+          </index>
+
+          <index indexName="norm_dimensions">
+            <term type="dimensions"/>
+            <term type="height"/>
+            <term type="width"/>
+            <term type="depth"/>
+            <term type="dimensions_typeOfInformation">factual</term>
+          </index>
+
+          <index indexName="norm_format">
+            <term type="format"/>
+            <term type="format_typeOfInformation">factual</term>
+          </index>
+
+          <index indexName="norm_origPlace">
+            <term type="origPlace"/>
+            <term type="origPlace_norm"/>
+          </index>
+
+          <index indexName="norm_origDate">
+            <term type="origDate"/>
+            <term type="origDate_notBefore"/>
+            <term type="origDate_notAfter"/>
+            <term type="origDate_type"/>
+          </index>
+
+          <index indexName="norm_textLang">
+            <term type="textLang"/>
+            <term type="textLang-ID"/>
+          </index>
+
+          <index indexName="norm_form">
+            <term type="form"/>
+          </index>
+
+          <index indexName="norm_status">
+            <term type="status"/>
+          </index>
+
+          <index indexName="norm_decoration">
+            <term type="decoration"/>
+          </index>
+
+          <index indexName="norm_musicNotation">
+            <term type="musicNotation"/>
+          </index>
+        </head>
+      </msDesc>
+    </body>
+  </text>
+</TEI>

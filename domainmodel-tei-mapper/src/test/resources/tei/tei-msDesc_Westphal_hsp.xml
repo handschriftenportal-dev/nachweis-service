@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xml:id="HAB_mss_36-23-aug-2f_tei-msDesc_Westphal" xml:lang="de">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Beschreibung von Cod. Guelf. 36.23 Aug. 2° (Die illuminierten Handschriften der
+          Herzog August Bibliothek. Teil 1: 6. bis 12. Jahrhundert, beschrieben von Stefanie
+          Westphal (in Bearbeitung))
+        </title>
+                <respStmt>
+                    <resp>Katalogisiert durch</resp>
+                    <name type="person">Stefanie Westphal</name>
+                    <persName>Werner Hoffmann</persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <publisher>
+          
+                    <name type="org">Herzog August Bibliothek</name>
+          
+                    <ptr target="http://www.hab.de"/>
+        </publisher>
+                <date when="2018-11-27" type="issued">27.11.2018</date>
+                <date when="2012-08-12" type="digitised">12.08.2012</date>
+                <distributor>Herzog August Bibliothek</distributor>
+                <availability status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-sa/3.0/de/">
+            
+                        <p>Dieses Dokument steht unter einer Creative Commons Namensnennung-Weitergabe unter
+              gleichen Bedingungen 3.0 Deutschland Lizenz (CC BY-SA).
+            </p>
+            
+                        <p>Herzog August Bibliothek Wolfenbüttel (
+                            <ref target="http://diglib.hab.de/?link=012">
+              Copyright Information</ref>)
+            </p>
+          </licence>
+                </availability>
+                <pubPlace>
+          
+                    <ptr target="http://diglib.hab.de/mss/36-23-aug-2f/start.htm" type="purl"/>
+          
+                    <ptr target="http://diglib.hab.de/mss/36-23-aug-2f/thumbs/00001.jpg" type="thumbnailForPresentations"/>
+        </pubPlace>
+                <idno type="URN">urn:nbn:de:gbv:23-mss/36-23-aug-2f8</idno>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Neukatalogisiert durch 
+                    <name type="person">Stefanie Westphal</name>.
+        </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>Beschreibung erstellt im Rahmen des Projektes 
+                    <name type="project">Katalogisierung der
+          illuminierten Handschriften der Herzog August Bibliothek Wolfenbüttel</name>.
+        </p>
+            </projectDesc>
+        </encodingDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <msDesc xml:id="mss_36-23-aug-2f_tei-msDesc_Westphal" xml:lang="de" type="hsp:description"><msIdentifier>
+                    <settlement>Wolfenbüttel</settlement>
+                    <repository ref="1234" rend="HAB">Herzog August Bibliothek</repository>
+                    <collection>Augusteer</collection>
+                    <idno sortKey="wf_hab_aug-02f-0036-0023">Cod. Guelf. 36.23 Aug. 2°</idno>
+                    <altIdentifier type="catalog">
+                        <idno>Cod. Guelf. 36.</idno>
+                    </altIdentifier>
+                    <altIdentifier type="catalog">
+                        <collection>Handschriftenportal Kulturobjektdokument-ID</collection>
+                        <idno>HSP-1234</idno>
+                    </altIdentifier>
+                </msIdentifier><head>
+          
+                    <title>Agrimensoren-Codex (Codex Arcerianus)</title>
+          
+                    <origPlace>Norditalien (Rom)/Italien (Norditalien?)</origPlace>
+          
+                    <origDate notBefore="0501" notAfter="0599">Anfang 6. Jahrhundert/um 500</origDate>
+        </head><physDesc>
+                    <objectDesc form="codex">
+                        <supportDesc material="perg">
+                            <support>
+                
+                                <p>
+                  
+                                    <material>Pergament</material>
+                </p>
+                
+                                <p>Aus zwei Teilen zusammengesetzt: A, Bl. 
+                                    <locus>2-83</locus>, B, Bl. 
+                                    <locus>
+                  84-122</locus>.
+                </p>
+              </support>
+                            <extent>
+                
+                                <measure type="leavesCount">120 Bl.</measure>
+                
+                                <dimensions type="leaf" unit="cm">
+                                    <height>31,5</height>
+                                    <width>24,5</width>
+                                </dimensions>
+                
+                                <measure type="format"/>
+              </extent>
+                            <foliation>Verschiedene Zählungen, nach Butzmann zusammengestellt in:
+                
+                                <bibl>
+                  
+                                    <abbr>Faks. Arcerianus</abbr>, 38-40
+                </bibl>
+                ; 1. ältere Foliierung in lateinischen Ziffern, 2. Foliierung aus dem 15.(?)
+                Jahrhundert, 3. Foliierung aus dem 16.(?) Jahrhundert, 4. Spaltenzählung von
+                Lachmann für seine Ausgabe, 5. Foliierung von Thulin, vgl.
+                
+                                <bibl>
+                  
+                                    <abbr>Thulin 
+                                        <hi rend="normal">Handschriften</hi>, 12-23
+                  </abbr>
+                </bibl>
+                , 6. Foliierung von O. v. Heinemann.
+              </foliation>
+                            <collation>Vorsatz: Papierblätter I-XXVII. Ein Pergamentblatt, foliiert als Blatt 1.
+                Papierblatt XXVIII. Text: nach der Foliierung von Heinemann, beginnend mit Bl. 2
+                (Zahl 123 bei der Zählung ausgelassen):
+                
+                                <formula>IV-2 (7). IV (15). IV-1 (22). IV-1 (29). 2 IV (45). IV-3 (50). IV (58).
+                  IV-1 (65). IV-1 (72). IV-2 (78). IV-3 (83). 4 IV (115). IV-1 (122). V-1 (132). 3
+                  IV (156).
+                </formula>
+              </collation>
+                        </supportDesc>
+                    </objectDesc>
+                    <bindingDesc>
+                        <p>Roter Ledereinband (Neubindung in den 60/70er Jahre 20. Jh.).</p>
+                    </bindingDesc>
+                </physDesc><history>
+                    <summary>Die vorliegende Handschrift 
+                        <ref type="Hss." cRef="36-23-aug-2f_tei-msDesc_Westphal">36.23 Aug. 2°</ref>, der, nach seinem
+            Vorbesitzer benannte Arcerianus, gilt als der älteste erhaltene Corpus Agrimensorum
+            Romanorum überhaupt. Er enthält zwei unterschiedliche Textsammlungen, Arcerianus A (Bl.
+            2-83) und Arcerianus B (Bl. 84-122 und 124-156). Nur Teil A beinhaltet Bildausstattung.
+            Bereits 
+                        <rs type="person" role="author">Thulin</rs> erbrachte den Nachweis, dass
+            sämtliche erhaltenen Vermessungstexte auf einen einzigen Archetypus zurückzuführen sind,
+            dessen Abschriften in der nachfolgenden Zeit in drei unterschiedliche Hauptextgruppen
+            zun unterteilen sind - A/B (benannt nach dem Arcerianus; vor texthistorischem
+            Hintergrund ursprünglich entstanden in der Zeit 4.-6 Jahrhundert), P1-P2 (entstanden in
+            zwei Redaktionen, 533 und 550, vgl.
+            
+                        <bibl>
+              
+                            <abbr>Koehler/Mütherich
+                
+                                <hi rend="normal">Karolingische Miniaturen VIII</hi>
+              </abbr>
+              , 55, 57, 77.
+            </bibl>
+            ;
+            
+                        <bibl>
+              
+                            <abbr>Thulin</abbr>, 41-59
+            </bibl>
+            ; zugehörige Handschriften: 
+                        <ref target="https://digi.vatlib.it/iiif/MSS_Pal.lat.1564/manifest.json" type="altMs">Rom, BAV, Pal.
+              lat. 1564</ref>; Wolfenbüttel, HAB, 
+                        <ref type="mss" cRef="105-gud-lat_tei-msDesc_Westphal">105 Gud. lat.</ref>) und E:F (nach
+            
+                        <bibl>
+              
+                            <abbr>Thulin</abbr>, 69-72
+            </bibl>
+            
+                        <hi rend="font-style:italic">Codices mixti</hi>; zugehörige Handschriften: 
+                        <ref type="altMs">Florenz, Biblioteca Medicea Laurenziana, 29.32</ref>; 
+                        <ref type="altMs">
+              Erfurt, UB, Amplon. Q. 362</ref>; 
+                        <ref target="http://medium.irht.cnrs.fr/Manuscrits/Voir?idFicheManuscrit=13177" type="altMs">London, BL,
+              Add. 47679</ref>).
+            
+                        <p rend="break">Paläographisch wird Teil B um 500 datiert. Teil A entstand wohl kurze
+              Zeit später, im beginnenden 6. Jahrhundert und war vermutlich als Ergänzung gedacht.
+              Für Letzteres spricht der in A zu Beginn noch wie in Teil B vorhandene zweispaltige
+              Schriftspiegel, der erst mit dem Einsetzen der aufwendigen Illuminationen auf 
+                            <locus from="17r">17r
+              </locus> aufgegeben und durch einen einspaltigen ersetzt wird. Zwei Kopien des
+              Arcerianus aus dem 16. Jahrhundert sind erhalten, beide mit den im 16. Jahrundert noch
+              vorhandenen Bildern (
+                            <ref target="https://digi.vatlib.it/view/MSS_Vat.lat.3132/0001" type="altMs">Rom, BAV, Vat. lat. 3132
+              </ref> - abgeschlossen durch den vatikanischen Schreiber 
+                            <hi rend="font-style:italic">
+                Zanchi
+              </hi> - hier Bilder mit Variationen; 
+                            <ref type="altMs">Jena, Universitätsbibliothek,
+                Cod. fol. 156</ref>; vgl.
+              
+                            <bibl>
+                
+                                <author>C. Thulin</author>, Humanistische Handschriften des Corpus Agrimensorum
+                Romanorum, in: Rheinisches Museum für Philologie, Bd. 66 (1911), 417-451, hier
+                419-422, 425-431
+              </bibl>
+              ).
+            </p>
+            
+                        <p rend="break">Die beeindruckenden Miniaturen, Diagramme und geometrische Zeichnungen
+              der Handschrift erfuhren vorrangig durch die Dissertation von
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>
+              </bibl>
+              , sowie durch die Veröffentlichungen von
+              
+                            <bibl>
+                
+                                <abbr>Campbell</abbr>, XXIII-XXVI
+              </bibl>
+              und
+              
+                            <bibl>
+                
+                                <abbr>Koehler/Mütherich
+                  
+                                    <hi rend="normal">Karolingische Miniaturen VIII</hi>
+                </abbr>
+                , 55, 57, 77
+              </bibl>
+              kunsthistorische Beachtung. Als Quelle für die Diagramme dürfen Darstellungen auf
+              Vermessungskarten und -berichten angenommen werden (vgl. Fragment einer
+              Vermessungskarte aus Augusta Emirata (Mérida/Spanien) und die Vermessungskarte der
+              Grundbesitze in Arausio (Orange/Frankreich; vgl.
+              
+                            <bibl>
+                
+                                <abbr>Campbell</abbr>, XXIV
+              </bibl>
+              ). Die farbigen Illustrationen stehen, mit ihren Ansichten aus der Draufsicht und den
+              fehlenden figürlichen Darstellungen, in der Tradition der spätantiken, genauer
+              römischen, topographischen Landschaftsmalerei und antiken chorographischen
+              Kartographie. Letztere Variante besitzt auf den Darstellungen, wie der Arcerianus,
+              eine häufig anzutreffende Markierung von topographischen Details, die für die
+              jeweilige Gegend typisch waren, und dem Reiseverlauf einer Route glichen, wie auf der
+              Tabula Peutingeriana (
+                            <ref target="http://manuscripta.at/?ID=9722" type="altMs">Wien,
+                ÖNB, Cod. 324
+              </ref> - aus dem 11./12. Jh. Jahrhundert stammende Kopie nach einer Straßenkarte des
+              Römischen Reichs, 1. Hälfte 5. Jh. - Theodosius II., 435 ?; vgl.
+              
+                            <bibl>
+                
+                                <author>M. Rathmann</author>, Tabula Peutingeriana. Die einzige Weltkarte aus der
+                Antike, Darmstadt 2016, 15, 16
+              </bibl>
+              ;
+              
+                            <bibl>
+                
+                                <abbr>Campbell</abbr>, XXV
+              </bibl>
+              ). Die über reine Illustrationen hinausgehenden, den Text tiefer erklärenden Diagramme
+              und geometrischen Zeichnungen stehen in der Tradition der technischen Zeichnung, wie
+              sie bereits von Vitruv (
+                            <bibl>De Architectura, 1.1.4</bibl>) für
+              Architekturzeichnungen empfohlen wurde.
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>, 189-204
+              </bibl>
+              gibt an, dass die Stadtdarstellungen und Bergzüge des Arcerianus stilistisch in die
+              Zeit 4.-6. Jahrhundert verweisen - einige Bergdarstellungen möglicherweise auf einen
+              früheren Zeitpunkt. Dementsprechend nimmt er an, dass die Illustrationen bereits in
+              der ersten Rezension der Handschrift vorhanden gewesen sind. Ob die Illustrationen
+              bereits von Beginn an den Texten beigegeben waren, oder später hinzugefügt wurden,
+              lässt sich auf dieser Grundlage nicht genauer bestimmen. Das Autorenportrait auf 
+                            <locus from="67v">67v
+              </locus> wurde in der Forschung ausführlich besprochen (Zusammenstellung bei
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>, 130-136
+              </bibl>
+              ). Demnach geht die Körperhaltung des Mannes auf einen in der Spätanitike geläufigen
+              Typus zurück, der seinen Ursprung in der frühhellenistischen Epoche hat.
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>, 198-199
+              </bibl>
+              konnte nachweisen, dass die Frisur des gezeigten Mannes Parallelen im späten 5. und
+              frühen 6. Jahrhundert besitzt. Die in griechischer und römischer Kunst geläufige
+              Darstellung des Philosophen, häufig mit übereinander geschlagenen Beinen unter einer
+              Architektur sitzend, wird im Frühmittelalter als Typus des Autorenportraits bei
+              Evangelistendarstellungen übernommen. Die im Arcerianus vorhandene Geste der
+              kalkulierenden Finger verweist auf einen Zählvorgang, anzutreffen bei antiken
+              Darstellung von Mathematikern (Euclid?; zur Diskussion vgl.
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>, 132
+              </bibl>
+              ).
+            </p>
+            
+                        <p rend="break">Die im Agrimensorencodex eine untergeordnete Rolle spielenden Initialen
+              und Registerbuchstaben wurden bereits von
+              
+                            <bibl>
+                
+                                <abbr>Nordenfalk
+                  
+                                    <hi rend="normal">Zierbuchstaben</hi>
+                </abbr>
+                , 122-124
+              </bibl>
+              in den Kontext der spätaniken Buchmalerei verortet. Demnach findet sich die relativ
+              textungebundene Stellung der Registerbuchstaben, wie sie im Arcerianus vorliegt,
+              bereits im Wiener Dioscurides (vgl. 
+                            <ref target="http://data.onb.ac.at/rec/LZ00210626" type="altMs">Wien, ÖNB, Med. gr. 1</ref>, Byzanz,
+              um 512; vgl.
+              
+                            <bibl>
+                
+                                <abbr>Nordenfalk
+                  
+                                    <hi rend="normal">Zierbuchstaben</hi>
+                </abbr>
+                , 123, Taf. 139-140
+              </bibl>
+              ). Die Initialform mit den gerollten Serifen hat ihre Parallelen bereits früh im
+              Vergilius Augusteus (
+                            <ref type="altMs">Rom, BAV, Vat. lat. 3256</ref>, Rom, 2. Hälfte
+              4. Jahrhundert;
+              
+                            <bibl>
+                
+                                <abbr>Nordenfalk
+                  
+                                    <hi rend="normal">Zierbuchstaben</hi>
+                </abbr>
+                , Taf. 17-23
+              </bibl>
+              ), letztere und die bekrönenden Dreiecke kommen im sogenannten Codex Forojuliensis
+              (
+                            <ref type="altMs">Cividale, Museo Archeologico Nazionale, Cod. CXXXVIII</ref>,
+              Italien, Anfang 6. Jahrhundert;
+              
+                            <bibl>
+                
+                                <abbr>Nordenfalk
+                  
+                                    <hi rend="normal">Zierbuchstaben</hi>
+                </abbr>
+                , fig. 32
+              </bibl>
+              ) und in weiteren Handschriften aus dem 6./7. Jahrhundert vor (Zusammenstellung vgl.
+              
+                            <bibl>
+                
+                                <abbr>Nordenfalk
+                  
+                                    <hi rend="normal">Zierbuchstaben</hi>
+                </abbr>
+                , 136
+              </bibl>
+              ). Hier finden sich auch die Füllmotive, wie u.a. der laufende Hund.
+            </p>
+            Die in der Forschung bisher geleisteten Besprechungen (Text und Bild) verweisen auf die
+            grundlegende Rolle des Wolfenbütteler Arcerianus bezüglich der Corpusforschung.
+            Paläographische, textliche und kunsthistorische Vergleiche lassen jedoch kaum mehr als
+            eine zeitliche Einordnung der Handschrift auf die Zeit um 500 (Teil B) und das frühe 6.
+            Jahrhundert (Teil A), sowie eine allgemeine italieneische Provenienz mit einem Vorschlag
+            für Rom (teil A, vgl.
+            
+                        <bibl>
+              
+                            <abbr>Nordenfalk
+                
+                                <hi rend="normal">Zierbuchstaben</hi>
+              </abbr>
+            </bibl>
+            zu.
+            
+                        <index indexName="nasa">
+                            <term>Handschriften, erwähnte</term>
+                            <index>
+                                <term>Rom, BAV, Pal. lat. 1564</term>
+                                <term>London, BL, Add. 47679</term>
+                                <term>Wolfenbüttel, HAB, Cod. Guelf. 105 Gud. lat.</term>
+                                <term>Erfurt, UB, Amplon. Q. 362</term>
+                                <term>Wien, ÖNB, Med. gr. 1, Byzanz</term>
+                                <term>Rom, BAV, Vat. lat. 3256</term>
+                                <term>Cividale, Museo Archeologico Nazionale, Cod. CXXXVIII</term>
+                            </index>
+                        </index>
+          </summary>
+                    <provenance>
+            
+                        <p>Die frühe Provenienz der Handschrift ist unklar (entsprechende Einträge fehlen),
+              wobei die Annahme, dass sich der Codex im 10. Jahrhundert im Kloster Bobbio befunden
+              haben soll, in der Forschung kontrovers diskutiert wird (zur Diskussion vgl. 
+                            <bibl>
+                Faks. Arceranus</bibl>, 36). Aus textlichen Gründen argumentierten 
+                            <rs type="person" role="author">Lange
+              </rs> und 
+                            <rs type="person" role="author">Lachmann</rs> für diese Theorie (
+              
+                            <bibl>
+                
+                                <author>L. Lange</author>, Prolegomena critica et historica in Hygini. De
+                munitionibus castrorum libellum, Göttingen 1847, 9.
+              </bibl>
+              und
+              
+                            <bibl>
+                
+                                <abbr>Lachmann</abbr>, Bd. II, 10.
+              </bibl>
+              ), welche von Heinemann (
+              
+                            <bibl>
+                
+                                <abbr>Wolfenbüttel Aug.</abbr>, 2. Abt., Bd. 3, Nr. 2403, 128)
+              </bibl>
+              übernommen wurde. Für eine Lokalisierung des Arcerianus nach Bobbio im 15. Jahrhundert
+              sprechen die Einträge auf einem Blatt heute in Hannover (
+                            <ref type="altMs">Hannover,
+                Niedersächsische Landesbibliothek, Cod. XLII, 1848</ref>), das ehemals dem Mailänder
+              Humanisten Giorgio Merula (1430/1431-1494) gehörte. Es werden 25 Texte aus seinem
+              Besitz genannt, von denen die letzten fünf Einträge und die Reihenfolge ihrer Nennung
+              mit den Schriften des vorliegenden Codex übereinstimmen. Da Schriften aus Teil B vor
+              denjenigen aus Teil A genannt werden, ist wahrscheinlich davon auszugehen, dass zu
+              diesem Zeitpunkt beide Texte noch ungebunden vorlagen. Dem Sekretär Gorgio Galbiato,
+              der im Auftrag Merulas handelte, gelang 1494 nachweislich die Entdeckung der
+              Klosterbibliothek von Bobbio, eine Nachricht, die Merula an seinen Auftraggeber
+              Ludovico Sforza aus dem Haus der Visconti weitergab. Mehrere dieser Nachrichten (in
+              schriftlicher Form, wie die heute in Hannover befindliche Liste) dürften in
+              Humanistenkreisen kursiert haben. 1506 erwähnt Rafaele Maffei (gen. Volaterranus) in
+              seinem vierten Buch der Commentariorum urbanorum, dass aus Bobbio stammende Bücher vom
+              päpstliche Sekretär Tommaso Inghirami (gen. Phaedrus) nach Rom verbracht wurden.
+              Inhalt und Reihenfolge der Nennung entsprechen der Liste heute in Hannover, so dass
+              dieselbe Quelle angenommen werden darf. Zusammen mit der Agrimensorenhandschrift 
+                            <ref type="altMs">Florenz, Biblioteca Medicea Laurenziana, Plut. XXIX Cod. 32
+              </ref> befand sich der Arcerianus vermutlich in der Sammlung von Angelo Colocci
+              (1497-1549; Sekretär Papst Leo X. und Humanist), die 1527 einer Plünderung zum Opfer
+              fiel (zur Diskussion vgl.
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>, 19-23
+              </bibl>
+              ). Nach Blume (
+              
+                            <bibl>
+                
+                                <abbr>Lachmann</abbr>, Bd. 2, 17-18
+              </bibl>
+              ) gelangte der Arcerianus in der Zeit von 1529-1535 in Freiburg in den Besitz des
+              Erasmus von Rotterdam (vgl. Eintrag von der Hand des Praedinius, s.u.). Nicht
+              auszuschließen ist jedoch auch die direkte Übergabe der Handschrift von Papste Leo X.
+              an denselben (vgl.
+              
+                            <bibl>
+                
+                                <abbr>Carder</abbr>, 23,24
+              </bibl>
+              ). Nach seinem Tod ging der Arcerianus an Johannes a Lasco weiter, um daraufhin in den
+              Besitz der Humanisten Gerhard Mortaigne und Regnerus Praedinius überzugehen (s.
+              Einträge). In den Händen von Ludovicus Miraeus ist die Handschrift in der Zeit von
+              1559-1566 in Lyon belegt (vgl.
+              
+                            <bibl>
+                
+                                <author>L. Lange</author>, Prolegomena critica et historica in Hygini De
+                munitionibus castrorum libellum, Göttingen 1847, 9
+              </bibl>
+              ). Ungefähr um 1565 fand die Handschrift ihren Weg in den Bestand des namengebenden
+              Utrechter Gelehrten Johannes Arcerius, von wo aus sie an Peter Scriverius zeitweilig
+              verliehen wurde. Letzerer gelangte nach dem Tod Arcerius, wahrscheinlich über den Sohn
+              des Arcerius, Sixtus, in den Besitz der Handschrift (vgl.
+              
+                            <bibl>
+                
+                                <author>P. Molhuysen</author>, Zur Geschichte des Codex Arcerianus der Agrimensoren,
+                in: Centralblatt für Bibliothekswesen, Bd. 19 (1902), 269-271
+              </bibl>
+              ). 1663 wurde die Handschrift an Herzog August dem Jüngeren verkauft (vgl.
+              
+                            <bibl>
+                
+                                <abbr>Milde
+                  
+                                    <hi rend="normal">Erwerbungsjahre</hi>
+                </abbr>
+                , 102
+              </bibl>
+              ) und gelangte über diesen in die Sammlung der Herzog August Bibliothek.
+              Einträge: 
+                            <locus>IIIr-IVv</locus>: 
+                            <quote>F. A. Ebert, 1823</quote>. 
+                            <locus from="1r">
+                1r</locus>: 
+                            <quote>At nunc Joanis Arcerii 1566</quote> (Johannes Arcerius,
+              1538-1604; gleiche Hand, wie der Eintrag des ); 
+                            <quote>Gerardus Mortaigne</quote> (3x) 
+                            <quote>
+                Bonus vir
+              </quote> (Gérard Mortaigne, 1553-1554?); 
+                            <quote>Regneri [nuc] [su] Predinii</quote> (Regnerus
+              Praedinius, 1559); 
+                            <quote>Jan Laski</quote> (Johannes a Lasco, 1499-1560). 
+                            <locus from="2r">2r</locus>:  
+                            <quote>Et hic ex bibliotheca Erasmi</quote> (Schrift des
+              Praedinius, s.u.).; 
+                            <quote>Johannes Theodoretus</quote> (1566); 
+                            <quote>Petrus
+                Scriverius
+              </quote> (1602-1621).
+            </p>
+          </provenance>
+                </history><additional>
+                    <adminInfo>
+                        <recordHist>
+                            <source>
+                
+                                <bibl>Die illuminierten Handschriften der Herzog August Bibliothek. Teil 1: 6. bis
+                  12. Jahrhundert, beschrieben von Stefanie Westphal (in Bearbeitung)
+                </bibl>
+              </source>
+                        </recordHist>
+                    </adminInfo>
+                    <listBibl>
+                        <bibl>
+              
+                            <author>A. Schulten</author>, Römische Flurkarten, in: Hermes 33 (1898), 534-565, hier
+              536.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Thulin</abbr>.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>CLA</abbr>
+              IX, 1374a+b.
+            </bibl>
+                        <bibl>
+              
+                            <author>K. Weitzmann</author>, Ancient Book Illumination, Cambridge 1959, 6, 7 (Martin
+              Classical Lectures XVI).
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Wolfenbüttel Aug.</abbr>, Nr. 2403 (Heinemann Nr.).
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Dilke
+                
+                                <hi rend="normal">Illustrations</hi>
+              </abbr>
+              , 11-30.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Lachmann</abbr>, Bd. 2.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Faks. Arcerianus</abbr>.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Nordenfalk
+                
+                                <hi rend="normal">Zierbuchstaben</hi>
+              </abbr>
+              , 122-124, Taf. 36-38
+            </bibl>
+                        <bibl>
+              
+                            <author>A. Petrucci</author>, L'Onciale Romana, in: Studi Medievali, ser. terza, XII,
+              1971 (Centro Italiano di studi sull'alto Medioevo, Spoleto, 75-134), hier 107.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Milde</abbr>, 2-9.
+            </bibl>
+                        <bibl>
+              
+                            <author>C. Nordenfalk</author>, Rezension zum Faks., in: Kunstchronik 26 (1973),
+              79-83.
+            </bibl>
+                        <bibl>
+              
+                            <author>B. Bischoff</author>&gt;, Rezension zum Faks., in: Gnomon 46 (1974), 563-567.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Carder</abbr>.
+            </bibl>
+                        <bibl>
+              
+                            <author>M. T. Hause</author>, Konkurrierende Grenzen. Text, Bild und Raumvorstellungen
+              in De limitibus constituendis des Hyginus Gromaticus, in:
+                            <editor>M. Bauer</editor>, 
+                            <editor>
+              T. Rahn
+            </editor> (Hg.), Die Grenze. Begriff und Inszenierung, Berlin 1997, 279-299.
+            </bibl>
+                        <bibl>
+              
+                            <author>F. Mütherich</author>, Geographische und ethnographische Darstellungen in der
+              Buchmalerei des frühen Mittelalters, in: Popoli e paesi nella cultura altomediavale,
+              Bd. 2, Spoleto 1983, 709-743, 745-750, hier 723,724 (Settimane di studio del Centro
+              Italiano di studio sull'alto Medioevo XXIX).
+            </bibl>
+                        <bibl>L. Brubaker, Introduction of Painted Initials in Byzantium, in: Scriptorium 45
+              (1991), 22-46, hier, 30 Anm. 35 und 36.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Dilke
+                
+                                <hi rend="normal">Land Surveyors</hi>
+              </abbr>
+              , 17, 67, 68, 101, 102, 128, 129, 154, 171, 172.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Sörries</abbr>, 120, 121.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Stückelberger</abbr>, 113-120, 55, Taf. 37, Taf. 38.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Toneatto</abbr>, 139-162; Taf. III
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Zaitsev</abbr>, 546-552.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Europas Weltbild</abbr>, Kat.Nr. 1.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Kaiser</abbr>, 277, 289.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Koehler/Mütherich
+                
+                                <hi rend="normal">Karolingische Miniaturen VIII</hi>
+              </abbr>
+              , 55, 57, 77.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Tewes</abbr>, 60 Anm. 226, Abb. 79.
+            </bibl>
+                        <bibl>
+              
+                            <abbr>Kleine</abbr>, 117-125.
+            </bibl>
+                        <bibl>
+              
+                            <author>B. Lesser</author>, Longe maximum vero Bibliothecae Augustae ornamentum. Zur
+              Geschichte und Katalogisierung der Codices Gudiani in Wolfenbüttel, in: 
+                            <editor>P.
+              Carmassi</editor>, Retter der Antike. Marquard Gude (1635-1689) auf der Suche nach den
+              Klassikern, Wiesbaden 2016 (Wolfenbütteler Forschungen Bd. 147), 445-516, hier
+              481-483.
+            </bibl>
+                        <bibl>
+              
+                            <author>M. Nanni</author>, Musikalische Diagramme zwischen Spätantike und
+              Karolingerzeit, in: Das Mittelalter. Perspektiven mediävistischer Forschung (2017),
+              Bd. 22, Heft 2, 273-293, hier 280, Abb. 2.
+            </bibl>
+                    </listBibl>
+                </additional><msContents>
+                    <textLang mainLang="lat" otherLangs=""/>
+                    <msItem>
+                        <locus from="I">I</locus>
+                        <note>leer.</note>
+                    </msItem>
+                    <msItem>
+                        <locus from="IIv">IIv</locus>
+                        <author ref="Otto v. Heinemann">Otto v. Heinemann</author>
+                        <title>Beschreibung der Handschrift</title>
+                        <note>
+              
+                            <bibl>
+                
+                                <abbr>Wolfenbüttel Aug.</abbr>, 2. Abt., Bd. 3, Nr. 2403, 124-128
+              </bibl>
+              .
+            </note>
+                    </msItem>
+                    <msItem>
+                        <locus from="IIIr" to="IVv">IIIr-IVv</locus>
+                        <author>Adolf Ebert</author>
+                        <title>Beschreibung der Handschrift</title>
+                        <note>Dat. 10.7.1823, abgedruckt:
+              
+                            <bibl>
+                
+                                <author>F. Ebert</author>, Zur Handschriftenkunde, Leipzig 1827, 5-12, Nr. 20
+              </bibl>
+              ;
+              
+                            <bibl>
+                
+                                <abbr>Lachmann</abbr>, Bd. 2, 467-471
+              </bibl>
+              .
+            </note>
+                    </msItem>
+                    <msItem>
+                        <locus from="Vr" to="Vv">Vr/v</locus>
+                        <author>Johannes Isaac Pontanus aus Helsingör (1571-1639)</author>
+                        <title>Brief an Petrus Scriverius</title>
+                        <note>Dat. 
+                            <quote>Harderovici</quote> (Hardewijk im Gelderland), 26.10.1621.
+            </note>
+                    </msItem>
+                    <msItem>
+                        <locus from="VIr" to="VIIIr">VIr-VIIIr</locus>
+                        <title>Emendatio in libellum Hygini (
+                            <quote>De munitionibus castrorum</quote>)
+            </title>
+                        <note>Beilage zum Brief des Pontanus. Nachfolgend VIIIv leer.</note>
+                    </msItem>
+                    <msItem>
+                        <locus from="IXr">IXr</locus>
+                        <title>Lectiones zu Hyginus</title>
+                        <note>Nachfolgend IXv-Xr leer.</note>
+                    </msItem>
+                    <msItem>
+                        <locus from="XIr" to="XIVv">XIr-XIVv</locus>
+                        <author>Hyginus</author>
+                        <title>Auszug aus Hyginus</title>
+                        <note>
+              
+                            <quote>De munitionibus castrorum</quote>. Am Textende, XIVv unten, Verweis auf
+              Volaterranus, Commentarii urbici, Liber 30.
+            </note>
+                    </msItem>
+                    <msItem>
+                        <locus from="XVr">XVr</locus>
+                        <author>Pierre Galand</author>
+                        <title>Brief des Pierre Galland</title>
+                        <note>Brief über den Fund einer Agrimensorenhandschrift in St. Omer an Charles de Guise,
+              Kardinal von Lothringen (dat. 10.12.1554). Darunter aus Epitome Bibliothecae Conradi
+              Gesneri (Hand des Scriverius, dat. Zürich 1555).
+            </note>
+                    </msItem>
+                    <msItem>
+                        <locus from="XVv">XVv</locus>
+                        <author>Volterranus</author>
+                        <title>Auszüge aus den Commentarii urbici.</title>
+                    </msItem>
+                    <msItem>
+                        <locus from="XVIr" to="XVIv">XVIr-XVIv</locus>
+                        <title>Inhaltsverzeichnis einer Agrimensorenhandschrift. 
+                            <quote>Raptim hos titulos
+              excerpsi Petrus Criverius. Prid. Kal. Novi Anni MDCIIII</quote>.
+            </title>
+                    </msItem>
+                    <msItem>
+                        <locus from="XVIIr" to="XXIVv"/>
+                        <author>Hyginus</author>
+                        <title>Auszug aus Hyginus</title>
+                        <note>
+              
+                            <quote>Ex Antonii Galesii Massae cod. et Basil Zanchi</quote>, vgl.
+              
+                            <bibl>
+                
+                                <abbr>Lachmann</abbr>, 30
+              </bibl>
+              . Unten der Eintrag  
+                            <quote>Sum Petri Scriverii ex dono Jo. Wouverii</quote> (Holländischer
+              Philologe, 1574-1612) 
+                            <quote>ex cuius manu suae scheda manuscripti</quote>.
+            </note>
+                    </msItem>
+                    <msItem>
+                        <locus from="XXVv" to="XXVIr">XXVv-XXVIr</locus>
+                        <title>Lesarten zu Hyginus</title>
+                        <note>Nachfolgend XXVIv leer.</note>
+                    </msItem>
+                    <msItem>
+                        <locus from="XXVIIr" to="XXVIIv">XXVIIr-XXVIIv</locus>
+                        <author>Hyginus</author>
+                        <title>Auszüge aus Hyginus</title>
+                        <note>Das Blatt XXVIIr (Pergament) in der Foliierung als 1 gezählt.</note>
+                    </msItem>
+                    <msItem>
+                        <locus from="1r" to="1v">1rv</locus>
+                        <note>Text aus dem 13. Jahrhundert</note>
+                    </msItem>
+                    <msItem>
+                        <locus from="XXVIIIr">XXVIIIr</locus>
+                        <author>Volterranus</author>
+                        <title>Auszüge aus Volterranus, liber 16</title>
+                        <note>Nachfolgend XXXXVIIIv leer.</note>
+                    </msItem>
+                </msContents></msDesc>
+        </body>
+    </text>
+</TEI>

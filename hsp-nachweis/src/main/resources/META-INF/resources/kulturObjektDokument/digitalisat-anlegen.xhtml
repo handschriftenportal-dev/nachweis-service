@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                template="../templates/default.xhtml">
+    <ui:define name="content">
+        <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+            <ui:param name="hasAccess" value="#{kODRechte.kannRegistrieren()}"/>
+        </ui:include>
+        <h:form id="digitalisaterfassenform" rendered="#{kODRechte.kannRegistrieren()}">
+            <script type="application/javascript">
+              $(window).on("beforeunload", function () {
+                kodEntsperren();
+              });
+            </script>
+            <p:remoteCommand name="kodEntsperren"
+                             action="#{digitalisatErfassenController.kodEntsperren}"
+                             process="@this"/>
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <c:if test="#{digitalisatErfassenController.kulturObjektDokumentViewModel == null}">
+                        <h4 class="beschreibungs-header-label">
+                            <p:outputLabel value="#{msg.kod_nicht_gefunden}"/>
+                        </h4>
+                    </c:if>
+                    <c:if test="#{digitalisatErfassenController.kulturObjektDokumentViewModel != null}">
+                        <div style="margin-bottom: 50px;">
+                            <h1>
+                                <h:outputFormat value="#{msg.kod_detail_digitalisat}">
+                                    <f:param
+                                            value="#{digitalisatErfassenController.kulturObjektDokumentViewModel.signatur}"/>
+                                </h:outputFormat>
+                            </h1>
+                        </div>
+                        <p:panelGrid columns="1" layout="grid" styleClass="form-group"
+                                     contentStyle="background: none; border: none">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText styleClass="input-large"
+                                             requiredMessage="#{msg.digitalisat_erfassen_manifesturl_required}"
+                                             required="#{empty digitalisatErfassenController.digitalisatViewModel.alternativeUrl}"
+                                             value="#{digitalisatErfassenController.digitalisatViewModel.manifestURL}">
+                                    <p:ajax></p:ajax>
+                                </p:inputText>
+                                <label>#{msg.digitalisat_erfassen_manifesturi}</label>
+
+                                <i class="material-icons" title="#{msg.digitalisat_erfassen_help}">help_outline</i>
+
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText styleClass="input-large"
+                                             requiredMessage="#{msg.digitalisat_erfassen_alternativeurl_required}"
+                                             required="#{empty digitalisatErfassenController.digitalisatViewModel.manifestURL}"
+                                             value="#{digitalisatErfassenController.digitalisatViewModel.alternativeUrl}">
+                                    <p:ajax></p:ajax>
+                                </p:inputText>
+                                <label>#{msg.digitalisat_erfassen_alternativeurl}</label>
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText styleClass="input-large"
+                                             value="#{digitalisatErfassenController.digitalisatViewModel.thumbnail}">
+                                    <p:ajax></p:ajax>
+                                </p:inputText>
+                                <label>#{msg.digitalisat_erfassen_thumbnailurl}</label>
+                            </h:panelGroup>
+
+                            <h:panelGroup styleClass="">
+                                <p:selectOneMenu styleClass="input-large" required="true"
+                                                 requiredMessage="#{msg.digitalisat_erfassen_digitalisattyp_required}"
+                                                 validatorMessage="#{msg.digitalisat_erfassen_type_mussausgewaehltwerden}"
+                                                 value="#{digitalisatErfassenController.digitalisatViewModel.digitalisatTyp}">
+                                    <p:ajax></p:ajax>
+                                    <f:selectItem itemLabel="#{msg.digitalisat_erfassen_type_auswaehlen}"
+                                                  itemDisabled="true"/>
+                                    <f:selectItems
+                                            value="#{digitalisatErfassenController.digitalisatTypen}">
+                                    </f:selectItems>
+                                </p:selectOneMenu>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="#{msg.digitalisat_erfassen_einrichtung}"
+                                           style="font-weight: bolder;"></p:outputLabel>
+
+                            <h:panelGroup styleClass="md-inputfield toptwenty">
+                                <p:autoComplete id="orteAutocomplete"
+                                                value="#{digitalisatErfassenController.digitalisatViewModel.ort}"
+                                                completeMethod="#{autocompleteNormdatenController.autocompleteOrt}"
+                                                placeholder="#{msg.kod_registrieren_orteingeben_placeholder}"
+                                                converter="normdatenReferenzConverter"
+                                                scrollHeight="200"
+                                                appendTo="orteAutocomplete"
+                                                var="ort"
+                                                itemLabel="#{ort.name}"
+                                                itemValue="#{ort}"
+                                                inputStyle="min-width: 500px">
+                                    <p:ajax event="change" update="koerperschaftSelect"
+                                            listener="#{digitalisatErfassenController.placeChangedListener}"></p:ajax>
+                                    <p:column>#{ort.name}</p:column>
+                                    <p:column styleClass="gnd-cell">
+                                        <h:outputLink
+                                                value="#{ort.gndUrl}"
+                                                rendered="#{not empty ort.gndID}"
+                                                target="_blank"
+                                                onclick="event.stopPropagation()">#{ort.gndID}</h:outputLink>
+                                    </p:column>
+                                </p:autoComplete>
+                            </h:panelGroup>
+
+                            <h:panelGroup styleClass=" toptwenty">
+                                <p:selectOneMenu id="koerperschaftSelect"
+                                                 converter="normdatenReferenzConverter"
+                                                 disabled="#{digitalisatErfassenController.digitalisatViewModel.ort == null}"
+                                                 value="#{digitalisatErfassenController.digitalisatViewModel.einrichtung}"
+                                                 style="min-width: 500px">
+                                    <f:selectItem itemLabel="#{msg.kod_registrieren_koerperschaft_auswaehlen}"
+                                                  itemValue="#{null}"
+                                                  noSelectionOption="true" itemDisabled="true"></f:selectItem>
+                                    <f:selectItems var="koerperschaft" itemValue="#{koerperschaft}"
+                                                   value="#{digitalisatErfassenController.koerperschaftViewModelMap}"/>
+                                    <p:ajax></p:ajax>
+                                </p:selectOneMenu>
+                            </h:panelGroup>
+
+                            <h:panelGroup styleClass="md-inputfield toptwenty">
+                                <p:calendar
+                                        value="#{digitalisatErfassenController.digitalisatViewModel.digitalisierungsdatum}"
+                                        id="datumdigitalisierung" pattern="dd.MM.yyyy" styleClass="input-large"
+                                        autocomplete="off">
+                                    <p:ajax event="dateSelect"></p:ajax>
+                                </p:calendar>
+                                <p:outputLabel for="datumdigitalisierung"
+                                               value="#{msg.digitalisat_erfassen_datum}"></p:outputLabel>
+                            </h:panelGroup>
+                        </p:panelGrid>
+
+                        <div class="toptwenty">
+                            <p:commandButton value="#{msg.cancel}"
+                                             immediate="true"
+                                             action="#{digitalisatErfassenController.abbrechen}"/>
+                            <p:commandButton value="#{msg.save}"
+                                             action="#{digitalisatErfassenController.digitalisatHinzufuegen}"
+                                             onstart="PF('statusDialog').show()"
+                                             oncomplete="PF('statusDialog').hide();"/>
+                        </div>
+                    </c:if>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

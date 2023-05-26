@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - MIT License
+  -
+  - Copyright (c) 2023 Staatsbibliothek zu Berlin - Preußischer Kulturbesitz
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+
+            <ui:include src="templates/datatype/header.xhtml">
+                <ui:param name="title" value="#{msg.document_titel_orte}"/>
+                <ui:param name="access" value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+            </ui:include>
+
+            <h:form id="orteform" rendered="#{normdatenRechte.kannAlsListeAnzeigen()}">
+                <div class="ui-g-12 actionsBar" id="orteactions">
+                    <p:commandButton id="refreshButton"
+                                     action="#{orteModel.resetTable}"
+                                     update="orteform"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerOrteTable" type="button"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerOrteTableTip" for="togglerOrteTable" position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="excelDownloadCommandLinkID"
+                                     ajax="false"
+                                     disabled="#{not normdatenRechte.kannAlsExcelRunterladen()}"
+                                     icon="hsp-icon-download_file">
+                        <p:tooltip for="excelDownloadCommandLinkID" position="top"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xls" target="orteTable" fileName="OrteTabelle"
+                                        pageOnly="false"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="ortImportierenButton"
+                                     action="/dateiupload.xhtml?faces-redirect=true&amp;dokumentTyp=ORT"
+                                     icon="ui-icon-upload_file"
+                                     process="@this"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide()"
+                                     disabled="#{not importRechte.kannOrtManuellImportieren()}">
+                        <p:tooltip for="ortImportierenButton" position="top"
+                                   value="#{msg.ort_liste_importieren}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="neuerOrtButton"
+                                     update="@all" process="@all"
+                                     actionListener="#{orteController.orteNeuerOrt}"
+                                     icon="ui-icon-add"
+                                     disabled="true">
+                        <p:tooltip for="neuerOrtButton" position="top"
+                                   value="#{msg.ort_neuer_ort}"/>
+                    </p:commandButton>
+                </div>
+
+                <div class="ui-g-12">
+                    <p:columnToggler id="columntogglerOrteTable" datasource="orteTable"
+                                     trigger="orteform:togglerOrteTable">
+                        <p:ajax event="toggle" listener="#{orteModel.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="ort" value="#{orteController.allOrte}"
+                                 emptyMessage="Keine Orte gefunden"
+                                 id="orteTable"
+                                 widgetVar="orteTableWidget"
+                                 rowKey="#{ort.id}"
+                                 rows="#{orteModel.currentHitProPage}"
+                                 first="#{orteModel.currentPage}"
+                                 filteredValue="#{orteModel.filteredOrte}"
+                                 ajax="true"
+                                 paginator="true"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{orteModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{orteModel.allPossibleHitProPage}"
+                                 paginatorPosition="top"
+                                 paginatorAlwaysVisible="true"
+                                 liveScroll="true"
+                                 style="width: auto !important;"
+                                 pageLinks="5">
+                        <p:ajax event="sort" listener="#{orteModel.onSort}"/>
+                        <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                        <p:ajax event="colReorder" listener="#{orteModel.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{orteModel.columnsResized}"/>
+                        <c:forEach items="#{orteModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'name'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.ort_ortsName}"
+                                              width="#{orteModel.getColumnWidth(0)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              sortBy="#{ort.name}"
+                                              filterBy="#{ort.name}"
+                                              filterMatchMode="contains">
+                                        <p:link outcome="orte-detail-view.xhtml?faces-redirect=true"
+                                                disabled="#{not normdatenRechte.kannAnzeigen()}"
+                                                value="#{ort.name}">
+                                            <f:param name="id" value="#{ort.id}"/>
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'varianteNamen'}">
+                                    <ui:param name="varianteNamen"
+                                              value="#{ort.varianteNamenAlsString}"/>
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.ort_alternativeNamen}"
+                                              width="#{orteModel.getColumnWidth(1)}"
+                                              visible="#{orteModel.isColumnVisible(1)}"
+                                              sortBy="#{varianteNamen}"
+                                              filterBy="#{varianteNamen}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{varianteNamen}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'hspID'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.ort_hspID}"
+                                              sortBy="#{ort.id}"
+                                              width="#{orteModel.getColumnWidth(2)}"
+                                              visible="#{orteModel.isColumnVisible(2)}"
+                                              filterBy="#{ort.id}"
+                                              filterMatchMode="contains">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{ort.id}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gndID'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.ort_gndID}"
+                                              sortBy="#{ort.gndID}"
+                                              width="#{orteModel.getColumnWidth(3)}"
+                                              visible="#{orteModel.isColumnVisible(3)}"
+                                              filterBy="#{ort.gndID}" filterMatchMode="contains">
+                                        <p:link target="_blank"
+                                                href="#{ort.gndUrl}"
+                                                value="#{ort.gndID}"
+                                                rendered="#{not empty ort.gndID}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'geonamesID'}">
+                                    <ui:param name="geonamesIdentifikator"
+                                              value="#{orteModel.findGeonamesIdentifikator(ort)}"/>
+                                    <p:column id="#{columnID}" headerText="#{msg.ort_geonamesID}"
+                                              width="#{orteModel.getColumnWidth(4)}"
+                                              visible="#{orteModel.isColumnVisible(4)}"
+                                              sortBy="#{geonamesIdentifikator.text}"
+                                              filterBy="#{geonamesIdentifikator.text}"
+                                              exportValue="#{geonamesIdentifikator.text}"
+                                              filterMatchMode="contains">
+                                        <p:link target="_blank"
+                                                href="#{geonamesIdentifikator.url}"
+                                                value="#{geonamesIdentifikator.text}"
+                                                rendered="#{not empty geonamesIdentifikator}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gettyID'}">
+                                    <ui:param name="gettyIdentifikator"
+                                              value="#{orteModel.findGettyIdentifikator(ort)}"/>
+                                    <p:column id="#{columnID}" headerText="#{msg.ort_gettyID}"
+                                              width="#{orteModel.getColumnWidth(5)}"
+                                              visible="#{orteModel.isColumnVisible(5)}"
+                                              sortBy="#{gettyIdentifikator.text}"
+                                              filterBy="#{gettyIdentifikator.text}"
+                                              exportValue="#{gettyIdentifikator.text}"
+                                              filterMatchMode="contains">
+                                        <p:link target="_blank"
+                                                href="#{gettyIdentifikator.url}"
+                                                value="#{gettyIdentifikator.text}"
+                                                rendered="#{not empty gettyIdentifikator}"/>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
