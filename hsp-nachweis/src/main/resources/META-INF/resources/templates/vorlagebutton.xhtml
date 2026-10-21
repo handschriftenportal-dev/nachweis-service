@@ -1,0 +1,5 @@
+<p:commandButton id="downloadVorlage" xmlns:p="http://primefaces.org/ui" value="#{msg.template}" ajax="false"
+                 disabled="#{not importRechte.kannAlleImportvorgaengeAnschauen()}"
+                 icon="pi pi-cloud" styleClass="downloadvorlagebutton toptwenty">
+    <p:fileDownload value="#{content}"/>
+</p:commandButton>

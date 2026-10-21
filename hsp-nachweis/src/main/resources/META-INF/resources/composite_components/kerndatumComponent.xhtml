@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:composite="jakarta.faces.composite"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="jakarta.faces">
+
+  <composite:interface componentType="normdatumComponent">
+    <composite:attribute name="id"
+                         type="java.lang.String"
+                         required="true"/>
+    <composite:attribute name="labelKey"
+                         type="java.lang.String"
+                         required="true"/>
+    <composite:attribute name="attributsRefrenz"
+                         required="false"/>
+    <composite:attribute name="attributsRefrenzen"
+                         type="java.util.Map"
+                         required="true"/>
+    <composite:attribute name="selectedAttributsRefrenzId"
+                         type="java.lang.String"
+                         required="true"/>
+    <composite:attribute name="beschreibungen"
+                         type="java.util.Map"
+                         required="true"/>
+    <composite:attribute name="edit"
+                         type="boolean"
+                         required="true"/>
+    <composite:attribute name="textKey"
+                         type="java.lang.String"
+                         required="false"/>
+    <composite:attribute name="styleClass"
+                         type="java.lang.String"
+                         required="false"/>
+    <composite:attribute name="emptyTooltipKey"
+                         type="java.lang.String"
+                         required="false"
+                         default="kod_kerndaten_keinergebnis"/>
+  </composite:interface>
+
+  <composite:implementation>
+    <div class="ui-g-4 #{not empty cc.attrs.styleClass ? cc.attrs.styleClass : ''}">
+      <p:outputLabel for="#{cc.attrs.id.concat('Input')}"
+                     value="#{msg[cc.attrs.labelKey]}:"/>
+    </div>
+
+    <div class="ui-g-8 #{not empty cc.attrs.styleClass ? cc.attrs.styleClass : ''} ui-fluid">
+
+      <a class="hsp-info left_top"
+         jsf:rendered="#{not cc.attrs.edit
+           and not empty cc.attrs.attributsRefrenz
+           and not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId]
+           and not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId].datumErstpublikation
+           and cc.attrs.attributsRefrenz.text ne null and cc.attrs.attributsRefrenz.text != ''}"
+         style="float: right">
+        <i class="pi pi-info-circle"></i>
+        <div class="ui-widget-content ui-shadow">
+          <p class="compact">
+            #{msg.kod_kerndaten_info_publiziert}:
+            <h:outputText value="#{cc.attrs.beschreibungen[cc.attrs.attributsRefrenz.referenzId].datumErstpublikation}">
+              <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+            </h:outputText>
+          </p>
+        </div>
+      </a>
+
+      <a class="hsp-info left_top"
+         jsf:rendered="#{not cc.attrs.edit
+           and (empty cc.attrs.attributsRefrenz
+           or empty cc.attrs.attributsRefrenz.text
+           or cc.attrs.attributsRefrenz.text == '')}"
+         style="float: right">
+        <i class="pi pi-info-circle"></i>
+        <div class="ui-widget-content ui-shadow">
+          <p class="compact">
+            #{msg[cc.attrs.emptyTooltipKey]}
+          </p>
+        </div>
+      </a>
+
+      <h:outputText id="#{cc.attrs.id.concat('Text')}"
+                    value="#{cc.formatText(cc.attrs.textKey, cc.attrs.attributsRefrenz.text)}"
+                    rendered="#{not empty cc.attrs.attributsRefrenz and not cc.attrs.edit}"/>
+
+      <p:selectOneMenu id="#{cc.attrs.id.concat('Input')}"
+                       value="#{cc.attrs.selectedAttributsRefrenzId}"
+                       var="itemId"
+                       styleClass="kerndaten_auswahl"
+                       autoWidth="false"
+                       rendered="#{cc.attrs.edit}"
+                       disabled="#{empty cc.attrs.attributsRefrenzen
+                            or (empty cc.attrs.attributsRefrenz
+                            or empty cc.attrs.attributsRefrenz.text
+                            or cc.attrs.attributsRefrenz.text == '')}">
+        <f:selectItem itemLabel="#{msg.select}" itemValue="#{null}" noSelectionOption="true"/>
+        <f:selectItems var="var"
+                       value="#{cc.attrs.attributsRefrenzen.values()}"
+                       itemValue="#{var.id}"
+                       itemLabel="#{cc.formatText(cc.attrs.textKey, var.text)}"/>
+        <p:column>
+          <p class="compact">
+            <strong>
+              #{cc.formatText(cc.attrs.textKey, cc.attrs.attributsRefrenzen[itemId].text)}
+            </strong>
+          </p>
+          <p class="compact"
+             jsf:rendered="#{not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].datumErstpublikation}">
+            #{msg.kod_kerndaten_info_publiziert}:
+            <h:outputText
+              value="#{cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].datumErstpublikation}">
+              <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+            </h:outputText>
+          </p>
+          <p class="compact"
+             jsf:rendered="#{not empty cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].autoren}">
+            #{msg.kod_kerndaten_info_von}:
+            #{cc.attrs.beschreibungen[cc.attrs.attributsRefrenzen[itemId].referenzId].formattedAutoren}
+          </p>
+        </p:column>
+        <p:ajax event="change"
+                update="@form"
+                listener="#{kodKerndatenModel.resetSelectedBeschreibungsID()}"
+                onstart="PF('statusDialog').show()"
+                oncomplete="PF('statusDialog').hide()"/>
+      </p:selectOneMenu>
+
+      <h:outputText value="#{msg.kod_kerndaten_keine_werte}"
+                    rendered="#{cc.attrs.edit and empty cc.attrs.attributsRefrenzen}"/>
+    </div>
+  </composite:implementation>
+
+</ui:composition>

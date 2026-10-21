@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><TEI version="3.3.2" xml:lang="de" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><teiHeader><fileDesc><titleStmt><title>Beschreibung von Freiburg im Breisgau, Universitätsbibliothek Freiburg, Fragm. 32 (HAGENMAIER, Winfried: Die deutschen mittelalterlichen Handschriften der Universitätsbibliothek und die mittelalterlichen Handschriften anderer öffentlicher Sammlungen: A: Deutsche Handschriften. B: Lateinische Handschriften. Mit Anhang. - Wiesbaden: Harrassowitz, 1988. - (Kataloge der Universitätsbibliothek Freiburg im Breisgau; Bd 1: Die Handschriften der Universitätsbibliothek und anderer öffentlicher Sammlungen in Freiburg im Breisgau und Umgebung; T. 4))S. 546–546</title><respStmt><resp>Beschrieben von</resp><persName role="author">Winfried Hagenmaier</persName></respStmt></titleStmt><editionStmt><edition>Elektronische Ausgabe nach TEI P5</edition><respStmt><resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem am 04.03.2024 14:05:28:368 erstellten HIDA-DOC1-XML-Dokument erstellt. Grundlage ist ein Retrokonversionsdokument.</resp><name type="org">Handschriftenportal</name></respStmt></editionStmt><publicationStmt><publisher>
+                  <name type="org">Handschriftenportal</name>
+               </publisher><date when="1988" type="primary">1988</date><availability status="restricted"><licence target="http://rightsstatements.org/vocab/InC/1.0/">
+                     <p>http://rightsstatements.org/vocab/InC/1.0/</p>
+                  </licence></availability><idno type="hsk">087</idno><date when="2025-03-25" type="secondary">2025-03-25 14:12:27</date><pubPlace><ptr xml:id="HSP-4b4d6889-ba1f-3c43-bde4-08a2cfd8faed" target="https://resolver.staatsbibliothek-berlin.de/HSP00054D9D00000000" type="purl" subtype="hsp"/></pubPlace></publicationStmt><sourceDesc><bibl n="FR_UB_Kat_1_4">HAGENMAIER, Winfried: Die deutschen mittelalterlichen Handschriften der Universitätsbibliothek und die mittelalterlichen Handschriften anderer öffentlicher Sammlungen: A: Deutsche Handschriften. B: Lateinische Handschriften. Mit Anhang. - Wiesbaden: Harrassowitz, 1988. - (Kataloge der Universitätsbibliothek Freiburg im Breisgau; Bd 1: Die Handschriften der Universitätsbibliothek und anderer öffentlicher Sammlungen in Freiburg im Breisgau und Umgebung; T. 4) S. <biblScope to="Page546_Block4" from="Page546_Block4">546–546</biblScope>
+               </bibl></sourceDesc></fileDesc><profileDesc><creation>
+               <date when="2010-02-12">12.02.2010</date>
+            </creation></profileDesc><revisionDesc><change>
+               <date when="2022-03-24">2022-03-24 00:00:00</date>
+            </change></revisionDesc></teiHeader><text><body><msDesc status="extern" type="hsp:description_retro" subtype="medieval" xml:id="HSP-33ea2722-3764-37b0-ba51-759ae00c811a" xml:lang="de"><msIdentifier><settlement ref="http://d-nb.info/gnd/4018272-1" key="NORM-febdd5d3-6f70-3b92-9773-1e0442671d71">Freiburg im Breisgau</settlement><repository ref="http://d-nb.info/gnd/31816-4 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-25" key="NORM-4532a0cb-50b9-3100-a084-547c55893680" rend="UB">Universitätsbibliothek Freiburg</repository><idno>Fragm. 32</idno><altIdentifier type="mxml-ID"><idno>MXML-90308453-T</idno></altIdentifier><altIdentifier type="hsp-ID"><collection>Handschriftenportal Kulturobjektdokument-ID</collection><idno>HSP-92a39276-f427-3e8d-a902-e5697203544a</idno></altIdentifier></msIdentifier><head>
+                  <index indexName="norm_title"><term type="title"/></index>
+                  <title/>
+                  <note type="headline"/>
+                  <index indexName="norm_material"><term type="material"/><term type="material_type"/></index>
+                  <index indexName="norm_measure"><term type="measure"/><term type="measure_noOfLeaves"/></index>
+                  <index indexName="norm_dimensions"><term type="dimensions"/><term type="height"/><term type="width"/><term type="depth"/><term type="dimensions_typeOfInformation"/></index>
+                  <index indexName="norm_format"><term type="format"/><term type="format_typeOfInformation"/></index>
+                  <index indexName="norm_origPlace"><term type="origPlace"/><term type="origPlace_norm"/></index>
+                  <index indexName="norm_origDate"><term type="origDate"/><term type="origDate_notBefore"/><term type="origDate_notAfter"/><term type="origDate_type"/></index>
+                  <index indexName="norm_textLang"><term type="textLang"/><term type="textLang-ID"/></index>
+                  <index indexName="norm_form"><term type="form">fragment</term></index>
+                  <index indexName="norm_status"><term type="status"/></index>
+                  <index indexName="norm_decoration"><term type="decoration"/></index>
+                  <index indexName="norm_musicNotation"><term type="musicNotation"/></index>
+               </head><msPart type="other"><msIdentifier><idno>Sonstiges</idno></msIdentifier><p>
+                     <index indexName="Registereintrag" n="MXML-90308454-KRZ_1200gi[0]"><term type="1200gi">Egloffs (Allgäu)</term></index>
+                     <index indexName="Registereintrag" n="MXML-90308455-KRZ_1200gi[0]"><term type="1200gi">Grünwald bei Neustadt/Schwarzwald</term><index><term type="1210gi">Paulinerkloster</term><index><term type="1220gi">Vorbesitzer</term></index></index></index>
+                     <index indexName="Vorbesitz" n="MXML-90308455-KRZ_bezsoz[0]"><term type="4564">
+                           <settlement>Grünwald (Stadt Bonndorf im Schwarzwald)</settlement>
+                        </term><term type="4590">Kloster</term><term type="4594">Pauliner</term></index>
+                     <index indexName="Registereintrag" n="MXML-90308456-KRZ_1200gi[0]"><term type="1200gi">Rohrhalden bei Rottenburg</term><index><term type="1210gi">Paulinerkloster</term><index><term type="1220gi">Vorbesitzer</term></index></index></index>
+                     <index indexName="Vorbesitz" n="MXML-90308456-KRZ_bezsoz[0]"><term type="4564">
+                           <settlement>Rohrhalden?</settlement>
+                        </term><term type="4600">
+                           <orgName>Paulinerkloster</orgName>
+                        </term><term type="4590">Kloster</term></index>
+                     <index indexName="Registereintrag" n="MXML-90308457-KRZ_1200gi[0]"><term type="1200gi">Sankt Blasien</term><index><term type="1210gi">Benediktinerabtei</term></index></index>
+                     <index indexName="Vorbesitz" n="MXML-90308457-KRZ_bezsoz[0]"><term type="4564">
+                           <settlement>Sankt Blasien</settlement>
+                        </term><term type="4590">Abtei</term><term type="4594">Benediktiner</term></index>
+                     <index indexName="Registereintrag_Handschrift" n="MXML-90308458-KRZ_1200gi[0]"><term type="1200gi">Darath, Johannes Georg</term><index><term type="1210gi">Vorbesitzer</term></index></index>
+                     <index indexName="Vorbesitz" n="MXML-90308458-KRZ_bezper[0]"><term type="4100">
+                           <persName>Darath, Johann Georg</persName>
+                        </term></index>
+                     <index indexName="Registereintrag_Handschrift" n="MXML-90308459-KRZ_1200gi[0]"><term type="1200gi">Darath, Konrad</term><index><term type="1210gi">Vorbesitzer</term></index></index>
+                     <index indexName="Vorbesitz" n="MXML-90308459-KRZ_bezper[0]"><term type="4100">
+                           <persName>Darath, Konrad</persName>
+                        </term></index>
+                     <index indexName="Registereintrag_Handschrift" n="MXML-90308460-KRZ_1200gi[0]"><term type="1200gi">Gastparus, Johannes</term><index><term type="1210gi">Vorbesitzer</term></index></index>
+                     <index indexName="Vorbesitz" n="MXML-90308460-KRZ_bezper[0]"><term type="4100">
+                           <persName>Gastparus, Johannes</persName>
+                        </term></index>
+                  </p></msPart></msDesc></body></text></TEI>

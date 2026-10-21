@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+         <titleStmt>
+            <title>Normdaten Person</title>
+         </titleStmt>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <listPerson>
+            <person sex="M|F|O" xml:id="___UUID___">
+               <birth>
+                  <date when="___ISO-Datum___">___Datum___</date>
+                  <placeName ref="###GND-URL###">___Ortsname___</placeName>
+               </birth>
+               <death>
+                  <date when="___ISO-Datum___">___Datum___</date>
+                  <placeName ref="###GND-URL###">___Ortsname___</placeName>
+               </death>
+               <idno type="gnd" xml:id="gnd_###GND-ID###">http://d-nb.info/gnd/___GND-ID___</idno>
+               <idno type="orchid" xml:id="orcid_###ORCID-ID###"
+               >https://orcid.org/___ORCID-ID___
+               </idno>
+               <idno type="z001" xml:id="z001_###HIDA-ID###">HIDA-ID</idno>
+               <note>___Bemerkungen___</note>
+               <occupation ref="#___UUID___">occupation</occupation>
+               <!-- z001 dient temporär dem Abgleich mit dem Normdatenmodul, soll später nicht in das release-Template übernommen werden!  -->
+               <persName type="alternative" xml:lang="___Sprachkuerzel___">___Personenname___
+                  <forename>___Vorname___</forename>
+                  <surname>___Generationssname___</surname>
+               </persName>
+               <persName type="default" xml:lang="___Sprachkuerzel___">
+                  <forename>___Vorname___</forename>
+                  <genName>___Generationssname___</genName>
+                  <nameLink>___Namenslink___</nameLink>
+                  <roleName>___Rollenname___</roleName>
+                  <surname>___Nachname___</surname>
+               </persName>
+            </person>
+         </listPerson>
+      </body>
+   </text>
+</TEI>

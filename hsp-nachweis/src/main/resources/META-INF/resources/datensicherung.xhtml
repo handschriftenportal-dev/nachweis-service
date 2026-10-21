@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core" xmlns:h="jakarta.faces.html"
+                template="templates/default.xhtml">
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>#{msg.datensicherung_title}</h1>
+            </div>
+            <h:form id="form">
+                <p:growl id="growl" globalOnly="true" showDetail="false" life="4000"/>
+                <div class="ui-g-4" id="backup">
+
+                    <p:card>
+                        <f:facet name="title">
+                            <h2>#{msg.datensicherung_selection}</h2>
+                        </f:facet>
+
+                        <p:selectManyCheckbox layout="pageDirection"
+                                              id="documents"
+                                              value="#{datensicherungController.dokumentAuswahl}"
+                        >
+                            <p:ajax event="change" update="form"/>
+                            <f:selectItems
+                              value="#{datensicherungController.dokumentOptionen}"
+                              var="item"
+                              itemValue="#{item}"
+                              itemLabel="#{msg['datensicherung_option_' += item]}"
+                            />
+                        </p:selectManyCheckbox>
+                        <br/>
+
+                        <p:commandButton value="#{msg.datensicherung_button_start}"
+                                         action="#{datensicherungController.starteDatensicherung()}"
+                                         update="form growl"
+                                         disabled="#{empty datensicherungController.dokumentAuswahl}"
+                        />
+                    </p:card>
+
+                </div>
+                <div class="ui-g-12">
+                    <h1>#{msg.datensicherung_history}</h1>
+                </div>
+                <p:poll id="poll"
+                        listener="#{datensicherungController.updateDatensicherungHistorie}"
+                        interval="10" update="form"/>
+                <div class="ui-g-12" id="backup-history">
+                    <p:dataTable var="sicherung"
+                                 lazy="false"
+                                 value="#{datensicherungController.datensicherungHistorie}"
+                    >
+                        <p:column field="startZeit"
+                                  headerText="#{msg.datensicherung_history_start_time}"
+                                  filterable="false"
+                                  sortable="false"
+                        >
+                            <h:outputText
+                              value="#{sicherung.startZeit}">
+                                <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column field="endZeit"
+                                  headerText="#{msg.datensicherung_history_end_time}"
+                                  filterable="false"
+                                  sortable="false"
+                        >
+                            <h:outputText
+                              value="#{sicherung.endZeit}">
+                                <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column field="dokumentenAuswahl"
+                                  headerText="#{msg.datensicherung_history_documents}"
+                                  filterable="false"
+                                  sortable="false"
+                        >
+                            <ui:repeat value="#{sicherung.dokumentenAuswahl}" var="auswahl">
+                                <h:outputText value="#{msg['datensicherung_option_' += auswahl]}"/>
+                                <br/>
+                            </ui:repeat>
+                        </p:column>
+                        <p:column field="status"
+                                  headerText="#{msg.datensicherung_history_status}"
+                                  filterable="false"
+                                  sortable="false"
+                        >
+                            <h:outputText
+                              value="#{msg['datensicherung_history_status_' += sicherung.status]}"/>
+                        </p:column>
+                        <p:column field="message"
+                                  headerText="#{msg.datensicherung_history_message}"
+                                  filterable="false"
+                                  sortable="false"
+                        >
+                            <h:outputText
+                              value="#{sicherung.message}"/>
+                        </p:column>
+                        <p:column field="user"
+                                  headerText="#{msg.datensicherung_history_user}"
+                                  filterable="false"
+                                  sortable="false"
+                        >
+                            <h:outputText value="#{sicherung.benutzer}"/>
+                        </p:column>
+                        <p:column filterable="false"
+                                  sortable="false"
+                        >
+
+                            <p:commandButton value="#{msg.datensicherung_history_download}"
+                                             update="form"
+                                             style="margin-right: 10px;"
+                                             disabled="#{sicherung.status ne 'FINISHED'}"
+                                             ajax="false"
+                            >
+                                <p:fileDownload
+                                  value="#{datensicherungController.download(sicherung.id)}"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg.datensicherung_history_delete}"
+                                             action="#{datensicherungController.delete(sicherung.id)}"
+                                             update="form"
+                                             style="margin-right: 10px;">
+                                <f:param value="#{sicherung.id}" name="id"/>
+                                <p:confirm header="#{msg.datensicherung_dialog_header}"
+                                           message="#{msg.datensicherung_dialog_message}"
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+                                             responsive="true" closable="false"
+                                             closeOnEscape="true">
+                                <p:commandButton value="#{msg.datensicherung_dialog_no}"
+                                                 type="button"
+                                                 styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                <p:commandButton value="#{msg.datensicherung_dialog_yes}"
+                                                 type="button"
+                                                 styleClass="ui-confirmdialog-yes"
+                                                 update="growl"/>
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

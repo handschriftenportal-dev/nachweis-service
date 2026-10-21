@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{languageController.locale}" transient="false">
+  <f:metadata>
+    <f:viewParam name="lang" value="#{requestController.locale}"/>
+  </f:metadata>
+</f:view>
+<h:head>
+  <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+  <h:outputScript name="js/layout.js" library="ultima-layout"/>
+  <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/hspnachweis.css"/>
+
+  <h:outputText id="headerTitle" style="font-size: 20px;"
+                value="#{msg.bearbeiter_zuweisen_title}"/>
+</h:head>
+<h:body class="hsp-dialog">
+  <ui:param name="bearbeiterAnzeigen" value="#{bearbeiterRechte.kannAnzeigen()}"/>
+
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad">
+      <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+        <ui:param name="hasAccess" value="#{bearbeiterAnzeigen}"/>
+      </ui:include>
+    </div>
+  </div>
+
+  <h:form id="bearbeiterZuweisenForm" autocomplete="off" rendered="#{bearbeiterAnzeigen}"
+          styleClass="hsp-form">
+
+    <div class="ui-g-8 ui-fluid" style="width: 90%;">
+
+      <p:autoComplete id="inputBearbeiter"
+                      minQueryLength="2"
+                      emptyMessage="#{msg.bearbeiter_empty_Message}"
+                      cache="true"
+                      value="#{beschreibungBearbeiterController.selectedBearbeiter}"
+                      completeMethod="#{beschreibungBearbeiterController.autocompleteBearbeiter}"
+                      at="bottom"
+                      forceSelection="true"
+                      converter="bearbeiterConverter"
+                      var="bearbeiter"
+                      itemValue="#{bearbeiter}"
+                      itemLabel="#{bearbeiter.getFullName()}"
+                      scrollHeight="250"
+                      appendTo="inputBearbeiter"
+                      style="margin-left: 10px; width: 95%;">
+
+
+        <p:column>#{bearbeiter.nachname}, #{bearbeiter.vorname}</p:column>
+
+        <p:column styleClass="gnd-cell">
+          <h:outputLink value="#{bearbeiter.person.gndUrl}"
+                        rendered="#{not empty bearbeiter.person.gndID}"
+                        target="_blank"
+                        onclick="event.stopPropagation();">#{bearbeiter.person.gndID}</h:outputLink>
+
+        </p:column>
+      </p:autoComplete>
+    </div>
+
+    <div style="margin-left:50%; padding-top: 40%; padding-right: 15px; display: inline-flex;">
+      <p:commandButton
+          disabled="false"
+          ajax="true"
+          id="saveButton"
+          update="@all"
+          process="@all"
+          actionListener="#{beschreibungBearbeiterController.bearbeiterZuweisen}"
+          title="#{msg.beschreibung_bearbeiter_zuweisen_speichern}"
+          value="#{msg.beschreibung_bearbeiter_zuweisen_speichern}"
+          style="float: left; margin-right: 10px; text-align: center;"/>
+
+
+      <p:commandButton
+          ajax="false"
+          id="cancelButton"
+          process="@this"
+          immediate="true"
+          action="#{beschreibungBearbeiterController.dialogSchliessen(null)}"
+          title="#{msg.beschreibung_bearbeiter_zuweisen_cancel}"
+          value="#{msg.beschreibung_bearbeiter_zuweisen_cancel}"
+          style="float: right; margin-left: 10px; text-align: center;"/>
+    </div>
+  </h:form>
+
+</h:body>
+</html>

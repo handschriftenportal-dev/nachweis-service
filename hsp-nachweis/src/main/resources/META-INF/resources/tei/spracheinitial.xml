@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Language snippet</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>.</repository>
+               </msIdentifier>
+               <additional> </additional>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="BCP47_ID" xml:id="#__UUID__">
+               <name type="default" xml:lang="de">__dafault_Name__</name>
+               <name type="alternative" xml:lang="de">__alternative_Name__</name>
+               <idno xml:id="iso639-1_#ID">http://id.loc.gov/vocabulary/iso639-1/#ISO-ID</idno>
+               <idno xml:id="iso639-2_#ID">http://id.loc.gov/vocabulary/iso639-2/#ISO-ID</idno>
+               <idno xml:id="gnd_###GND-ID###">http://d-nb.info/gnd/___GND-ID___</idno>
+            </language>
+         </langUsage>
+      </profileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <p/>
+      </body>
+   </text>
+</TEI>

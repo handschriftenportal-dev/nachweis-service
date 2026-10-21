@@ -1,0 +1,104 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="jakarta.faces.html"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:jsf="jakarta.faces"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pu="http://primefaces.org/ultima">
+
+    <pu:menu widgetVar="mainmenuwidget" id="maninnavigationmenu" stateful="true"/>
+
+    <div class="topbar layout-topbar clearfix">
+        <div class="topbar-left">
+            <div class="logo"></div>
+        </div>
+
+        <div class="topbar-right">
+            <a id="menu-button" class="layout-menu-button shadow-6 ui-ripple" href="#"
+               data-p-ripple="true">
+                <i></i>
+            </a>
+
+            <a id="topbar-menu-button" href="#">
+                <i class="material-icons">&#xE5D4;</i>
+            </a>
+
+            <h:form id="topbar-items-form">
+                <ul class="topbar-items fadeInDown animated">
+                    <ui:fragment
+                            rendered="#{guestPreferences.profileMode == 'overlay'||guestPreferences.menuLayout == 'menu-layout-static menu-layout-horizontal'}">
+                        <li class="profile-item">
+                            <a href="#">
+                                <div class="#{loginController.profileImageCssClass}"></div>
+                                <span class="profile-name">#{loginController.name}</span>
+                                <span class="topbar-badge animated rubberBand">#{loginController.role}</span>
+                            </a>
+
+                            <ul class="ultima-menu animated">
+                                <li role="menuitem" style="pointer-events:none;opacity:0.6;">
+                                    <a href="#">
+                                        <i class="material-icons">&#xE7FD;</i>
+                                        <span>#{msg.nav_user_profile}</span>
+                                    </a>
+                                </li>
+                                <li jsf:rendered="false" role="menuitem"
+                                    style="pointer-events:none;opacity:0.6;">
+                                    <a href="#">
+                                        <i class="material-icons">&#xE8B9;</i>
+                                        <span>#{msg.nav_settings}</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem" style="pointer-events:none;opacity:0.6;">
+                                    <a href="#">
+                                        <i class="material-icons">&#xE8AC;</i>
+                                        <span>#{msg.nav_logout}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ui:fragment>
+                    <li><p:linkButton id="erfassungsGuideBtn"
+                                      styleClass="topbar-button topbar-item-name hsp-icon-praesentation"
+                                      icon="hsp-icon-question"
+                                      href="#{praesentationsController.erfassungsGuideUrl}"
+                                      target="hsp-docs"/></li>
+                    <li><p:linkButton id="praesentationBtn"
+                                      value="#{msg.nav_presentation}"
+                                      styleClass="topbar-button topbar-item-name hsp-icon-praesentation"
+                                      icon="hsp-icon-praesentation"
+                                      href="#{praesentationsController.praesentationBaseUrl}"
+                                      target="_blank"/></li>
+                    <li>
+                        <p:button id="spracheBtn"
+                                  value="#{languageController.displayLanguage}"
+                                  styleClass="topbar-button active-top-menu hsp-icon-language_thin"
+                                  icon="hsp-icon-language_thin"
+                                  onclick="PF('languageDialog').show();" href="#"/>
+                        <p:dialog widgetVar="languageDialog" showHeader="false"
+                                  position="right,top"
+                                  width="200" closeOnEscape="true" closable="true"
+                                  style="margin: 20px;">
+                            <ul class="ultima-menu animated">
+                                <li role="menuitem">
+                                    <a href="#"
+                                       jsf:action="#{languageController.setLanguage('de')}">
+                                        <i class="pi pi-globe"/>
+                                        <span>#{msg.nav_german}</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#"
+                                       jsf:action="#{languageController.setLanguage('en')}">
+                                        <i class="pi pi-globe"/>
+                                        <span>#{msg.nav_englisch}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </p:dialog>
+                    </li>
+                </ul>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

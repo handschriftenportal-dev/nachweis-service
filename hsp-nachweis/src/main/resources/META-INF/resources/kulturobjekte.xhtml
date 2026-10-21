@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:c="jakarta.tags.core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+
+        <ui:include src="kulturObjektDokument/kodumziehendialog.xhtml"/>
+
+        <ui:param name="kannLesen" value="#{kODRechte.kannListeLesen()}"/>
+
+        <div class="ui-g" id="kodListTop">
+
+            <ui:include src="templates/datatype/header.xhtml">
+                <ui:param name="title" value="#{msg.document_titel_kulturobjektdokumente}"/>
+                <ui:param name="access" value="#{kannLesen}"/>
+            </ui:include>
+
+            <p class="hilfe-link">
+                <h:outputLink value="javascript:void(0)"
+                              onclick="openHelpTab('hilfe-kulturobjekte')">
+                    #{msg.hilfe_kulturobjekte_link}
+                </h:outputLink>
+            </p>
+
+            <div class="ui-g-12 actionsBar" id="kodListactions">
+                <h:form id="kodListButtonsform">
+
+                    <p:commandButton icon="icon-button-kodumziehen"
+                                     title="Kulturobjekte umziehen"
+                                     styleClass="ui-button rounded-button ui-button-icon-only shadow-3"
+                                     disabled="#{kulturObjekteModel.selectionDisabled}"
+                                     rendered="#{kulturObjekteModel.umziehenVisible}"
+                                     onclick="PF('kodumziehendialog').show()">
+                    </p:commandButton>
+
+
+                    <p:commandButton update="kodListButtonsform kodListform"
+                                     process="kodListButtonsform kodListform"
+                                     id="kodListDeleteButton"
+                                     actionListener="#{kulturObjekteModel.deleteSelectedKods}"
+                                     icon="pi pi-trash"
+                                     styleClass="rounded-button shadow-3"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide();"
+                                     disabled="#{kulturObjekteModel.selectionDisabled}"
+                                     rendered="#{kulturObjekteModel.deleteVisible}">
+                        <p:tooltip id="kodListDeleteButtonTip" for="kodListDeleteButton"
+                                   position="top"
+                                   value="#{msg.kodList_deleteSelected}"/>
+                        <p:confirm
+                                header="#{msg.kodList_deleteSelected} (#{kulturObjekteModel.selectedKulturObjektDokumenteCount})"
+                                message="#{msg.kodList_deleteConfirmText}"
+                                icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="refreshButton"
+                                     action="#{kulturObjekteModel.resetTable}"
+                                     update="kodListform"
+                                     styleClass="rounded-button shadow-3"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerkodListTable" type="button"
+                                     styleClass="rounded-button shadow-3"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerkodListTableTip" for="togglerkodListTable"
+                                   position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="excelDownloadCommandLinkID"
+                                     ajax="true"
+                                     onstart="PF('idleDialog').show()"
+                                     oncomplete="PF('idleDialog').hide()"
+                                     styleClass="rounded-button shadow-3"
+                                     disabled="#{kulturObjekteModel.excelExportDisabled}"
+                                     icon="hsp-icon-download_file">
+                        <p:tooltip for="excelDownloadCommandLinkID" position="top"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xlsx" target="kodListform:kodListTable"
+                                        fileName="HSPKulturObjekteTabelle"
+                                        pageOnly="false"/>
+                    </p:commandButton>
+
+                    <p:commandButton update="kodListform kodListButtonsform" process="kodListform"
+                                     id="kodListReloadButton"
+                                     actionListener="#{kulturObjekteModel.reloadTableRecords}"
+                                     icon="pi pi-spinner"
+                                     styleClass="rounded-button shadow-3"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide();"
+                                     disabled="false">
+                        <p:tooltip id="kodListReloadButtonTip" for="kodListReloadButton"
+                                   position="top"
+                                   value="#{msg.kodList_reloadObjects}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="kodRegistrierenButton"
+                                     action="/kod-verwalten.xhtml?faces-redirect=true"
+                                     icon="pi pi-upload"
+                                     styleClass="rounded-button shadow-3"
+                                     process="@this"
+                                     onstart="PF('statusDialog').show()"
+                                     onsuccess="PF('statusDialog').hide()"
+                                     rendered="#{kODRechte.kannRegistrieren()}">
+                        <p:tooltip for="kodRegistrierenButton" position="top"
+                                   value="#{msg.kodList_kod_registrieren}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="neuesKODButton"
+                                     update="@all"
+                                     process="@all"
+                                     icon="pi pi-plus"
+                                     styleClass="rounded-button shadow-3"
+                                     disabled="true"
+                                     rendered="#{kODRechte.kannRegistrieren()}">
+                        <p:tooltip for="neuesKODButton" position="top"
+                                   value="#{msg.kodList_neues_kod}"/>
+                    </p:commandButton>
+
+                    <p:confirmDialog global="true"
+                                     showEffect="fade"
+                                     hideEffect="fade"
+                                     responsive="true">
+                        <p:commandButton value="#{msg.ja}"
+                                         type="button"
+                                         onclick="PF('kodumziehendialog').hide()"
+                                         styleClass="ui-confirmdialog-yes"/>
+                        <p:commandButton value="#{msg.nein}"
+                                         type="button"
+                                         styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    </p:confirmDialog>
+                </h:form>
+            </div>
+
+            <div class="ui-g-12">
+                <h:form id="kodListform" rendered="#{kannLesen}">
+                    <p:growl for="kodListform:kodListTable" showDetail="true" life="4000"/>
+
+                    <p:columnToggler id="columntogglerkodListTable" datasource="kodListTable"
+                                     trigger="kodListButtonsform:togglerkodListTable">
+                        <p:ajax event="toggle" listener="#{kulturObjekteModel.onToggleColumns}"/>
+                    </p:columnToggler>
+                    <p:dataTable var="kod"
+                                 value="#{kulturObjekteModel.kulturObjektDokumenteDataModel}"
+                                 lazy="true"
+                                 emptyMessage="#{msg.kodList_noRecordsFound}"
+                                 id="kodListTable"
+                                 widgetVar="kodListTableWidget"
+                                 rows="#{kulturObjekteModel.currentHitProPage}"
+                                 first="#{kulturObjekteModel.currentPage}"
+                                 selection="#{kulturObjekteModel.selectedKulturObjektDokumente}"
+                                 rowSelectMode="checkbox"
+                                 ajax="true"
+                                 paginator="true"
+                                 multiViewState="true"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 sortBy="#{kulturObjekteModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 tableStyle="'width:auto'"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{kulturObjekteModel.allPossibleHitProPage}"
+                                 paginatorPosition="both"
+                                 paginatorAlwaysVisible="true"
+                                 liveScroll="false"
+                                 style="width: auto !important;"
+                                 pageLinks="5">
+                        <p:ajax event="sort"
+                                listener="#{kulturObjekteModel.onSort}"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide()"/>
+                        <p:ajax event="filter"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide()"/>
+                        <p:ajax event="page"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide()"/>
+                        <p:ajax event="colReorder"
+                                listener="#{kulturObjekteModel.columnsReordered}"
+                                partialSubmit="true"/>
+                        <p:ajax event="colResize"
+                                listener="#{kulturObjekteModel.columnsResized}"/>
+                        <p:ajax event="rowUnselectCheckbox"
+                                partialSubmit="true"
+                                update="kodListButtonsform"/>
+                        <p:ajax event="rowSelectCheckbox"
+                                partialSubmit="true"
+                                update="kodListButtonsform"/>
+                        <p:ajax event="toggleSelect"
+                                partialSubmit="true"
+                                update="kodListButtonsform"
+                                listener="#{kulturObjekteModel.onSelectAll}"/>
+                        <c:forEach items="#{kulturObjekteModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'selection'}">
+                                    <p:column id="#{columnID}"
+                                              rendered="#{kulturObjekteModel.selectionVisible}"
+                                              selectionMode="multiple"
+                                              headerText=" "
+                                              width="#{kulturObjekteModel.getColumnWidth(0)}"
+                                              onComplete="#{kulturObjekteModel.onSelect}"
+                                              style="max-width:32px;text-align: center;"
+                                              visible="true"
+                                              selectionBox="true"
+                                              toggleable="false"
+                                              exportable="false">
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gueltigeSignature'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.kodList_validSignature}"
+                                              width="#{kulturObjekteModel.getColumnWidth(1)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              sortBy="#{kod.gueltigeSignatur}"
+                                              filterBy="#{kod.gueltigeSignatur}"
+                                              exportValue="#{kod.gueltigeSignatur}">
+                                        <p:link style="font-weight: bold;white-space: pre-wrap;"
+                                                outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?faces-redirect=true"
+                                                value="#{kod.gueltigeSignatur}">
+                                            <f:param name="id" value="#{kod.hspId}"/>
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'sortKey'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.kodList_sortkey}"
+                                              width="#{kulturObjekteModel.getColumnWidth(2)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(2)}"
+                                              sortBy="#{kod.sortKey}"
+                                              filterBy="#{kod.sortKey}"
+                                              exportValue="#{kod.sortKey}">
+                                        <h:outputText value="#{kod.sortKey}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'besitzer'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.kodList_koerperschaftsname}"
+                                              width="#{kulturObjekteModel.getColumnWidth(3)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(3)}"
+                                              sortBy="#{kod.besitzer}"
+                                              filterBy="#{kod.besitzer}"
+                                              exportValue="#{kod.besitzer}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{kod.besitzer}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'aufbewahrungsort'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.kodList_ortsname}"
+                                              width="#{kulturObjekteModel.getColumnWidth(4)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(4)}"
+                                              sortBy="#{kod.aufbewahrungsort}"
+                                              filterBy="#{kod.aufbewahrungsort}"
+                                              exportValue="#{kod.aufbewahrungsort}">
+                                        <h:outputText style="white-space: pre-wrap;"
+                                                      value="#{kod.aufbewahrungsort}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'mitBeschreibungen'}">
+                                    <p:column id="mitBeschreibungen"
+                                              headerText="#{msg.kodList_mitBeschreibungen}"
+                                              width="#{kulturObjekteModel.getColumnWidth(5)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(5)}"
+                                              sortBy="#{kod.mitBeschreibungen}"
+                                              filterBy="#{kod.mitBeschreibungen}"
+                                              filterMatchMode="equals"
+                                              filterValue="#{kulturObjekteModel.filterMitBeschreibungen}"
+                                              filterStyleClass="ui-column-filter"
+                                              exportValue="#{kod.mitBeschreibungen}">
+                                        <h:outputText value="#{kod.mitBeschreibungen}"/>
+                                    </p:column>
+                                </c:when>
+
+                                <c:when test="#{columnID eq 'mitDigitalisat'}">
+                                    <p:column id="mitDigitalisat"
+                                              headerText="#{msg.kodList_mitDigitalisat}"
+                                              width="#{kulturObjekteModel.getColumnWidth(6)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(6)}"
+                                              sortBy="#{kod.mitDigitalisat}"
+                                              filterBy="#{kod.mitDigitalisat}"
+                                              filterMatchMode="equals"
+                                              filterValue="#{kulturObjekteModel.filterMitDigitalisat}"
+                                              filterStyleClass="ui-column-filter"
+                                              exportValue="#{kod.mitDigitalisat}">
+                                        <h:outputText value="#{kod.mitDigitalisat}"/>
+                                    </p:column>
+                                </c:when>
+
+                                <c:when test="#{columnID eq 'hspId'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.kodList_hspid}"
+                                              sortBy="#{kod.hspId}"
+                                              width="#{kulturObjekteModel.getColumnWidth(7)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(7)}"
+                                              filterBy="#{kod.hspId}"
+                                              exportValue="#{kod.hspId}">
+                                        <p:link style="font-weight: bold;white-space: pre-wrap;"
+                                                outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?faces-redirect=true"
+                                                value="#{kod.hspId}">
+                                            <f:param name="id" value="#{kod.hspId}"/>
+                                        </p:link>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'gndId'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.kodList_gndid}"
+                                              sortBy="#{kod.gndId}"
+                                              width="#{kulturObjekteModel.getColumnWidth(8)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(8)}"
+                                              filterBy="#{kod.gndId}"
+                                              exportValue="#{kod.gndId}">
+                                        <p:link target="_blank" href="#{kod.gndId}"
+                                                value="#{kod.gndId}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'registrierungsdatum'}">
+                                    <p:column id="registrierungsdatum"
+                                              headerText="#{msg.kodList_registrierungsdatum}"
+                                              width="#{kulturObjekteModel.getColumnWidth(9)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(9)}"
+                                              sortBy="#{kod.registrierungsdatum}"
+                                              filterBy="#{kod.registrierungsdatumString}"
+                                              exportValue="#{kod.registrierungsdatumString}">
+                                        <h:outputText value="#{kod.registrierungsdatumString}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'beschreibungsIDs'}">
+                                    <p:column id="beschreibungsIDs"
+                                              headerText="#{msg.kodList_beschreibungsIDs}"
+                                              width="#{kulturObjekteModel.getColumnWidth(10)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(10)}"
+                                              sortBy="#{kod.beschreibungenIds}"
+                                              filterBy="#{kod.beschreibungenIds}"
+                                              exportValue="#{kod.beschreibungenIds}">
+                                        <ui:repeat value="#{kod.beschreibungenIdsAsList}"
+                                                   var="beschreibungId">
+                                            <p:link style="font-weight: bold;white-space: pre-wrap;"
+                                                    outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                                                    value="#{beschreibungId} ">
+                                                <f:param name="id" value="#{beschreibungId}"/>
+                                            </p:link>
+                                            <br/>
+                                        </ui:repeat>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'purl'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.kodList_purl}"
+                                              sortBy="#{kod.purl}"
+                                              width="#{kulturObjekteModel.getColumnWidth(11)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(11)}"
+                                              filterBy="#{kod.purl}"
+                                              exportValue="#{kod.purl}">
+                                        <p:link target="_blank" href="#{kod.purl}"
+                                                value="#{kod.purl}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'kerndaten'}">
+                                    <p:column id="#{columnID}" headerText="#{msg.kodList_kerndaten}"
+                                              sortBy="#{kod.kerndaten}"
+                                              width="#{kulturObjekteModel.getColumnWidth(12)}"
+                                              visible="#{kulturObjekteModel.isColumnVisible(12)}"
+                                              filterBy="#{kod.kerndaten}"
+                                              exportValue="#{kod.kerndaten}">
+                                        <h:outputText value="#{kod.kerndaten}"/>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

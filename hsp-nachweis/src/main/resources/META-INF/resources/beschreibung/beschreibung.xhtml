@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:c="jakarta.tags.core"
+                xmlns:f="jakarta.faces.core"
+                xmlns:hsp="jakarta.faces.composite/handschriftenportal"
+                template="../templates/default.xhtml">
+  <ui:define name="content">
+    <ui:param name="kannLesen" value="#{beschreibungsRechte.kannEigeneLesen()}"/>
+    <div id="beschreibungsContainer">
+      <h:form id="beschreibungdetailform">
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h:panelGroup id="headline"
+                          layout="block"
+                          styleClass="detailview-typ-color">
+              <h3>#{msg.document_titel_beschreibung} - #{not empty beschreibungsViewController.beschreibungsViewModel.getFormattedAutoren() ? beschreibungsViewController.beschreibungsViewModel.getFormattedAutoren() : msg.beschreibung_detail_autor_nicht_gefunden}</h3>
+              <h:outputFormat value="#{msg.beschreibung_sperre}" id="headlinesperre"
+                              rendered="#{kannLesen and beschreibungsViewController.showSperre()}"
+                              styleClass="headline_sperre">
+                <f:param
+                    value="#{beschreibungsViewController.sperre.bearbeiter.name}"/>
+              </h:outputFormat>
+            </h:panelGroup>
+
+            <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+              <ui:param name="hasAccess" value="#{kannLesen}"/>
+            </ui:include>
+
+            <c:if
+                test="#{kannLesen and beschreibungsViewController.beschreibungsViewModel eq null}">
+              <h3 class="beschreibungs-header-label">
+                <p:outputLabel value="#{msg.beschreibung_nicht_gefunden}"/>
+              </h3>
+            </c:if>
+
+            <c:if
+                test="#{kannLesen and beschreibungsViewController.beschreibungsViewModel ne null}">
+              <h3 class="beschreibungs-header-label">
+                <p:link style="font-weight: bold"
+                        outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?id=#{beschreibungsViewController.beschreibungsViewModel.kodID}"
+                        value="#{beschreibungsViewController.beschreibungsViewModel.signatur}"/>
+                <h:outputText style="font-weight: bold"
+                              value=", #{beschreibungsViewController.beschreibungsViewModel.titel}"
+                              rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.titel}"/>
+              </h3>
+              <p:outputLabel
+                  value="#{beschreibungsViewController.beschreibungsViewModel.bestandhaltendeInstitutionOrt}, #{beschreibungsViewController.beschreibungsViewModel.bestandhaltendeInstitutionName}"/>
+            </c:if>
+          </div>
+          <div class="ui-g-2">
+            <div id="beschreibungs-button-align"
+                 class="flex align-items-center justify-content-end"
+                 style="gap: 0.5rem;">
+              <hsp:publikationStatusChip id="beschreibungPublikationStatusChip"
+                                         value="#{beschreibungsViewController.beschreibungsViewModel.publikation.status}"
+                                         rendered="#{not empty beschreibungsViewController.beschreibungsViewModel and not empty beschreibungsViewController.beschreibungsViewModel.publikation}"/>
+              <hsp:verwaltungsTypChip id="beschreibungVerwaltungsTypChip"
+                                      value="#{beschreibungsViewController.beschreibungsViewModel.verwaltungsTyp}"
+                                      rendered="#{not empty beschreibungsViewController.beschreibungsViewModel and not empty beschreibungsViewController.beschreibungsViewModel.verwaltungsTyp}"/>
+              <p:menuButton
+                  id="beschreibungListTEIDownloadMenu"
+                  icon="pi pi-download"
+                  disabled="#{not kannLesen}"
+                  styleClass="ui-button-icon-only-big switch-ui-button-color-black-no-bg">
+                <p:menuitem
+                    id="beschreibungListTEIDownloadAktuell"
+                    value="#{msg.beschreibung_tei_download_aktuell}"
+                    icon="pi pi-download"
+                    url="#{request.contextPath}/rest/beschreibungen/#{beschreibungsViewController.beschreibungsViewModel.id}/tei"/>
+                <p:menuitem
+                    id="beschreibungListTEIDownloadPublikation"
+                    value="#{msg.beschreibung_tei_download_publikation}"
+                    icon="pi pi-download"
+                    url="#{request.contextPath}/rest/beschreibungen/#{beschreibungsViewController.beschreibungsViewModel.id}/tei-snapshot"
+                    disabled="#{empty beschreibungsViewController.beschreibungsViewModel.publikation
+                                              or not beschreibungsViewController.beschreibungsViewModel.publikation.hasTeiSnapshot}"
+                    title="#{not empty beschreibungsViewController.beschreibungsViewModel.publikation
+                                                  and beschreibungsViewController.beschreibungsViewModel.publikation.hasTeiSnapshot
+                                                  ? msg.beschreibung_tei_download_publikation_tooltip
+                                                  : msg.beschreibung_tei_download_publikation_disabled_tooltip}"/>
+              </p:menuButton>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <c:if
+                test="#{kannLesen and beschreibungsViewController.beschreibungsViewModel ne null}">
+              <p:accordionPanel widgetVar="metadatenBeschreibung" activeIndex="-1">
+                <p:tab title="#{msg.metadaten}">
+                  <div class="ui-g-12">
+                    <p:commandButton disabled="true" icon="pi pi-ellipsis-v"
+                                     styleClass="rounded-button shadow-3"
+                                     style="float: right;">
+                    </p:commandButton>
+                    <div class="ui-g-11">
+                      <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="#{msg.beschreibungList_hspid}:"/>
+                        <h:outputText
+                            value="#{beschreibungsViewController.beschreibungsViewModel.id} "/>
+                        <h:outputText value="#{msg.metadaten_hsp_url}:"
+                                      rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.hspPurl}"/>
+                        <h:outputLink target="_blank"
+                                      value="#{beschreibungsViewController.beschreibungsViewModel.hspPurl}"
+                                      rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.hspPurl}">
+                          #{beschreibungsViewController.beschreibungsViewModel.hspPurl}
+                        </h:outputLink>
+                        <h:outputText value="#{msg.kulturObjektDokument}:"/>
+                        <p:link style="white-space: pre-wrap;"
+                                outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?id=#{beschreibungsViewController.beschreibungsViewModel.kodID}"
+                                value="#{beschreibungsViewController.beschreibungsViewModel.kodSignatur}">
+                        </p:link>
+                        <h:outputText value="#{msg.metadaten_auflage_version}:"/>
+                        <h:outputText
+                            value="3.3X #{beschreibungsViewController.beschreibungsViewModel.ausGedrucktemKatalog ? msg.metadaten_auskatalog: ''}"/>
+                        <h:outputText value="#{msg.metadaten_erstellung}:"/>
+                        <h:outputText
+                            value="#{beschreibungsViewController.beschreibungsViewModel.erstellungsDatum}">
+                          <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                        </h:outputText>
+                        <h:outputText value="#{msg.metadaten_letzte_aenderung}:"/>
+                        <h:outputText
+                            value="#{beschreibungsViewController.beschreibungsViewModel.aenderungsDatum}">
+                          <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                        </h:outputText>
+                        <h:outputText
+                            value="Status"/>
+                        <hsp:publikationStatusChip id="metadata-pub-status"
+                                                   value="#{beschreibungsViewController.beschreibungsViewModel.publikation.status}"/>
+                        <h:outputText
+                            value="#{msg.metadaten_erstpublikation}:"/>
+                        <h:outputText
+                            value="#{beschreibungsViewController.beschreibungsViewModel.publikation.erstpublikationsDatum}">
+                          <f:convertDateTime type="localDateTime" pattern="yyyy"/>
+                        </h:outputText>
+                        <h:outputText
+                            value="#{msg.metadaten_publikation_hsp}:"/>
+                        <h:outputText
+                            value="#{beschreibungsViewController.beschreibungsViewModel.publikation.publikationsDatumHSP}">
+                          <f:convertDateTime type="localDateTime"
+                                             pattern="dd.MM.yyyy HH:mm"/>
+                        </h:outputText>
+
+                        <h:outputText value="#{msg.metadaten_bearbeiter}:"/>
+                        <c:if
+                            test="#{empty beschreibungsViewController.beschreibungsViewModel.formattedBearbeiter}">
+                          <h:outputText value="Keine"/>
+                        </c:if>
+                        <c:if
+                            test="#{not empty beschreibungsViewController.beschreibungsViewModel.formattedBearbeiter}">
+                          <h:outputText
+                              value="#{beschreibungsViewController.beschreibungsViewModel.formattedBearbeiter}"/>
+                        </c:if>
+
+                        <h:outputText value="#{msg.metadaten_projekt}:"/>
+                        <p:link disabled="true" value="Projekt Link"
+                                outcome="beschreibung.xhtml?id=#{beschreibungsViewController.beschreibungsViewModel.id}"/>
+                        <h:outputText value="#{msg.metadaten_sprache}:"/>
+                        <h:outputText
+                            value="#{beschreibungsViewController.beschreibungsViewModel.beschreibungsSprache.name}"/>
+
+                        <h:outputText value="#{msg.metadaten_lizenz}:"/>
+                        <h:outputLink
+                            value="#{beschreibungsViewController.beschreibungsViewModel.lizenz.uris.toArray()[0]}"
+                            target="_blank"
+                            rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.lizenz and not empty beschreibungsViewController.beschreibungsViewModel.lizenz.uris}">
+                          <h:outputText
+                              value="#{beschreibungsViewController.beschreibungsViewModel.lizenz.beschreibungsText}"
+                              rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.lizenz.beschreibungsText}"/>
+                          <h:outputText
+                              value="#{beschreibungsViewController.beschreibungsViewModel.lizenz.uris.toArray[0]}"
+                              rendered="#{empty beschreibungsViewController.beschreibungsViewModel.lizenz.beschreibungsText}"/>
+                        </h:outputLink>
+                        <h:outputText value="#{msg.metadaten_keine_lizenz}"
+                                      rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.lizenz
+                                                                and empty beschreibungsViewController.beschreibungsViewModel.lizenz.uris
+                                                                and not empty beschreibungsViewController.beschreibungsViewModel.lizenz.beschreibungsText}"/>
+                        <h:outputText value="#{msg.metadaten_keine_lizenz}"
+                                      rendered="#{empty beschreibungsViewController.beschreibungsViewModel.lizenz}"/>
+
+                        <h:outputText
+                            value="#{msg.metadaten_externe_links}:"
+                            rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.externeLinks}"/>
+                        <p:outputPanel layout="block"
+                                       rendered="#{not empty beschreibungsViewController.beschreibungsViewModel.externeLinks}">
+                          <ui:repeat var="externerLink"
+                                     value="#{beschreibungsViewController.beschreibungsViewModel.externeLinks}">
+                            <h:outputLink value="#{externerLink}"
+                                          target="_blank"
+                                          style="display: block;">
+                              #{externerLink}
+                            </h:outputLink>
+                          </ui:repeat>
+                        </p:outputPanel>
+                      </h:panelGrid>
+                    </div>
+                  </div>
+                </p:tab>
+              </p:accordionPanel>
+            </c:if>
+          </div>
+        </div>
+      </h:form>
+      <h:form id="erfassungseditorform">
+        <div class="ui-g" id="hsp-erfassungseditor"
+             style="display: block;"
+             data-url="/rest/beschreibungen/#{beschreibungsViewController.beschreibungsViewModel.id}"
+             data-workspace-url="/rest/beschreibungen/"
+             data-validation-url="/rest/validate/"
+             data-language="#{languageController.language}"
+             data-normdaten-url="#{beschreibungsViewController.normdatenURL}"
+             data-start-in-read-only="#{beschreibungsViewController.isEditorReadOnlyMode()}"
+             data-enable-hsp-tool-bar="#{beschreibungsViewController.enableToolbar()}"
+             data-standalone="false"
+             data-authorization-token="#{beschreibungsViewController.oauth2Token}">
+        </div>
+        <p:remoteCommand
+            name="updateSite"
+            id="updateSiteRemoteCommand"
+            actionListener="#{beschreibungsViewController.fillBeschreibungsViewModelValues(beschreibungsViewController.beschreibungsViewModel.id)}"
+        />
+        <p:remoteCommand
+            name="checkSperren"
+            id="checkSperrenCommand"
+            actionListener="#{beschreibungsViewController.loadingSperren(beschreibungsViewController.beschreibungsViewModel.id)}"
+        />
+        <p:remoteCommand
+            name="executeBeschreibungSperren"
+            id="sperrenRemoteCommand"
+            actionListener="#{beschreibungsViewController.handleBeschreibungBearbeitenEvent}"
+        />
+        <p:remoteCommand
+            name="executeBeschreibungEntsperren"
+            id="entsperrenRemoteCommand"
+            actionListener="#{beschreibungsViewController.handleBeschreibungLesenEvent}"
+        />
+
+        <!-- Die Reihenfolge ist wichtig und darf nicht getauscht werden! Erst die Handler registrieren und dann den Erfassungseditor laden -->
+        <c:if test="#{kannLesen}">
+          <script type="text/javascript"
+                  src="#{request.contextPath}/js/addErfassungsEditorEventHandler.js"></script>
+          <script type="text/javascript"
+                  src="#{request.contextPath}/js/erfassung.js?v=#{appInfo.version}"></script>
+        </c:if>
+
+      </h:form>
+    </div>
+  </ui:define>
+</ui:composition>

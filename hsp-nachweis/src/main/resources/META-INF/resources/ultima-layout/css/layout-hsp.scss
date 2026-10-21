@@ -1,0 +1,57 @@
+$primaryColor: #000000;
+$primaryDarkColor: #DEDAD5;
+$primaryLightColor: #80CBC4;
+$accentColor: #4F4D4B;
+$accentDarkColor: #1E9D24;
+$accentLightColor: red;
+$accentTextColor: #FFFFFF;
+$darkMenuBgColor: #12dce3;
+$darkMenuHoverColor: #761f2f;
+$darkMenuRouterLinkActiveColor: #761f2f;
+$lightMenuRouterLinkActiveColor: red;
+$horizontalLightMenuRouterLinkActiveColor: red;
+$textColor: #000000;
+$borderRadius: 5px;
+$dividerColor: #000000;
+$contentBgColor: #4F4D4B;
+$textSecondaryColor: #000000;
+$solidSurfaceTextColor: #FFFFFF;
+
+
+$pink: pink;
+$indigo: #3F51B5;
+$yellow: yellow;
+$orange: orange;
+$teal: #009688;
+$cyan: #673AB7;
+$bluegrey: #607D8B;
+$purple: purple;
+$deeppurple: purple;
+$blue: #03A9F4;
+$lightblue: lightblue;
+$green: #4CAF50;
+$lightgreen: lightgreen;
+$lime: lime;
+$deeporange: orange;
+$brown: #795548;
+$contentAltBgColor: white;
+$mobileBreakpoint: 768px;
+$transitionDuration: 1;
+$overlayContentBgColor: #761f2f;
+$hoverBgColor: #761f2f;
+$bodyBgColor: #f7f7f7;
+$menuShadow: #4F4D4B;
+$submenuShadow: #4F4D4B;
+$fontSize: 14px;
+$animationDuration: 5;
+$animationTimingFunction: none;
+$layoutMenuItemIconColor: #000000;
+$hspTurquoise: #00838B;
+$paginatorBg: #DEDAD5;
+$datatableBodyRowBorder: 1px solid #bdbdbd;
+$accordionHeaderActiveBg: #DEDAD5;
+
+
+@import '../../sass/layout/_layout';
+@import '../../sass/overrides/layout_styles';
+@import '../../sass/overrides/theme_styles';

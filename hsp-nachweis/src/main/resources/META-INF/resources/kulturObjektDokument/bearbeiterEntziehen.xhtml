@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{languageController.locale}" transient="false">
+    <f:metadata>
+        <f:viewParam name="lang" value="#{requestController.locale}"/>
+    </f:metadata>
+</f:view>
+<h:head>
+    <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+    <h:outputScript name="js/layout.js" library="ultima-layout"/>
+    <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/hspnachweis.css"/>
+
+    <h:outputText id="headerTitle" style="font-size: 20px;"
+                  value="#{msg.bearbeiter_entziehen_title}"/>
+</h:head>
+<h:body class="hsp-dialog">
+    <ui:param name="bearbeiterAnzeigen" value="#{bearbeiterRechte.kannAnzeigen()}"/>
+
+    <div class="ui-g ui-g-nopad">
+        <div class="ui-g-12 ui-g-nopad">
+            <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                <ui:param name="hasAccess" value="#{bearbeiterAnzeigen}"/>
+            </ui:include>
+        </div>
+    </div>
+
+    <h:form id="bearbeiterEntziehenForm" autocomplete="off" rendered="#{bearbeiterAnzeigen}"
+            styleClass="hsp-form">
+
+        <div class="ui-g-8 ui-fluid" style="width: 100%">
+            <p:selectOneMenu id="inputBearbeiter"
+                             converter="bearbeiterConverter"
+                             value="#{beschreibungBearbeiterController.selectedBearbeiter}"
+                             style="margin-left: 10px;width: 95%">
+                <p:ajax/>
+                <f:selectItem itemLabel="#{msg.bearbeiter_select_title}" itemValue="#{null}"
+                              noSelectionOption="true"/>
+                <f:selectItems
+                        value="#{beschreibungBearbeiterController.findBearbeiter()}"
+                        var="bearbeiter"
+                        itemValue="#{bearbeiter}"
+                        itemLabel="#{bearbeiter.getFullName()}">
+                </f:selectItems>
+            </p:selectOneMenu>
+        </div>
+
+        <div style="margin-left:50%;padding-top: 40%;padding-right: 15px;display: inline-flex">
+            <p:commandButton
+                    disabled="false"
+                    ajax="true"
+                    id="deleteButton"
+                    update="bearbeiterEntziehenForm"
+                    process="@this"
+                    actionListener="#{beschreibungBearbeiterController.bearbeiterEntziehen}"
+                    title="#{msg.beschreibung_bearbeiter_entziehen_speichern}"
+                    value="#{msg.beschreibung_bearbeiter_entziehen_speichern}"
+                    style="float: left;margin-right: 20px;text-align: center">
+                <p:resetInput target="bearbeiterEntziehenForm"/>
+            </p:commandButton>
+
+
+            <p:commandButton
+                    ajax="true"
+                    id="cancelButton"
+                    process="@this"
+                    immediate="true"
+                    action="#{beschreibungBearbeiterController.dialogSchliessen(null)}"
+                    title="#{msg.beschreibung_bearbeiter_entziehen_cancel}"
+                    value="#{msg.beschreibung_bearbeiter_entziehen_cancel}"
+                    style="float: right;margin-left: 10px;text-align: center"/>
+        </div>
+    </h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="jakarta.tags.core"
+      xmlns:comp="jakarta.faces.composite"
+      xmlns:h="jakarta.faces.html"
+      xmlns:pt="jakarta.faces.passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+<comp:interface>
+  <comp:attribute
+      name="kodRechte"
+      required="true"
+      type="de.staatsbibliothek.berlin.hsp.nachweis.application.controller.permission.KODRechte"/>
+
+  <comp:attribute
+      name="addForschungsdokumentationListener"
+      required="true"
+      type="jakarta.el.MethodExpression"/>
+</comp:interface>
+
+<comp:implementation>
+  <p:confirmDialog
+      id="confirmForschungsdokumentationDialog"
+      global="true"
+      showEffect="fade"
+      hideEffect="fade"
+      responsive="true"
+      width="750"
+      styleClass="kod-confirm-dialog"
+      closable="false">
+
+    <p:commandButton
+        value="#{msg.common_no}"
+        type="button"
+        styleClass="ui-confirmdialog-no ui-button-flat"/>
+
+    <p:commandButton
+        value="#{msg.common_yes}"
+        type="button"
+        styleClass="ui-confirmdialog-yes"/>
+  </p:confirmDialog>
+
+  <div class="margin-bottom-15 forschungsdokumentation-table-wrapper">
+    <p:dataTable
+        id="forschungsdokumentationen-dt"
+        var="forschungsdokumentation"
+        value="#{kulturObjektDokumentViewController.forschungsdokumentationen}"
+        size="small"
+        cellNavigation="false"
+        styleClass="forschungsdokumentation-table">
+
+      <p:column headerText="#{msg.kod_forschungsdokumentation_ressource}">
+        <h:outputText value="#{forschungsdokumentation.ressource()}"/>
+      </p:column>
+
+      <p:column headerText="#{msg.kod_forschungsdokumentation_link}"
+                styleClass="forschungsdokumentation-link-column">
+        <h:outputLink
+            value="#{forschungsdokumentation.link()}"
+            target="_blank"
+            pt:rel="noopener noreferrer"
+            rendered="#{forschungsdokumentation.hasLink()}">
+          <h:outputText value="#{forschungsdokumentation.link()}"/>
+        </h:outputLink>
+      </p:column>
+
+      <p:column styleClass="margin-right-30 float-right forschungsdokumentation-action-column">
+        <p:commandButton
+            update="@form"
+            disabled="#{not cc.attrs.kodRechte.kannBearbeiten()
+                or kulturObjektDokumentViewController.bearbeitungAktiv}"
+            icon="pi pi-trash fa-2x"
+            title="#{msg.kod_tooltip_delete}"
+            styleClass="shadow-3 rounded-button forschungsdokumentation-delete-button"
+            actionListener="#{kulturObjektDokumentViewController.forschungsdokumentationLoeschen(forschungsdokumentation)}">
+
+          <p:confirm
+              header="#{kulturObjektDokumentViewController.deleteForschungsdokumentationConfirmMessage()}"/>
+        </p:commandButton>
+      </p:column>
+    </p:dataTable>
+  </div>
+
+  <p:outputPanel
+      layout="block"
+      styleClass="ui-g-12 ui-g-nopad-bottom"
+      rendered="#{kulturObjektDokumentViewController.addForschungsdokumentation}">
+
+    <div class="ui-g-12 ui-g-nopad-bottom margin-top-10 forschungsdokumentation-form">
+      <h:outputLabel
+          for="ressource"
+          value="#{msg.kod_forschungsdokumentation_ressource}"
+          styleClass="font-bold margin-right-10"/>
+
+      <p:inputTextarea
+          id="ressource"
+          value="#{kulturObjektDokumentViewController.neueForschungsdokumentationRessource}"
+          rows="1"
+          autoResize="false"
+          styleClass="forschungsdokumentation-ressource-input">
+        <p:ajax
+            event="keyup"
+            process="@this"
+            update="saveForschungsdokumentationButton"
+            delay="300"/>
+      </p:inputTextarea>
+
+      <h:outputLabel
+          for="link"
+          value="#{msg.kod_forschungsdokumentation_link}"
+          styleClass="font-bold margin-right-10"/>
+
+      <p:inputText
+          id="link"
+          value="#{kulturObjektDokumentViewController.neueForschungsdokumentationLink}"
+          validator="forschungsdokumentationLinkValidator"
+          placeholder="https://example.org/research"
+          styleClass="forschungsdokumentation-link-input"/>
+
+      <p:commandButton
+          id="saveForschungsdokumentationButton"
+          title="#{msg.common_save}"
+          actionListener="#{kulturObjektDokumentViewController.forschungsdokumentationBestaetigen}"
+          process="@this ressource link"
+          update="ressource link addForschungsdokumentationConfirmDialog"
+          disabled="#{kulturObjektDokumentViewController.forschungsdokumentationSpeichernDisabled}"
+          disableOnAjax="true"
+          onclick="this.disabled=true"
+          icon="pi pi-save"
+          styleClass="shadow-3 rounded-button"/>
+
+      <p:commandButton
+          title="#{msg.common_cancel}"
+          actionListener="#{kulturObjektDokumentViewController.disableAddForschungsdokumentation}"
+          process="@this"
+          update="@form"
+          icon="pi pi-times-circle"
+          styleClass="shadow-3 rounded-button forschungsdokumentation-cancel-button"/>
+    </div>
+
+    <p:confirmDialog
+        id="addForschungsdokumentationConfirmDialog"
+        widgetVar="addForschungsdokumentationConfirm"
+        header="#{kulturObjektDokumentViewController.addForschungsdokumentationConfirmMessage()}"
+        showEffect="fade"
+        hideEffect="fade"
+        responsive="true"
+        width="750"
+        styleClass="kod-confirm-dialog"
+        closable="false">
+
+      <p:commandButton
+          value="#{msg.common_no}"
+          type="button"
+          onclick="PF('addForschungsdokumentationConfirm').hide()"
+          styleClass="ui-confirmdialog-no ui-button-flat"/>
+
+      <p:commandButton
+          value="#{msg.common_yes}"
+          actionListener="#{cc.attrs.addForschungsdokumentationListener}"
+          process="@this"
+          update="kodform"
+          oncomplete="PF('addForschungsdokumentationConfirm').hide()"
+          styleClass="ui-confirmdialog-yes"/>
+    </p:confirmDialog>
+  </p:outputPanel>
+
+  <div class="ui-g-12 ui-g-nopad-horizontal">
+    <c:if test="#{not kulturObjektDokumentViewController.addForschungsdokumentation}">
+      <p:commandButton
+          actionListener="#{kulturObjektDokumentViewController.enableAddForschungsdokumentation}"
+          title="#{msg.kod_tooltip_add}"
+          disabled="#{not cc.attrs.kodRechte.kannBearbeiten()
+              or kulturObjektDokumentViewController.bearbeitungAktiv}"
+          update="@form"
+          icon="pi pi-plus"
+          styleClass="shadow-3 rounded-button margin-left-5"/>
+    </c:if>
+  </div>
+</comp:implementation>
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                template="templates/default.xhtml">
+    <f:metadata>
+        <f:viewAction action="#{sucheController.setup}" onPostback="false"/>
+    </f:metadata>
+    <ui:define name="content">
+        <ui:param name="kannAufrufen" value="#{sucheRechte.kannAufrufen()}"/>
+        <h:form id="sucheForm">
+            <div class="ui-g">
+                <div class="ui-g-12" style="margin-bottom: 8px">
+                    <h1>#{msg.suche_header}</h1>
+                </div>
+
+                <p class="hilfe-link">
+                    <h:outputLink value="javascript:void(0)" onclick="openHelpTab('hilfe-suche')">
+                        #{msg.hilfe_suche_link}
+                    </h:outputLink>
+                </p>
+
+                <p:outputPanel rendered="#{not kannAufrufen}" class="ui-g-12">
+                    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                        <ui:param name="hasAccess" value="#{kannAufrufen}"/>
+                    </ui:include>
+                </p:outputPanel>
+            </div>
+            <p:outputPanel layout="block"
+                           styleClass="ui-g"
+                           rendered="#{kannAufrufen}">
+                <div class="ui-g-7 ui-lg-5 ui-fluid" style="margin-bottom: 32px">
+
+                    <div style="display: flex">
+                        <p:inputText id="queryInput" value="#{sucheModel.query}"
+                                     styleClass="ui-fluid"
+                                     style="padding-right:85px; font-size: 16px"
+                                     autocomplete="off">
+                        </p:inputText>
+
+                        <p:commandButton id="resetSearchButton"
+                                         icon="pi pi-times"
+                                         styleClass="switch-ui-button-color-black-no-bg resetsearchbutton"
+                                         style="margin-left: -80px;"
+                                         action="#{sucheController.resetSearch()}">
+                        </p:commandButton>
+
+                        <p:commandButton id="searchButton"
+                                         update="sucheForm"
+                                         icon="pi pi-search"
+                                         styleClass="switch-ui-button-color-black-no-bg searchbutton"
+                                         style="color: black; text-decoration:none; margin-left: 0px"
+                                         action="#{sucheController.search()}">
+                        </p:commandButton>
+
+                        <p:defaultCommand target="searchButton"/>
+                    </div>
+                </div>
+                <div class="ui-g-5 ui-lg-7"></div>
+
+                <p:outputPanel layout="block"
+                               styleClass="ui-g-10"
+                               rendered="#{not empty sucheModel.lazyErgebnisModel.ergebnis}">
+
+                    <h2 style="display: inline-block">
+                        <h:outputFormat value="#{msg.suche_ergebnisse}"
+                                        rendered="#{not empty sucheModel.lazyErgebnisModel.ergebnis}">
+                            <f:param value="#{sucheModel.lazyErgebnisModel.ergebnis.getNOfErgebnis()}"/>
+                        </h:outputFormat>
+                    </h2>
+
+                    <p:commandLink id="resetFiltersLink"
+                                   update="sucheForm"
+                                   actionListener="#{sucheController.resetFilters()}"
+                                   oncomplete="PF('sucheTableWidget').paginator.setPage(0);"
+                                   rendered="#{not empty sucheModel.suche.filter}"
+                                   style="margin-left: 25px">
+                        <i class="pi pi-times"
+                           style="font-size: 9px;margin-bottom: 3px">
+                        </i> #{msg.suche_filter_reset}
+                    </p:commandLink>
+                </p:outputPanel>
+                <p:outputPanel layout="block"
+                               styleClass="ui-g-2"
+                               style="text-align: right"
+                               rendered="false">
+                    <p:outputLabel for="sortCriteria" value="#{msg.suche_sorttext}"
+                                   style="margin-right: 6px; margin-top: 5px;line-height: 22px;"/>
+                    <p:selectOneMenu id="sortCriteria"
+                                     value="#{sucheModel.sortCriteria}"
+                                     disabled="true"
+                                     tabindex="-1"
+                                     style="min-width: 120px">
+                        <f:selectItem itemLabel="#{msg.suche_sortrelevanz}" itemValue="RELEVANZ"/>
+                        <f:selectItem itemLabel="#{msg.suche_sortsignatur}" itemValue="SIGNATUR"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
+
+                <div class="ui-g-4">
+                    <ui:include src="suche-filter.xhtml"/>
+                </div>
+                <div class="ui-g-8">
+                    <ui:include src="suche-ergebnis.xhtml"/>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

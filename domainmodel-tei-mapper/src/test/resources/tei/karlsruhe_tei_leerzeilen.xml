@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:id="karlsruhe" xml:lang="de" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <teiHeader>
+         <fileDesc>
+            <titleStmt>
+               <title>Beschreibung von Karlsruhe, Badische Landesbibliothek, Cod. Donaueschingen 481 (865)</title>
+               <respStmt>
+                  <resp>Beschrieben von</resp>
+                  <persName role="author">Katrin Sturm</persName>
+                  <note>2022</note>
+               </respStmt>
+            </titleStmt>
+            <editionStmt>
+               <edition>Elektronische Ausgabe nach TEI P5</edition>
+               <respStmt>
+                  <resp>Diese Datei wurde unter Anwendung des MXML-to-TEI-P5-Stylesheets, welches an der Herzog August Bibliothek Wolfenbüttel im Rahmen des Projektes "Handschriftenportal" gepflegt wird aus einem am 21.08.2023 17:45:47:805 erstellten HIDA-DOC1-XML-Dokument erstellt.</resp>
+                  <name type="org">Handschriftenportal</name>
+               </respStmt>
+            </editionStmt>
+            <publicationStmt>
+               <publisher>
+                  <name type="org">Handschriftenportal</name>
+               </publisher>
+               <date type="primary" when="2022">2022</date>
+               <availability status="restricted">
+                  <licence target="http://rightsstatements.org/vocab/InC/1.0/">
+                     <p>http://rightsstatements.org/vocab/InC/1.0/</p>
+                  </licence>
+               </availability>
+               <idno type="hsk">865</idno>
+            </publicationStmt>
+            <sourceDesc>
+               <bibl>865</bibl>
+            </sourceDesc>
+         </fileDesc>
+         <profileDesc>
+            <creation>
+               <date when="2022-11-03">03.11.2022</date>
+            </creation>
+         </profileDesc>
+         <revisionDesc>
+            <change>
+               <date when="2023-01-30">30.01.2023</date>
+            </change>
+         </revisionDesc>
+      </teiHeader>
+      <text>
+         <body>
+            <msDesc xml:id="MXML-31641871"
+                    xml:lang="de"
+                    type="hsp:description"
+                    subtype="medieval"
+                    status="extern">
+               <msIdentifier>
+                  <settlement>Karlsruhe</settlement>
+                  <repository key="soz_30002072"
+                              ref="http://d-nb.info/gnd/2005707-6 https://sigel.staatsbibliothek-berlin.de/suche/?isil=DE-31">Badische Landesbibliothek</repository>
+                  <collection>Donaueschingen</collection>
+                  <collection type="baseShelfmarkGroup">C-Segment</collection>
+                  <idno>Cod. Donaueschingen 481</idno>
+               </msIdentifier>
+               <head>
+                  <index indexName="norm_title">
+                     <term type="title">Hans Schiltberger: ‚Reisebuch‘</term>
+                  </index>
+                  <title>Hans Schiltberger, ‚Reisebuch‘</title>
+                  <note type="headline">Papier · 134 Bll. · 21,5 × 15–15,5 · Westen des ostschwäbischen Sprachraums · um 1455–1456</note>
+                  <index indexName="norm_material">
+                     <term type="material">Papier</term>
+                     <term type="material_type">paper</term>
+                  </index>
+                  <index indexName="norm_measure">
+                     <term type="measure">134 Bl.</term>
+                     <term type="measure_noOfLeaves">134</term>
+                  </index>
+                  <index indexName="norm_dimensions">
+                     <term type="dimensions">21,5 × 15–15,5</term>
+                     <term type="height">21,5</term>
+                     <term type="width">15</term>
+                     <term type="depth"/>
+                     <term type="dimensions_typeOfInformation">factual</term>
+                  </index>
+                  <index indexName="norm_format">
+                     <term type="format">quarto</term>
+                     <term type="format_typeOfInformation">computed</term>
+                  </index>
+                  <index indexName="norm_origPlace">
+                     <term type="origPlace">Westen des ostschwäbischen Sprachgebiets</term>
+                     <term type="origPlace_norm"/>
+                  </index>
+                  <index indexName="norm_origDate">
+                     <term type="origDate">um 1455–1456</term>
+                     <term type="origDate_notBefore">1445</term>
+                     <term type="origDate_notAfter">1466</term>
+                     <term type="origDate_type">datable</term>
+                  </index>
+                  <index indexName="norm_textLang">
+                     <term type="textLang">lateinisch / deutsch</term>
+                     <term type="textLang-ID">la</term>
+                     <term type="textLang-ID">de</term>
+                  </index>
+                  <index indexName="norm_form">
+                     <term type="form">codex</term>
+                  </index>
+                  <index indexName="norm_status">
+                     <term type="status">existent</term>
+                  </index>
+                  <index indexName="norm_decoration">
+                     <term type="decoration"/>
+                  </index>
+                  <index indexName="norm_musicNotation">
+                     <term type="musicNotation"/>
+                  </index>
+               </head>
+               <msContents>
+                  <msItem>
+                     <note type="text"><ref type="locus">1r–134r</ref>: <ref type="persName">Hans Schiltberger</ref>, <ref type="bezwrk[1].6930gi">‚Reisebuch‘</ref>.<lb/><lb/>(1r) Einleitung, Inc. <ref type="initium" xml:lang="de">›I‹ch, Johanns Schiltperger, zoch vß von miner haÿmat mit namen vs der statt Múnchen</ref>, gelegen in Baÿern, in der czit, als kúnig Sÿgmund zu<quote><hi rend="sup">o</hi></quote><hi rend="italic">Vngern in die haÿdenschafft zoch. Das was, als man zalt von Crists gebúrt drw</hi>´czehenhundert vnd in dem vier vnd núnczigisten ja<quote><hi rend="sup">u</hi></quote><hi rend="italic">re …</hi>, (1v) Kapitel 1, Inc. <hi rend="italic">›U‹on erst schickt kúng Sigmund </hi>[mit Nasalkürzung, jedoch ohne Funktion] <hi rend="italic">in dem obgenanten ja</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">r, als man zalt drw</hi>´zehenhundert vnd in dem vier vnd núnczigosten ja<quote><hi rend="sup">u</hi></quote><hi rend="italic">r, in die cristenhait vmb hilff, wann im die haÿden grossen schaden ta</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">tten in dem landt ze Vngern … </hi>– … (128v) <hi rend="italic">›Wie vnd durch wo</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lche land ich hervß </hi>[komen]<hi rend="italic">‹ ›U‹nd als der Zegra vnden lag, als vor menklich geschriben ist, do kam ich zu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">ainem hern gehaissen Manusczusch … </hi>(133v) <hi rend="italic">›Das armenisch pater noster‹ Har mÿer vr ergink es surpeÿcza … </hi>(133v) <hi rend="italic">›Das tatarisch pater noster‹ ›Atha voÿsum chÿ kockta sen algu schludur … </hi>(134r) <hi rend="italic">macha illa garche wisui gemandan. Amen.</hi><lb/><lb/><lb/><lb/>Binnengliederung:<lb/><lb/>Wiedergegeben sind alle Texteinschnitte, d. h. sowohl solche, die durch Überschriften und solche, die nur durch Initialen gekennzeichnet sind.<lb/><lb/><lb/><lb/>Prolog (1r–1v): Schiltberger an den Leser [= <hi rend="small-caps">Neumann</hi>, Schiltberger an den Leser; <hi rend="small-caps">Langmantel</hi>, Einleitung], in Don. 481 ohne Überschrift;<lb/><lb/>1. (1v–5r) Vom ersten Kampf Sigismunds mit den Türken [= <hi rend="small-caps">Neumann</hi>, Kap. 1; <hi rend="small-caps">Langmantel</hi>, Kap. 1], ohne Überschrift;<lb/><lb/>2. (5r–7v) Wie der Sultan einen Teil der Gefangenen töten ließ [= <hi rend="small-caps">Neumann</hi>, Kap. 2; <hi rend="small-caps">Langmantel</hi>, Kap. 2], Überschrift: <hi rend="italic">›Wie der túrkisch kúng den gefangen tett‹</hi>;<lb/><lb/>3. (7v–9r) Wie Sultan Bayezid in Ungarn und die Steiermark einfiel [= <hi rend="small-caps">Neumann</hi>, Kap. 3; <hi rend="small-caps">Langmantel</hi>, Kap. 3], Überschrift: <hi rend="italic">›Wie der Wÿasit ain gancz land vff hu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">b‹</hi>;<lb/><lb/>4. (9r–13r) Wie Sultan Bayezid mit seinem Schwager Karaman [Ali Beg] Krieg führte [= <hi rend="small-caps">Neumann</hi>, Kap. 4; <hi rend="small-caps">Langmantel</hi>, Kap. 4; Beschreibung von Geschehnissen aus dem Jahr 1392], Überschrift: <hi rend="italic">›Wie der Wÿasitt mit sinem schwa</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">ger kriegot vnd in tott.‹</hi>;<lb/><lb/>5. (13r–13v) Wie Sultan Bayezid den König von Siwas vertrieb [= <hi rend="small-caps">Neumann</hi>, Kap. 5; <hi rend="small-caps">Langmantel</hi>, Kap. 5], Überschrift: <hi rend="italic">›Wie der Wÿasit den kúng von Sebast vertraib.‹</hi>;<lb/><lb/>6. (14r–15v) Wie Schiltberger sich an einem Fluchtversuch gefangener Christen beteiligte [= <hi rend="small-caps">Neumann</hi>, Kap. 6; <hi rend="small-caps">Langmantel</hi>, Kap. 6], Überschrift: <hi rend="italic">›Wie vnser sechczig cristen v</hi>´ber ain wu<quote><hi rend="sup">e</hi></quote><hi rend="italic">rden, ob wir dauon komen‹</hi>;<lb/><lb/>7. (16r) Wie Sultan Bayezid die Stadt Samson [Dschanik] einnahm [= <hi rend="small-caps">Neumann</hi>, Kap. 7; <hi rend="small-caps">Langmantel</hi>, Kap. 7; Beschreibung von Geschehnissen aus dem Jahr 1393], ohne Überschrift;<lb/><lb/>8. (16r–18r) Wunderbares Erscheinen von Schlangen und Nattern bei Samson [= <hi rend="small-caps">Neumann</hi>, Kap. 8; <hi rend="small-caps">Langmantel</hi>, Kap. 8], ohne Überschrift;<lb/><lb/>9. (18r–23v) Wie Sultan Bayezid Siwas eroberte [= <hi rend="small-caps">Neumann</hi>, Kap. 9; <hi rend="small-caps">Langmantel</hi>, Kap. 9; Beschreibung von Geschehnissen aus dem Jahr 1395 oder 1393, vgl. <hi rend="small-caps">Langmantel</hi>, S. 16, Anm. 2], ohne Überschrift;<lb/><lb/>10. (23v–24v) Wie Sultan Bayezid eine Stadt einnahm, die zum Königreich Siwas gehörte [= <hi rend="small-caps">Neumann</hi>, Kap. 10; <hi rend="small-caps">Langmantel</hi>, Kap. 10], Überschrift: <hi rend="italic">›Wie der Wÿasit dem solda</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">n ain land abgewan.‹</hi>;<lb/><lb/>11. (24v–25r) Wie Sultan Bayezid die Tartaren unterwarf und Adalia eroberte [= <hi rend="small-caps">Neumann</hi>, Kap. -; <hi rend="small-caps">Langmantel</hi>, Kap. 11], ohne Überschrift;<lb/><lb/>12. (25r–25v) Von Sultan Barkok / Wie Sultan Bayezid ein Hilfsheer aussendet, in dem sich Schiltperger befand [= <hi rend="small-caps">Neumann</hi>, Kap. 11; <hi rend="small-caps">Langmantel</hi>, Kap. 12], mit Überschrift <hi rend="italic">›Von kúng Solda</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">n.‹</hi>;<lb/><lb/>13. (25v–26v) Wie Timur einen Einfall in das türkische Gebiet unternahm und Siwas eroberte [= <hi rend="small-caps">Neumann</hi>, Kap. 12; <hi rend="small-caps">Langmantel</hi>, Kap. 13, Geschehnisse von 1400], mit Überschrift <hi rend="italic">›Wie der Tamerlin das kúngrich Sebast gewan.‹</hi>;<lb/><lb/>14. (26v–27v) Wie Sultan Bayezid bei Angora Timur unterliegt und Schiltberger in Gefangenschaft geriet [= <hi rend="small-caps">Neumann</hi>, Kap. 13; <hi rend="small-caps">Langmantel</hi>, Kap. 14], mit Überschrift <hi rend="italic">›Der Wÿasit gewan das klain Armein.‹</hi>;<lb/><lb/>15. (27v–30v) Wie Timur mit dem ägyptischen Sultan Faradsch Krieg führt und Damaskus erobert [= <hi rend="small-caps">Neumann</hi>, Kap. 14; <hi rend="small-caps">Langmantel</hi>, Kap. 15, Geschehnisse von 1400 bis 1401], mit Überschrift <hi rend="italic">›Wie der Tamerlin mit kúng Soldan krieget.‹</hi>;<lb/><lb/>16. (30v–31v) Wie Timur Bagdad erobert [= <hi rend="small-caps">Neumann</hi>, Kap. 15; <hi rend="small-caps">Langmantel</hi>, Kap. 16, Geschehnisse von 1401], mit Überschrift <hi rend="italic">›Wie der Tamerlin Babiloni gewan‹</hi>;<lb/><lb/>17. (31v–34r) Wie Tumur einen Zug nach Indien unternahm [= <hi rend="small-caps">Neumann</hi>, Kap. 16; <hi rend="small-caps">Langmantel</hi>, Kap. 17], mit Überschrift <hi rend="italic">›Wie der Tamerlin das klain India gewan.‹</hi>;<lb/><lb/>18. (34r–34v) Wie ein Landsherr Timurs sich des Reichsschatzes bemächtigte [= <hi rend="small-caps">Neumann</hi>, Kap. 13; <hi rend="small-caps">Langmantel</hi>, Kap. 14], mit Überschrift <hi rend="italic">›Wie ain lands herr dem Tamerlin groß gu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">t empfu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">rt‹</hi>;<lb/><lb/>19. (34v–36r) Wie Timur 3.000 Kinder tötete [= <hi rend="small-caps">Neumann</hi>, Kap. 18; <hi rend="small-caps">Langmantel</hi>, Kap. 19, Geschehnisse wohl von 1387, vgl. <hi rend="small-caps">Langmantel</hi>, S. 30], mit Überschrift <hi rend="italic">›Wie der Tamerlin drw</hi>´tusent kint tott.‹;<lb/><lb/>20. (36r–36v) Wie Timur einen Zug gegen China unternahm [= <hi rend="small-caps">Neumann</hi>, Kap. 19; <hi rend="small-caps">Langmantel</hi>, Kap. 20, Geschehnisse von 1404 bis 1405], mit Überschrift <hi rend="italic">›Wie der Tamerlin wolt mit dem grossen Cham </hi>[!] <hi rend="italic">gestritten ha</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">n.‹</hi>;<lb/><lb/>21. (36v–38r) Wie Timur starb und von den Ursachen seines Todes [= <hi rend="small-caps">Neumann</hi>, Kap. 20; <hi rend="small-caps">Langmantel</hi>, Kap. 21], mit Überschrift <hi rend="italic">›Von des Tamerlis </hi>[!] <hi rend="italic">todt.‹</hi>;<lb/><lb/>22. (38v) Von den Söhnen des Timur und von Schiltberger bei der Teilung des Mongolenreichs zu Timurs Sohn Schah Roch kam [= <hi rend="small-caps">Neumann</hi>, Kap. 21; <hi rend="small-caps">Langmantel</hi>, Kap. 22], ohne Überschrift;<lb/><lb/>23. (38v–39v) Wie Schiltberger in die Dienste von Miran-Schah, dem Bruder Schah Rochs, gelangte [= <hi rend="small-caps">Neumann</hi>, -; <hi rend="small-caps">Langmantel</hi>, Kap. 23], ohne Überschrift;<lb/><lb/>24. (39v–40r) Wie Jusuf Miran-Schah besiegte und tötete [= <hi rend="small-caps">Neumann</hi>, Kap. 22; <hi rend="small-caps">Langmantel</hi>, Kap. 24], ohne Überschrift;<lb/><lb/>25. (40r–40v) Wie Jusuf den Ilkhan von Bagdad besiegte und ihn tötete [= <hi rend="small-caps">Neumann</hi>, Kap. 23; <hi rend="small-caps">Langmantel</hi>, Kap. 25; Geschehnisse von 1410 bis 1411], ohne Überschrift;<lb/><lb/>26. (40v–41v) Wie Schiltberger zu Miran-Schahs Sohn Abuberk kam [= <hi rend="small-caps">Neumann</hi>, Kap. 24; <hi rend="small-caps">Langmantel</hi>, Kap. 26], ohne Überschrift;<lb/><lb/>27. (41v–45r) Wie Schiltberger im Gefolge eines tatarischen Thronbewerbers in das Königsreich Kiptschak zog [= <hi rend="small-caps">Neumann</hi>, Kap. 25; <hi rend="small-caps">Langmantel</hi>, Kap. 27], Überschrift <hi rend="italic">›Von ains kúngs su</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">n.‹</hi>;<lb/><lb/>28. (45r–46r) Von Bürgerkriegen und Thronwechsel in Kiptschak [= <hi rend="small-caps">Neumann</hi>, Kap. 26 <hi rend="small-caps">Langmantel</hi>, Kap. 28], ohne Überschrift;<lb/><lb/>29. (46r–46v) Von einem Racheakt der Witwe eines tatarischen Fürsten [= <hi rend="small-caps">Neumann</hi>, Kap. 27; <hi rend="small-caps">Langmantel</hi>, Kap. 29], ohne Überschrift;<lb/><lb/>30. (46v–47v) Die große und die kleine Walachei und Siebenbürgen [= <hi rend="small-caps">Neumann</hi>, Kap. 28; <hi rend="small-caps">Langmantel</hi>, Kap. 32], Überschrift <hi rend="italic">›In wo</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lchem land ich gewesn bin.‹</hi>;<lb/><lb/>31. (47v–50r) Bulgarien, Rumelien und die asiatische Türkei [= <hi rend="small-caps">Neumann</hi>, Kap. 29; <hi rend="small-caps">Langmantel</hi>, Kap. 33], Überschrift <hi rend="italic">›In wo</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lchem land ich gewesen bin, die zwischen der Tonow und dem mer </hi>[ligent]‹;<lb/><lb/>32. (50r–50v) Das Kaiserreich Trapezunt und die angrenzenden Länder [= <hi rend="small-caps">Neumann</hi>, Kap. 30; <hi rend="small-caps">Langmantel</hi>, Kap. 34, S. 55, Z. 6–21], ohne Überschrift;<lb/><lb/>33. (50v–51v) Wie ein armer Geselle den Sperber bewachte [= <hi rend="small-caps">Neumann</hi>, Kap. 31; <hi rend="small-caps">Langmantel</hi>, Kap. 34, S. 55, Z. 22–S. 56, Z. 21], ohne Überschrift;<lb/><lb/>34. (51v–52v) Die Sperberburg [= <hi rend="small-caps">Neumann</hi>, Kap. 32; <hi rend="small-caps">Langmantel</hi>, Kap. 34, S. 56, Z. 22–S. 57, Z. 26], ohne Überschrift;<lb/><lb/>35. (52v–55r) Die zu Persien gehörenden Gebiete [= <hi rend="small-caps">Neumann</hi>, Kap. 33; <hi rend="small-caps">Langmantel</hi>, Kap. 35], ohne Überschrift;<lb/><lb/>36. (55r–57v) Babylonien (Irak, Kleinindien, Dschagatei) [= <hi rend="small-caps">Neumann</hi>, Kap. 34; <hi rend="small-caps">Langmantel</hi>, Kap. 36], ohne Überschrift;<lb/><lb/>37. (57v–58v) Die große Tatarei [= <hi rend="small-caps">Neumann</hi>, Kap. 35; <hi rend="small-caps">Langmantel</hi>, Kap. 37], ohne Überschrift;<lb/><lb/>38. (58v–61r) Die Nebenländer der großen Tatarei / Beschreibung Kairons [= <hi rend="small-caps">Neumann</hi>, Kap. 36; <hi rend="small-caps">Langmantel</hi>, Kap. 38], Überschrift <hi rend="italic">›Hie ist ze merkent, in wo</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lchen landen ich gewesen bin.‹</hi>;<lb/><lb/>39. (61r–65v) Die Sultane von Ägypten / Sitten und Gebräuche des Landes [= <hi rend="small-caps">Neumann</hi>, Kap. 37; <hi rend="small-caps">Langmantel</hi>, Kap. 39 und 40], Überschrift <hi rend="italic">›Wie vil kúng Soldan gewesen sÿen, sÿd den ziten ich vnd ich da in gewesen bin.‹</hi>;<lb/><lb/>40. (65v–68r) Das Kloster der hl. Katharina auf dem Sinai [= <hi rend="small-caps">Neumann</hi>, Kap. 38; <hi rend="small-caps">Langmantel</hi>, Kap. 41], Überschrift <hi rend="italic">›Von sant Katherinen berg.‹</hi>;<lb/><lb/>41. (68r–69r) Der dürre Baum beim Mambre / Nazareth [= <hi rend="small-caps">Neumann</hi>, Kap. 39; <hi rend="small-caps">Langmantel</hi>, Kap. 42], Überschrift <hi rend="italic">›Von dem dúrren bo</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">m‹</hi>;<lb/><lb/>42. (69r–74v) Jerusalem, das Heilige Grab und andere Ort des Heiligen Landes [= <hi rend="small-caps">Neumann</hi>, Kap. 40; <hi rend="small-caps">Langmantel</hi>, Kap. 43], Überschrift <hi rend="italic">›Von Jerusalem vnd dem hailgen grab.‹</hi>;<lb/><lb/>43. (74v–75r) Die vier Flüsse des Paradieses [= <hi rend="small-caps">Neumann</hi>, Kap. 41; <hi rend="small-caps">Langmantel</hi>, 44], ohne Überschrift;<lb/><lb/>44. (75r–76r) Die Pfefferpflanzungen in Indien [= <hi rend="small-caps">Neumann</hi>, Kap. 42; <hi rend="small-caps">Langmantel</hi>, Kap. 45], ohne Überschrift;<lb/><lb/>45. (76r–78v) Alexandria [= <hi rend="small-caps">Neumann</hi>, Kap. 43; <hi rend="small-caps">Langmantel</hi>, Kap. 46], Überschrift <hi rend="italic">›Von Alexandria‹</hi>;<lb/><lb/>46. (78v–80r) Der Riese Allankassar [= <hi rend="small-caps">Neumann</hi>, Kap. 44; <hi rend="small-caps">Langmantel</hi>, Kap. 47], Überschrift <hi rend="italic">›Von ainem grossen k </hi>[?] <hi rend="italic">reken.‹</hi>;<lb/><lb/>47. (80r–80v) Von verschiedenen heidnischen Religionen [= <hi rend="small-caps">Neumann</hi>, Kap. 45; <hi rend="small-caps">Langmantel</hi>, Kap. 48], Überschrift <hi rend="italic">›Von der haiden glouben‹</hi>;<lb/><lb/>48. (80v–87v) Mohammed und sein Wirken als Prophet [= <hi rend="small-caps">Neumann</hi>, Kap. 46; <hi rend="small-caps">Langmantel</hi>, Kap. 49 und 50], Überschrift <hi rend="italic">›Von Machmet vnd wie er vff komen ist.‹</hi>;<lb/><lb/>49. (87v–88v) Das Bayramfest - Ramazan Bayramı [= <hi rend="small-caps">Neumann</hi>, Kap. 47; <hi rend="small-caps">Langmantel</hi>, Kap. 52, S. 90, Z. 1–28], Überschrift <hi rend="italic">›Von der haÿden ostertag.‹</hi>;<lb/><lb/>50. (88v–89r) Das Bayramfest - Kurban Bayramı [= <hi rend="small-caps">Neumann</hi>, Kap. 48; <hi rend="small-caps">Langmantel</hi>, Kap. 52, S. 90, Z. 29–S. 91, Z. 6], Überschrift <hi rend="italic">›Von der haÿden ostertag.‹</hi>;<lb/><lb/>51. (89r–90v) Religionsvorschriften des Islam [= <hi rend="small-caps">Neumann</hi>, Kap. 49; <hi rend="small-caps">Langmantel</hi>, Kap. 53, S. 91, Z. 8–S. 92, Z. 9], Überschrift <hi rend="italic">›Von der haÿden geseczt‹</hi>;<lb/><lb/>52. (90v–91v) Religionsvorschriften des Islam / Das Alkoholverbot [= <hi rend="small-caps">Neumann</hi>, Kap. 50; <hi rend="small-caps">Langmantel</hi>, Kap. 53, S. 92, Z. 10–S. 93, Z. 8], Überschrift <hi rend="italic">›Warumb Machmet dien haÿden win verbot.‹</hi>;<lb/><lb/>53. (91v–92r) Die Assassinen [= <hi rend="small-caps">Neumann</hi>, Kap. 51; <hi rend="small-caps">Langmantel</hi>, Kap. 54], Überschrift <hi rend="italic">›Von der geselschaft, die die haiden </hi>[under in haben];<lb/><lb/>54. (92r–94v) Zeremoniell beim Übertritt eines Christen zum Islam [= <hi rend="small-caps">Neumann</hi>, Kap. 52; <hi rend="small-caps">Langmantel</hi>, Kap. 55], Überschrift <hi rend="italic">›Wie ain </hi>[gestrichen: <hi rend="italic">hayden</hi>] <hi rend="italic">cristan zu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">ainem </hi>[gestrichen: <hi rend="italic">criste</hi>] <hi rend="italic">haidn wirt.‹</hi>;<lb/><lb/>55. (94v–95v) Jesus nach der Vorstellung der Mohammedaner [= <hi rend="small-caps">Neumann</hi>, Kap. 53; <hi rend="small-caps">Langmantel</hi>, Kap. 57], Überschrift <hi rend="italic">›Was die haiden von Cristo glo</hi><quote><hi rend="sup">v</hi></quote><hi rend="italic">bent‹</hi>;<lb/><lb/>56. (96r–97r) Mohammedanisches Urteil über die Christen [= <hi rend="small-caps">Neumann</hi>, Kap. 54; <hi rend="small-caps">Langmantel</hi>, Kap. 58], Überschrift <hi rend="italic">›Was die haiden sprechent von cristen.‹</hi>;<lb/><lb/>57. (97r–97v) Wie die Christen ihren Glauben ausüben [= <hi rend="small-caps">Neumann</hi>, Kap. 55; <hi rend="small-caps">Langmantel</hi>, -], ohne Überschrift;<lb/><lb/>58. (97v–99r) Wunderereignis bei Mohammeds Geburt / Die Sprachen des griechischen Religionsgebietes [= <hi rend="small-caps">Neumann</hi>, Kap. 56; <hi rend="small-caps">Langmantel</hi>, Kap. 59–60], Überschrift <hi rend="italic">›Wie lang es sÿ gewesen, das der Machmet ist gesin.‹</hi>;<lb/><lb/>59. (99r–100v) Von Konstantinopel [= <hi rend="small-caps">Neumann</hi>, Kap. 57; <hi rend="small-caps">Langmantel</hi>, Kap. 30, S. 45, Z. 32–S. 46, Z. 32], Überschrift <hi rend="italic">›Von Constantinoppell.‹</hi>;<lb/><lb/>60. (100v–102r) Von den Griechen [= <hi rend="small-caps">Neumann</hi>, Kap. 58; <hi rend="small-caps">Langmantel</hi>, Kap. 30, S. 46, Z. 33–S. 47, Z. 24], ohne Überschrift;<lb/><lb/>61. (102r–105v) Von dem Glauben der Griechen [= <hi rend="small-caps">Neumann</hi>, Kap. 59; <hi rend="small-caps">Langmantel</hi>, Kap. 31], Überschrift <hi rend="italic">›Die kriechen gloubent nit an die hailigen driua</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lti</hi>[keit]<hi rend="italic">‹</hi>;<lb/><lb/>62. (105v–108r) Vom Bau Konstantinopels [= <hi rend="small-caps">Neumann</hi>, Kap. 60; <hi rend="small-caps">Langmantel</hi>, -], Überschrift <hi rend="italic">›Wie die statt Constantinopel gebuwen worden sÿ‹</hi>;<lb/><lb/>63. (108r–110r) Hochzeitsgebrauch bei Georgiern und Osseten [= <hi rend="small-caps">Neumann</hi>, Kap. 61; <hi rend="small-caps">Langmantel</hi>, Kap. 61], ohne Überschrift;<lb/><lb/>64. (110r–111r) Schiltbergers Aufenthalt in Armenien [= <hi rend="small-caps">Neumann</hi>, Kap. 62; <hi rend="small-caps">Langmantel</hi>, Kap. 62], Überschrift <hi rend="italic">›Von Armenia‹</hi>;<lb/><lb/>65. (111r–113v) Vom Glauben der Armenier [= <hi rend="small-caps">Neumann</hi>, Kap. 63; <hi rend="small-caps">Langmantel</hi>, Kap. 63, S. 100, Z. 3–S. 101, Z. 34], ohne Überschrift;<lb/><lb/>66. (113v–116r) Die Gründung der armenischen Kirche durch Gregor den Erleuchter [= <hi rend="small-caps">Neumann</hi>, Kap. 64; <hi rend="small-caps">Langmantel</hi>, Kap. 63, S. 101, Z. 35–S. 103, Z. 9], ohne Überschrift;<lb/><lb/>67. (116r–117v) Wie König Tiridates die Römer von einem Lindwurm und einem Einhorn erlöste [= <hi rend="small-caps">Neumann</hi>, Kap. 65, S. 148–S. 149, Z. 29; <hi rend="small-caps">Langmantel</hi>, Kap. 64], Überschrift <hi rend="italic">›Von ainem lintwu</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">rm vnd ainhúren.‹</hi>;<lb/><lb/>68. (117v–125r) Liturgie und Kirchengebote der Armenier [= <hi rend="small-caps">Neumann</hi>, Kap. 65, S. 149, Z. 29–S. 154; <hi rend="small-caps">Langmantel</hi>, Kap. 65], ohne Überschrift;<lb/><lb/>69. (125r–128r) Ursache der Feindschaft zwischen Griechen und Armeniern [= <hi rend="small-caps">Neumann</hi>, Kap. 66, S. 155–S. 157, Z. 9; <hi rend="small-caps">Langmantel</hi>, Kap. 66], Überschrift <hi rend="italic">›Waru</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">mb</hi> <hi rend="italic">die kriechen den armenien vint sÿen.‹</hi>;<lb/><lb/>70. (128r–129v) Epilog der Reise [= <hi rend="small-caps">Neumann</hi>, Kap. 66, S. 157, Z. 9–15; <hi rend="small-caps">Langmantel</hi><hi rend="small-caps">, -</hi>], ohne Überschrift;<lb/><lb/>71. (129v–133v) Wie Schiltberger aus der tatarischen Gefangenschaft entfloh und nach Konstantinopel gelangte [= <hi rend="small-caps">Neumann</hi>, Kap. 67; <hi rend="small-caps">Langmantel</hi>, Kap. 30], Überschrift <hi rend="italic">›Wie vnd durch wo</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lche land i</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">ch hervß </hi>[komen bin]<hi rend="italic">‹</hi>;<lb/><lb/>72. (133v) Das armenische Paternoster [= <hi rend="small-caps">Neumann</hi>, -; <hi rend="small-caps">Langmantel</hi>, S. 147], Überschrift <hi rend="italic">›Das armenisch pater noster‹</hi>;<lb/><lb/>73. (133v–134r/Hinterspiegel) Das tatarische Paternoster [= <hi rend="small-caps">Neumann</hi>, -; <hi rend="small-caps">Langmantel</hi>, S. 147], Überschrift <hi rend="italic">›Das tartarisch pater noster‹</hi>.<lb/><lb/><lb/><lb/>Ausgaben: (1) Karl Friedrich <hi rend="small-caps">Neumann</hi> (Hrsg.), Reisen des Johannes Schiltberger aus München in Europa, Asia und Afrika von 1394 bis 1427, München 1859, nach der Hs. Heidelberg, UB, Cod. Pal. germ. 216; (2) Valentin <hi rend="small-caps">Langmantel</hi> (Hrsg.), Hans Schiltbergers Reisebuch (Bibliothek des Litterarischen Vereins in Stuttgart 172), Tübingen 1885, nach der Hs. München, Stadtbibliothek, Cod. L 1603. – 3 Inkunabelausgaben: (1) um 1476, Augsburg: Anton Sorg (GW M40832); (2) um 1480, Augsburg: Anton Sorg (GW M40833); (3) um 1486, Augsburg: Anton Sorg (GW 12537).<lb/><lb/>Autor und Werk: Hans bzw. Johann Schiltberger (1381–nach 1427) entstammte möglicherweise einem bayerischen Adelsgeschlecht, dem der Marschalken von Schiltberg. Er begleitete Leonhard Reichartinger 1394 auf den Kreuzzug Siegmunds gegen die Osmanen, 1396 wurde er in der Schlacht von Nikopolis gefangengenommen und verbrachte die folgenden Jahre in türkischer und später mongolischer Gefangenschaft; 1427 kehrte er nach Bayern zurück; der danach entstandene Reisebericht gilt als autobiographisch, enthält jedoch auch Zusätze aus anderen Reiseberichten, so u. a. auf John Mandevills Reisebeschreibung, vgl. <hi rend="small-caps">Schiewer</hi>, Leben unter Heiden, S. 162. Zu Autor und Werk vgl. ebenfalls Hans-Jochen <hi rend="small-caps">Schiewer</hi>, Schiltberger, Hans, in: <hi rend="sup">2</hi>VL 8 (1992) Sp. 675–679, hier besonders Sp. 675; Ch. K. <hi rend="small-caps">Naumann</hi>, Schiltberger, Johann, in: LexMA 7 (1995), Sp. 1465f.; zum Reisebuch unter Angaben verschiedener Übersetzung vgl. Geschichtsquellen des deutschen Mittelalters, online: https://www.geschichtsquellen.de/werk/4294.<lb/><lb/>Überlieferung: Zusammenstellung der neun Textzeugen (8 Hss., 1 Fragment) im HSC unter https://handschriftencensus.de/werke/3859. Die acht Vollhandschriften setzen sich aus sechs mittelalterlichen und zwei neuzeitlichen Hss. aus dem 16. bzw. 17. Jh. zusammen (Wolfenbüttel, HAB, Cod. 198.1 Hist. 8° und Cod. 91.7 Extravagantes). Von den sechs mittelalterlichen Handschriften überliefern zwei Hss. den Text nicht vollständig, sondern nur Kap. 1–28: (1) St. Gallen, Stiftsbibliothek, Cod. Sang. 628, S. 918–940 (wohl 1460–1480); (2) Strasbourg, Bibliothèque nationale et universitaire, ms. 2119, fol. 280r–291r (vor 1461, vgl. Jürgen <hi rend="small-caps">Wolf</hi>, Die Sächsische Weltchronik im Spiegel ihrer Handschriften. Überlieferung, Textentwicklung, Rezeption [Münstersche Mittelalter-Schriften 75], München 1997, S. 59–61).<lb/><lb/>Nach <hi rend="small-caps">Schiewer</hi>, Leben unter Heiden (s. o., Lit.), S. 164, Anm. 15, gliedert sich die Überlieferung auf Grundlage der Kapitelanordnung in zwei Gruppen: (1) Flucht von Schiltberger aus tartarischer Gefangenschaft innerhalb des Berichts als Kap. 30, Abdruck in <hi rend="small-caps">Neumann</hi>, Reisen (s. o.); (2) Flucht von Schiltberger aus Gefangenschaft am Ende des Berichts, Abdruck in <hi rend="small-caps">Langmantel</hi>, Reisebuch (s. o.). Von den vollständigen Hss. ist lediglich die Münchner Hs. (München, StB, Cod. L 1603, früher: Nürnberg, StB, Solg. Ms. 34.2°) der ersten Gruppe zuzuordnen, alle anderen Hss. repräsentieren Gruppe 2. Von der Textfassung und Entstehungszeit her dürfte die Donaueschinger Hs. der Heidelberger Hs. Cod. Pal. germ. 216 (nach Matthias <hi rend="small-caps">Miller</hi> und Karin <hi rend="small-caps">Zimmermann</hi>, Die Codices Palatini germanici in der Universitätsbibliothek Heidelberg [Cod. Pal. germ. 182–303] [Hss.-Kat. UB Heidelberg VII], Wiesbaden 2005, S. 108f. auf um 1480 datiert, aufgrund des Schreibbefunds und der Wasserzeichen wohl aber etwas früher anzusetzen) und der Straßburger Hss. (s. o.) am nächsten stehen. Hinsichtlich der geographischen Herkunft ist Cod. Don. 481 zwischen der Heidelberger Hs. (wohl im [nord-]östlichen Teil des Westschwäbischen) und der Straßburger Hs. (Nürnberger oder Augsburger Raum, vgl. <hi rend="small-caps">Wolf</hi>, Sächsische Weltchronik [s. o.], S. 60) zu verorten.</note>
+                  </msItem>
+               </msContents>
+               <physDesc>
+                  <p>Zustand: Einbandleder leicht beschädigt und abgestoßen; im Leder des Vorderdeckels ein diagonal verlaufender Schnitt (ca. 8–9 cm). Einige Verfärbungen an den Rändern von fol. 1 bis 4. Vorn und hinten Rostflecken der Buckel auf das Papier des Buchblocks durchschlagend, dagegen auf dem inneren Vorder- und Hinterdeckel in der Mitte ein Lederstück angebracht, Dorn des Mittelbeschlags auf fol. 1–7 durchgedrungen; Rostflecke ebenfalls auf fol. 94v–95r, hier ursprünglich evtl. ein metallischer Gegenstand eingelegt.<lb/><lb/><lb/><lb/>Foliierung: Bleistiftfoliierung <hi rend="italic">1</hi>–134 wohl von Baracks Hand (um 1860–1865).<lb/><lb/>Wasserzeichen: ein Formenpaar über den Buchblock hinweg: Ochsenkopf - frei, mit Oberzeichen - mit zweikonturiger Stange - Kleeblatt/Dreiblatt - zwei Knospen - mit Augen (OK/OK*), ein Zeichen Variante zu WZIS, AT3800-PO-70459 (1456, Meran), das andere Zeichen Variante zu WZIS, DE6255-PO-70457 (1455, Waldenburg).<lb/><lb/>Lagen: VII<hi rend="sup">13</hi> + 9 VI<hi rend="sup">121</hi> + (VI+1)<hi rend="sup">HS</hi>; Vorder- und Hinterspiegel Teil der ersten bzw. letzten Lage. Reklamanten zum Lagenende (fol. 13v, 25v, 37v, 49v, 61v, 73v, 85v, 97v, 109v, 121v), häufig Teile der Reklamanten beschnitten.<lb/><lb/>Layout: Schriftraum horizontal und vertikal mit Tinte abgegrenzt: 14 × 9 cm. Einspaltig. Zeilenzahl zwischen 19 und 21 Zeilen.<lb/><lb/>Schreiber/Schriftart: professionelle <ref type="script">Bastarda</ref> der Mitte des 15. Jh., teilweise flüchtig und zur Kursive neigend; durchgehend mit nach rechts geneigtem Duktus.<lb/><lb/>Rubrizierung: Buchstabenstrichelung, Zeilenfüllsel und Überschriften in roter Tinte; entgegen <hi rend="small-caps">Schiewer</hi>, Leben unter Heiden (s. u., Lit.), S. 176, sind die Überschriften von der Schreibhand ausgeführt und nicht erst nachträglich im 16. Jh. hinzugefügt.<lb/><lb/>Buchschmuck: Zu Abschnittsbeginn 2- bis 3-zeilige rote Lombarden, teilweise mit einfachen Ablaufmotiven, teilweise mit Punktverdickungen. Zu Textbeginn auf fol. 1r eine 5-zeilige rote Initiale mit einfachen Fadenausläufern, Punktverdickungen und mit Aussparmotiven innerhalb des Buchstabenkörpers, die mit Tintenfarbe gefüllt sind. Auf fol. 57v (zu Beginn von Kapitel 37) 3-zeilige rote Initiale mit in Rot und Tintenfarbe gespaltenem Buchstabenkörper, Punktverdickungen als Besatz.</p>
+               </physDesc>
+               <history>
+                  <p>Geschichte: Cod. Don. 481 entstand nach Ausweis der Wasserzeichen um 1455–1456, der Schreibsprache zufolge im Westen des ostschwäbischen Sprachraums.<lb/><lb/>Die Hs. weist keine Marginalien auf, darüber hinaus nur vereinzelte Verfärbungen an den Rändern, weswegen sie nur wenig in Gebrauch gewesen sein dürfte. Auch lässt sich aus der Hs. kaum etwas Direktes über Auftraggeber oder frühere Vorbesitzer ablesen. Dass es sich beim Text um einen Reisebericht in deutscher Sprache handelt, sowie die spätere Besitzgeschichte, könnten Indizien dafür sein, dass der Band in einem laienadligen Kontext entstanden ist.<lb/><lb/>Den ersten sicheren provenienzgeschichtlichen Nachweis der Hs. bietet der Bibliothekskatalog von Meßkirch von 1730/1740, in dem sie unter der Nummer <hi rend="italic">N 59: Joannis Schiltperger Reißebeschreibung. 4</hi>° identifizierbar ist. Damit war der Band bereits früh im Besitz der Fürstenberger; etwa 1768 wurde er nach Donaueschingen verbracht.<lb/><lb/>Papierrückenschild wohl von der Hand des Donaueschinger Archivars und Bibliothekars <ref type="persName">Johann Baptist Müller</ref> (1790–1814):<hi rend="italic">Schiltpergers Reise. Hdschr. 15.</hi><quote><hi rend="sup">I</hi></quote><hi rend="italic">Jhrht</hi>. Wohl ebenfalls von seiner Hand ein längerer Eintrag auf dem Vorderspiegel in Tinte mit Verweis auf die 1788 erschienen Annalen von Panzer: <hi rend="italic">Siehe Panzers Annalen der ält. deut. Lit. S. 41. / Diese handschrift scheint mir älter zu sein als die gedruckten Ausgaben, weil sie noch ältere Sprachformen hat.</hi><lb/><lb/>Auf dem vorderen Spiegel oben mit Bleistift die alte Eiselein-Standortbezeichnung <hi rend="italic">37.6 </hi>verzeichnet.<hi rend="italic"> </hi><ref type="persName">Eiselein</ref> war von 1818–1824 Bibliothekar in Donaueschingen. Auf dem Vorderspiegel mit Bleistift (19. Jh.?): <hi rend="italic">6385</hi>, evtl. auch von Eiseleins Hand, vergleichbarer Eintrag auf dem vorderen Spiegel von =› <ref type="shelfmark">Don. 245</ref> [<hi rend="italic">6216</hi>], <ref type="shelfmark">Don. 403</ref> [<hi rend="italic">5557</hi>] und <ref type="shelfmark">Don. 436</ref> [<hi rend="italic">5466</hi>].<lb/><lb/>Auf dem Rücken Donaueschinger Signaturschild <hi rend="italic">481</hi>,<hi rend="italic"> </hi>auf dem Vorderspiegel Signatur mit Bleistift <hi rend="italic">Don. 481</hi>. Auf fol. 1r und 133v (jeweils am unteren Rand) Donaueschinger Bibliotheksstempel 2.<lb/><lb/>1992/1993 mit dem Kauf der Fürstenbergischen Handschriften an die BLB Karlsruhe gekommen.<lb/><lb/><lb/><lb/>Schreibsprache: <ref type="textLang">schwäbisch (Westen des ostschwäbischen Sprachraums)</ref>.<lb/><lb/>Für allgemein schwäbisches Gebiet spricht die Kombination folgender sprachlicher Merkmale: (1) nicht durchgeführte nhd. Diphthongierung (Bsp.: <hi rend="italic">tusent, vff; dry, by</hi>), vgl. <hi rend="small-caps">Besch</hi>, Sprachlandschaften, Karte 1; (2) nicht durchgeführte nhd. Monophthongierung (Bsp.: <hi rend="italic">zu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">, bru</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">der, tu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">t, bu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">ch</hi>), vgl. <hi rend="small-caps">Besch</hi>, Sprachlandschaften, Karte 2a; (3) mhd. <hi rend="italic">ei</hi> durchgehend als <hi rend="italic">ai</hi> (Bsp.: <hi rend="italic">ain, kayser</hi>, <hi rend="italic">arbait, maister</hi>), vgl. <hi rend="small-caps">Besch</hi>, Sprachlandschaften, Karte 2; (4) „schwäbischer“ Diphthong (Bsp.: <hi rend="italic">ha</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">t, darna</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">ch, na</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">cht, spra</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">chen, versta</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">n, anda</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">cht</hi>), vgl. HSS, Karten 38–42, zur Schreibung <hi rend="italic">ha</hi><quote><hi rend="sup">v</hi></quote><hi rend="italic">t </hi>vgl. HSS, Karte 46; (5) mhd. ou als <hi rend="italic">ou</hi> wiedergegeben (Bsp.: <hi rend="italic">ouch, houpt, glouben</hi>), auch in der Schreibung <hi rend="italic">o</hi><quote><hi rend="sup">u</hi></quote> oder <hi rend="italic">o</hi><quote><hi rend="sup">v</hi></quote> (Bsp.: <hi rend="italic">o</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">ch, ho</hi><quote><hi rend="sup">v</hi></quote><hi rend="italic">ptkirch</hi>); (6) Form <hi rend="italic">hailgen</hi> für mhd. <hi rend="italic">heilig</hi>, vgl. HSS, Karte 56; (7) mhd. ô wird „diphthongiert“ zu <hi rend="italic">o</hi><quote><hi rend="sup">u</hi></quote> (Bsp.: <hi rend="italic">mo</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">nat</hi>), vgl. HSS, Karte 54; (8) Schreibung <hi rend="italic">kúng</hi>, vgl. <hi rend="small-caps">Besch</hi>, Sprachlandschaften, Karte 16; (9) häufige Rundungsschreibungen bei u (Bsp.: <hi rend="italic">súben, gebúrt, súllent</hi>), vgl. HSS, Karte 22, auch bei o (Bsp.: <hi rend="italic">wo</hi><quote><hi rend="sup">e</hi></quote><hi rend="italic">lche</hi>); (10) sowohl für mhd. iu als auch mhd. ü wird konsequent <hi rend="italic">ú </hi>geschrieben (Bsp.: <hi rend="italic">fúnff, lút, v’ber</hi>), vgl. HSS, Karten 30f. und 67–69.<lb/><lb/>Die teilweise auftretenden vollen Nebentonsilben (Bsp.: <hi rend="italic">klagot, spottotin, fro</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">got</hi>) sprechen gegen eine zu nördliche Lokalisierung innerhalb des schwäbischen Sprachraums. Während die konsequente Schreibung von <hi rend="italic">sch</hi> für mhd. s vor Liquid und Nasal (Bsp.: <hi rend="italic">schmo</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">ch, schlachten</hi>, auch: <hi rend="italic">geschw</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">ren</hi>), vgl. <hi rend="small-caps">Besch</hi>, Sprachlandschaften, Karte 17–20, sowie konsequente <hi rend="italic">ou</hi>-Schreibung (und nicht <hi rend="italic">o</hi>-Schreibung oder <hi rend="italic">au</hi>-Schreibung) für mhd. ou (vgl. oben, allgemeine schwäbische Elemente Nr. 5) gegen den westschwäbischen Sprachraum sowie gegen den östlichen Teil des ostschwäbischen Sprachraums sprechen, erlaubt das Merkmal der häufigen Rundungsgraphien (s. oben, schwäbische Merkmale, Nr. 9), keine weit in den Osten des schwäbischen Sprachgebiets hineinreichende Lokalisierung. Am wahrscheinlichsten ist daher eine Verortung im westlichen Gebiet des Ostschwäbischen. In diesen Bereich würden auch die vereinzelt auftretenden Apokope- und Synkope-Schreibungen passen (z. B. <hi rend="italic">gewesn</hi>) sowie das Part. Prät. von mhd. sîn, das sowohl als <hi rend="italic">gewesen</hi> als auch <hi rend="italic">gesin</hi> begegnet, vgl. <hi rend="small-caps">Besch</hi>, Sprachlandschaften, Karte 100.<lb/><lb/>Die vereinzelt bairischen Erscheinungen, wie der w-/b-Wechsel (Bsp.: <hi rend="italic">Wyesat </hi>für ‚Beisat‘ oder <hi rend="italic">Siwas </hi>für ‚Sibas‘) oder vereinzelt <hi rend="italic">p</hi> im Anlaut (Bsp.: <hi rend="italic">plu</hi><quote><hi rend="sup">o</hi></quote><hi rend="italic">t, die pesten, Schiltperger</hi>) sind wohl auf eine bairische Vorlage zurückzuführen; hierfür spricht, dass beispielsweise der b-/w-Wechsel vor allem bei Eigennamen erhalten geblieben ist, die dem Schreiber unbekannt gewesen sein dürften. Dass eine bairische Vorlage der Donaueschinger Hs. zugrunde liegt, ist auch aufgrund der Überlieferungsgeschichte wahrscheinlich, da der einzige in der Donaueschinger Hs. überlieferte Text, das ‚Reisebuch‘ des Hans Schiltberger, wohl im westmittelbairischen Sprachraum entstanden ist und Don. 481 als einer der frühesten (erhaltenen) Textzeugen sich nicht allzu weit von der Ursprungsgestalt und -sprache des ‚Reisebuchs‘ entfernt haben dürfte (vgl. unten, Inhalt).</p>
+               </history>
+               <additional>
+                  <listBibl>
+                     <bibl>Literatur: <hi rend="small-caps">Barack</hi>, Katalog, S. 326f. - Valentin <hi rend="small-caps">Langmantel</hi> (Hg.), Hans Schiltbergers Reisebuch (Bibliothek des Litterarischen Vereins in Stuttgart 172), Tübingen 1885, S. 150. - Reinhold <hi rend="small-caps">R</hi><hi rend="small-caps">ö</hi><hi rend="small-caps">hricht</hi> (Hg.), Bibliotheca Geographica Palaestinae. Chronologisches Verzeichniss der auf die Geographie des Heiligen Landes bezüglichen Literatur von 333 bis 1878 und Versuch einer Cartographie, Berlin 1890 (Verbesserte und vermehrte Neuausgabe mit einem Vorwort von David H. K. Amiran mit dem geänderten Untertitel: Chronologisches Verzeichnis der von 333 bis 1878 verfaßten Literatur über das Heilige Land, mit dem Versuch einer Kartographie, Jerusalem 1963 [Nachdruck London 1989]), S. 103 (Nr. 1). - Hans-Jochen <hi rend="small-caps">Schiewer</hi>, Leben unter Heiden. Hans Schiltbergers türkische und tartarische Erfahrungen, in: Daphnis 21 (1992), S. 159–178, hier S. 173 (Nr. 2).<lb/><lb/>Archivbeschreibung: -<lb/><lb/>Handschriftencensus: https://handschriftencensus.de/10613 (September 2010).<lb/><lb/>Abbildungen: -<lb/><lb/>Volldigitalisat (BLB Karlsruhe): -.</bibl>
+                  </listBibl>
+               </additional>
+               <msPart type="binding">
+                  <msIdentifier>
+                     <idno>Einband</idno>
+                  </msIdentifier>
+                  <head>
+                     <index indexName="norm_title">
+                        <term type="title"/>
+                     </index>
+                     <title/>
+                     <note type="headline"/>
+                     <index indexName="norm_material">
+                        <term type="material"/>
+                        <term type="material_type"/>
+                     </index>
+                     <index indexName="norm_measure">
+                        <term type="measure"/>
+                        <term type="measure_noOfLeaves"/>
+                     </index>
+                     <index indexName="norm_dimensions">
+                        <term type="dimensions"/>
+                        <term type="height"/>
+                        <term type="width"/>
+                        <term type="depth"/>
+                        <term type="dimensions_typeOfInformation"/>
+                     </index>
+                     <index indexName="norm_format">
+                        <term type="format"/>
+                        <term type="format_typeOfInformation"/>
+                     </index>
+                     <index indexName="norm_origPlace">
+                        <term type="origPlace"/>
+                        <term type="origPlace_norm"/>
+                     </index>
+                     <index indexName="norm_origDate">
+                        <term type="origDate"/>
+                        <term type="origDate_notBefore"/>
+                        <term type="origDate_notAfter"/>
+                        <term type="origDate_type"/>
+                     </index>
+                     <index indexName="norm_textLang">
+                        <term type="textLang"/>
+                        <term type="textLang-ID"/>
+                     </index>
+                     <index indexName="norm_form">
+                        <term type="form">binding</term>
+                     </index>
+                     <index indexName="norm_status">
+                        <term type="status"/>
+                     </index>
+                     <index indexName="norm_decoration">
+                        <term type="decoration"/>
+                     </index>
+                     <index indexName="norm_musicNotation">
+                        <term type="musicNotation"/>
+                     </index>
+                  </head>
+                  <physDesc>
+                     <p>Einband: Zeitgenössischer Holzdeckeleinband mit Raulederüberzug (evtl. Schaf), verziert mit Streicheisenlinien, die paarweise angeordnet einen äußeren Rahmen und diagonal verlaufend ein Andreaskreuz bilden. Auf dem Vorderdeckel schließende Kurzriemenschließen, zur Klassifikation vgl. <hi rend="small-caps">Adler</hi>, Buchverschluss und Buchbeschlag (2010), BV.3.1.2: Hakenverschluss mit dem Lager auf dem Buchdeckelrand als Riemenschließe. Kleine Buckel in Form einer 6-blättrigen Blüte (Rosette) in den vier Ecken sowie in der Mitte der Deckel, vgl. <hi rend="small-caps">Adler</hi>, Buchverschluss und Buchbeschlag (2010), S. 40. Vorder- und Hinterdeckel gleich gestaltet.<lb/><lb/>Als Falzverstärkung in den Lagenmitten Pergamentstreifen, teilweise unbeschriftet (fol. 6/7, 19/20, 55/56, 67/68), teilweise beschriftet (s. u., Fragm. 2).<lb/><lb/>Auf dem Vorderdeckel ursprünglich wohl ein rechteckiges Schild angebracht (Maße: ca. 3 × 6–7 cm), jetzt abgerissen.</p>
+                  </physDesc>
+                  <msPart type="fragment">
+                     <msIdentifier>
+                        <idno>Fragment 1 (Fragm. 1 (Ansetzfalz))</idno>
+                     </msIdentifier>
+                     <head>
+                        <index indexName="norm_title">
+                           <term type="title"/>
+                        </index>
+                        <title/>
+                        <note type="headline">Pergament · 14. Jh., 2. Hälfte</note>
+                        <index indexName="norm_material">
+                           <term type="material"/>
+                           <term type="material_type"/>
+                        </index>
+                        <index indexName="norm_measure">
+                           <term type="measure"/>
+                           <term type="measure_noOfLeaves"/>
+                        </index>
+                        <index indexName="norm_dimensions">
+                           <term type="dimensions"/>
+                           <term type="height"/>
+                           <term type="width"/>
+                           <term type="depth"/>
+                           <term type="dimensions_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_format">
+                           <term type="format"/>
+                           <term type="format_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_origPlace">
+                           <term type="origPlace"/>
+                           <term type="origPlace_norm"/>
+                        </index>
+                        <index indexName="norm_origDate">
+                           <term type="origDate"/>
+                           <term type="origDate_notBefore"/>
+                           <term type="origDate_notAfter"/>
+                           <term type="origDate_type"/>
+                        </index>
+                        <index indexName="norm_textLang">
+                           <term type="textLang"/>
+                           <term type="textLang-ID"/>
+                        </index>
+                        <index indexName="norm_form">
+                           <term type="form"/>
+                        </index>
+                        <index indexName="norm_status">
+                           <term type="status"/>
+                        </index>
+                        <index indexName="norm_decoration">
+                           <term type="decoration"/>
+                        </index>
+                        <index indexName="norm_musicNotation">
+                           <term type="musicNotation"/>
+                        </index>
+                     </head>
+                     <msContents>
+                        <msItem>
+                           <note type="text"><ref type="locus">Fragment 1</ref>: Als Ansetzfalz auf dem vorderen und hinteren Innendeckel und jeweils um die erste bzw. letzte Lage herumgelegt Makulatur aus einer <ref type="5260[0]">Pergament</ref>handschrift, weitestgehend von den Papierspiegeln überklebt und nicht mehr sichtbar: zwei Streifen evtl. desselben Doppelblatts (die Schlitze für die Bindung des Ursprungsband befinden sich in derselben Höhe); wohl ursprünglich Quart-Format. Nur wenig Textmaterial sichtbar; Grundtext: <ref type="script">Textualis</ref> mit kursiven Elementen, wohl <ref type="origDate">2. Hälfte des 14. Jh.</ref>, Zeilenhöhe: 1 cm, kein Buchschmuck erhalten, Sprache: <ref type="textLang">lat</ref>., Inhalt nicht ermittelt, sichtbare Textteile: […]<hi rend="italic">minancia</hi>, […]<hi rend="italic">ctis, po</hi>[…]; <hi rend="italic">inabunt</hi>. Zwei zeitliche Schichten von Marginalien: a. (Flügelfalz zwischen fol. 13/14): Kursive der 1. Hälfte des 15. Jh., stark gekürzt, kein Buchschmuck erhalten, Sprache: lat., Inhalt: grammatische Ausführungen, wohl zur Morphologie von Verben, vgl. die Textstücke … <hi rend="italic">geminat …</hi> <hi rend="italic">Exemplum de e </hi>[…] <hi rend="italic">pendeo, pependi</hi>. <hi rend="italic">Exemplum de m </hi>[…] <hi rend="italic">momordi, mordeo</hi>. b. (Flügelfalz zwischen fol. 121/122): Kursive des 15. Jh., stark abgerieben und daher die Schrift kaum zu entziffern. Kein Buchschmuck erhalten. Sprache: lat., Inhalt nicht ermittelt.</note>
+                        </msItem>
+                     </msContents>
+                  </msPart>
+                  <msPart type="fragment">
+                     <msIdentifier>
+                        <idno>Fragment 2 (Fragm. 2 (Falzverstärkung))</idno>
+                     </msIdentifier>
+                     <head>
+                        <index indexName="norm_title">
+                           <term type="title"/>
+                        </index>
+                        <title/>
+                        <note type="headline">Pergament ·  · 21,5 × 2 · 15. Jh., 2. Viertel</note>
+                        <index indexName="norm_material">
+                           <term type="material"/>
+                           <term type="material_type"/>
+                        </index>
+                        <index indexName="norm_measure">
+                           <term type="measure"/>
+                           <term type="measure_noOfLeaves"/>
+                        </index>
+                        <index indexName="norm_dimensions">
+                           <term type="dimensions"/>
+                           <term type="height"/>
+                           <term type="width"/>
+                           <term type="depth"/>
+                           <term type="dimensions_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_format">
+                           <term type="format"/>
+                           <term type="format_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_origPlace">
+                           <term type="origPlace"/>
+                           <term type="origPlace_norm"/>
+                        </index>
+                        <index indexName="norm_origDate">
+                           <term type="origDate"/>
+                           <term type="origDate_notBefore"/>
+                           <term type="origDate_notAfter"/>
+                           <term type="origDate_type"/>
+                        </index>
+                        <index indexName="norm_textLang">
+                           <term type="textLang"/>
+                           <term type="textLang-ID"/>
+                        </index>
+                        <index indexName="norm_form">
+                           <term type="form"/>
+                        </index>
+                        <index indexName="norm_status">
+                           <term type="status"/>
+                        </index>
+                        <index indexName="norm_decoration">
+                           <term type="decoration"/>
+                        </index>
+                        <index indexName="norm_musicNotation">
+                           <term type="musicNotation"/>
+                        </index>
+                     </head>
+                     <msContents>
+                        <msItem>
+                           <note type="text"><ref type="locus">Fragment 2</ref>: Als Falzverstärkung in den Lagenmitten von fol. 31/32, 43/44, 79/80, 91/92, 103/104, 115/116 Makulatur einer <ref type="5260[0]">Pergament</ref><ref type="bezwrk[0].6922">urkunde</ref>: Längsstreifen (jeweils ca. <ref type="5360[0]">21,5 × 2</ref> cm) eines Einzelblatts; Maße des Ursprungblatts nicht zu ermitteln, Schriftraumhöhe › 21,5 cm, Zeilenhöhe: 0,7–0,8 cm, Streifen nur einseitig beschriftet. Schreiber/Schriftart: <ref type="script">Bastarda</ref>, wohl des <ref type="origDate">2. Viertels des 15. Jh.</ref> Keine Rubrizierung oder Buchschmuck erhalten. Sprache: <ref type="textLang">dt., wohl schwäbisch</ref>, vgl. Schreibungen mit ‚schwäbischem Diphthong‘ (Bsp. <hi rend="italic">ra</hi><quote><hi rend="sup">u</hi></quote><hi rend="italic">ts</hi>), altem mhd. Monophthong <hi rend="italic">î</hi>, <hi rend="italic">ou</hi>-Schreibung für mhd. ou (Bsp.: <hi rend="italic">ouch</hi>), <hi rend="italic">ai</hi>-Schreibung für mhd. ei (Bsp.: <hi rend="italic">ain</hi>). Inhalt: Urkunde, zu lesender Name: <hi rend="italic">Sattler</hi>[?]<hi rend="italic"> </hi>(fol. 79/80).</note>
+                        </msItem>
+                     </msContents>
+                     <msPart type="other">
+                        <msIdentifier>
+                           <idno>Sonstiges</idno>
+                        </msIdentifier>
+                        <p>
+                           <index>
+                              <term>Abschrift</term>
+                           </index>
+                        </p>
+                     </msPart>
+                  </msPart>
+                  <msPart type="fragment">
+                     <msIdentifier>
+                        <idno>Fragment 3 (Beilage 1 (loses Blatt))</idno>
+                     </msIdentifier>
+                     <head>
+                        <index indexName="norm_title">
+                           <term type="title"/>
+                        </index>
+                        <title/>
+                        <note type="headline">Papier ·  · 21,5 × 15</note>
+                        <index indexName="norm_material">
+                           <term type="material"/>
+                           <term type="material_type"/>
+                        </index>
+                        <index indexName="norm_measure">
+                           <term type="measure"/>
+                           <term type="measure_noOfLeaves"/>
+                        </index>
+                        <index indexName="norm_dimensions">
+                           <term type="dimensions"/>
+                           <term type="height"/>
+                           <term type="width"/>
+                           <term type="depth"/>
+                           <term type="dimensions_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_format">
+                           <term type="format"/>
+                           <term type="format_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_origPlace">
+                           <term type="origPlace"/>
+                           <term type="origPlace_norm"/>
+                        </index>
+                        <index indexName="norm_origDate">
+                           <term type="origDate"/>
+                           <term type="origDate_notBefore"/>
+                           <term type="origDate_notAfter"/>
+                           <term type="origDate_type"/>
+                        </index>
+                        <index indexName="norm_textLang">
+                           <term type="textLang"/>
+                           <term type="textLang-ID"/>
+                        </index>
+                        <index indexName="norm_form">
+                           <term type="form"/>
+                        </index>
+                        <index indexName="norm_status">
+                           <term type="status"/>
+                        </index>
+                        <index indexName="norm_decoration">
+                           <term type="decoration"/>
+                        </index>
+                        <index indexName="norm_musicNotation">
+                           <term type="musicNotation"/>
+                        </index>
+                     </head>
+                     <msContents>
+                        <msItem>
+                           <note type="text"><ref type="locus">Beilage 1</ref>: in einem Papierumschlag der Hs. beigelegt <ref type="5260[0]">Papierblatt</ref>, Maße: <ref type="5360[0]">21,5 × 15</ref> cm. Titelblatt (?) der Publikation: <ref type="workTitle">Festschrift zum 60. Geburtstag Seiner Durchlaucht des Prinzen Max Egon zu Fürstenberg</ref>, Verein f. Geschichte u. Naturgeschichte d. Baar u. d. angrenzenden Landesteile, Schriften des Vereins für Geschichte und Naturgeschichte der Baar und der Angrenzenden Landesteile in Donaueschingen, Heft 24, Donaueschingen 1956, vgl. https://d-nb.info/458760706.</note>
+                        </msItem>
+                     </msContents>
+                     <msPart type="other">
+                        <msIdentifier>
+                           <idno>Sonstiges</idno>
+                        </msIdentifier>
+                        <p>
+                           <index>
+                              <term>Abschrift</term>
+                              <term type="workTitle">Festschrift zum 60. Geburtstag Seiner Durchlaucht des Prinzen Max Egon zu Fürstenberg</term>
+                           </index>
+                        </p>
+                     </msPart>
+                  </msPart>
+                  <msPart type="fragment">
+                     <msIdentifier>
+                        <idno>Fragment 4 (Beilage 2 (Papierstreifen))</idno>
+                     </msIdentifier>
+                     <head>
+                        <index indexName="norm_title">
+                           <term type="title"/>
+                        </index>
+                        <title/>
+                        <note type="headline">Papier ·  · 2,7 × 16,7 · 1867/1933</note>
+                        <index indexName="norm_material">
+                           <term type="material"/>
+                           <term type="material_type"/>
+                        </index>
+                        <index indexName="norm_measure">
+                           <term type="measure"/>
+                           <term type="measure_noOfLeaves"/>
+                        </index>
+                        <index indexName="norm_dimensions">
+                           <term type="dimensions"/>
+                           <term type="height"/>
+                           <term type="width"/>
+                           <term type="depth"/>
+                           <term type="dimensions_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_format">
+                           <term type="format"/>
+                           <term type="format_typeOfInformation"/>
+                        </index>
+                        <index indexName="norm_origPlace">
+                           <term type="origPlace"/>
+                           <term type="origPlace_norm"/>
+                        </index>
+                        <index indexName="norm_origDate">
+                           <term type="origDate"/>
+                           <term type="origDate_notBefore"/>
+                           <term type="origDate_notAfter"/>
+                           <term type="origDate_type"/>
+                        </index>
+                        <index indexName="norm_textLang">
+                           <term type="textLang"/>
+                           <term type="textLang-ID"/>
+                        </index>
+                        <index indexName="norm_form">
+                           <term type="form"/>
+                        </index>
+                        <index indexName="norm_status">
+                           <term type="status"/>
+                        </index>
+                        <index indexName="norm_decoration">
+                           <term type="decoration"/>
+                        </index>
+                        <index indexName="norm_musicNotation">
+                           <term type="musicNotation"/>
+                        </index>
+                     </head>
+                     <msContents>
+                        <msItem>
+                           <note type="text"><ref type="locus">Beilage 2</ref>: in einem Papierumschlag der Hs. beigelegt <ref type="5260[0]">Papierstreifen</ref>, Maße: <ref type="5360[0]">2,7 × 16,7</ref> cm, einseitig beschriftet. Titelangabe zur Hs. in einer Schrift des <ref type="origDate">3. Drittels des 19. Jh. oder 1. Drittel des 20. Jh.</ref> in Tinte: <hi rend="italic">Johannes Schiltperger’s aus München / Reisen in Europa, Asien u. Afrika von 1394</hi>–1427. N<quote><hi rend="sup">o</hi></quote><hi rend="italic">. 481. </hi></note>
+                        </msItem>
+                     </msContents>
+                  </msPart>
+                  <msPart type="other">
+                     <msIdentifier>
+                        <idno>Sonstiges</idno>
+                     </msIdentifier>
+                     <p>
+                        <index>
+                           <term>Abschrift</term>
+                        </index>
+                        <index>
+                           <term>Abschrift</term>
+                           <term type="workTitle">Festschrift zum 60. Geburtstag Seiner Durchlaucht des Prinzen Max Egon zu Fürstenberg</term>
+                        </index>
+                     </p>
+                  </msPart>
+               </msPart>
+               <msPart type="other">
+                  <msIdentifier>
+                     <idno>Sonstiges</idno>
+                  </msIdentifier>
+                  <p>
+                     <index>
+                        <term>Erwähnung &amp; Benutzung</term>
+                        <index>
+                           <term>
+                              <persName>Müller, Johann Baptist</persName>
+                           </term>
+                        </index>
+                     </index>
+                     <index>
+                        <term>Erwähnung &amp; Benutzung</term>
+                        <index>
+                           <term>
+                              <persName key="z001_116426292">Eiselein, Joseph</persName>
+                           </term>
+                        </index>
+                     </index>
+                     <index>
+                        <term>Handschrift im Katalog zitiert</term>
+                        <index>
+                           <term>Karlsruhe, BLB, Donaueschingen 245</term>
+                        </index>
+                     </index>
+                     <index>
+                        <term>Handschrift im Katalog zitiert</term>
+                        <index>
+                           <term>Karlsruhe, BLB, Donaueschingen 403</term>
+                        </index>
+                     </index>
+                     <index>
+                        <term>Handschrift im Katalog zitiert</term>
+                        <index>
+                           <term>Karlsruhe, BLB, Donaueschingen 436</term>
+                        </index>
+                     </index>
+                     <index>
+                        <term>Abschrift</term>
+                     </index>
+                     <index>
+                        <term>Abschrift</term>
+                        <term type="workTitle">Festschrift zum 60. Geburtstag Seiner Durchlaucht des Prinzen Max Egon zu Fürstenberg</term>
+                     </index>
+                     <index>
+                        <term>Autorschaft</term>
+                        <index>
+                           <term>
+                              <persName key="z001_118795007" role="author">Schiltberger, Hans</persName>
+                           </term>
+                        </index>
+                     </index>
+                     <index>
+                        <term>Abschrift</term>
+                        <term type="workTitle">Reisebuch</term>
+                     </index>
+                  </p>
+               </msPart>
+            </msDesc>
+         </body>
+      </text>
+   </TEI>

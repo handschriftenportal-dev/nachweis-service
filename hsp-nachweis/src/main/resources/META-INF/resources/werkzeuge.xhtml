@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                template="templates/default.xhtml">
+  <f:metadata>
+    <f:viewAction action="#{werkzeugeController.setup}" onPostback="false"/>
+  </f:metadata>
+  <ui:define name="content">
+    <ui:param name="kannWerkzeugeAnwenden"
+              value="#{werkzeugeRechte.kannWerkzeugeAnwenden()}"/>
+    <ui:param name="eventBatch" value="#{werkzeugeController.werkzeugEventDatenuebernahme.batch}"/>
+
+    <div class="ui-g">
+      <div class="ui-g-12 ui-lg-8">
+        <h1>#{msg.document_titel_werkzeuge}</h1>
+      </div>
+
+      <div class="ui-g-12">
+        <p:separator/>
+      </div>
+
+      <div class="ui-g-12">
+        <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+          <ui:param name="hasAccess" value="#{kannWerkzeugeAnwenden}"/>
+        </ui:include>
+      </div>
+
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+                       responsive="true">
+        <p:commandButton value="#{msg.ja}" type="button"
+                         styleClass="ui-confirmdialog-yes"/>
+        <p:commandButton value="#{msg.nein}" type="button"
+                         styleClass="ui-confirmdialog-no ui-button-flat"/>
+      </p:confirmDialog>
+
+      <h:panelGroup id="werkzeugeFormPanel"
+                    layout="block"
+                    styleClass="ui-g-12 ui-lg-12"
+                    rendered="#{kannWerkzeugeAnwenden}">
+        <h:form id="werkzeugeFormMsDesc"
+                styleClass="hsp-form">
+          <h2>#{msg.werkzeug_onetimetext}</h2>
+          <div class="card">
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{msg.werkzeug_kodasmanuscript_title}
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchAllKODAsManuscript.batch.bearbeiter.name}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchAllKODAsManuscript.batch.startTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchAllKODAsManuscript.batch.endTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{werkzeugeController.werkzeugBatchAllKODAsManuscript.batch.status}
+                <br/>
+                #{werkzeugeController.werkzeugBatchAllKODAsManuscript.batch.successMessage}
+              </div>
+              <div class="ui-g-2" style="text-align: right;">
+                <p:commandButton
+                    id="kodsAsManuscriptBtn"
+                    icon="pi pi-play"
+                    title="#{msg.werkzeug_kodasmanuscript_button_title}"
+                    value="#{msg.werkzeuge_execute}"
+                    actionListener="#{werkzeugeController.werkzeugBatchAllKODAsManuscript.execute()}"
+                    ajax="true"
+                    process="@form"
+                    update="@form"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"
+                    disabled="#{werkzeugeController.werkzeugBatchAllKODAsManuscript.batch.status == 'RUNNING'}">
+                  <p:confirm
+                      header="#{msg.werkzeuge_confirm_header}"
+                      message="#{msg.werkzeug_kodasmanuscript_button_title}"
+                      icon="pi pi-info"/>
+                </p:commandButton>
+              </div>
+
+            </div>
+          </div>
+          <h2>#{msg.werkzeug_permanentjobtext}</h2>
+          <div class="card">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <h:outputText
+                    value="#{msg.schemapflege_datenuebernahme_aktiviert}"
+                    rendered="#{werkzeugeController.werkzeugEventDatenuebernahme.automatischenUebernahmeAktiv}"/>
+                <h:outputText
+                    value="#{msg.schemapflege_datenuebernahme_deaktiviert}"
+                    rendered="#{not werkzeugeController.werkzeugEventDatenuebernahme.automatischenUebernahmeAktiv}"/>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText value="#{eventBatch.bearbeiter.name}"/>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventDatenuebernahme.batch.startTime}">
+                  <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventDatenuebernahme.batch.endTime}">
+                  <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-4" style="text-align: right;">
+                <p:toggleSwitch id="automatischeUebernahmeToggle"
+                                value="#{werkzeugeController.werkzeugEventDatenuebernahme.automatischenUebernahmeAktiv}"
+                                valueChangeListener="#{werkzeugeController.werkzeugEventDatenuebernahme.execute}">
+                  <p:ajax update="@form"/>
+                </p:toggleSwitch>
+              </div>
+            </div>
+
+            <p:poll widgetVar="validPoll"
+                    interval="2"
+                    autoStart="false"
+                    update="beschActor beschTimes beschState beschActions
+                beschAllActor beschAllTimes beschAllState beschAllActions
+                kodActor kodTimes kodState kodActions
+                katalogActor katalogTimes katalogState katalogActions"
+                    stop="#{!werkzeugeController.isAnyRunning()}"/>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display:block;">
+                #{msg.werkzeug_beschreibungen_validieren_title}
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="beschActor">
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.bearbeiter.name}"/>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="beschTimes">
+                  #{msg.werkzeug_started}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.startTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                  <br/>
+                  #{msg.werkzeug_finished}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.endTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="beschState">
+                  #{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.status}
+                  <br/>
+                  #{empty werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.successMessage
+                      ? ''
+                      : msg[werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.successMessage]}
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="text-align:right;">
+                <h:panelGroup id="beschActions">
+                  <p:commandButton
+                      id="validateAllBeschreibungenValidateBtn"
+                      icon="pi pi-play"
+                      title="#{msg.werkzeug_beschreibungen_validieren_button}"
+                      value="#{msg.werkzeuge_execute}"
+                      action="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.startAndDispatchODD}"
+                      ajax="true"
+                      process="@this"
+                      update="beschActor beschTimes beschState beschActions"
+                      onstart="PF('statusDialog').show();"
+                      oncomplete="PF('statusDialog').hide(); PF('validPoll').start();"
+                      onerror="PF('statusDialog').hide();"
+                      disabled="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchOdd.status == 'RUNNING'}">
+                    <p:confirm
+                        header="#{msg.werkzeuge_confirm_header}"
+                        message="#{msg.werkzeug_beschreibungen_validieren_button}"
+                        icon="pi pi-info"/>
+                  </p:commandButton>
+
+                  <p:commandButton
+                      value="#{msg.werkzeug_beschreibungen_csvdownload}"
+                      icon="pi pi-arrow-down"
+                      ajax="false"
+                      disabled="#{!werkzeugeController.isCsvValidationDownloadAvailableODD()}"
+                      styleClass="ui-button-outlined">
+                    <p:fileDownload value="#{werkzeugeController.csvValidationDownloadBeschODD()}"/>
+                  </p:commandButton>
+                </h:panelGroup>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display:block;">
+                #{msg.werkzeug_beschreibungen_validieren_all_title}
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="beschAllActor">
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.bearbeiter.name}"/>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="beschAllTimes">
+                  #{msg.werkzeug_started}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.startTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                  <br/>
+                  #{msg.werkzeug_finished}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.endTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="beschAllState">
+                  #{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.status}
+                  <br/>
+                  #{empty werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.successMessage
+                      ? ''
+                      : msg[werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.successMessage]}
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="text-align:right;">
+                <h:panelGroup id="beschAllActions">
+                  <p:commandButton
+                      id="validateAllBeschreibungenValidateAllBtn"
+                      icon="pi pi-play"
+                      title="#{msg.werkzeug_beschreibungen_validieren_all_button}"
+                      value="#{msg.werkzeuge_execute}"
+                      action="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.startAndDispatchALL}"
+                      ajax="true"
+                      process="@this"
+                      update="beschAllActor beschAllTimes beschAllState beschAllActions"
+                      onstart="PF('statusDialog').show();"
+                      oncomplete="PF('statusDialog').hide(); PF('validPoll').start();"
+                      onerror="PF('statusDialog').hide();"
+                      disabled="#{werkzeugeController.werkzeugBatchAllBeschreibungenValidate.batchAll.status == 'RUNNING'}">
+                    <p:confirm
+                        header="#{msg.werkzeuge_confirm_header}"
+                        message="#{msg.werkzeug_beschreibungen_validieren_all_button}"
+                        icon="pi pi-info"/>
+                  </p:commandButton>
+
+                  <p:commandButton
+                      value="#{msg.werkzeug_beschreibungen_csvdownload_all}"
+                      icon="pi pi-arrow-down"
+                      ajax="false"
+                      disabled="#{!werkzeugeController.isCsvValidationDownloadAvailableBeschALL()}"
+                      styleClass="ui-button-outlined">
+                    <p:fileDownload value="#{werkzeugeController.csvValidationDownloadBeschALL()}"/>
+                  </p:commandButton>
+                </h:panelGroup>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display:block;">
+                #{msg.werkzeug_kulturobjekte_validieren_title}
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="kodActor">
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.bearbeiter.name}"/>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display:block;">
+                <h:panelGroup id="kodTimes">
+                  #{msg.werkzeug_started}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.startTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                  <br/>
+                  #{msg.werkzeug_finished}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.endTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display: block;">
+                <h:panelGroup id="kodState">
+                  #{werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.status}
+                  <br/>
+                  #{empty werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.successMessage
+                      ? ''
+                      : msg[werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.successMessage]}
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="text-align: right;">
+                <h:panelGroup id="kodActions">
+                  <p:commandButton
+                      id="validateAllKulturobjekteValidateBtn"
+                      icon="pi pi-play"
+                      title="#{msg.werkzeug_kulturobjekte_validieren_button}"
+                      value="#{msg.werkzeuge_execute}"
+                      action="#{werkzeugeController.werkzeugBatchAllKulturobjekteValidate.startAndDispatch}"
+                      ajax="true"
+                      process="@this"
+                      update="kodActor kodTimes kodState kodActions"
+                      onstart="PF('statusDialog').show();"
+                      oncomplete="PF('statusDialog').hide(); PF('validPoll').start();"
+                      onerror="PF('statusDialog').hide();"
+                      disabled="#{werkzeugeController.werkzeugBatchAllKulturobjekteValidate.batch.status == 'RUNNING'}">
+                    <p:confirm
+                        header="#{msg.werkzeuge_confirm_header}"
+                        message="#{msg.werkzeug_kulturobjekte_validieren_button}"
+                        icon="pi pi-info"/>
+                  </p:commandButton>
+
+                  <p:commandButton
+                      value="#{msg.werkzeug_kulturobjekte_csvdownload}"
+                      icon="pi pi-arrow-down"
+                      ajax="false"
+                      disabled="#{!werkzeugeController.isCsvValidationDownloadAvailableKOD()}"
+                      styleClass="ui-button-outlined">
+                    <p:fileDownload value="#{werkzeugeController.csvValidationDownloadKOD()}"/>
+                  </p:commandButton>
+                </h:panelGroup>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{msg.werkzeug_kataloge_validieren_title}
+              </div>
+
+              <div class="ui-g-2" style="display: block;">
+                <h:panelGroup id="katalogActor">
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.bearbeiter.name}"/>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display: block;">
+                <h:panelGroup id="katalogTimes">
+                  #{msg.werkzeug_started}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.startTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                  <br/>
+                  #{msg.werkzeug_finished}:
+                  <h:outputText
+                      value="#{werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.endTime}">
+                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                  </h:outputText>
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="display: block;">
+                <h:panelGroup id="katalogState">
+                  #{werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.status}
+                  <br/>
+                  #{empty werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.successMessage
+                      ? ''
+                      : msg[werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.successMessage]}
+                </h:panelGroup>
+              </div>
+
+              <div class="ui-g-2" style="text-align: right;">
+                <h:panelGroup id="katalogActions">
+                  <p:commandButton
+                      id="validateAllKatalogeValidateBtn"
+                      icon="pi pi-play"
+                      title="#{msg.werkzeug_kataloge_validieren_button}"
+                      value="#{msg.werkzeuge_execute}"
+                      action="#{werkzeugeController.werkzeugBatchAllKatalogeValidate.startAndDispatch}"
+                      ajax="true"
+                      process="@this"
+                      update="katalogActor katalogTimes katalogState katalogActions"
+                      onstart="PF('statusDialog').show();"
+                      oncomplete="PF('statusDialog').hide(); PF('validPoll').start();"
+                      onerror="PF('statusDialog').hide();"
+                      disabled="#{werkzeugeController.werkzeugBatchAllKatalogeValidate.batch.status == 'RUNNING'}">
+                    <p:confirm
+                        header="#{msg.werkzeuge_confirm_header}"
+                        message="#{msg.werkzeug_kataloge_validieren_button}"
+                        icon="pi pi-info"/>
+                  </p:commandButton>
+
+                  <p:commandButton
+                      value="#{msg.werkzeug_kataloge_csvdownload}"
+                      icon="pi pi-arrow-down"
+                      ajax="false"
+                      disabled="#{!werkzeugeController.isCsvValidationDownloadAvailableKatalog()}"
+                      styleClass="ui-button-outlined">
+                    <p:fileDownload value="#{werkzeugeController.csvValidationDownloadKatalog()}"/>
+                  </p:commandButton>
+                </h:panelGroup>
+              </div>
+            </div>
+          </div>
+
+          <h2>#{msg.werkzeug_permanentjob_superredakteur}</h2>
+          <div class="card">
+
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <h:outputText
+                    value="#{msg.werkzeug_attributsReferenzenToggle_text}"/>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugOverrideAttributsReferenzen.batch.bearbeiter.name}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugOverrideAttributsReferenzen.batch.startTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugOverrideAttributsReferenzen.batch.endTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-4" style="text-align: right;">
+                <p:toggleSwitch id="attributsReferenzenToggle"
+                                value="#{werkzeugeController.attributsreferenzenOverride}"
+                                disabled="#{werkzeugeController.kodKerndatenBeiImportUeberschreibenDisabled}">
+                  <p:ajax process="@this" update="@form"
+                          listener="#{werkzeugeController.onAttributsreferenzenOverrideToggle}"/>
+                </p:toggleSwitch>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{msg.werkzeug_normdatenupdate_tile}
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchUpdateNormdatenReferenz.batch.bearbeiter.name}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchUpdateNormdatenReferenz.batch.startTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchUpdateNormdatenReferenz.batch.endTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{werkzeugeController.werkzeugBatchUpdateNormdatenReferenz.batch.status}
+                <br/>
+                #{werkzeugeController.werkzeugBatchUpdateNormdatenReferenz.batch.successMessage}
+              </div>
+              <div class="ui-g-2" style="text-align: right;">
+                <p:commandButton
+                    id="updateAllNormdatenBtn"
+                    icon="pi pi-play"
+                    title="#{msg.werkzeug_normdatenupdate_tile}"
+                    value="#{msg.werkzeuge_execute}"
+                    actionListener="#{werkzeugeController.werkzeugBatchUpdateNormdatenReferenz.execute()}"
+                    ajax="true"
+                    process="@form"
+                    update="@form"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"
+                    disabled="#{werkzeugeController.normdatenAktualisierenDisabled}">
+                  <p:confirm
+                      header="#{msg.werkzeuge_confirm_header}"
+                      message="#{msg.werkzeug_normdatenupdate_tile}"
+                      icon="pi pi-info"/>
+                </p:commandButton>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.name}
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.bearbeiter.name}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.startTime}">
+                  <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.endTime}">
+                  <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.status}
+                <br/>
+                #{werkzeugeController.werkzeugBatchUpdateAllKODTEI.counter}
+                <br/>
+                #{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.successMessage}
+              </div>
+              <div class="ui-g-2" style="text-align: right;">
+                <p:commandButton
+                    id="kodUpdateALLTEIButton"
+                    icon="pi pi-play"
+                    title=" #{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.name}"
+                    value="#{msg.werkzeuge_execute}"
+                    actionListener="#{werkzeugeController.werkzeugBatchUpdateAllKODTEI.execute()}"
+                    ajax="true"
+                    process="@form"
+                    update="@form"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"
+                    disabled="#{werkzeugeController.aktualisierenAlleKodXmlDisabled}">
+                  <p:confirm
+                      header="#{msg.werkzeuge_confirm_header}"
+                      message="#{werkzeugeController.werkzeugBatchUpdateAllKODTEI.batch.name}"
+                      icon="pi pi-info"/>
+                </p:commandButton>
+              </div>
+
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{msg.kodList_indexAktualisieren}
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventIndexKODs.batch.bearbeiter.name}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventIndexKODs.batch.startTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventIndexKODs.batch.endTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{werkzeugeController.werkzeugEventIndexKODs.batch.status}
+                <br/>
+                #{werkzeugeController.werkzeugEventIndexKODs.batch.successMessage}
+              </div>
+              <div class="ui-g-2" style="text-align: right;">
+                <p:commandButton
+                    id="indexAllKODsBtn"
+                    icon="pi pi-play"
+                    title="#{msg.kodList_indexAktualisieren}"
+                    value="#{msg.werkzeuge_execute}"
+                    actionListener="#{werkzeugeController.werkzeugEventIndexKODs.execute()}"
+                    ajax="true"
+                    process="@form"
+                    update="@form"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"
+                    disabled="#{werkzeugeController.indexAktualisierenKodsDisabled}">
+                  <p:confirm
+                      header="#{msg.werkzeuge_confirm_header}"
+                      message="#{msg.kodList_indexAktualisieren}"
+                      icon="pi pi-info"/>
+                </p:commandButton>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{msg.beschreibungList_indexAktualisieren}
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventIndexBeschreibungen.batch.bearbeiter.name}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventIndexBeschreibungen.batch.startTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugEventIndexBeschreibungen.batch.endTime}">
+                  <f:convertDateTime type="localDateTime"
+                                     pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{werkzeugeController.werkzeugEventIndexBeschreibungen.batch.status}
+                <br/>
+                #{werkzeugeController.werkzeugEventIndexBeschreibungen.batch.successMessage}
+              </div>
+              <div class="ui-g-2" style="text-align: right;">
+                <p:commandButton
+                    id="indexAllBeschreibungenBtn"
+                    icon="pi pi-play"
+                    title="#{msg.beschreibungList_indexAktualisieren}"
+                    value="#{msg.werkzeuge_execute}"
+                    actionListener="#{werkzeugeController.werkzeugEventIndexBeschreibungen.execute()}"
+                    ajax="true"
+                    process="@form"
+                    update="@form"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"
+                    disabled="#{werkzeugeController.indexAktualisierenBeschreibungenDisabled}">
+                  <p:confirm
+                      header="#{msg.werkzeuge_confirm_header}"
+                      message="#{msg.beschreibungList_indexAktualisieren}"
+                      icon="pi pi-info"/>
+                </p:commandButton>
+              </div>
+            </div>
+
+            <div class="ui-g">
+              <div class="ui-g-4" style="display: block;">
+                #{msg.werkzeug_praesentation_index_title}
+                <br/>
+                <h:panelGroup id="replicationStatusText">
+                  <p:selectBooleanButton
+                      id="replicationToggle"
+                      value="#{werkzeugeController.replicationToggle}"
+                      onLabel="#{msg.werkzeug_praesentation_replication_enabled}"
+                      offLabel="#{msg.werkzeug_praesentation_replication_disabled}"
+                      onIcon="pi pi-check" offIcon="pi pi-times"
+                      title="#{msg.werkzeug_praesentation_replication_toggle}"
+                      disabled="#{werkzeugeController.replicationToggleDisabled}">
+                    <p:ajax process="@this" update="@form"
+                            listener="#{werkzeugeController.onReplicationToggle}"/>
+                  </p:selectBooleanButton>
+                  <h:outputText
+                      value=" #{msg[werkzeugeController.replicationStatusKey]}"
+                      rendered="#{werkzeugeController.replicationStatusUnknown}"/>
+                </h:panelGroup>
+                <p:commandButton
+                    id="refreshReplicationStatusBtn"
+                    icon="pi pi-refresh"
+                    title="#{msg.werkzeug_praesentation_replication_refresh}"
+                    styleClass="ui-button-flat"
+                    actionListener="#{werkzeugeController.refreshReplicationStatus()}"
+                    ajax="true"
+                    process="@this"
+                    update="@form"/>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchIndexPraesentation.bearbeiterName}">
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{msg.werkzeug_started}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchIndexPraesentation.startTime}">
+                  <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+                <br/>
+                #{msg.werkzeug_finished}:
+                <h:outputText
+                    value="#{werkzeugeController.werkzeugBatchIndexPraesentation.endTime}">
+                  <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                </h:outputText>
+              </div>
+              <div class="ui-g-2" style="display: block;">
+                #{werkzeugeController.werkzeugBatchIndexPraesentation.status}
+                <br/>
+                #{werkzeugeController.werkzeugBatchIndexPraesentation.successMessage}
+              </div>
+              <div class="ui-g-2" style="text-align: right;">
+                <p:commandButton
+                    id="indexPraesentationBtn"
+                    icon="pi pi-play"
+                    title="#{msg.werkzeug_praesentation_index_title}"
+                    value="#{msg.werkzeuge_execute}"
+                    actionListener="#{werkzeugeController.indexPraesentationStarten()}"
+                    ajax="true"
+                    process="@this"
+                    update="@form"
+                    onstart="PF('statusDialog').show()"
+                    oncomplete="PF('statusDialog').hide();"
+                    disabled="#{werkzeugeController.indexPraesentationDisabled}">
+                  <p:confirm
+                      header="#{msg.werkzeuge_confirm_header}"
+                      message="#{msg.werkzeug_praesentation_index_confirm}"
+                      icon="pi pi-info"/>
+                </p:commandButton>
+              </div>
+
+            </div>
+          </div>
+
+
+        </h:form>
+      </h:panelGroup>
+    </div>
+  </ui:define>
+</ui:composition>

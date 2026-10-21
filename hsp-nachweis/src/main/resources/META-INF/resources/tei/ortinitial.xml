@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Liste der erwähnten Orte</title>
+            </titleStmt>
+            <publicationStmt>
+                <p/>
+            </publicationStmt>
+            <sourceDesc>
+                <p/>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="___UUID___">
+                    <!--<country>optional: country</country>-->
+                    <!--<region>optional: Region, z.B. Bundesland</region>-->
+                    <placeName xml:lang="___Sprachkuerzel___">___Ortsname___</placeName>
+                    <idno xml:id="geonames_###Geonames-ID###">http://www.geonames.org/___Geonames-ID___</idno>
+                    <idno xml:id="gnd_###GND-ID###">http://d-nb.info/gnd/___GND-ID___</idno>
+                </place>
+            </listPlace>
+        </body> 
+    </text>
+</TEI>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/default.xhtml">
+  <ui:define name="content">
+    <f:view transient="true">
+      <p:importConstants
+          type="de.staatsbibliothek.berlin.hsp.nachweis.application.controller.BestandsController"
+          var="BestandsController"/>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h1>#{msg.bestand_headline}</h1>
+          <h:outputText rendered="#{not empty bestandsController.bestandsView.fehlerMeldung}"
+                        value="#{msg.bestand_errorPrefix} #{bestandsController.bestandsView.fehlerMeldung}"/>
+        </div>
+        <h:form id="bestandform">
+          <p:outputPanel id="bestandPanel"
+                         layout="block"
+                         styleClass="ui-g-12">
+            <p:accordionPanel id="bestandsPanels"
+                              activeIndex="0"
+                              style="padding: 0px">
+              <p:ajax event="tabChange" listener="#{bestandsController.onTabChanged}"
+                      update="@this" onstart="PF('idleDialog').show()"
+                      oncomplete="PF('idleDialog').hide()"/>
+              <p:tab id="#{BestandsController.CLIENTID_BESTAENDE_TAB}"
+                     title="#{msg.bestand_title}">
+                <p:dataTable id="bestandsTable"
+                             var="bestand"
+                             value="#{bestandsController.bestandsElemente}"
+                             emptyMessage="#{msg.bestand_none}"
+                             reflow="true"
+                             liveResize="true"
+                             tableStyle="'width:auto'"
+                             sortMode="multiple"
+                             sortBy="#{bestand.label}"
+                             rowkey="#{bestand.label}"
+                             style="width: auto !important;">
+                  <p:column id="labelColumn"
+                            headerText="#{bestand_columnOneTitle}" sortBy="#{bestand.label}"
+                            sortPriority="1">
+                    <h:outputText id="labelLabel" value="#{bestand.label}"/>
+                  </p:column>
+                  <p:column id="Nachweis"
+                            headerText="#{msg.bestand_columnTwoTitle}"
+                            sortBy="#{bestand.bestandNachweis}">
+                    <h:outputText id="pnachweisLabel"
+                                  value="#{bestand.bestandNachweis != -1 ? bestand.bestandNachweis: msg.bestand_cannotberecieved}"/>
+                  </p:column>
+                  <p:column id="praesentationColumn"
+                            headerText="#{msg.bestand_columnThirdTitle}"
+                            sortBy="#{bestand.bestandPraesentation}">
+                    <h:outputText id="praesentationLabel"
+                                  value="#{bestand.bestandPraesentation  != -1 ? bestand.bestandPraesentation: msg.bestand_cannotberecieved}"/>
+                  </p:column>
+                  <p:column id="differenzColumn"
+                            headerText="#{msg.bestand_columnFourTitle}"
+                            sortBy="#{bestand.bestandDifferenz}">
+                    <h:outputText id="differenzLabel"
+                                  value="#{bestand.bestandDifferenz != -1 ? bestand.bestandDifferenz: msg.bestand_cannotberecieved}"/>
+                  </p:column>
+                </p:dataTable>
+              </p:tab>
+              <p:tab id="#{BestandsController.CLIENTID_BESTAENDE_TAB_KOD_INSTITUTIONS}"
+                     title="#{msg.bestand_institutionen_kod_title}">
+                <p:dataTable id="bestaendeTabKODInstitutionsTable"
+                             var="bestandInstitutionKOD"
+                             value="#{bestandsController.bestandInstitutionKODElements}"
+                             emptyMessage="#{msg.bestand_none}"
+                             reflow="true"
+                             liveResize="true"
+                             tableStyle="'width:auto'"
+                             multiViewState="true"
+                             sortMode="multiple"
+                             sortBy="#{bestandInstitutionKOD.bestandNachweis}"
+                             rowkey="#{bestandInstitutionKOD.besitzendeEinrichtungColumn}"
+                             style="width: auto !important;">
+                  <p:column id="besitzendeEinrichtungColumn"
+                            headerText="#{msg.bestand_institution}"
+                            sortBy="#{bestandInstitutionKOD.besitzendeEinrichtung}"
+                            sortPriority="1">
+                    <h:outputText id="besitzendeEinrichtung"
+                                  value="#{bestandInstitutionKOD.besitzendeEinrichtung}"/>
+                  </p:column>
+                  <p:column id="aufbewahrungsOrtColumn"
+                            headerText="#{msg.bestand_place}"
+                            sortBy="#{bestandInstitutionKOD.aufbewahrungsOrt}">
+                    <h:outputText id="aufbewahrungsOrt"
+                                  value="#{bestandInstitutionKOD.aufbewahrungsOrt}"/>
+                  </p:column>
+                  <p:column id="praesentationColumn"
+                            headerText="#{msg.bestand_columnTwoTitle}"
+                            sortBy="#{bestandInstitutionKOD.bestandNachweis}">
+                    <h:outputText id="bestandNachweis"
+                                  value="#{bestandInstitutionKOD.bestandNachweis}"/>
+                  </p:column>
+                  <p:column id="bestandPraesentationColumn"
+                            headerText="#{msg.bestand_columnThirdTitle}"
+                            sortBy="#{bestandInstitutionKOD.bestandPraesentation}">
+                    <h:outputText id="bestandPraesentation"
+                                  value="#{bestandInstitutionKOD.bestandPraesentation}"/>
+                  </p:column>
+                  <p:column id="differenzColumn"
+                            headerText="#{msg.bestand_columnFourTitle}"
+                            sortBy="#{bestandInstitutionKOD.bestandDifferenz}">
+                    <h:outputText id="bestandDifferenzKOD"
+                                  value="#{bestandInstitutionKOD.bestandDifferenz}"/>
+                  </p:column>
+                </p:dataTable>
+              </p:tab>
+              <p:tab id="#{BestandsController.CLIENT_ID_BESTAENDE_TAB_BESCHREIBUNGEN_INSTITUTIONS}"
+                     title="#{msg.bestand_institutionen_beschreibungen_title}">
+                <p:dataTable id="bestaendeTabBeschreibungenInstitutionsTable"
+                             var="bestandInstitutionBeschreibung"
+                             value="#{bestandsController.bestandInstitutionBeschreibungElements}"
+                             emptyMessage="#{msg.bestand_none}"
+                             reflow="true"
+                             liveResize="true"
+                             tableStyle="'width:auto'"
+                             multiViewState="true"
+                             sortMode="multiple"
+                             sortBy="#{bestandInstitutionBeschreibung.bestandNachweis}"
+                             rowkey="#{bestandInstitutionBeschreibung.besitzendeEinrichtungColumn}"
+                             style="width: auto !important;">
+                  <p:column id="besitzendeEinrichtungBeschreibungColumn"
+                            headerText="#{msg.bestand_institution}"
+                            sortBy="#{bestandInstitutionBeschreibung.besitzendeEinrichtung}"
+                            sortPriority="1">
+                    <h:outputText id="besitzendeEinrichtungBeschreibung"
+                                  value="#{bestandInstitutionBeschreibung.besitzendeEinrichtung}"/>
+                  </p:column>
+                  <p:column id="aufbewahrungsOrtBeschreibungColumn"
+                            headerText="#{msg.bestand_place}"
+                            sortBy="#{bestandInstitutionBeschreibung.aufbewahrungsOrt}">
+                    <h:outputText id="aufbewahrungsOrtBeschreibung"
+                                  value="#{bestandInstitutionBeschreibung.aufbewahrungsOrt}"/>
+                  </p:column>
+                  <p:column id="praesentationBeschreibungColumn"
+                            headerText="#{msg.bestand_columnTwoTitle}"
+                            sortBy="#{bestandInstitutionBeschreibung.bestandNachweis}">
+                    <h:outputText id="bestandNachweisBeschreibung"
+                                  value="#{bestandInstitutionBeschreibung.bestandNachweis}"/>
+                  </p:column>
+                  <p:column id="bestandPraesentationBeschreibungColumn"
+                            headerText="#{msg.bestand_columnThirdTitle}"
+                            sortBy="#{bestandInstitutionBeschreibung.bestandPraesentation}">
+                    <h:outputText id="bestandPraesentationBeschreibung"
+                                  value="#{bestandInstitutionBeschreibung.bestandPraesentation}"/>
+                  </p:column>
+                  <p:column id="differenzBeschreibungColumn"
+                            headerText="#{msg.bestand_columnFourTitle}"
+                            sortBy="#{bestandInstitutionBeschreibung.bestandDifferenz}">
+                    <h:outputText id="bestandDifferenzBeschreibung"
+                                  value="#{bestandInstitutionBeschreibung.bestandDifferenz}"/>
+                  </p:column>
+                </p:dataTable>
+              </p:tab>
+              <p:tab id="#{BestandsController.CLIENT_ID_BESTAENDE_TAB_DIGITALISATE_INSTITUTIONS}"
+                     title="#{msg.bestand_institutionen_digitalisate_title}">
+                <p:dataTable id="bestaendeTabDigitalisateInstitutionsTable"
+                             var="bestandInstitutionDigitalisate"
+                             value="#{bestandsController.bestandInstitutionDigitalisateElements}"
+                             emptyMessage="#{msg.bestand_none}"
+                             reflow="true"
+                             liveResize="true"
+                             tableStyle="'width:auto'"
+                             multiViewState="true"
+                             sortMode="multiple"
+                             sortBy="#{bestandInstitutionDigitalisate.bestandNachweis}"
+                             rowkey="#{bestandInstitutionDigitalisate.besitzendeEinrichtungColumn}"
+                             style="width: auto !important;">
+                  <p:column id="besitzendeEinrichtungDigitalisatColumn"
+                            headerText="#{msg.bestand_institution}"
+                            sortBy="#{bestandInstitutionDigitalisate.besitzendeEinrichtung}"
+                            sortPriority="1">
+                    <h:outputText id="besitzendeEinrichtungDigitalisat"
+                                  value="#{bestandInstitutionDigitalisate.besitzendeEinrichtung}"/>
+                  </p:column>
+                  <p:column id="aufbewahrungsOrtDigitalisatColumn"
+                            headerText="#{msg.bestand_place}"
+                            sortBy="#{bestandInstitutionDigitalisate.aufbewahrungsOrt}">
+                    <h:outputText id="aufbewahrungsOrtDigitalisat"
+                                  value="#{bestandInstitutionDigitalisate.aufbewahrungsOrt}"/>
+                  </p:column>
+                  <p:column id="praesentationDigitalisatColumn"
+                            headerText="#{msg.bestand_columnTwoTitle}"
+                            sortBy="#{bestandInstitutionDigitalisate.bestandNachweis}">
+                    <h:outputText id="bestandNachweisDigitalisat"
+                                  value="#{bestandInstitutionDigitalisate.bestandNachweis}"/>
+                  </p:column>
+                  <p:column id="bestandPraesentationDigitalisatColumn"
+                            headerText="#{msg.bestand_columnThirdTitle}"
+                            sortBy="#{bestandInstitutionDigitalisate.bestandPraesentation}">
+                    <h:outputText id="bestandPraesentationDigitalisat"
+                                  value="#{bestandInstitutionDigitalisate.bestandPraesentation}"/>
+                  </p:column>
+                  <p:column id="differenzDigitalisatColumn"
+                            headerText="#{msg.bestand_columnFourTitle}"
+                            sortBy="#{bestandInstitutionDigitalisate.bestandDifferenz}">
+                    <h:outputText id="bestandDifferenzDigitalisat"
+                                  value="#{bestandInstitutionDigitalisate.bestandDifferenz}"/>
+                  </p:column>
+                </p:dataTable>
+              </p:tab>
+            </p:accordionPanel>
+          </p:outputPanel>
+        </h:form>
+      </div>
+    </f:view>
+  </ui:define>
+</ui:composition>

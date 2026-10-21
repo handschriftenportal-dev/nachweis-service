@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Minimal Solr 9 solrconfig.xml used ONLY by SolrTestResource for SolrSuchAdapterIT.
+
+  It deliberately replaces the production solrconfig.xml (src/main/resources/solr-config),
+  which is a Solr 8-era kitchen-sink config that fails to load under Solr 9 because it
+  references removed/modularized classes (VelocityResponseWriter, ExtractingRequestHandler,
+  TikaLanguageIdentifier, XSLTResponseWriter).
+
+  The production managed-schema is mounted unchanged, so all fields/facets the adapter
+  queries behave exactly like production; only the unused request handlers/writers are dropped.
+-->
+<config>
+  <luceneMatchVersion>9.4.1</luceneMatchVersion>
+
+  <dataDir>${solr.data.dir:}</dataDir>
+  <directoryFactory name="DirectoryFactory"
+    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+  <codecFactory class="solr.SchemaCodecFactory"/>
+
+  <schemaFactory class="ManagedIndexSchemaFactory">
+    <bool name="mutable">false</bool>
+    <str name="managedSchemaResourceName">managed-schema</str>
+  </schemaFactory>
+
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+    <autoCommit>
+      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
+  </updateHandler>
+
+  <query>
+    <maxBooleanClauses>1024</maxBooleanClauses>
+    <filterCache size="512" initialSize="512" autowarmCount="0"/>
+    <queryResultCache size="512" initialSize="512" autowarmCount="0"/>
+    <documentCache size="512" initialSize="512" autowarmCount="0"/>
+    <queryResultWindowSize>20</queryResultWindowSize>
+    <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+  </query>
+
+  <requestDispatcher>
+    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048000"/>
+    <httpCaching never304="true"/>
+  </requestDispatcher>
+
+  <requestHandler name="/select" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="echoParams">explicit</str>
+      <int name="rows">10</int>
+    </lst>
+  </requestHandler>
+
+  <requestHandler name="/query" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="echoParams">explicit</str>
+      <str name="wt">json</str>
+      <str name="indent">true</str>
+    </lst>
+  </requestHandler>
+
+  <queryResponseWriter name="json" class="solr.JSONResponseWriter"/>
+
+  <!-- Highlighting component: the adapter sends hl.encoder=html, which requires the
+       "html" encoder (and the formatter/fragmenter/etc.) to be registered here.
+       Copied from the production solrconfig.xml; all classes exist in Solr 9. -->
+  <searchComponent class="solr.HighlightComponent" name="highlight">
+    <highlighting>
+      <fragmenter name="gap" default="true" class="solr.highlight.GapFragmenter">
+        <lst name="defaults">
+          <int name="hl.fragsize">100</int>
+        </lst>
+      </fragmenter>
+
+      <formatter name="html" default="true" class="solr.highlight.HtmlFormatter">
+        <lst name="defaults">
+          <str name="hl.simple.pre"><![CDATA[<em>]]></str>
+          <str name="hl.simple.post"><![CDATA[</em>]]></str>
+        </lst>
+      </formatter>
+
+      <encoder name="html" class="solr.highlight.HtmlEncoder"/>
+
+      <fragListBuilder name="simple" class="solr.highlight.SimpleFragListBuilder"/>
+      <fragListBuilder name="single" class="solr.highlight.SingleFragListBuilder"/>
+      <fragListBuilder name="weighted" default="true"
+        class="solr.highlight.WeightedFragListBuilder"/>
+
+      <fragmentsBuilder name="default" default="true"
+        class="solr.highlight.ScoreOrderFragmentsBuilder"/>
+
+      <boundaryScanner name="default" default="true"
+        class="solr.highlight.SimpleBoundaryScanner">
+        <lst name="defaults">
+          <str name="hl.bs.maxScan">10</str>
+          <str name="hl.bs.chars">.,!? &#9;&#10;&#13;</str>
+        </lst>
+      </boundaryScanner>
+    </highlighting>
+  </searchComponent>
+</config>

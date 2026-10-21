@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:c="jakarta.tags.core"
+                template="templates/default.xhtml">
+
+  <f:metadata>
+    <f:viewParam name="dokumentTyp"
+                 value="#{datenHochladenController.dokumentTyp}"
+                 required="false"/>
+    <f:viewAction action="#{datenHochladenController.setup()}"/>
+  </f:metadata>
+
+  <ui:define name="content">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>#{msg.document_titel_dateiupload}</h1>
+      </div>
+    </div>
+
+    <ui:param name="kannLesen" value="#{importRechte.kannDateiupload()}"/>
+
+
+    <f:event type="preRenderComponent"
+             listener="#{datenHochladenController.handleViewRequest}"/>
+
+    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+      <ui:param name="hasAccess" value="#{kannLesen}"/>
+    </ui:include>
+
+    <h:form id="selectform" rendered="#{kannLesen}">
+      <div class="ui-g">
+        <div class="ui-g-3 margin-bottom-3">
+
+          <h3 style="margin-bottom: 10px;">#{msg.dateiupload_selectdatatype}</h3>
+
+          <p:selectOneMenu id="datatype"
+                           value="#{datenHochladenController.selectedDokumentTyp}">
+
+            <p:ajax listener="#{datenHochladenController.onChangeDokumententype}"
+                    update="selectform guidetext dateiauswahlform successmessage"/>
+
+            <f:selectItem itemLabel="#{msg.select}" itemValue=""
+                          noSelectionOption="true"/>
+            <f:selectItems var="dokumenttyp"
+                           value="#{datenHochladenController.dokumentTypen}"
+                           itemLabel="#{msg['datendokumenttyp_'.concat(dokumenttyp)]}"/>
+          </p:selectOneMenu>
+        </div>
+
+        <p:outputPanel class="ui-g-3 margin-bottom-3"
+                       rendered="#{datenHochladenController.selectedDokumentTyp == 'BESCHREIBUNG'}">
+          <h3 style="margin-bottom: 10px;">#{msg.dateiupload_selectxmlformat}</h3>
+          <p:selectOneMenu id="xmlformat"
+                           disabled="#{datenHochladenController.selectedDokumentTyp == null}"
+                           style="display: block;min-width: 150px !important;margin-bottom: 20px;"
+                           value="#{datenHochladenController.selectedXMLFormat}">
+            <p:ajax listener="#{datenHochladenController.onChangeXMLFormat}"
+                    update="guidetext dateiauswahlform successmessage"/>
+            <f:selectItem itemLabel="#{msg.select}" itemValue=""
+                          noSelectionOption="true"/>
+            <f:selectItems var="xmlformat" itemDisabled="#{xmlformat eq 'MARC21'}"
+                           value="#{datenHochladenController.XMLFormate}"
+                           itemLabel="#{xmlformat.toString()}"
+            />
+          </p:selectOneMenu>
+        </p:outputPanel>
+      </div>
+    </h:form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h:form id="guidetext" rendered="#{kannLesen}">
+          <ui:insert class="col-md-3">
+            <c:if test="#{datenHochladenController.selectedDokumentTyp == 'KOD'}">
+              <ui:include src="templates/datei_upload/datenimportkodguide.xhtml"/>
+            </c:if>
+            <c:if
+                test="#{datenHochladenController.selectedDokumentTyp == 'KOD' and datenHochladenController.selectedXMLFormat != null and datenHochladenController.selectedXMLFormat != 'TEI'}">
+              <ui:include
+                  src="templates/datei_upload/datenimportnotsupportedguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp == 'BESCHREIBUNG'}">
+              <ui:include
+                  src="templates/datei_upload/datenimportbeschreibungguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp == 'KOERPERSCHAFT'}">
+              <ui:include
+                  src="templates/datei_upload/datenimportkoerperschaftguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp == 'KATALOG'}">
+              <ui:include src="templates/datei_upload/datenimportkatalogguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'ORT'}">
+              <ui:include src="templates/datei_upload/datenimportortguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'BEZIEHUNG'}">
+              <ui:include src="templates/datei_upload/datenimportbeziehung.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'DIGITALISAT'}">
+              <ui:include
+                  src="templates/datei_upload/datenimportdigitalisatguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'PERSON'}">
+              <ui:include src="templates/datei_upload/datenimportpersonguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'SPRACHE'}">
+              <ui:include src="templates/datei_upload/datenimportspracheguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'KONZEPT'}">
+              <ui:include src="templates/datei_upload/datenimportkonzeptguide.xhtml"/>
+            </c:if>
+            <c:if test="#{datenHochladenController.selectedDokumentTyp eq 'INITIEN'}">
+              <ui:include src="templates/datei_upload/datenimport_initien_guide.xhtml"/>
+            </c:if>
+          </ui:insert>
+        </h:form>
+      </div>
+      <ui:fragment id="uploadButtonsFrag" rendered="#{kannLesen}">
+        <div class="ui-g-12">
+
+          <ui:include
+              src="templates/datei_upload/datenimport_fileupload.xhtml">
+          </ui:include>
+        </div>
+      </ui:fragment>
+    </div>
+  </ui:define>
+</ui:composition>

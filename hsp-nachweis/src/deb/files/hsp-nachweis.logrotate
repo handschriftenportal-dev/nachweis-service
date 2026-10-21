@@ -1,0 +1,10 @@
+/var/log/SBB/hsp-nachweis/*log {
+        daily
+        missingok
+        rotate 90
+        sharedscripts
+        compress
+        delaycompress
+        notifempty
+        copytruncate
+}

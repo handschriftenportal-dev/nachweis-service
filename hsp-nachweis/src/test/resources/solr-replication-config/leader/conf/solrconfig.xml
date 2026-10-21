@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Minimal Solr 9 leader core used ONLY by SolrAdminClientIT.
+
+  The core carries an explicit ReplicationHandler leader configuration so the
+  details/disablereplication/enablereplication commands and the actual index replication
+  to the follower container behave like the production leader.
+-->
+<config>
+  <luceneMatchVersion>9.4.1</luceneMatchVersion>
+
+  <dataDir>${solr.data.dir:}</dataDir>
+  <directoryFactory name="DirectoryFactory"
+    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+  <updateHandler class="solr.DirectUpdateHandler2"/>
+
+  <requestDispatcher>
+    <httpCaching never304="true"/>
+  </requestDispatcher>
+
+  <requestHandler name="/select" class="solr.SearchHandler"/>
+
+  <!-- Values taken from the production solrconfig.xml. Adapted for the test:
+       the section is named "leader" (Solr 9 no longer accepts "master") and
+       confFiles lists the schema file of this configset instead of the production files. -->
+  <requestHandler name="/replication" class="solr.ReplicationHandler">
+    <lst name="leader">
+      <str name="enable">${replication.master.enable:true}</str>
+      <str name="replicateAfter">${replication.master.backupAfter:commit}</str>
+      <str name="backupAfter">${replication.master.backupAfter:optimize}</str>
+      <str name="confFiles">schema.xml</str>
+    </lst>
+
+    <int name="maxNumberOfBackups">${replication.maxNumberOfBackups:1}</int>
+    <lst name="invariants">
+      <str name="maxWriteMBPerSec">${replication.maxWriteMBPerSec:50}</str>
+    </lst>
+  </requestHandler>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:cc="jakarta.faces.composite">
+
+  <cc:interface>
+    <cc:attribute name="id"/>
+    <cc:attribute name="value"
+                  type="de.staatsbibliothek.berlin.hsp.domainmodel.valueobjects.PublikationStatus"
+                  required="true"/>
+    <cc:attribute name="styleClass" type="java.lang.String"/>
+  </cc:interface>
+
+  <cc:implementation>
+    <ui:param name="status"
+              value="#{cc.attrs.value eq 'PUBLISHED'
+                    ? 'published'
+                    : (cc.attrs.value eq 'IN_REVIEW'
+                      ? 'in_review'
+                      : 'draft')}"
+    />
+    <ui:param name="icon"
+              value="#{cc.attrs.value eq 'PUBLISHED'
+                    ? 'pi pi-globe'
+                    : (cc.attrs.value eq 'IN_REVIEW'
+                      ? 'pi pi-hourglass'
+                      : 'pi pi-wrench')}"
+    />
+    <p:chip id="#{cc.attrs.id}"
+            styleClass="hsp-chip-publikationstatus-#{status} #{cc.attrs.styleClass}"
+            label="#{msg['publikationStatus_' += cc.attrs.value]}"
+            icon="#{icon}"/>
+  </cc:implementation>
+</ui:composition>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Surrogates</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc type="hsp:object" xml:lang="de">
+               <msIdentifier>
+                  <settlement key="___GND-ID___">___besitzendeEinrichtung___</settlement>
+                  <repository key="___GND-ID___">___OrtDerBesitzendenEinrichtung___</repository>
+                  <idno>___gueltige_Signatur___</idno>
+               </msIdentifier>
+               <additional>
+                  <adminInfo/>
+                  <surrogates>
+                     <!--  include digitized objects
+                       # required: insert KOD-ID or valid idno
+                       # required: link to an
+                       ## IIIF-Manifest -> type="manifest" if digitized object is capable of beeing depicted in an IIIF- viewer
+                       ## OR any other digitized depiction -> type="other"
+                       # recommended: insert type="thumbnail" for depicting a selected preview
+                       # recommended: insert date of digitalization, place and name of the organization that issued the digitized object
+                     -->
+                     <bibl>
+                        <ref type="manifest" target="___URL_des_Manifestes___"/>
+                        <ref type="other" target="___URL_des_Digitalisats___"/>
+                        <ref type="thumbnail" target="___URL_des_Thumbnails___"/>
+                        <date when="2021" type="digitized"/>
+                        <date when="2021" type="published"/>
+                        <date when="2021" type="issued"/>
+                        <orgName key="___GND-ID___" type="digitizing">___digitalisierendeEinrichtung___</orgName>
+                        <placeName key="___GND-ID___" type="digitizing">___OrtDerDigitalisierendenEinrichtung___</placeName>
+                     </bibl>
+                  </surrogates>
+               </additional>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <p>Some text here.</p>
+      </body>
+   </text>
+</TEI>

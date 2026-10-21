@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:pe="primefaces.extensions"
+                template="templates/default.xhtml">
+  <ui:define name="content">
+    <h:form id="approvalForm">
+      <h1><p:outputLabel value="#{msg.approval_title}"/></h1>
+      <p:dataTable value="#{approvalRequestController.beschreibungen}"
+                   var="beschreibung"
+                   rowKey="#{beschreibung.id}">
+
+        <p:column headerText="#{msg.approval_col_beschreibung}" sortBy="#{beschreibung.id}">
+          <h:link
+              outcome="/beschreibung/beschreibung.xhtml">
+            <f:param name="id" value="#{beschreibung.id}"/>
+            <b>
+              <h:outputText value="#{beschreibung.gueltigeSignatur}" id="signatur"/>
+            </b>
+          </h:link>
+          <p:commandLink id="btnCopy" icon="pi rounded-button pi-clipboard ui-button-plain">
+            <i class="pi rounded-button pi-clipboard ui-button-plain" style="color: #000;"/>
+          </p:commandLink>
+          <p:tooltip for="btnCopy">
+            <h:outputFormat value="#{msg.approval_col_beschreibung_tooltip}">
+              <f:param value="#{beschreibung.id}"/>
+            </h:outputFormat>
+          </p:tooltip>
+          <pe:clipboard id="clipCopy" trigger="btnCopy" action="copy" text="#{beschreibung.id}"/>
+        </p:column>
+
+        <p:column headerText="#{msg.approval_col_settlement}"
+                  sortBy="#{beschreibung.aufbewahrungsOrt}">
+          <h:outputText value="#{beschreibung.aufbewahrungsOrt}"/>
+        </p:column>
+
+        <p:column headerText="#{msg.approval_col_requested_by}"
+                  sortBy="#{beschreibung.activeApprovalRequest.requestedBy}">
+          <h:outputText value="#{beschreibung.activeApprovalRequest.requestedBy}"/>
+        </p:column>
+
+        <p:column headerText="#{msg.approval_col_requested_at}"
+                  sortBy="#{beschreibung.activeApprovalRequest.requestedAt}">
+          <h:outputText value="#{beschreibung.activeApprovalRequest.requestedAt}">
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+          </h:outputText>
+        </p:column>
+
+        <p:column headerText="#{msg.approval_col_reviewed_by}"
+                  sortBy="#{beschreibung.activeApprovalRequest.assignedTo}">
+          <h:outputText value="#{beschreibung.activeApprovalRequest.assignedTo}"/>
+        </p:column>
+
+        <p:column headerText="#{msg.approval_col_status}"
+                  sortBy="#{beschreibung.activeApprovalRequest.status}">
+          <h:outputText
+              value="#{msg['approval_status_' += beschreibung.activeApprovalRequest.status]}"/>
+        </p:column>
+
+
+        <p:column headerText="#{msg.approval_col_actions}">
+
+          <h:panelGroup id="actionsWrapper">
+            <p:splitButton value="#{msg.approval_btn_assign}"
+                           action="#{approvalRequestController.assign(beschreibung)}"
+                           disabled="#{!beschreibungsRechte.kannPublikationVerwalten()}"
+                           update="approvalForm" icon="pi pi-user">
+              <p:confirm header="#{msg.approval_btn_assign_dialog_title}"
+                         message="#{msg.approval_btn_assign_dialog_text}"
+                         icon="pi pi-exclamation-triangle"/>
+              <p:menuitem value="#{msg.approval_btn_approve}"
+                          icon="pi pi-check"
+                          oncomplete="PF('approveDialog').show()"
+                          update=":approveDialogContent">
+                <f:setPropertyActionListener value="#{beschreibung}"
+                                             target="#{approvalRequestController.selectedBeschreibung}"/>
+              </p:menuitem>
+              <p:menuitem value="#{msg.approval_btn_reject}"
+                          icon="pi pi-times"
+                          oncomplete="PF('rejectDialog').show()"
+                          update=":rejectDialogContent">
+                <f:setPropertyActionListener value="#{beschreibung}"
+                                             target="#{approvalRequestController.selectedBeschreibung}"/>
+              </p:menuitem>
+            </p:splitButton>
+          </h:panelGroup>
+          <p:tooltip for="actionsWrapper"
+                     value="#{msg.approval_btn_disabled_tooltip}"
+                     rendered="#{!beschreibungsRechte.kannPublikationVerwalten()}"/>
+        </p:column>
+      </p:dataTable>
+
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="#{msg.ja}" type="button"
+                         styleClass="ui-confirmdialog-yes"
+                         icon="pi pi-check"/>
+        <p:commandButton value="#{msg.nein}" type="button"
+                         styleClass="ui-confirmdialog-no"
+                         icon="pi pi-times"/>
+      </p:confirmDialog>
+    </h:form>
+
+    <p:dialog header="#{msg.approval_btn_approve_dialog_title}"
+              widgetVar="approveDialog"
+              modal="true"
+              showEffect="fade"
+              hideEffect="fade"
+              resizable="false"
+              closable="true">
+      <h:panelGroup id="approveDialogContent" layout="block">
+        <h:form id="approveDialogForm">
+          <p><h:outputText value="#{msg.approval_btn_approve_dialog_text}"/></p>
+          <p:outputLabel for="approveComment" value="#{msg.approval_dialog_comment_label}"/>
+          <p:inputTextarea id="approveComment"
+                           value="#{approvalRequestController.comment}"
+                           rows="3"
+                           cols="40"
+                           style="width: 100%; margin-top: 0.5rem;"/>
+          <div style="margin-top: 1rem; text-align: right;">
+            <p:commandButton value="#{msg.nein}"
+                             icon="pi pi-times"
+                             onclick="PF('approveDialog').hide()"
+                             type="button"
+                             styleClass="ui-button-secondary"
+                             style="margin-right: 0.5rem;"/>
+            <p:commandButton value="#{msg.ja}"
+                             icon="pi pi-check"
+                             action="#{approvalRequestController.approve(approvalRequestController.selectedBeschreibung)}"
+                             update=":approvalForm"
+                             oncomplete="PF('approveDialog').hide()"/>
+          </div>
+        </h:form>
+      </h:panelGroup>
+    </p:dialog>
+
+    <p:dialog header="#{msg.approval_btn_reject_dialog_title}"
+              widgetVar="rejectDialog"
+              modal="true"
+              showEffect="fade"
+              hideEffect="fade"
+              resizable="false"
+              closable="true">
+      <h:panelGroup id="rejectDialogContent" layout="block">
+        <h:form id="rejectDialogForm">
+          <p><h:outputText value="#{msg.approval_btn_reject_dialog_text}"/></p>
+          <p:outputLabel for="rejectComment" value="#{msg.approval_dialog_comment_label}"/>
+          <p:inputTextarea id="rejectComment"
+                           value="#{approvalRequestController.comment}"
+                           rows="3"
+                           cols="40"
+                           style="width: 100%; margin-top: 0.5rem;"/>
+          <div style="margin-top: 1rem; text-align: right;">
+            <p:commandButton value="#{msg.nein}"
+                             icon="pi pi-times"
+                             onclick="PF('rejectDialog').hide()"
+                             type="button"
+                             styleClass="ui-button-secondary"
+                             style="margin-right: 0.5rem;"/>
+            <p:commandButton value="#{msg.ja}"
+                             icon="pi pi-check"
+                             action="#{approvalRequestController.reject(approvalRequestController.selectedBeschreibung)}"
+                             update=":approvalForm"
+                             oncomplete="PF('rejectDialog').hide()"/>
+          </div>
+        </h:form>
+      </h:panelGroup>
+    </p:dialog>
+
+  </ui:define>
+</ui:composition>

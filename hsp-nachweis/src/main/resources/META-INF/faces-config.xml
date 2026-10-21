@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0"
+  xmlns="https://jakarta.ee/xml/ns/jakartaee"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+              https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd">
+
+  <application>
+    <locale-config>
+      <supported-locale>de</supported-locale>
+      <supported-locale>en</supported-locale>
+    </locale-config>
+    <resource-bundle>
+      <base-name>de.staatsbibliothek.berlin.hsp.application.messages</base-name>
+      <var>msg</var>
+    </resource-bundle>
+    <el-resolver>
+      org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver
+    </el-resolver>
+    <action-listener>
+      org.primefaces.application.DialogActionListener
+    </action-listener>
+    <navigation-handler>
+      org.primefaces.application.DialogNavigationHandler
+    </navigation-handler>
+    <view-handler>
+      org.primefaces.application.DialogViewHandler
+    </view-handler>
+  </application>
+
+  <faces-config-extension>
+    <view-pool-mapping>
+      <url-pattern>/*</url-pattern>
+      <parameter>
+        <name>org.apache.myfaces.VIEW_POOL_MAX_POOL_SIZE</name>
+        <value>25</value>
+      </parameter>
+    </view-pool-mapping>
+  </faces-config-extension>
+
+  <converter>
+    <converter-for-class>java.lang.Enum</converter-for-class>
+    <converter-class>jakarta.faces.convert.EnumConverter</converter-class>
+  </converter>
+
+  <factory>
+    <exception-handler-factory>
+      org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory
+    </exception-handler-factory>
+    <!-- Must be declared last so it handles ViewExpiredException before other handlers.
+         Suppresses the exception and refreshes the requested page including its view
+         parameters, based on the OmniFaces ViewExpiredExceptionHandler, see
+         https://showcase.omnifaces.org/exceptionhandlers/ViewExpiredExceptionHandler -->
+    <exception-handler-factory>
+      de.staatsbibliothek.berlin.hsp.nachweis.application.util.RefererViewExpiredExceptionHandlerFactory
+    </exception-handler-factory>
+  </factory>
+</faces-config>

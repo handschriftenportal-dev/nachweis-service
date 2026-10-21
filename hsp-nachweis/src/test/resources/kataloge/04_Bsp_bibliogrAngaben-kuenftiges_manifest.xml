@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tei:TEI xmlns:tei="http://www.tei-c.org/ns/1.0">
+   <tei:teiHeader>
+      <tei:fileDesc>
+         <tei:titleStmt>
+            <tei:title>Die Handschriften der Signaturenreihe Hdschr. der <tei:orgName role="owner" ref="https://d-nb.info/gnd/5036103-X">Staatsbibliothek zu <tei:settlement ref="https://d-nb.info/gnd/4005728-8">Berlin</tei:settlement></tei:orgName>
+               Preussischer Kulturbesitz, Teil 1: Hdschr. 1–150.</tei:title>
+            <tei:respStmt>
+               <tei:resp>Beschrieben durch</tei:resp>
+               <tei:persName role="author" ref="https://d-nb.info/gnd/1177404419">Kurt Heydeck</tei:persName>
+            </tei:respStmt>
+         </tei:titleStmt>
+         <tei:publicationStmt>
+            <tei:publisher ref="https://d-nb.info/gnd/1068107626">Otto Harrassowitz</tei:publisher>
+            <tei:pubPlace ref="https://d-nb.info/gnd/4066043-6">Wiesbaden</tei:pubPlace>
+            <tei:date>2013</tei:date>
+            <tei:idno type="hsk">666</tei:idno>
+            <tei:availability>
+               <tei:licence target="https://rightsstatements.org/page/InC/1.0/">
+                  <tei:p>In copyright.</tei:p>
+               </tei:licence>
+            </tei:availability>
+            <tei:ptr type="other" target="https://resolver.sub.uni-hamburg.de/kitodo/PPN891080732"/>
+         </tei:publicationStmt>
+         <tei:seriesStmt>
+            <tei:title>Staatsbibliothek zu Berlin. Kataloge der Handschriftenabteilung, Reihe 1</tei:title>
+            <tei:biblScope unit="volume">Bd. 9,1</tei:biblScope>
+         </tei:seriesStmt>
+         <tei:sourceDesc>
+            <tei:msDesc xml:id="OCR_04_Berlin_SB_Kat_9_1_tei" type="hsp:catalog" xml:lang="de">
+               <tei:msIdentifier>
+                  <tei:settlement ref="https://d-nb.info/gnd/4005728-8">Berlin</tei:settlement>
+                  <tei:repository ref="https://d-nb.info/gnd/5036103-X">SB</tei:repository>
+                  <tei:idno>Kat_9_1</tei:idno>
+               </tei:msIdentifier>
+               <tei:p>OCR-Ausgangsdatei: 04_Berlin_SB_Kat_9_1_tei.xml</tei:p>
+            </tei:msDesc>
+         </tei:sourceDesc>
+      </tei:fileDesc>
+   </tei:teiHeader>
+   <tei:text>
+      <tei:body>
+         <tei:p/>
+      </tei:body>
+   </tei:text>
+</tei:TEI>

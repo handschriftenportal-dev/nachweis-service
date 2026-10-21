@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="jakarta.faces.core"
+    xmlns:h="jakarta.faces.html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:cc="jakarta.faces.composite"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:hsp="jakarta.faces.composite/handschriftenportal"
+>
+  <cc:interface>
+    <cc:attribute name="beschreibung"
+                  required="true"
+                  type="de.staatsbibliothek.berlin.hsp.nachweis.application.model.BeschreibungsViewModel"
+    />
+  </cc:interface>
+
+  <cc:implementation>
+    <c:set var="beschreibung" value="#{cc.attrs.beschreibung}"/>
+
+    <p:outputPanel id="#{cc.attrs.id}" layout="block"
+                   styleClass="tile fixed-size-card card bg-white">
+      <p:outputPanel layout="block"
+                     styleClass="flex align-items-start justify-content-between">
+        <p:outputPanel layout="block" styleClass="flex align-items-center gap-2">
+          <hsp:verwaltungsTypChip id="verwaltungstyp-#{beschreibung.id}"
+                                  value="#{beschreibung.verwaltungsTyp}"
+                                  rendered="#{not empty beschreibung.verwaltungsTyp}"/>
+          <hsp:publikationStatusChip id="pub-status-#{beschreibung.id}"
+                                     value="#{beschreibung.publikation.status}"
+                                     rendered="#{not empty beschreibung.publikation}"/>
+        </p:outputPanel>
+        <p:menuButton icon="pi pi-ellipsis-v" iconPos="right"
+                      styleClass="ui-button-icon-only-big switch-ui-button-color-black-white"
+        >
+          <p:menuitem ajax="false"
+                      value="#{msg.beschreibung_card_bearbeiten}"
+                      disabled="${not beschreibungCardController.isEditableForCurrentUser(beschreibung)}"
+                      outcome="/beschreibung/beschreibung.xhtml?id=#{beschreibung.id}&amp;edit=true"
+          >
+          </p:menuitem>
+          <p:menuitem ajax="false"
+                      update="confirmbeschreibung"
+                      action="#{beschreibungCardController.beschreibungLoeschen(beschreibung.id)}"
+                      disabled="${not beschreibungCardController.isDeletableForCurrentUser(beschreibung)}"
+                      value="#{msg.beschreibung_card_loeschen}"
+                      rendered="#{beschreibungCardController.deleteVisible}">
+            <p:confirm
+                header="#{msg.bestaetigung}"
+                message="#{msg.beschreibung_card_loeschen_confirm}"
+                icon="pi pi-info-circle"/>
+          </p:menuitem>
+
+          <p:menuitem update="@all"
+                      value="#{msg.beschreibung_card_bearbeiter_zuweisen}"
+                      disabled="#{not beschreibungCardController.isEditable(beschreibung)}"
+                      action="#{beschreibungCardController.openBearbeiterZuweisenDialog(beschreibung.id)}">
+            <p:ajax event="dialogReturn" update="@form" process="@form"
+                    listener="#{beschreibungCardController.reloadViewModel}"/>
+          </p:menuitem>
+
+          <p:menuitem
+              rendered="#{beschreibungCardController.entziehenDialogVisible}"
+              update="@all"
+              action="#{beschreibungCardController.openBearbeiterEntziehenDialog(beschreibung.id)}"
+              value="#{msg.beschreibung_card_bearbeiter_entziehen}"
+              disabled="${not beschreibungCardController.isEditable(beschreibung) or beschreibungCardController.hasNoAssignedBearbeiter(beschreibung)}">
+
+            <p:ajax event="dialogReturn" update="@form" process="@form"
+                    listener="#{beschreibungCardController.reloadViewModel}"/>
+          </p:menuitem>
+          <p:submenu label="#{msg.beschreibung_card_publikation_submenu}">
+            <p:menuitem
+                value="#{msg.beschreibung_card_request_publication}"
+                action="#{beschreibungCardController.openCreatePublikationDialog(beschreibung.id)}"
+                disabled="${not beschreibungCardController.canRequestPublication(beschreibung)}">
+              <p:ajax event="dialogReturn" update="@form" process="@form"
+                      listener="#{beschreibungCardController.onPublicationRequested}"/>
+            </p:menuitem>
+            <p:menuitem
+                value="#{msg.beschreibung_card_publication_history}"
+                action="#{beschreibungCardController.openHistoryDialog(beschreibung.id)}"
+                disabled="${not beschreibungCardController.canViewPublicationHistory(beschreibung)}"/>
+            <p:menuitem
+                value="#{msg.beschreibung_card_withdraw_publication}"
+                action="#{beschreibungCardController.openWithdrawDialog(beschreibung.id)}"
+                disabled="${not beschreibungCardController.canWithdrawPublication(beschreibung)}">
+              <p:ajax event="dialogReturn" update="@form" process="@form"
+                      listener="#{beschreibungCardController.onPublicationWithdrawn}"/>
+            </p:menuitem>
+          </p:submenu>
+        </p:menuButton>
+
+        <p:confirmDialog id="confirmbeschreibung" global="true"
+                         showEffect="fade"
+                         hideEffect="fade">
+          <p:commandButton value="#{msg.ja}" type="button"
+                           update="kodform"
+                           ajax="false"
+                           styleClass="ui-confirmdialog-yes"
+                           icon="pi pi-check"/>
+          <p:commandButton value="#{msg.nein}" type="button"
+                           styleClass="ui-confirmdialog-no"
+                           icon="pi pi-times"/>
+        </p:confirmDialog>
+      </p:outputPanel>
+
+      <!-- CONTENT -->
+      <p:outputPanel layout="block">
+        <p:outputPanel layout="block">
+          <h:link styleClass="signatur-link ui-g-12 ui-g-nopad"
+                  outcome="/beschreibung/beschreibung.xhtml">
+            <f:param name="id" value="#{beschreibung.id}"/>
+            <h:outputText value="#{beschreibung.signatur}"/>
+          </h:link>
+        </p:outputPanel>
+
+        <p:outputPanel layout="block"
+                       styleClass="hsp-card-fields hsp-card-fields-meta ">
+          <p:outputPanel layout="block" styleClass="hsp-card-field-row"
+                         rendered="${beschreibung.intern}">
+            <p:outputLabel styleClass="hsp-card-field-label"
+                           value="#{msg.beschreibung_card_erstellungsdatum}"/>
+            <h:outputText styleClass="hsp-card-field-value font-bold"
+                          value="#{beschreibung.erstellungsDatum}">
+              <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+            </h:outputText>
+          </p:outputPanel>
+
+          <p:outputPanel layout="block" styleClass="hsp-card-field-row"
+                         rendered="${beschreibung.intern}">
+            <p:outputLabel styleClass="hsp-card-field-label"
+                           value="#{msg.beschreibung_card_aenderungsdatum}"/>
+            <h:outputText styleClass="hsp-card-field-value font-bold"
+                          value="#{beschreibung.aenderungsDatum}">
+              <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+            </h:outputText>
+          </p:outputPanel>
+
+          <p:outputPanel layout="block" styleClass="hsp-card-field-row"
+                         rendered="${beschreibung.intern}">
+            <p:outputLabel styleClass="hsp-card-field-label"
+                           value="#{msg.beschreibung_card_bearbeiter}"/>
+            <h:outputText styleClass="hsp-card-field-value font-bold"
+                          value="#{beschreibung.formattedBearbeiter}"/>
+          </p:outputPanel>
+
+          <p:outputPanel layout="block" styleClass="hsp-card-field-row"
+                         rendered="${not beschreibung.intern}">
+            <p:outputLabel styleClass="hsp-card-field-label"
+                           value="#{msg.beschreibung_card_importdatum}"/>
+            <h:outputText styleClass="hsp-card-field-value font-bold"
+                          value="#{beschreibung.publikation.publikationsDatumHSP}">
+              <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+            </h:outputText>
+          </p:outputPanel>
+        </p:outputPanel>
+      </p:outputPanel>
+
+      <p:outputPanel layout="block" styleClass="hsp-card-fields">
+        <hr/>
+        <p:outputPanel layout="block" styleClass="hsp-card-field-row">
+          <p:outputLabel styleClass="hsp-card-field-label"
+                         value="#{msg.beschreibung_card_titel}"/>
+          <h:outputText id="titel" styleClass="hsp-card-field-value font-bold"
+                        value="#{beschreibung.getFormattedTitel()}"/>
+        </p:outputPanel>
+        <hr/>
+        <p:outputPanel layout="block" styleClass="hsp-card-field-row">
+          <p:outputLabel styleClass="hsp-card-field-label"
+                         value="#{msg.beschreibung_card_autoren}"/>
+          <h:outputText id="autoren" styleClass="hsp-card-field-value font-bold"
+                        value="#{beschreibung.getFormattedAutoren()}"/>
+        </p:outputPanel>
+        <hr/>
+        <p:outputPanel layout="block" styleClass="hsp-card-field-row">
+          <p:outputLabel for="publikation" styleClass="hsp-card-field-label"
+                         value="#{msg.beschreibung_card_publikationsjahr}"/>
+          <h:outputText id="publikation" styleClass="hsp-card-field-value font-bold"
+                        value="#{beschreibung.datumErstpublikation}">
+            <f:convertDateTime type="localDateTime" pattern="yyyy"/>
+          </h:outputText>
+        </p:outputPanel>
+
+      </p:outputPanel>
+
+      <p:outputPanel layout="block"
+                     styleClass="linkbutton text-center vertical-align-middle">
+        <p:button value="#{msg.beschreibung_card_open}"
+                  outcome="/beschreibung/beschreibung.xhtml?id=#{beschreibung.id}"/>
+      </p:outputPanel>
+
+    </p:outputPanel>
+  </cc:implementation>
+</ui:composition>

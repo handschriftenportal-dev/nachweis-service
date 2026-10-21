@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:composite="jakarta.faces.composite">
+
+  <composite:interface>
+    <composite:attribute name="textKey" type="java.lang.String"/>
+  </composite:interface>
+
+  <composite:implementation>
+    <a class="hsp-info">
+        <i class="ui-icon ui-icon-help"></i>
+        <span class="ui-widget-content ui-shadow">#{msg[cc.attrs.textKey]}</span>
+    </a>
+  </composite:implementation>
+</ui:composition>

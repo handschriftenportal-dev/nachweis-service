@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                xmlns:c="jakarta.tags.core"
+                template="templates/default.xhtml">
+  <ui:define name="content">
+    <f:view>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h1>#{msg.normdatenerkennung_uebersicht_title}</h1>
+        </div>
+
+        <section class="ui-g-12 ui-md-12 ui-sm-12">
+          <h:form id="auftraegeForm">
+            <p:poll interval="3" update="auftraegeTable" stop="#{normdatenErkennungController.noActiveAuftraege()}"/>
+            <p:dataTable
+              id="auftraegeTable"
+              value="#{normdatenErkennungController.auftraege}"
+              var="auftrag"
+              emptyMessage="#{msg.normdatenerkennung_uebersicht_empty}"
+              rowKey="#{auftrag.id}"
+              selectionMode="single"
+            >
+              <p:column>
+                <f:facet name="header">
+                  <p:selectCheckboxMenu
+                    id="statusFilter"
+                    widgetVar="statusFilterWidget"
+                    value="#{normdatenErkennungController.selectedStatuses}"
+                    label="#{msg.normdatenerkennung_uebersicht_col_status}"
+                    showHeader="false"
+                    panelStyle="width:18em"
+                    appendTo="@(body)"
+                    styleClass="checkboxmenu-ghost"
+                  >
+                    <f:selectItems value="#{normdatenErkennungController.statusItems}" />
+                    <p:ajax update="auftraegeTable" />
+                  </p:selectCheckboxMenu>
+                </f:facet>
+                <p:tag value="#{msg['normdatenerkennung_status_'.concat(auftrag.status)]}"
+                severity="#{normdatenErkennungController.getStatusSeverity(auftrag.status)}"/>
+              </p:column>
+
+              <p:column headerText="#{msg.normdatenerkennung_uebersicht_col_beschreibung}">
+                <p:link
+                  outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                  value="#{normdatenErkennungController.getGueltigeSignatur(auftrag.beschreibungsdokumentId)}"
+                >
+                  <f:param name="id" value="#{auftrag.beschreibungsdokumentId}" />
+                </p:link>
+              </p:column>
+
+              <p:column headerText="#{msg.normdatenerkennung_uebersicht_col_bearbeiter}">
+                <h:outputText value="#{auftrag.bearbeiter.name}" />
+              </p:column>
+
+              <p:column headerText="#{msg.normdatenerkennung_uebersicht_col_erstellt}">
+                <h:outputText value="#{auftrag.createdAt}">
+                  <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy hh:mm:ss"/>
+                </h:outputText>
+              </p:column>
+
+              <p:column headerText="#{msg.normdatenerkennung_uebersicht_col_aktualisiert}">
+                <h:outputText value="#{auftrag.updatedAt}">
+                  <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy hh:mm:ss"/>
+                </h:outputText>
+              </p:column>
+
+              <p:column headerText="#{msg.normdatenerkennung_uebersicht_col_aktion}">
+                <ui:fragment rendered="#{auftrag.inProgress}">
+                  <i class="pi pi-spin pi-spinner"/>
+                </ui:fragment>
+
+                <p:button
+                  title="#{msg.normdatenerkennung_uebersicht_action_review}"
+                  outcome="normdatenerkennung-auftrag"
+                  rendered="#{auftrag.awaitingReview}"
+                  icon="pi pi-eye"
+                  styleClass="ui-button-rounded ui-button-success"
+                >
+                  <f:param name="id" value="#{auftrag.id}" />
+                </p:button>
+
+                <p:button
+                  title="#{msg.normdatenerkennung_uebersicht_action_inspect}"
+                  outcome="normdatenerkennung-auftrag"
+                  rendered="#{auftrag.finished}"
+                  icon="pi pi-eye"
+                  styleClass="ui-button-rounded ui-button-secondary"
+                >
+                  <f:param name="id" value="#{auftrag.id}" />
+                </p:button>
+              </p:column>
+            </p:dataTable>
+
+          </h:form>
+
+        </section>
+      </div>
+    </f:view>
+  </ui:define>
+</ui:composition>

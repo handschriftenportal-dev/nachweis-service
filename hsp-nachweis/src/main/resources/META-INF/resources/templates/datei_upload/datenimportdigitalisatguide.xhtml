@@ -1,0 +1,15 @@
+<div xmlns:h="jakarta.faces.html" xmlns:ui="jakarta.faces.facelets"
+     xmlns:c="jakarta.tags.core">
+    <div>
+        <h:outputText value="#{msg.dateiupload_digitalisatguidetext}"/>
+    </div>
+    <div>
+        <c:if test="#{datenHochladenController.selectedXMLFormat == 'TEI_ALL'}">
+            <ui:include src="../vorlagebutton.xhtml">
+                <ui:param name="content" value="#{guideContentController.digitalisatteiVorlage}"/>
+            </ui:include>
+        </c:if>
+    </div>
+
+</div>
+

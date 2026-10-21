@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{languageController.locale}" transient="false">
+  <f:metadata>
+    <f:viewParam name="lang" value="#{requestController.locale}"/>
+  </f:metadata>
+</f:view>
+<h:head>
+  <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+  <h:outputScript name="js/layout.js" library="ultima-layout"/>
+  <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/hspnachweis.css"/>
+
+  <h:outputText id="headerTitle" style="font-size: 20px;"
+                value="#{msg.beschreibung_erstellen_title}"/>
+</h:head>
+<h:body class="hsp-dialog">
+  <ui:param name="kannLesen" value="#{beschreibungsRechte.kannInterneAnlegen()}"/>
+
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad">
+      <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+        <ui:param name="hasAccess" value="#{kannLesen}"/>
+      </ui:include>
+    </div>
+  </div>
+  <h:form id="progress">
+    <p:ajaxStatus>
+      <f:facet name="start">
+        <p:progressBar id="progressBarIndeterminate"
+                       style="height: 0.5rem;"
+                       mode="indeterminate"/>
+      </f:facet>
+      <f:facet name="default">
+        <div style="height: 0.5rem;"/>
+      </f:facet>
+      <f:facet name="complete">
+        <div style="height: 0.5rem;"/>
+      </f:facet>
+    </p:ajaxStatus>
+  </h:form>
+
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-6 ui-g-nopad-bottom">#{msg.beschreibung_erstellen_fuer_kod}</div>
+    <div class="ui-g-6 ui-g-nopad-bottom text-right">#{msg.beschreibung_erstellen_pflichtfeld}</div>
+
+    <div class="ui-g-12 ui-g-nopad-top">
+      <h1 style="margin: 0; font-size: 20px;"><h:outputText
+          value="#{beschreibungErstellenController.getKodSignatur(param['kodid'])}"/></h1>
+      <h2 style="margin: 0; font-size: 20px;"><h:outputText
+          value="#{beschreibungErstellenController.getKodBesitzer(param['kodid'])} , #{beschreibungErstellenController.getKodAufbewahrungsOrt(param['kodid'])}"/>
+      </h2>
+    </div>
+
+    <h:form id="beschreibungErstellenForm" autocomplete="off" rendered="#{kannLesen}"
+            styleClass="hsp-form">
+
+      <ui:repeat value="#{beschreibungErstellenController.selectedAutoren}" var="autor"
+                 varStatus="status">
+        <div class="ui-g-3">
+          <p:outputLabel for="inputOtherAuthor"
+                         value="#{status.index == 0 ? msg.beschreibung_erstellen_autor: msg.beschreibung_erstellen_weiterer_autor}:"/>
+        </div>
+        <div class="ui-g-8 ui-fluid">
+          <p:inputText id="inputOtherAuthor"
+                       readonly="true"
+                       value="#{autor.name}"
+                       required="#{status.index == 0}"/>
+        </div>
+        <div class="ui-g-1">
+          <p:commandButton
+              id="autorLoeschen"
+              ajax="true"
+              update="beschreibungErstellenForm"
+              process="@this"
+              immediate="true"
+              actionListener="#{beschreibungErstellenController.autorEntfernen(autor)}"
+              icon="pi pi-trash">
+          </p:commandButton>
+          <p:tooltip position="left" for="autorLoeschen" hideEvent="mouseleave click"
+                     value="#{msg.beschreibung_erstellen_autor_remove}"/>
+        </div>
+      </ui:repeat>
+
+      <div class="ui-g-3">
+        <p:outputLabel for="inputAuthor"
+                       value="#{empty beschreibungErstellenController.selectedAutoren ? msg.beschreibung_erstellen_autor: msg.beschreibung_erstellen_weiterer_autor}:"/>
+      </div>
+
+      <div class="ui-g-8 ui-fluid">
+        <p:autoComplete id="inputAuthor"
+                        emptyMessage="Keine Person gefunden"
+                        cache="true"
+                        queryDelay="300"
+                        minQueryLength="2"
+                        value="#{beschreibungErstellenController.selectedAutor}"
+                        completeMethod="#{autocompleteNormdatenController.autocompletePerson}"
+                        at="bottom"
+                        forceSelection="true"
+                        converter="normdatenReferenzConverter"
+                        var="person"
+                        itemValue="#{person}"
+                        scrollHeight="200"
+                        appendTo="inputAuthor"
+                        required="#{empty beschreibungErstellenController.selectedAutoren}"
+                        onblur="event.stopPropagation();">
+          <p:ajax event="itemSelect"
+                  update="beschreibungErstellenForm"
+                  process="@this"/>
+          <p:ajax event="itemUnselect"
+                  update="beschreibungErstellenForm"
+                  process="@this"/>
+          <p:column>#{person.name}</p:column>
+          <p:column styleClass="gnd-cell">
+            <h:outputLink value="#{person.gndUrl}"
+                          rendered="#{not empty person.gndID}"
+                          target="_blank"
+                          onclick="event.stopPropagation();">#{person.gndID}</h:outputLink>
+          </p:column>
+        </p:autoComplete>
+      </div>
+      <div class="ui-g-1"/>
+
+      <div class="ui-g-3">
+        <p:outputLabel for="beschreibungsprache"
+                       value="#{msg.beschreibung_erstellen_beschreibungssprache}:"/>
+      </div>
+      <div class="ui-g-8 ui-fluid">
+        <p:selectOneMenu id="beschreibungsprache"
+                         value="#{beschreibungErstellenController.beschreibungsSprache}"
+                         required="true">
+          <f:selectItem
+              itemLabel="#{empty beschreibungErstellenController.beschreibungsSprachen ?
+                                        msg.beschreibung_erstellen_beschreibungssprachen_nicht_gefunden : ''}"
+              itemValue=""
+              itemDisabled="#{not empty beschreibungErstellenController.beschreibungsSprache}"
+              noSelectionOption="true"/>
+          <f:selectItems
+              value="#{beschreibungErstellenController.beschreibungsSprachen}"/>
+          <p:ajax event="change" update="beschreibungErstellenForm"/>
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-1"></div>
+
+      <div class="ui-g-3">
+        <p:outputLabel for="projekt" value="#{msg.beschreibung_erstellen_projekt}:"/>
+      </div>
+      <div class="ui-g-8 ui-fluid">
+        <p:selectOneMenu id="projekt" disabled="true">
+          <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-1"></div>
+
+      <div class="ui-g-9 ui-g-offset-3">
+        <p:commandButton
+            disabled="#{empty beschreibungErstellenController.beschreibungsSprache
+                            or (beschreibungErstellenController.selectedAutoren.size() == 0
+                            and empty beschreibungErstellenController.selectedAutor)}"
+            ajax="true"
+            id="beschreibungAnlegen"
+            update="@form"
+            process="@form"
+            action="#{beschreibungErstellenController.beschreibungAnlegen}"
+            title="#{msg.beschreibung_erstellen_anlegen}"
+            value="#{msg.beschreibung_erstellen_anlegen}"/>
+
+        <p:commandButton
+            ajax="true"
+            id="cancelButton"
+            process="@this"
+            immediate="true"
+            action="#{beschreibungErstellenController.dialogSchliessen(null)}"
+            title="#{msg.beschreibung_erstellen_cancel}"
+            value="#{msg.beschreibung_erstellen_cancel}"
+            style="margin-left: 14px"/>
+      </div>
+    </h:form>
+  </div>
+</h:body>
+</html>

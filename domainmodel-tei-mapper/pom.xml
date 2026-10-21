@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>nachweis-service</artifactId>
+    <groupId>staatsbibliothek-berlin.hsp</groupId>
+    <version>4.0.82-hotfix</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>domainmodel-tei-mapper</artifactId>
+  <packaging>jar</packaging>
+
+  <properties>
+    <test.agent.argLine>-javaagent:${org.mockito:mockito-core:jar}</test.agent.argLine>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>staatsbibliothek-berlin.hsp</groupId>
+      <artifactId>domainmodel</artifactId>
+      <version>${nachweis-service.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.staatsbibliothek-berlin.hsp</groupId>
+      <artifactId>tei-jaxb</artifactId>
+      <version>${hsp-messaging.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Copy runtime dependencies to target/<artifactId>/WEB-INF/lib so the SonarQube
+           Java analysis can resolve the classpath (see sonar-project.properties). -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/${project.artifactId}/WEB-INF/lib
+              </outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

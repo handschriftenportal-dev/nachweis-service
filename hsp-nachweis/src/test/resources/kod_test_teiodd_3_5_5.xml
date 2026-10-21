@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<teiHeader xml:lang="de">
+<fileDesc>
+<titleStmt>
+<title>Kulturobjektdokument von Bremen, Staats- und Universitätsbibliothek Bremen, msb 0001</title>
+<respStmt>
+<resp>Herausgegeben vom</resp>
+<name type="org">Handschriftenportal</name>
+</respStmt>
+</titleStmt>
+<editionStmt>
+<edition>Elektronische Ausgabe nach TEI P5</edition>
+<respStmt>
+<resp>Automatisch generierte Ausgabe</resp>
+<orgName>Handschriftenportal</orgName>
+</respStmt>
+</editionStmt>
+<publicationStmt>
+<publisher>
+<name type="org">Handschriftenportal</name>
+<ptr target="http://www.handschriftenportal.de"/>
+</publisher>
+<date when="2022-11-30" type="issued">2022-11-30</date>
+<distributor>Handschriftenportal</distributor>
+<availability status="free">
+<licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+<p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle Nutzungsrechte. </p>
+<p>
+Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere Lizenzen. Vgl. die
+<ref target="http://www.handschriftenportal.de">Copyright Information </ref>
+des Handschriftenportals.
+</p>
+</licence>
+</availability>
+<pubPlace>
+<ptr target="https://resolver.staatsbibliothek-berlin.de/HSP0003F6D300000000" xml:id="HSP-4cad1efa-1f07-35f3-9fc8-31ccd16d15cb" subtype="hsp" type="purl"/>
+</pubPlace>
+</publicationStmt>
+<sourceDesc>
+<msDesc type="hsp:object" xml:lang="de" xml:id="HSP-b8b79e0f-e122-317f-b577-3f98809f9efa">
+<msIdentifier>
+<settlement ref="4008135-7" key="NORM-92c1f80a-07ad-337d-9b7e-00137d6a25f9">Bremen</settlement>
+<repository ref="130088-X" key="NORM-3ece3a19-5a39-3ae7-beaa-028f6a66f03d">Staats- und Universitätsbibliothek Bremen</repository>
+<idno>msb 0001</idno>
+<altIdentifier type="alternative">
+<idno>msb 1</idno>
+</altIdentifier>
+<altIdentifier type="alternative">
+<idno>ms.b 0001</idno>
+</altIdentifier>
+<altIdentifier type="alternative">
+<idno>Ms. b 0001</idno>
+</altIdentifier>
+<altIdentifier type="alternative">
+<idno>ms. b. 1</idno>
+</altIdentifier>
+<altIdentifier type="alternative">
+<idno>ms. b 1</idno>
+</altIdentifier>
+<altIdentifier type="alternative">
+<idno>Ms.b.1</idno>
+</altIdentifier>
+<altIdentifier type="alternative">
+<idno>Ms. b. 1</idno>
+</altIdentifier>
+</msIdentifier>
+<head>
+<index indexName="norm_measure" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="measure">164 Bl.</term>
+<term type="measure_noOfLeaves">164</term>
+</index>
+<index indexName="norm_title" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="title">Psalterium</term>
+</index>
+<index indexName="norm_origPlace" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="origPlace">Bremen</term>
+<term ref="http://d-nb.info/gnd/4008135-7" key="NORM-92c1f80a-07ad-337d-9b7e-00137d6a25f9" type="origPlace_norm">Bremen</term>
+</index>
+<index indexName="norm_origDate" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="origDate">13. Jh., Anfang</term>
+<term type="origDate_notBefore">1201</term>
+<term type="origDate_notAfter">1215</term>
+<term type="origDate_type">datable</term>
+</index>
+<index indexName="norm_status" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="status">existent</term>
+</index>
+<index indexName="norm_form" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="form">codex</term>
+</index>
+<index indexName="norm_textLang" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="textLang">lateinisch</term>
+<term ref="http://d-nb.info/gnd/4114364-4" key="NORM-c9089f3c-9ada-3018-af6f-fb1ee8d6501c" type="textLang-ID">lateinisch</term>
+</index>
+<index indexName="norm_decoration" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="decoration">yes</term>
+</index>
+<index indexName="norm_material" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="material">Pergament</term>
+<term type="material_type">parchment</term>
+</index>
+<index indexName="norm_musicNotation" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="musicNotation"/>
+</index>
+<index indexName="norm_dimensions" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="dimensions">21,5 × 15</term>
+<term type="height">21,5</term>
+<term type="width">15</term>
+<term type="depth"/>
+<term type="dimensions_typeOfInformation">factual</term>
+</index>
+<index indexName="norm_format" source="https://resolver.staatsbibliothek-berlin.de/HSP0006031700000000" copyOf="#HSP-e15841af-7045-3540-b185-0415f6cd2d4b" change="#HSP-747f35ef-c738-490a-b64e-95e6db0fc91e">
+<term type="format">quarto</term>
+<term type="format_typeOfInformation">factual</term>
+</index>
+</head>
+<additional>
+<adminInfo>
+<availability status="free">
+<licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+<p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle Nutzungsrechte. </p>
+<p>
+Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere Lizenzen. Vgl. die
+<ref target="http://www.handschriftenportal.de">Copyright Information </ref>
+des Handschriftenportals.
+</p>
+</licence>
+</availability>
+</adminInfo>
+<surrogates>
+<bibl>
+<idno>HSP-e3ec6342-2721-36bd-8e13-b5484cae8cf5</idno>
+<ref target="https://brema.suub.uni-bremen.de/i3f/v20/2445778/manifest" type="manifest"/>
+<ref target="https://nbn-resolving.de/urn:nbn:de:gbv:46:1-115474" type="other"/>
+<ref target="https://brema.suub.uni-bremen.de/ms/image/largethumb/2445781" type="thumbnail"/>
+<ref target="https://normdaten.staatsbibliothek-berlin.de/vocabulary/completeness/complete" type="completeness"/>
+<date when="2021-10-21" type="digitized">21.10.2021</date>
+<date when="2025-06-26" type="issued">26.06.2025</date>
+<date when="2021-10-21" type="published">21.10.2021</date>
+<placeName ref="NORM-956e3022-336a-344d-b0fb-ce9bc76dc2b9" type="digitizing">Wolfenbüttel</placeName>
+<orgName ref="NORM-af67d002-a9a6-3017-b8f1-1b2861b7d14b" type="digitizing">Herzog August Bibliothek Wolfenbüttel</orgName>
+</bibl>
+</surrogates>
+<listBibl>
+<bibl>
+<ref target="HSP-e15841af-7045-3540-b185-0415f6cd2d4b"/>
+</bibl>
+</listBibl>
+</additional>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<revisionDesc>
+<change xml:id="HSP-747f35ef-c738-490a-b64e-95e6db0fc91e" n="AUTOMATISCH" when="2025-09-24T11:16:45.219584066">
+Change Attributsreferenzen during Beschreibungsimport
+<persName key="unbekannterBearbeiter">unbekannterBearbeiter</persName>
+</change>
+</revisionDesc>
+</teiHeader>
+<text>
+<body>
+<p/>
+</body>
+</text>
+</TEI>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../templates/default.xhtml">
+    <ui:define name="content">
+        <ui:param name="kannLesen" value="#{normdatenRechte.kannAnzeigen()}"/>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <p:commandButton action="personen.xhtml?faces-redirect=true"
+                                 value="#{msg.personen_zurueck_zu_personen}"
+                                 icon="pi pi-arrow-left"/>
+                <h1 class="detail-view">#{msg.document_titel_person}</h1>
+            </div>
+            <div class="ui-g-12">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannLesen}"/>
+                </ui:include>
+                <h:form id="persondetailform" rendered="#{kannLesen}">
+                    <p:panel style="padding-left:0px">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="#{msg.person_id}:"/>
+                            <h:outputText value="#{personDetailController.viewModel.id} "/>
+                            <h:outputText value="#{msg.person_ansetzung}:"/>
+                            <h:outputText
+                                    value="#{personDetailController.viewModel.name} "/>
+                            <h:outputText value="#{msg.person_alternativenamen}:"/>
+                            <h:outputText
+                                    value="#{personDetailController.viewModel.varianteNamenAlsString}"
+                                    escape="false"/>
+                            <h:outputText value="#{msg.person_gnd}:"/>
+                            <p:link target="_blank"
+                                    href="#{personDetailController.viewModel.gndUrl}"
+                                    value="#{personDetailController.viewModel.gndID}"
+                                    rendered="#{not empty personDetailController.viewModel.gndID}">
+                            </p:link>
+                            <h:outputText value="" rendered="#{empty personDetailController.viewModel.gndID}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                <br/>
+                <p:commandButton update="@all" process="@all" style="margin-top: 10px;"
+                                 rendered="#{kannLesen}"
+                                 disabled="true"
+                                 value="#{msg.person_loeschen}"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

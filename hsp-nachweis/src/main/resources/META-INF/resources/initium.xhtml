@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="jakarta.tags.core"
+                template="templates/default.xhtml">
+
+  <ui:define name="content">
+    <div class="ui-g">
+
+      <ui:include src="templates/datatype/header.xhtml">
+        <ui:param name="title" value="#{msg.document_titel_initien}"/>
+        <ui:param name="access" value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+      </ui:include>
+
+      <h:form id="initiumform" rendered="#{normdatenRechte.kannAlsListeAnzeigen()}">
+
+        <div class="ui-g-12 actionsBar" id="initiumactions">
+
+          <p:commandButton id="refreshButton"
+                           action="#{initiumModel.resetTable}"
+                           update="initiumform"
+                           styleClass="rounded-button shadow-3"
+                           icon="hsp-icon-undo_table">
+            <p:tooltip for="refreshButton" position="top"
+                       value="#{msg.table_reset_layout_to_defaults}"/>
+          </p:commandButton>
+
+          <p:commandButton id="togglerInitiumTable" type="button"
+                           styleClass="rounded-button shadow-3"
+                           icon="hsp-icon-edit_table">
+            <p:tooltip for="togglerInitiumTable" position="top"
+                       value="#{msg.table_toggle_visable_columns}"/>
+          </p:commandButton>
+
+          <p:commandButton id="initiumImportierenButton"
+                           action="/dateiupload.xhtml?faces-redirect=true&amp;dokumentTyp=INITIEN"
+                           styleClass="rounded-button shadow-3"
+                           icon="pi pi-upload"
+                           process="@this"
+                           onstart="PF('statusDialog').show()"
+                           onsuccess="PF('statusDialog').hide()"
+                           disabled="#{not importRechte.kannInitiumManuellImportieren()}">
+            <p:tooltip for="initiumImportierenButton" position="top"
+                       value="#{msg.initium_liste_importieren}"/>
+          </p:commandButton>
+
+        </div>
+
+        <div class="ui-g-12">
+
+          <p:columnToggler id="columntogglerInitiumTable"
+                           datasource="initiumTable"
+                           trigger="initiumform:togglerInitiumTable">
+            <p:ajax event="toggle" listener="#{initiumModel.onToggleColumns}"/>
+          </p:columnToggler>
+
+          <p:dataTable var="initium"
+                       value="#{initiumController.lazyModel}"
+                       lazy="true"
+                       emptyMessage="#{msg.initium_empty_message}"
+                       id="initiumTable"
+                       widgetVar="initiumTableWidget"
+                       rowKey="#{initium.id}"
+                       rows="#{initiumModel.currentHitProPage}"
+                       first="#{initiumModel.currentPage}"
+                       ajax="true"
+                       paginator="true"
+                       multiViewState="true"
+                       reflow="true"
+                       sortMode="multiple"
+                       sortBy="#{initiumModel.sortMetaColumns.values()}"
+                       resizableColumns="true"
+                       liveResize="true"
+                       draggableColumns="true"
+                       tableStyle="'width:auto'"
+                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                       currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                       rowsPerPageTemplate="#{initiumModel.allPossibleHitProPage}"
+                       paginatorPosition="both"
+                       paginatorAlwaysVisible="true"
+                       style="width: auto !important;"
+                       pageLinks="5">
+
+            <p:ajax event="sort" listener="#{initiumModel.onSort}"/>
+            <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+            <p:ajax event="colReorder" listener="#{initiumModel.columnsReordered}"/>
+            <p:ajax event="colResize" listener="#{initiumModel.columnsResized}"/>
+
+            <c:forEach items="#{initiumModel.positionColumnIDs}" var="columnID">
+              <c:choose>
+
+                <!-- HSP-ID-Initium -->
+                <c:when test="#{columnID eq 'id'}">
+                  <p:column id="#{columnID}"
+                            field="id"
+                            headerText="#{msg.initium_hsp_id}"
+                            width="#{initiumModel.getColumnWidth(0)}"
+                            visible="true"
+                            toggleable="false"
+                            sortBy="#{initium.id}"
+                            filterBy="#{initium.id}"
+                            filterMatchMode="equals">
+                    <h:outputText value="#{initium.id}"/>
+                  </p:column>
+                </c:when>
+
+                <!-- Initiumtext -->
+                <c:when test="#{columnID eq 'text'}">
+                  <p:column id="#{columnID}"
+                            field="text"
+                            headerText="#{msg.initium_text}"
+                            width="#{initiumModel.getColumnWidth(1)}"
+                            visible="#{initiumModel.isColumnVisible(1)}"
+                            sortBy="#{initium.text}"
+                            filterBy="#{initium.text}"
+                            filterMatchMode="equals">
+                    <h:outputText value="#{initium.text}" style="white-space: pre-wrap;"/>
+                  </p:column>
+                </c:when>
+
+                <!-- Sprache (als Label/Name) -->
+                <c:when test="#{columnID eq 'language'}">
+                  <p:column id="#{columnID}"
+                            headerText="#{msg.initium_sprache}"
+                            width="#{initiumModel.getColumnWidth(2)}"
+                            visible="#{initiumModel.isColumnVisible(2)}"
+                            sortBy="#{initium.language}"
+                            filterBy="#{initium.language}"
+                            filterMatchMode="contains"
+                            exportValue="#{initium.language}">
+                    <h:outputText value="#{initium.language}"/>
+                  </p:column>
+                </c:when>
+
+              </c:choose>
+            </c:forEach>
+
+          </p:dataTable>
+
+        </div>
+
+      </h:form>
+    </div>
+  </ui:define>
+</ui:composition>

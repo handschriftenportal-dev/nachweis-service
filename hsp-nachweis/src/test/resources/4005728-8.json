@@ -1,0 +1,146 @@
+{
+  "@context" : "http://hub.culturegraph.org/entityfacts/context/v1/entityfacts.jsonld",
+  "@type" : "place",
+  "@id" : "https://d-nb.info/gnd/4005728-8",
+  "location" : {
+    "type" : "Feature",
+    "geometry" : {
+      "type" : "Point",
+      "coordinates" : [ "13.416669", "52.500000" ]
+    }
+  },
+  "preferredName" : "Berlin",
+  "describedBy" : {
+    "valid" : "2022-06-03T09:39:00Z",
+    "license" : "https://creativecommons.org/publicdomain/zero/1.0/",
+    "@id" : "https://hub.culturegraph.org/entityfacts/4005728-8"
+  },
+  "variantName" : [ "Großberlin", "Groß-Berlin", "Haupt-und Residenz-Stadt Berlin", "Reichshauptstadt Berlin", "Berlino", "Berolino", "Stadtgemeinde Berlin", "Hauptstadt Berlin", "Birlīn", "Barlīn", "Berolinon", "Land Berlin", "Coloniae Brandenburgicae", "Berlinum", "Verolino", "Berolinum", "Cölln an der Spree", "Colonia Brandenburgica", "Colonia Marchica", "Cöln an der Spree", "Berlin (1945-1948)", "\"Besonderes Gebiet\" Berlin", "Gross-Berlin", "Berlin", "Berlin", "柏林" ],
+  "associatedCountry" : [ {
+    "@id" : "https://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE-BE",
+    "preferredName" : "Berlin"
+  } ],
+  "dateOfEstablishment" : [ "3. Oktober 1990" ],
+  "dateOfTermination" : [ "1948" ],
+  "associatedPlace" : [ {
+    "@id" : "https://d-nb.info/gnd/4087295-6",
+    "preferredName" : "Berlin (Ost)"
+  }, {
+    "@id" : "https://d-nb.info/gnd/4069304-1",
+    "preferredName" : "Berlin (West)"
+  }, {
+    "@id" : "https://d-nb.info/gnd/1081214-3",
+    "preferredName" : "Berlin (Amerikanischer Sektor)"
+  }, {
+    "@id" : "https://d-nb.info/gnd/2042164-3",
+    "preferredName" : "Berlin (Britischer Sektor)"
+  }, {
+    "@id" : "https://d-nb.info/gnd/142540-7",
+    "preferredName" : "Berlin (Französischer Sektor)"
+  }, {
+    "@id" : "https://d-nb.info/gnd/142541-9",
+    "preferredName" : "Berlin (Sowjetischer Sektor)"
+  } ],
+  "relatedSubject" : [ {
+    "@id" : "https://d-nb.info/gnd/4442496-6",
+    "preferredName" : "Berliner"
+  } ],
+  "biographicalOrHistoricalInformation" : "Hauptstadt u. Bundesland; 1237 (Cölln) bzw. 1244 (Berlin) urkundl. erwähnt, 1230/40 bzw. nach 1250 Stadtrecht, 1307 Union, 1370 gemeinsamer Rat, 1432 Vereinigung der Doppelstadt",
+  "homepage" : [ "https://www.berlin.de/" ],
+  "depiction" : {
+    "@id" : "https://commons.wikimedia.org/wiki/Special:FilePath/Cityscape%20Berlin.jpg",
+    "thumbnail" : {
+      "@id" : "https://commons.wikimedia.org/wiki/Special:FilePath/Cityscape%20Berlin.jpg?width=270"
+    },
+    "url" : "https://commons.wikimedia.org/wiki/File:Cityscape%20Berlin.jpg?uselang=de"
+  },
+  "sameAs" : [ {
+    "@id" : "https://d-nb.info/gnd/4005728-8/about",
+    "collection" : {
+      "abbr" : "DNB",
+      "name" : "Gemeinsame Normdatei (GND) im Katalog der Deutschen Nationalbibliothek",
+      "publisher" : "Deutsche Nationalbibliothek",
+      "icon" : "https://www.dnb.de/SiteGlobals/Frontend/DNBWeb/Images/favicon.png?__blob=normal&v=4"
+    }
+  }, {
+    "@id" : "https://sws.geonames.org/2950157",
+    "collection" : {
+      "abbr" : "geonames",
+      "name" : "GeoNames",
+      "publisher" : "GeoNames",
+      "icon" : "https://www.geonames.org/geonames.ico"
+    }
+  }, {
+    "@id" : "http://catalogue.bnf.fr/ark:/12148/cb12252492w",
+    "collection" : {
+      "abbr" : "BNF",
+      "name" : "Bibliothèque nationale de France",
+      "publisher" : "Bibliothèque nationale de France",
+      "icon" : "https://www.bnf.fr/themes/custom/bnfsi/favicon.ico"
+    }
+  }, {
+    "@id" : "https://de.wikipedia.org/wiki/Berlin",
+    "collection" : {
+      "abbr" : "dewiki",
+      "name" : "Wikipedia (Deutsch)",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://de.wikipedia.org/static/favicon/wikipedia.ico"
+    }
+  }, {
+    "@id" : "https://de.wikisource.org/wiki/Berlin",
+    "collection" : {
+      "abbr" : "WIKISOURCE",
+      "name" : "Wikisource",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://wikisource.org/static/favicon/wikisource.ico"
+    }
+  }, {
+    "@id" : "https://en.wikipedia.org/wiki/Berlin",
+    "collection" : {
+      "abbr" : "enwiki",
+      "name" : "Wikipedia (English)",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://en.wikipedia.org/static/favicon/wikipedia.ico"
+    }
+  }, {
+    "@id" : "https://kalliope-verbund.info/gnd/4005728-8",
+    "collection" : {
+      "abbr" : "DE-611",
+      "name" : "Kalliope Verbundkatalog",
+      "publisher" : "Staatsbibliothek zu Berlin - Preußischer Kulturbesitz",
+      "icon" : "https://kalliope-verbund.info/img/favicon.ico"
+    }
+  }, {
+    "@id" : "http://id.loc.gov/rwo/agents/n79034972",
+    "collection" : {
+      "abbr" : "LC",
+      "name" : "NACO Authority File",
+      "publisher" : "Library of Congress",
+      "icon" : "https://www.loc.gov/favicon.ico"
+    }
+  }, {
+    "@id" : "http://isni.org/isni/000000011957271X",
+    "collection" : {
+      "abbr" : "ISNI",
+      "name" : "International Standard Name Identifier (ISNI)",
+      "publisher" : "International Standard Name Identifier (ISNI)",
+      "icon" : "https://www.isni.org/sites/default/files/isni_new_favicon.ico"
+    }
+  }, {
+    "@id" : "http://viaf.org/viaf/122530980",
+    "collection" : {
+      "abbr" : "VIAF",
+      "name" : "Virtual International Authority File (VIAF)",
+      "publisher" : "OCLC",
+      "icon" : "https://viaf.org/viaf/images/viaf.ico"
+    }
+  }, {
+    "@id" : "http://www.wikidata.org/entity/Q64",
+    "collection" : {
+      "abbr" : "WIKIDATA",
+      "name" : "Wikidata",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://www.wikidata.org/static/favicon/wikidata.ico"
+    }
+  } ]
+}

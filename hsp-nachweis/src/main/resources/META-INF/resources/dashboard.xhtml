@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:hsp="jakarta.faces.composite/handschriftenportal"
+                template="templates/default.xhtml">
+  <ui:define name="content">
+    <f:view transient="true">
+      <div class="ui-g dashboard-wrapper">
+        <p:outputPanel id="dashboardDiv"
+                       rendered="#{loginController.loggedIn}"
+                       layout="block"
+                       styleClass="ui-g-12 dashboard">
+
+          <h1>#{msg.document_titel_dashboard}</h1>
+
+          <p class="hilfe-link">
+            <h:outputLink value="javascript:void(0)"
+                          onclick="openHelpTab('hilfe-meine-uebersicht')">
+              #{msg.hilfe_meine_uebersicht_link}
+            </h:outputLink>
+          </p>
+
+          <h:form id="panel-form">
+            <h2 class="dashboard-section mt-5 mb-2">#{msg.dashboard_meine_beschreibungen_title}</h2>
+
+            <p:accordionPanel id="dashboardPanels" activeIndex="0"
+                              style="padding: 0;">
+
+              <p:tab id="meineBeschreibungenTab"
+                     title="#{msg.dashboard_meine_beschreibungen}">
+                <ui:decorate
+                    template="templates/components/DashboardBeschreibungen.xhtml">
+                  <ui:param name="id" value="meine-beschreibungen"/>
+                  <ui:param name="dataList"
+                            value="#{dashboardController.meineBeschreibungen}"/>
+                </ui:decorate>
+                <div style="float:right; margin:16px 16px 46px 0;">
+                  <p:commandButton id="meine-beschreibungen-button"
+                                   action="#{beschreibungModel.filterByBearbeiter(dashboardController.bearbeiterName)}"
+                                   icon="pi pi-search"
+                                   value="#{msg.dashboard_alle_anzeigen}">
+                    <p:tooltip for="meine-beschreibungen-button" position="top"
+                               value="#{msg.dashboard_meine_anzeigen_tooltip}"/>
+                  </p:commandButton>
+                </div>
+              </p:tab>
+
+              <p:tab id="meinePubliziertenTab"
+                     title="#{msg.dashboard_meine_publizierten}">
+                <ui:decorate
+                    template="templates/components/DashboardBeschreibungen.xhtml">
+                  <ui:param name="id" value="meine-publizierten"/>
+                  <ui:param name="dataList"
+                            value="#{dashboardController.meinePublizierten}"/>
+                  <ui:define name="extraColumns">
+                    <p:column id="publikationsDatum"
+                              headerText="#{msg.beschreibungList_publikationsdatum}">
+                      <h:outputText value="#{beschreibung.publikationsDatumHsp}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" type="localDateTime"/>
+                      </h:outputText>
+                    </p:column>
+                    <p:column id="publikationsStatus"
+                              headerText="#{msg.beschreibungList_status}">
+                      <hsp:publikationStatusChip id="pubStatus_my_recent"
+                                                 value="#{beschreibung.publikationStatus}"/>
+                    </p:column>
+                  </ui:define>
+                </ui:decorate>
+              </p:tab>
+
+              <p:tab id="meineImReviewTab"
+                     title="#{msg.dashboard_meine_im_review}">
+                <ui:decorate
+                    template="templates/components/DashboardBeschreibungen.xhtml">
+                  <ui:param name="id" value="meine-im-review"/>
+                  <ui:param name="dataList"
+                            value="#{dashboardController.meineImReview}"/>
+                  <ui:define name="extraColumns">
+                    <p:column id="requestedAt"
+                              headerText="#{msg.beschreibungList_eingestellt_am}">
+                      <h:outputText value="#{beschreibung.requestedAt}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" type="localDateTime"/>
+                      </h:outputText>
+                    </p:column>
+                    <p:column id="reviewer"
+                              headerText="#{msg.beschreibungList_reviewer}">
+                      <h:outputText value="#{beschreibung.assignedTo}"/>
+                    </p:column>
+                  </ui:define>
+                </ui:decorate>
+              </p:tab>
+
+              <p:tab id="meineZurUeberarbeitungTab"
+                     title="#{msg.dashboard_meine_zur_ueberarbeitung}">
+                <ui:decorate
+                    template="templates/components/DashboardBeschreibungen.xhtml">
+                  <ui:param name="id" value="meine-zur-ueberarbeitung"/>
+                  <ui:param name="dataList"
+                            value="#{dashboardController.meineZurUeberarbeitung}"/>
+                  <ui:define name="extraColumns">
+                    <p:column id="reviewedAt"
+                              headerText="#{msg.beschreibungList_reviewed_am}">
+                      <h:outputText value="#{beschreibung.reviewedAt}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" type="localDateTime"/>
+                      </h:outputText>
+                    </p:column>
+                    <p:column id="reviewedBy"
+                              headerText="#{msg.beschreibungList_reviewer}">
+                      <h:outputText value="#{beschreibung.reviewedBy}"/>
+                    </p:column>
+                  </ui:define>
+                </ui:decorate>
+              </p:tab>
+            </p:accordionPanel>
+
+            <h2 class="dashboard-section mt-5 mb-2">#{msg.dashboard_alle_title}</h2>
+            <p:accordionPanel id="dashboardPanelsAlle" activeIndex="null"
+                              styleClass="padding-0">
+              <p:tab id="beschreibungenTab"
+                     title="#{msg.dashboard_aktuellste_beschreibungen}">
+                <ui:decorate
+                    template="templates/components/DashboardBeschreibungen.xhtml">
+                  <ui:param name="id" value="alle-beschreibungen"/>
+                  <ui:param name="dataList"
+                            value="#{dashboardController.beschreibungen}"/>
+                </ui:decorate>
+              </p:tab>
+
+              <p:tab id="zuletztPubliziertTab"
+                     title="#{msg.dashboard_zuletzt_publiziert}">
+                <ui:decorate
+                    template="templates/components/DashboardBeschreibungen.xhtml">
+                  <ui:param name="id" value="zuletzt-publiziert"/>
+                  <ui:param name="dataList"
+                            value="#{dashboardController.latestPublikationen}"/>
+                  <ui:define name="extraColumns">
+                    <p:column id="publikationsDatumAlle"
+                              headerText="#{msg.beschreibungList_publikationsdatum}">
+                      <h:outputText value="#{beschreibung.publikationsDatumHsp}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" type="localDateTime"/>
+                      </h:outputText>
+                    </p:column>
+                    <p:column id="publikationsStatusAlle"
+                              headerText="#{msg.beschreibungList_status}">
+                      <hsp:publikationStatusChip id="pubStatus_last_published"
+                                                 value="#{beschreibung.publikationStatus}"/>
+                    </p:column>
+                  </ui:define>
+                </ui:decorate>
+              </p:tab>
+
+              <p:tab title="#{msg.dashboard_annotationen}" disabled="true"/>
+              <p:tab title="#{msg.dashboard_annotationen_description}" disabled="true"/>
+            </p:accordionPanel>
+          </h:form>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{!loginController.loggedIn}" styleClass="ui-g-12 login-page">
+          <h:form id="loginForm">
+            <p:card styleClass="login-card">
+              <h:outputText value="#{msg.login_header}"
+                            escape="false"
+                            styleClass="login-title"/>
+
+              <h:outputText value="#{msg.login_subtitle}"
+                            escape="false"
+                            styleClass="login-subtitle"/>
+
+              <p:commandButton id="loginBtn"
+                               value="#{msg.nav_login}"
+                               styleClass="login-btn"
+                               update=":globalmessages :hspGrowl"
+                               action="#{dashboardController.anmelden()}"/>
+            </p:card>
+          </h:form>
+        </p:outputPanel>
+      </div>
+      <ui:include src="templates/footer.xhtml"/>
+    </f:view>
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:egXML="http://www.tei-c.org/ns/Examples" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+				<title>KODs für Bautzen</title>
+			</titleStmt>
+			<publicationStmt>
+				<p>Publication Information</p>
+			</publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="HSP-bautzen_1" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement key="4004968-1">Bautzen</settlement>
+            <repository key="1027608000">Domstiftsbibliothek St. Petri</repository>
+            <idno>M II 104</idno>
+            <altIdentifier type="alternative">
+              <idno>M II 104 alt1</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>M II 104 alt2</idno>
+            </altIdentifier>
+          </msIdentifier>
+        </msDesc>
+				<msDesc xml:id="HSP-bautzen_2" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement key="4004968-1">Bautzen</settlement>
+            <repository key="1027608000">Domstiftsbibliothek St. Petri</repository>
+            <idno>M I 4</idno>
+					</msIdentifier>
+          <additional></additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

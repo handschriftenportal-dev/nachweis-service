@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:c="jakarta.tags.core"
+      xmlns:comp="jakarta.faces.composite"
+      xmlns:p="http://primefaces.org/ui"
+>
+<comp:interface>
+    <comp:attribute name="altSignaturen"
+                    required="true"
+                    type="java.util.HashSet"
+    />
+    <comp:attribute name="kODRechte"
+                    required="true"
+                    type="de.staatsbibliothek.berlin.hsp.nachweis.application.controller.permission.KODRechte"
+    />
+    <comp:attribute name="addIdentifikationListener"
+                    required="true"
+                    type="jakarta.el.MethodExpression"
+    />
+
+</comp:interface>
+
+<comp:implementation>
+    <p:confirmDialog id="confirmSignatureDialog" global="true"
+                     showEffect="fade" hideEffect="fade" responsive="true"
+                     width="750"
+                     styleClass="kod-confirm-dialog"
+                     closable="false">
+        <p:commandButton value="#{msg.common_no}" type="button"
+                         styleClass="ui-confirmdialog-no ui-button-flat"/>
+        <p:commandButton value="#{msg.common_yes}" type="button"
+                         styleClass="ui-confirmdialog-yes"/>
+    </p:confirmDialog>
+    <div class="margin-bottom-15">
+        <p:dataTable id="alt-signaturen-dt" var="alternativeSignatur"
+                     value="#{cc.attrs.altSignaturen}"
+                     size="small"
+                     cellNavigation="false">
+            <p:column headerText="#{msg.kod_detail_signatur}">
+                <h:outputText value="#{alternativeSignatur.signatur()}"/>
+            </p:column>
+
+            <p:column headerText="#{msg.kod_detail_ort}">
+                <h:outputText value="#{alternativeSignatur.aufbewahrungsort()}"/>
+            </p:column>
+
+            <p:column headerText="#{msg.kod_detail_einrichtung}">
+                <h:outputText value="#{alternativeSignatur.besitzer()}"/>
+            </p:column>
+
+            <p:column styleClass="margin-right-30 float-right">
+                <p:commandButton
+                        update="@form"
+                        disabled="#{not kulturObjektDokumentViewController.isAltIdentifikationDeletable(alternativeSignatur)}"
+                        icon="pi pi-trash fa-2x"
+                        styleClass="shadow-3 rounded-button"
+                        actionListener="#{kulturObjektDokumentViewController.deleteAltIdentifikation(alternativeSignatur.id())}">
+                    <p:confirm
+                            header="#{kulturObjektDokumentViewController.deleteAlternativeSignatureConfirmMessage(alternativeSignatur)}"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </div>
+    <p:outputPanel layout="block"
+                   styleClass="ui-g-12 ui-g-nopad-bottom"
+                   rendered="#{empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.alternativeSignaturen}">
+        <h:outputText value="#{msg.kod_detail_keine}"/>
+    </p:outputPanel>
+    <p:outputPanel layout="block"
+                   styleClass="ui-g-12 ui-g-nopad-bottom"
+                   rendered="#{kulturObjektDokumentViewController.addAlternativeSignature}">
+
+        <div class="ui-g-12 ui-g-nopad-bottom margin-top-10">
+            <h:outputText value="#{msg.kod_new_alternativesignatur}"
+                          styleClass="font-bold margin-right-10"
+                          style="margin-right: 10px;"
+            />
+            <p:inputText id="alternativesignaturinputtext"
+                         styleClass="ui-inputfield"
+                         style="margin-right: 10px;"
+                         title="#{msg.kod_new_alternativesignatur}"
+                         value="#{kulturObjektDokumentViewController.neueAlternativeSignature}">
+                <p:ajax event="keyup" process="@this" update="savealternativesignaturenbutton"/>
+            </p:inputText>
+            <p:commandButton title="#{msg.common_save}"
+                             id="savealternativesignaturenbutton"
+                             style="margin-right: 10px;"
+                             actionListener="#{cc.attrs.addIdentifikationListener}"
+                             ajax="true"
+                             process="@form"
+                             update="kodform"
+                             icon="pi pi-save"
+                             styleClass="margin-left-5 shadow-3 rounded-button">
+                <p:confirm
+                        header="#{kulturObjektDokumentViewController.addAlternativeSignatureConfirmMessage()}">
+                </p:confirm>
+            </p:commandButton>
+            <p:commandButton title="#{msg.common_cancel}" update="@form"
+                             process="@form"
+                             style="margin-right: 10px;"
+                             actionListener="#{kulturObjektDokumentViewController.disableAddAlternativeSignature()}"
+                             icon="pi pi-times-circle"
+                             styleClass="shadow-3 rounded-button"/>
+        </div>
+    </p:outputPanel>
+    <div class="ui-g-12 ui-g-nopad-horizontal">
+        <div>
+            <c:if test="#{!kulturObjektDokumentViewController.addAlternativeSignature}">
+                <p:commandButton
+                        actionListener="#{kulturObjektDokumentViewController.enableAddAlternativeSignature()}"
+                        title="#{msg.common_edit}"
+                        disabled="#{!cc.attrs.kODRechte.kannBearbeiten()}"
+                        update="@form" icon="pi pi-plus"
+                        styleClass="shadow-3 rounded-button margin-left-5"/>
+            </c:if>
+        </div>
+    </div>
+</comp:implementation>
+</html>

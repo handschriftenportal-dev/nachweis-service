@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tei:TEI xmlns:tei="http://www.tei-c.org/ns/1.0">
+  <tei:teiHeader>
+    <tei:fileDesc>
+      <tei:titleStmt>
+        <tei:title>Die historischen Handschriften der
+          <tei:orgName role="owner"
+            ref="https://d-nb.info/gnd/44643-9"><!-- Ist Attribut "role" nötig? Wenn ja: owner so in Ordnung oder etwas anderes wählen? @Torsten -->
+            Staats- und Universitätsbibliothek
+            <tei:settlement ref="https://d-nb.info/gnd/4023118-5">Hamburg</tei:settlement>
+          </tei:orgName>
+          : Cod. hist. 101–240.
+        </tei:title>
+        <tei:respStmt>
+          <tei:resp>Beschrieben von</tei:resp>
+          <tei:persName role="author" ref="https://d-nb.info/gnd/1055149635">Eva Horváth
+          </tei:persName>
+        </tei:respStmt>
+      </tei:titleStmt>
+      <tei:publicationStmt>
+        <tei:publisher ref="https://d-nb.info/gnd/2108841-X">Hauswedell Verlag</tei:publisher>
+        <tei:pubPlace ref="https://d-nb.info/gnd/4023118-5">Hamburg</tei:pubPlace>
+        <tei:date>1973</tei:date>
+        <tei:availability>
+          <tei:licence target="https://rightsstatements.org/page/InC/1.0/">
+            <tei:p>In copyright.</tei:p>
+          </tei:licence>
+        </tei:availability>
+        <tei:ptr type="other" target="https://resolver.sub.uni-hamburg.de/kitodo/PPN891080732"/>
+      </tei:publicationStmt>
+      <tei:seriesStmt>
+        <tei:title>Staats- und Universitätsbibliothek Hamburg. Katalog der Handschriften der Staats-
+          und Universitätsbibliothek Hamburg.
+        </tei:title>
+        <tei:biblScope unit="volume">Bd. 6</tei:biblScope>
+      </tei:seriesStmt>
+      <tei:sourceDesc>
+        <tei:msDesc type="hsp:catalog"
+          xml:lang="de"> <!-- Kategorie "hsp:catalog" auch dann korrekt, wenn Katalog nicht im HSP gezeigt werden soll? @Torsten -->
+          <tei:msIdentifier>
+            <tei:settlement>Hamburg</tei:settlement>
+            <tei:repository>SUB</tei:repository>
+            <tei:idno>Kat_6</tei:idno>
+            <!-- Gesamten Kurztitel auch irgendwo angeben? Ist sonst im Namen der Ausgangs-OCR-Datei zu sehen, die es in diesem Fall nicht gibt. @Torsten -->
+          </tei:msIdentifier>
+        </tei:msDesc>
+      </tei:sourceDesc>
+    </tei:fileDesc>
+  </tei:teiHeader>
+  <tei:text>
+    <tei:body>
+      <tei:p/>
+    </tei:body>
+  </tei:text>
+</tei:TEI>

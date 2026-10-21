@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+>
+    <p:dialog widgetVar="kodumziehendialog" header="#{msg.kodumziehen_dialog_header}"
+              width="800"
+              height="500">
+        <div class="toptwenty">
+            <p><h:outputText
+                    value="#{msg.kodumziehen_dialog_selectplaceandowner}"/>
+            </p>
+            <h:form>
+                <p:autoComplete id="kodumziehenNeuerOrt"
+                                value="#{kulturObjekteUmziehenController.neuerOrt}"
+                                completeMethod="#{autocompleteNormdatenController.autocompleteOrt}"
+                                placeholder="#{msg.kod_registrieren_orteingeben_placeholder}"
+                                converter="normdatenReferenzConverter"
+                                scrollHeight="200"
+                                forceSelection="true"
+                                var="ort"
+                                itemValue="#{ort}"
+                                itemLabel="#{ort.name}"
+                                style="width: 450px"
+                                inputStyle="width: 450px">
+                    <p:column>#{ort.name}</p:column>
+                    <p:column styleClass="gnd-cell">
+                        <h:outputLink
+                                value="#{ort.gndUrl}"
+                                rendered="#{not empty ort.gndID}"
+                                target="_blank"
+                                onclick="event.stopPropagation()">#{ort.gndID}</h:outputLink>
+                    </p:column>
+                    <p:ajax event="change" update="koerperschaftSelect"
+                            listener="#{kulturObjekteUmziehenController.placeChangedListener}"/>
+                </p:autoComplete>
+
+                <div class="toptwenty">
+                    <p:selectOneMenu id="koerperschaftSelect"
+                                     converter="normdatenReferenzConverter"
+                                     style="width: 450px;"
+                                     disabled="#{empty kulturObjekteUmziehenController.neuerOrt}"
+                                     value="#{kulturObjekteUmziehenController.neuerBesitzer}">
+                        <p:ajax update="pruefenButton umziehenPruefenErgebnis excelDownloadCommandLinkIDUmziehen"
+                                listener="#{kulturObjekteUmziehenController.placeChangedListener}"/>
+                        <f:selectItem
+                                itemLabel="#{msg.kod_registrieren_koerperschaft_auswaehlen}"
+                                itemValue="#{null}"/>
+                        <f:selectItems var="koerperschaft"
+                                       itemValue="#{koerperschaft}"
+                                       value="#{kulturObjekteUmziehenController.koerperschaftViewModelMap}"/>
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="toptwenty">
+                    <p:commandButton id="pruefenButton"
+                                     title="#{msg.kodumziehen_dialog_pruefenbutton_title}"
+                                     value="#{msg.kodumziehen_dialog_pruefenbutton_text}"
+                                     update="@form"
+                                     process="@form"
+                                     styleClass="marginRight10"
+                                     actionListener="#{kulturObjekteUmziehenController.executeKODUmziehenPruefung}"
+                                     disabled="#{empty kulturObjekteUmziehenController.neuerBesitzer}">
+                    </p:commandButton>
+                    <p:commandButton id="excelDownloadCommandLinkIDUmziehen"
+                                     ajax="true"
+                                     styleClass="marginRight10"
+                                     value="#{msg.kodumziehen_dialog_excelbutton_text}"
+                                     rendered="#{not empty kulturObjekteUmziehenController.kodUmziehenErgebnis}"
+                                     onstart="PF('idleDialog').show()"
+                                     oncomplete="PF('idleDialog').hide()">
+                        <p:tooltip for="excelDownloadCommandLinkIDUmziehen" position="top"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xlsx" target="umziehenPruefenErgebnis"
+                                        fileName="HSPKODUmziehenErgebnis"
+                                        pageOnly="false"/>
+                    </p:commandButton>
+                    <p:commandButton id="umziehenButton"
+                                     ajax="true"
+                                     title="#{msg.kodumziehen_dialog_umziehenbutton_title}"
+                                     value="#{msg.kodumziehen_dialog_umziehenbutton_text}"
+                                     update="@all"
+                                     process="@all"
+                                     styleClass="marginRight10"
+                                     actionListener="#{kulturObjekteUmziehenController.kodUmziehen}"
+                                     rendered="#{kulturObjekteUmziehenController.kodKoennenUmziehen()}">
+                        <p:confirm
+                                header="#{msg.kodumziehen_dialog_umziehenconfirm_header}"
+                                message="#{msg.kodumziehen_dialog_umziehenconfirm_message} #{kulturObjekteUmziehenController.umzuziehendeSignaturen()}"
+                                icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+                </div>
+
+                <div class="toptwenty">
+                    <p:dataTable id="umziehenPruefenErgebnis"
+                                 paginator="true"
+                                 paginatorPosition="top"
+                                 paginatorAlwaysVisible="true"
+                                 rowsPerPageTemplate="5,10,15"
+                                 pageLinks="5"
+                                 rendered="#{not empty kulturObjekteUmziehenController.kodUmziehenErgebnis}"
+                                 value="#{kulturObjekteUmziehenController.kodUmziehenErgebnis}"
+                                 var="ergebnis">
+
+                        <p:column headerText="#{msg.kodumziehen_dialog_datatable_signatur}">
+                            <h:outputText value="#{ergebnis.signatur()}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.kodumziehen_dialog_datatable_kodid}">
+                            <h:outputText value="#{ergebnis.existingKODIDAsSeperatedString()}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.kodumziehen_dialog_datatable_owner}">
+                            <h:outputText
+                                    value="#{ergebnis.besitzendeEinrichtung()}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.kodumziehen_dialog_datatable_place}">
+                            <h:outputText
+                                    value="#{ergebnis.ort()}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.kodumziehen_dialog_datatable_result}">
+                            <h:outputText
+                              value="#{ergebnis.isSuccessful() ? msg.kodumziehen_dialog_datatable_umzugmoeglich: msg.kodumziehen_dialog_datatable_umzugnichtmoeglich}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.kodumziehen_dialog_datatable_error}">
+                            <h:outputText value="#{ergebnis.errorMessage()}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </p:dialog>
+</ui:composition>

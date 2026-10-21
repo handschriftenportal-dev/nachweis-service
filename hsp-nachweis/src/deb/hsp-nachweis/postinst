@@ -1,0 +1,35 @@
+#!/bin/sh
+
+set -e
+
+
+case "$1" in
+    configure)
+        # create a [[artifactId]] group and user
+        if ! getent passwd [[artifactId]] >/dev/null 2>&1; then
+        		addgroup --system --gid 925 [[artifactId]]
+            adduser --system --uid 925 --gid 925 [[artifactId]]
+        fi
+        
+        chown -R [[artifactId]]:[[artifactId]] /data/log/[[artifactId]]
+        chown -R [[artifactId]]:[[artifactId]] /etc/SBB/[[artifactId]]
+        chown -R [[artifactId]]:[[artifactId]] /usr/local/SBB/usr/local/[[artifactId]]
+    ;;
+	
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+# Start [[artifactId]]
+
+update-rc.d [[artifactId]] defaults 85
+service [[artifactId]] stop >/dev/null 2>&1 || true
+service [[artifactId]] start || true
+
+exit 0
+

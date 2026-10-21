@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{languageController.locale}" transient="false">
+  <f:metadata>
+    <f:viewAction action="#{beschreibungCardController.resetDialogFields()}"/>
+  </f:metadata>
+</f:view>
+<h:head>
+  <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+  <h:outputScript name="js/layout.js" library="ultima-layout"/>
+  <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/hspnachweis.css"/>
+
+  <h:outputText id="headerTitle" style="font-size: 20px;"
+                value="#{msg.beschreibung_card_request_publication}"/>
+</h:head>
+<h:body class="hsp-dialog">
+  <h:form id="createPublikationForm" styleClass="hsp-form">
+    <p:remoteCommand name="runValidation"
+                     action="#{beschreibungCardController.validateTEI(languageController.language)}"
+                     autoRun="true"
+                     rendered="#{beschreibungCardController.teiValidationLoading}"
+                     update="validationMessages saveBtn validationSpinner"/>
+
+    <p:messages id="validationMessages" showDetail="false" closable="false"/>
+
+    <h:panelGroup id="validationSpinner">
+      <p:outputPanel rendered="#{beschreibungCardController.teiValidationLoading}"
+                     style="text-align: center; padding: 1rem;">
+        <i class="pi pi-spin pi-spinner" style="font-size: 1.5rem; margin-right: 0.5rem;"/>
+        <h:outputText value="#{msg.beschreibung_card_dialog_validating_tei}"/>
+      </p:outputPanel>
+    </h:panelGroup>
+
+    <h:panelGrid columns="2" cellpadding="5" styleClass="ui-fluid" style="width: 100%;">
+      <p:outputLabel for="lizenzTypSelect" value="#{msg.beschreibung_card_dialog_lizenz_label}:"/>
+      <p:selectOneMenu id="lizenzTypSelect"
+                       value="#{beschreibungCardController.selectedLizenzTyp}"
+                       style="width:100%;">
+        <f:selectItem itemLabel="-- #{msg.beschreibung_card_dialog_lizenz_no_selection} --"
+                      itemValue="#{null}"
+                      noSelectionOption="true"/>
+        <f:selectItems value="#{beschreibungCardController.lizenzTypen}"
+                       var="lizenz"
+                       itemLabel="#{lizenz.label}"
+                       itemValue="#{lizenz}"/>
+        <p:ajax process="@this" update="saveBtn"/>
+      </p:selectOneMenu>
+
+      <p:outputLabel for="commentInput" value="#{msg.beschreibung_card_dialog_comment}:"/>
+      <p:inputTextarea id="commentInput"
+                       value="#{beschreibungCardController.comment}"
+                       rows="3"
+                       style="width:100%;"/>
+    </h:panelGrid>
+
+    <div
+        style="margin-top: 1rem; padding: 15px; display: flex; justify-content: flex-end; gap: 10px;">
+      <p:commandButton value="#{msg.beschreibung_card_dialog_cancel}"
+                       ajax="true"
+                       process="@all"
+                       update="@all"
+                       action="#{beschreibungCardController.dialogSchliessen(null)}"
+                       styleClass="ui-button-secondary"/>
+      <p:commandButton id="saveBtn"
+                       value="#{msg.beschreibung_card_dialog_save}"
+                       action="#{beschreibungCardController.createPublicationRequest()}"
+                       process="@all"
+                       update="@all"
+                       disabled="#{empty beschreibungCardController.selectedLizenzTyp or not beschreibungCardController.teiXmlValid}"
+                       styleClass="ui-button-success"/>
+    </div>
+  </h:form>
+</h:body>
+</html>

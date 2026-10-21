@@ -1,0 +1,12 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+>
+    <div class="col-12">
+        <h1>#{title}</h1>
+    </div>
+    <div class="col-12">
+        <ui:include src="../components/pageAccessDeniedComponent.xhtml">
+            <ui:param name="hasAccess" value="#{access}"/>
+        </ui:include>
+    </div>
+</ui:composition>

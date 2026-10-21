@@ -1,0 +1,137 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+>
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+        <title>Kulturobjektdokument von Görlitz, Bistumsarchiv Görlitz, Jauernick, Pfarrbibliothek, Nr. 62</title>
+        <respStmt>
+          <resp>Herausgegeben vom</resp>
+          <name type="org">Handschriftenportal</name>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>Elektronische Ausgabe nach TEI P5</edition>
+        <respStmt>
+          <resp>Automatisch generierte Ausgabe</resp>
+          <orgName>Handschriftenportal</orgName>
+        </respStmt>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>
+          <name type="org">Handschriftenportal</name>
+          <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+        <date when="2022-11-30" type="issued">2022-11-30</date>
+        <distributor>Handschriftenportal</distributor>
+        <availability status="free">
+          <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+            <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle Nutzungsrechte.</p>
+            <p>
+              Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere Lizenzen. Vgl. die
+              <ref target="http://www.handschriftenportal.de">Copyright Information</ref>
+              des Handschriftenportals.
+            </p>
+          </licence>
+        </availability>
+        <pubPlace>
+          <ptr xml:id="HSP-4e8a8627-0bca-34fb-80cc-609a2650b065"
+            target="https://resolver.staatsbibliothek-berlin.de/HSP0004DE4B00000000" type="purl" subtype="hsp"/>
+        </pubPlace>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc type="hsp:object" xml:id="HSP-c261831e-7c3e-385e-964c-2eb450b8ec9e" xml:lang="de">
+          <msIdentifier>
+            <settlement ref="4021441-2" key="NORM-b44e37a4-ee49-3da3-b427-93b593508e1e">Görlitz</settlement>
+            <repository ref="1271739976" key="NORM-3bbbcfc9-117e-395b-9b73-ac169986695b">Bistumsarchiv Görlitz
+            </repository>
+            <idno>Jauernick, Pfarrbibliothek, Nr. 62</idno>
+          </msIdentifier>
+          <head>
+            <index indexName="norm_form" copyOf="#HSP-1bea9030-f875-3bab-9a8a-16acd2ad006e"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005C26000000000">
+              <term type="form">sammelband</term>
+            </index>
+          </head>
+          <additional>
+            <adminInfo>
+              <availability status="free">
+                <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+                  <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle Nutzungsrechte.</p>
+                  <p>
+                    Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere Lizenzen. Vgl. die
+                    <ref target="http://www.handschriftenportal.de">Copyright Information</ref>
+                    des Handschriftenportals.
+                  </p>
+                </licence>
+              </availability>
+            </adminInfo>
+            <surrogates>
+              <bibl>
+                <idno>HSP-4e0a936c-0b81-31c3-ae3e-2bc3d3c69be9</idno>
+                <ref type="manifest" target="https://iiif.ub.uni-leipzig.de/0000055260/manifest.json"/>
+                <ref type="other" target="https://nbn-resolving.org/urn:nbn:de:bsz:15-0027-571680"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0552/0000055260/00000001.jpx/full/,200/0/default.jpg"/>
+                <ref type="completeness"
+                  target="https://normdaten.staatsbibliothek-berlin.de/vocabulary/completeness/complete"/>
+                <date when="2012-01-02" type="digitized">02.01.2012</date>
+                <date when="2025-01-24" type="issued">24.01.2025</date>
+                <date when="2023-12-20" type="published">20.12.2023</date>
+                <placeName type="digitizing" ref="NORM-4a887b8a-68ac-39b0-8d9d-027bddedb06b">Leipzig</placeName>
+                <orgName type="digitizing" ref="NORM-444a6f1b-4bcb-3fa7-a96d-b6cafe49f0d0">Universitätsbibliothek
+                  Leipzig
+                </orgName>
+              </bibl>
+            </surrogates>
+            <listBibl>
+              <bibl>
+                <ref target="HSP-1bea9030-f875-3bab-9a8a-16acd2ad006e"/>
+              </bibl>
+            </listBibl>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2025-03-18T00:00:00" n="LEER" xml:id="HSP-44190da5-3b58-4aed-b677-84b16fcae463">Update
+        Kulturobjektdokument during Beschreibungsimport
+      </change>
+      <change when="2025-03-19T00:00:00" n="MANUELL" xml:id="HSP-7d93e8f1-3d60-4ac4-9662-087225e607f7">
+        Update Kulturobjekt by Redakteur
+        <persName key="b-ke101">Eichstaedt, Konrad</persName>
+      </change>
+      <change when="2025-03-19T00:00:00" n="MANUELL" xml:id="HSP-14c767d1-efaa-456c-b845-892aad05bbee">
+        Update Kulturobjekt by Redakteur
+        <persName key="b-ke101">Eichstaedt, Konrad</persName>
+      </change>
+      <change when="2025-03-19T00:00:00" n="MANUELL" xml:id="HSP-b3785447-7096-4108-812a-1c45d1c925e6">
+        Update Kulturobjekt by Redakteur
+        <persName key="b-ke101">Eichstaedt, Konrad</persName>
+      </change>
+      <change when="2025-03-19T00:00:00" n="MANUELL" xml:id="HSP-5bbd9c32-edbe-44af-9115-98b8dbe0ea54">
+        Update Kulturobjekt by Redakteur
+        <persName key="b-ke101">Eichstaedt, Konrad</persName>
+      </change>
+      <change when="2025-03-19T00:00:00" n="MANUELL" xml:id="HSP-f456c661-8974-401e-b8cd-3abac76a633a">
+        Update Kulturobjekt by Redakteur
+        <persName key="b-ke101">Eichstaedt, Konrad</persName>
+      </change>
+      <change when="2025-03-20T00:00:00" n="MANUELL" xml:id="HSP-3dc48342-d6fa-4654-bf76-6c75ceee1af2">
+        Update Kulturobjekt by Redakteur
+        <persName key="b-ke101">Eichstaedt, Konrad</persName>
+      </change>
+      <change when="2025-03-21T00:00:00" n="AUTOMATISCH" xml:id="HSP-824d243f-42f6-4856-8f7f-17bccf85c4e2">Change
+        Attributsreferenzen during Beschreibungsimport
+      </change>
+      <change when="2025-03-21T00:00:00" n="MANUELL" xml:id="HSP-7c763aab-7b77-46df-933e-9064bff04358">
+        Update Attributsreferenzen by Redakteur
+        <persName key="b-ke101">Konrad Eichstaedt</persName>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

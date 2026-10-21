@@ -1,0 +1,82 @@
+quarkus:
+  keycloak:
+    devservices:
+      enabled: false
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: changeme
+    jdbc:
+      url: jdbc:postgresql://b-dev-dbs-idm22.pk.de:5432/hsp-nachweis-dev1?stringtype=unspecified
+  http:
+    cors:
+      enabled: true
+  rest-client:
+    lobid-org:
+      proxy-address: 
+    purl-gen:
+      url: http://localhost:9298/rest/purl/example
+
+kafka:
+  bootstrapserver: b-dev1044.pk.de:9092,b-dev1045.pk.de:9092,b-dev1048.pk.de:9092
+  import:
+    topic: tei-import-dev-linux
+    groupid: import-dev-linux
+    startOffset: -1
+  index:
+    topic: tei-index-dev-linux
+    startOffset: -1
+    groupid: index-dev
+  dataimport:
+    topic: data-import-dev-linux
+    startOffset: -1
+    groupid: dataimport-dev
+  normdaten:
+    topic: data-normdaten-dev-linux
+    groupid: nachweis-normdaten-dev-linux
+  normdatenupdate:
+    topic: normdatenupdate-dev-linux
+    groupid: data-nachweis-dev-linux
+importserverbaseurl: http://localhost:9296
+praesentationbaseurl: http://b-dev1047.pk.de:8080/
+nachweisserverbaseurl: http://localhost:9298/
+
+solr:
+  url:
+    leader: http://b-dev1054.pk.de:8983/solr
+    follower: http://b-dev1054.pk.de:8983/solr
+  core:
+    nachweis: hsp-nachweis
+    praesentation: hsp
+
+jakarta:
+  faces:
+    PROJECT_STAGE: Development
+
+workaround:
+  KOD_LIST_DELETE_ENABLED: true
+  BESCHREIBUNG_LIST_DELETE_ENABLED: true
+
+oauth2:
+  filter:
+    enabled: true
+  logincheck:
+    enabled: true
+  permissioncheck:
+    enabled: true
+  client:
+    id: hsp
+    secret: HSPsecretHSP
+  redirect-uri:
+    grant-code: /dashboard.xhtml
+    revoke-token: /dashboard.xhtml
+    error: /error_authentication.xhtml
+  own:
+    url:
+      prefix: currentServerAddress
+
+purl:
+  target:
+    kod: http://b-dev1047:8080/search?hspobjectid={0}
+    beschreibung: http://b-dev1047:8080/workspace?type=hsp:description&id={0}
+    beschreibung_retro: http://b-dev1047:8080/workspace?type=hsp:description_retro&id={0}

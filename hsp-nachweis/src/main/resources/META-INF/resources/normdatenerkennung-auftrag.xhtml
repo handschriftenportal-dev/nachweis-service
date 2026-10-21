@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                template="templates/default.xhtml">
+
+  <f:metadata>
+    <f:viewParam name="id" value="#{normdatenErkennungAuftragController.auftragId}"/>
+    <f:viewAction action="#{normdatenErkennungAuftragController.load}"/>
+  </f:metadata>
+
+  <ui:define name="content">
+    <f:view>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <p:button
+              outcome="normdatenerkennung"
+              value="#{msg.normdatenerkennung_auftrag_back}"
+              icon="pi pi-arrow-left"/>
+        </div>
+
+        <div class="ui-g-12">
+          <h1>#{msg.normdatenerkennung_auftrag_title}</h1>
+        </div>
+
+        <ui:fragment rendered="#{normdatenErkennungAuftragController.auftrag != null}">
+          <section class="ui-g-12">
+            <h:form id="ergebnisseForm">
+              <div class="ui-g-12">
+                <p:panel>
+                  <div class="ui-g">
+                    <div class="ui-g-12 ui-md-8">
+                      <div class="ui-g">
+                        <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_beschreibung}:</b>
+                        </div>
+                        <div class="ui-g-8">
+                          <p:link outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                                  value="#{normdatenErkennungAuftragController.gueltigeSignatur}">
+                            <f:param name="id"
+                                     value="#{normdatenErkennungAuftragController.auftrag.beschreibungsdokumentId}"/>
+                          </p:link>
+                        </div>
+
+                        <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_status}:</b></div>
+                        <div class="ui-g-8">
+                          <p:tag
+                              value="#{msg['normdatenerkennung_status_'.concat(normdatenErkennungAuftragController.auftrag.status)]}"
+                              severity="#{normdatenErkennungAuftragController.statusSeverity}"/>
+                        </div>
+
+                        <ui:fragment
+                            rendered="#{normdatenErkennungAuftragController.auftrag.errorMessage != null}">
+                          <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_errors}:</b></div>
+                          <div class="ui-g-8">
+                            <h:outputText
+                                value="#{normdatenErkennungAuftragController.auftrag.errorMessage}"/>
+                          </div>
+                        </ui:fragment>
+
+                        <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_bearbeiter}:</b>
+                        </div>
+                        <div class="ui-g-8">
+                          <h:outputText
+                              value="#{normdatenErkennungAuftragController.auftrag.bearbeiter.name}"/>
+                        </div>
+
+                        <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_erstellt}:</b></div>
+                        <div class="ui-g-8">
+                          <h:outputText
+                              value="#{normdatenErkennungAuftragController.auftrag.createdAt}">
+                            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm:ss"/>
+                          </h:outputText>
+                        </div>
+                      </div>
+                    </div>
+
+                    <ui:fragment
+                        rendered="#{normdatenErkennungAuftragController.auftrag.awaitingReview}">
+                      <div class="ui-g-12 ui-md-4">
+                        <div class="ui-g ui-fluid">
+                          <div class="ui-g-12">
+                            <p:commandButton
+                                value="#{msg.normdatenerkennung_auftrag_apply_action}"
+                                icon="pi pi-check"
+                                disabled="#{not normdatenErkennungAuftragController.canApply()}"
+                                action="#{normdatenErkennungAuftragController.onApply}"
+                                ajax="false"/>
+                          </div>
+                          <div class="ui-g-12">
+                            <p:commandButton
+                                value="#{msg.normdatenerkennung_auftrag_cancel_action}"
+                                icon="pi pi-times"
+                                action="#{normdatenErkennungAuftragController.onCancel}"
+                                styleClass="ui-button-danger"
+                                ajax="false"/>
+                          </div>
+                          <div class="ui-g-12">
+                            <h:outputFormat value="#{msg.normdatenerkennung_auftrag_progress}">
+                              <f:param
+                                  value="#{normdatenErkennungAuftragController.reviewedCount}"/>
+                              <f:param value="#{normdatenErkennungAuftragController.totalCount}"/>
+                            </h:outputFormat>
+                          </div>
+                        </div>
+                      </div>
+                    </ui:fragment>
+                  </div>
+                </p:panel>
+              </div>
+
+              <p:remoteCommand name="loadManualGndIds"
+                               autoRun="true"
+                               actionListener="#{normdatenErkennungAuftragController.loadManualGndIds}"
+                               update="ergebnisseTable"/>
+
+              <div class="ui-g-12">
+                <p:dataTable id="ergebnisseTable"
+                             value="#{normdatenErkennungAuftragController.ergebnisse}"
+                             var="sortKeyReportEntry"
+                             rowKey="#{sortKeyReportEntry.id}"
+                             emptyMessage="#{msg.normdatenerkennung_auftrag_empty}">
+                  <f:facet name="header">
+                    #{msg.normdatenerkennung_auftrag_ergebnisse_title}
+                  </f:facet>
+
+                  <p:column style="width:3rem;">
+                    <p:rowToggler/>
+                  </p:column>
+
+                  <p:column headerText="#{msg.normdatenerkennung_auftrag_col_typ}">
+                    <h:outputText value="#{sortKeyReportEntry.normdatenTyp}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg.normdatenerkennung_auftrag_col_text}">
+                    <h:outputText value="#{sortKeyReportEntry.displayText}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg.normdatenerkennung_auftrag_col_auswahl}">
+                    <p:outputPanel id="auswahlPanel">
+                      <ui:fragment rendered="#{sortKeyReportEntry.selectedTreffer != null}">
+                        <h:outputText
+                            value="#{sortKeyReportEntry.selectedTreffer.preferredName} (#{sortKeyReportEntry.selectedTreffer.empfehlung ? msg.normdatenerkennung_auftrag_empfehlung : msg.normdatenerkennung_auftrag_selection_treffer}#{sortKeyReportEntry.selectedTreffer.konfidenzProzent gt 0 ? ', '.concat(sortKeyReportEntry.selectedTreffer.konfidenzProzent).concat('%') : ''})"/>
+                      </ui:fragment>
+                      <ui:fragment
+                          rendered="#{sortKeyReportEntry.manualMode and sortKeyReportEntry.resolvedFact != null and sortKeyReportEntry.noError}">
+                        <h:outputText
+                            value="#{sortKeyReportEntry.resolvedFact.preferredName} (#{msg.normdatenerkennung_auftrag_gnd_id} #{sortKeyReportEntry.resolvedFact.gndIdentifier})"/>
+                      </ui:fragment>
+                      <ui:fragment
+                          rendered="#{sortKeyReportEntry.manualMode and sortKeyReportEntry.resolvedFact != null and sortKeyReportEntry.typeMismatchError}">
+                        <h:outputText value="#{msg.normdatenerkennung_auftrag_selection_none}"
+                                      styleClass="ui-state-disabled"/>
+                      </ui:fragment>
+                      <ui:fragment
+                          rendered="#{sortKeyReportEntry.manualMode and sortKeyReportEntry.resolvedFact == null and not empty sortKeyReportEntry.manualGndId and sortKeyReportEntry.noError}">
+                        <h:outputText value="#{sortKeyReportEntry.manualGndId}"
+                                      styleClass="ui-state-highlight"/>
+                      </ui:fragment>
+                      <ui:fragment
+                          rendered="#{sortKeyReportEntry.selectedTreffer == null and sortKeyReportEntry.noResults and (not sortKeyReportEntry.manualMode or (sortKeyReportEntry.resolvedFact == null and empty sortKeyReportEntry.manualGndId))}">
+                        <h:outputText value="#{msg.normdatenerkennung_auftrag_selection_no_results}"
+                                      styleClass="ui-state-disabled"/>
+                      </ui:fragment>
+                      <ui:fragment
+                          rendered="#{sortKeyReportEntry.selectedTreffer == null and not sortKeyReportEntry.noResults and (not sortKeyReportEntry.manualMode or (sortKeyReportEntry.resolvedFact == null and empty sortKeyReportEntry.manualGndId))}">
+                        <h:outputText value="#{msg.normdatenerkennung_auftrag_selection_none}"
+                                      styleClass="ui-state-disabled"/>
+                      </ui:fragment>
+                    </p:outputPanel>
+                  </p:column>
+
+                  <p:rowExpansion>
+                    <p:outputPanel id="expansionPanel" styleClass="ui-g"
+                                   style="padding:0.75rem 1rem;">
+                      <div class="ui-g-12 ui-md-6">
+
+                        <p:selectOneRadio id="trefferAuswahl"
+                                          value="#{sortKeyReportEntry.selectedIndex}"
+                                          layout="pageDirection"
+                                          disabled="#{not normdatenErkennungAuftragController.auftrag.awaitingReview}">
+                          <f:selectItem itemValue="#{null}"
+                                        itemLabel="#{msg.normdatenerkennung_auftrag_selection_none}"/>
+                          <f:selectItems value="#{sortKeyReportEntry.treffer}" var="t"
+                                         itemValue="#{t.viewIndex}"
+                                         itemLabel="#{t.label}"/>
+                          <f:selectItem itemValue="-1"
+                                        itemLabel="#{msg.normdatenerkennung_auftrag_selection_manual}"/>
+                          <p:ajax
+                              listener="#{normdatenErkennungAuftragController.onAuswahlChange(sortKeyReportEntry.id)}"
+                              update="expansionPanel auswahlPanel"/>
+                        </p:selectOneRadio>
+
+                        <div class="ui-g" style="margin-top:0.5rem;">
+                          <div class="ui-g-9 ui-fluid">
+                            <p:inputText id="manualGndId"
+                                         value="#{sortKeyReportEntry.manualGndId}"
+                                         disabled="#{not sortKeyReportEntry.manualMode or not normdatenErkennungAuftragController.auftrag.awaitingReview}"
+                                         placeholder="#{msg.normdatenerkennung_auftrag_gnd_id_placeholder}"/>
+                          </div>
+                          <div class="ui-g-3">
+                            <p:commandButton icon="pi pi-search"
+                                             title="#{msg.normdatenerkennung_auftrag_gnd_id_search}"
+                                             disabled="#{not sortKeyReportEntry.manualMode or not normdatenErkennungAuftragController.auftrag.awaitingReview}"
+                                             actionListener="#{normdatenErkennungAuftragController.lookupManualGndId(sortKeyReportEntry.id)}"
+                                             update="expansionPanel auswahlPanel"
+                                             styleClass="ui-button-secondary"/>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="ui-g-12 ui-md-6">
+
+                        <p:panel rendered="#{sortKeyReportEntry.selectedTreffer != null}"
+                                 styleClass="treffer-detail">
+                          <f:facet name="header">
+                            <h:outputText
+                                value="#{sortKeyReportEntry.selectedTreffer.preferredName}"/>
+                          </f:facet>
+                          <div class="ui-g">
+                            <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_gnd_id}:</b>
+                            </div>
+                            <div class="ui-g-8">
+                              <h:outputText
+                                  value="#{sortKeyReportEntry.selectedTreffer.identifier}"/>
+                            </div>
+                            <ui:fragment
+                                rendered="#{not empty sortKeyReportEntry.selectedTreffer.quelle}">
+                              <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_source}</b>
+                              </div>
+                              <div class="ui-g-8">
+                                <h:outputText value="#{sortKeyReportEntry.selectedTreffer.quelle}"/>
+                              </div>
+                            </ui:fragment>
+                            <ui:fragment
+                                rendered="#{sortKeyReportEntry.selectedTreffer.konfidenzProzent gt 0}">
+                              <div class="ui-g-4">
+                                <b>#{msg.normdatenerkennung_auftrag_col_konfidenz}:</b></div>
+                              <div class="ui-g-8">
+                                <h:outputText
+                                    value="#{sortKeyReportEntry.selectedTreffer.konfidenzProzent}%"
+                                    rendered="#{sortKeyReportEntry.selectedTreffer.wertreduktionProzent le 0}"/>
+                                <h:outputFormat
+                                    value="#{msg.normdatenerkennung_auftrag_konfidenz_detail}"
+                                    rendered="#{sortKeyReportEntry.selectedTreffer.wertreduktionProzent gt 0}">
+                                  <f:param
+                                      value="#{sortKeyReportEntry.selectedTreffer.konfidenzProzent}"/>
+                                  <f:param
+                                      value="#{sortKeyReportEntry.selectedTreffer.grundwertProzent}"/>
+                                  <f:param
+                                      value="#{sortKeyReportEntry.selectedTreffer.wertreduktionProzent}"/>
+                                </h:outputFormat>
+                              </div>
+                            </ui:fragment>
+                            <ui:fragment
+                                rendered="#{not empty sortKeyReportEntry.selectedTreffer.erklaerungsTyp}">
+                              <div class="ui-g-4">
+                                <b>#{msg.normdatenerkennung_auftrag_erklaerungstyp}:</b></div>
+                              <div class="ui-g-8">
+                                <h:outputText
+                                    value="#{normdatenErkennungAuftragController.translateErklaerungsTyp(sortKeyReportEntry.selectedTreffer.erklaerungsTyp)}"/>
+                              </div>
+                            </ui:fragment>
+                            <ui:fragment
+                                rendered="#{not empty sortKeyReportEntry.selectedTreffer.gndEntityFact.typeName}">
+                              <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_typ}:</b>
+                              </div>
+                              <div class="ui-g-8">
+                                <h:outputText
+                                    value="#{sortKeyReportEntry.selectedTreffer.gndEntityFact.typeName}"/>
+                              </div>
+                            </ui:fragment>
+                            <ui:fragment
+                                rendered="#{not empty sortKeyReportEntry.selectedTreffer.gndEntityFact.variantNameAsString}">
+                              <div class="ui-g-4">
+                                <b>#{msg.normdatenerkennung_auftrag_variant_names}:</b></div>
+                              <div class="ui-g-8">
+                                <h:outputText
+                                    value="#{sortKeyReportEntry.selectedTreffer.gndEntityFact.variantNameAsString}"/>
+                              </div>
+                            </ui:fragment>
+                          </div>
+                        </p:panel>
+
+                        <ui:fragment rendered="#{sortKeyReportEntry.manualMode}">
+                          <p:panel
+                              rendered="#{sortKeyReportEntry.resolvedFact != null and sortKeyReportEntry.noError}"
+                              styleClass="treffer-detail">
+                            <f:facet name="header">
+                              <h:outputText
+                                  value="#{sortKeyReportEntry.resolvedFact.preferredName}"/>
+                            </f:facet>
+                            <div class="ui-g">
+                              <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_gnd_id}:</b>
+                              </div>
+                              <div class="ui-g-8">
+                                <h:outputText
+                                    value="#{sortKeyReportEntry.resolvedFact.gndIdentifier}"/>
+                              </div>
+                              <ui:fragment
+                                  rendered="#{not empty sortKeyReportEntry.resolvedFact.typeName}">
+                                <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_typ}:</b>
+                                </div>
+                                <div class="ui-g-8">
+                                  <h:outputText
+                                      value="#{sortKeyReportEntry.resolvedFact.typeName}"/>
+                                </div>
+                              </ui:fragment>
+                              <ui:fragment
+                                  rendered="#{not empty sortKeyReportEntry.resolvedFact.variantNameAsString}">
+                                <div class="ui-g-4">
+                                  <b>#{msg.normdatenerkennung_auftrag_variant_names}:</b></div>
+                                <div class="ui-g-8">
+                                  <h:outputText
+                                      value="#{sortKeyReportEntry.resolvedFact.variantNameAsString}"/>
+                                </div>
+                              </ui:fragment>
+                            </div>
+                          </p:panel>
+
+                          <p:panel
+                              rendered="#{sortKeyReportEntry.resolvedFact != null and sortKeyReportEntry.typeMismatchError}"
+                              styleClass="treffer-detail">
+                            <f:facet name="header">
+                              <h:outputText
+                                  value="#{sortKeyReportEntry.resolvedFact.preferredName}"/>
+                            </f:facet>
+                            <div class="ui-g">
+                              <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_gnd_id}:</b>
+                              </div>
+                              <div class="ui-g-8">
+                                <h:outputText
+                                    value="#{sortKeyReportEntry.resolvedFact.gndIdentifier}"/>
+                              </div>
+                              <ui:fragment
+                                  rendered="#{not empty sortKeyReportEntry.resolvedFact.typeName}">
+                                <div class="ui-g-4"><b>#{msg.normdatenerkennung_auftrag_typ}:</b>
+                                </div>
+                                <div class="ui-g-8">
+                                  <h:outputText
+                                      value="#{sortKeyReportEntry.resolvedFact.typeName}"/>
+                                </div>
+                              </ui:fragment>
+                              <ui:fragment
+                                  rendered="#{not empty sortKeyReportEntry.resolvedFact.variantNameAsString}">
+                                <div class="ui-g-4">
+                                  <b>#{msg.normdatenerkennung_auftrag_variant_names}:</b></div>
+                                <div class="ui-g-8">
+                                  <h:outputText
+                                      value="#{sortKeyReportEntry.resolvedFact.variantNameAsString}"/>
+                                </div>
+                              </ui:fragment>
+                              <div class="ui-g-12" style="margin-top:0.5rem;">
+                                <h:outputFormat
+                                    value="#{msg.normdatenerkennung_auftrag_gnd_id_type_mismatch}"
+                                    styleClass="ui-message-error">
+                                  <f:param value="#{sortKeyReportEntry.normdatenTyp}"/>
+                                  <f:param value="#{sortKeyReportEntry.lookupErrorDetail}"/>
+                                </h:outputFormat>
+                              </div>
+                            </div>
+                          </p:panel>
+
+                          <p:panel rendered="#{sortKeyReportEntry.resolveError}"
+                                   styleClass="treffer-detail">
+                            <f:facet name="header">
+                              <h:outputText value="#{msg.normdatenerkennung_auftrag_gnd_id}"/>
+                            </f:facet>
+                            <h:outputFormat
+                                value="#{msg.normdatenerkennung_auftrag_gnd_id_not_found}"
+                                styleClass="ui-message-error">
+                              <f:param value="#{sortKeyReportEntry.lookupErrorDetail}"/>
+                            </h:outputFormat>
+                          </p:panel>
+
+                          <p:panel rendered="#{sortKeyReportEntry.technicalError}"
+                                   styleClass="treffer-detail">
+                            <f:facet name="header">
+                              <h:outputText value="#{msg.normdatenerkennung_auftrag_gnd_id}"/>
+                            </f:facet>
+                            <h:outputText
+                                value="#{msg.normdatenerkennung_auftrag_gnd_id_technical_error}"
+                                styleClass="ui-message-error"/>
+                          </p:panel>
+
+                          <p:panel
+                              rendered="#{sortKeyReportEntry.resolvedFact == null and sortKeyReportEntry.noError}"
+                              styleClass="treffer-detail">
+                            <h:outputText value="#{msg.normdatenerkennung_auftrag_gnd_id_hint}"
+                                          styleClass="ui-state-disabled"/>
+                          </p:panel>
+                        </ui:fragment>
+
+                      </div>
+                    </p:outputPanel>
+                  </p:rowExpansion>
+                </p:dataTable>
+              </div>
+
+              <ui:fragment
+                  rendered="#{not empty normdatenErkennungAuftragController.errorErgebnisse}">
+                <div class="ui-g-12">
+                  <p:dataTable
+                      value="#{normdatenErkennungAuftragController.errorErgebnisse}"
+                      var="fehler"
+                      rowKey="#{fehler.id}">
+                    <f:facet name="header">#{msg.normdatenerkennung_auftrag_errors}</f:facet>
+                    <p:column headerText="#{msg.normdatenerkennung_auftrag_col_typ}">
+                      <h:outputText value="#{fehler.normdatenTyp}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.normdatenerkennung_auftrag_col_text}">
+                      <h:outputText value="#{fehler.displayText}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.normdatenerkennung_auftrag_col_fehler}">
+                      <h:outputText value="#{fehler.errorMessage}"/>
+                    </p:column>
+                  </p:dataTable>
+                </div>
+              </ui:fragment>
+
+            </h:form>
+          </section>
+        </ui:fragment>
+
+      </div>
+    </f:view>
+  </ui:define>
+</ui:composition>

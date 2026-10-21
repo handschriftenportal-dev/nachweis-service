@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+  schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Surrogates</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Publication Information</p>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc type="hsp:object" xml:lang="de">
+          <msIdentifier>
+            <settlement key="4127793-4">München</settlement>
+            <repository key="2031351-2">Bayerische Staatsbibliothek</repository>
+            <idno>Mus.ms. A I(1</idno>
+          </msIdentifier>
+          <additional>
+            <adminInfo/>
+            <surrogates>
+              <!--  include digitized objects
+                # required: insert KOD-ID
+                # required: link to an
+                ## IIIF-Manifest -> subtype="manifest" if digitized object is capable of beeing depicted in an IIIF- viewer
+                ## any other digitized depiction -> subtype="other"
+                # recommended: insert type="thumbnail" for depicting a selected preview
+                # recommended: insert date of digitalization, place and name of the organization that published the digitized object
+              -->
+              <bibl>
+                <ref type="manifest" subtype="komplettVomOriginal"
+                  target="https://iiif.ub.uni-leipzig.de/0000009089/manifest.json"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009089/00000057.jpx/full/500,/0/default.jpg"/>
+                <ref type="other"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009089/00000057.jpx/full/100,/0/default.jpg"/>
+                <ref type="completeness"
+                                                           target="http://normdaten.staatsbibliothek-berlin.de/vocabulary/completeness/complete"/>
+                <date when="2020-10-06" type="digitized">2020-10-06</date>
+                <date when="2020-10-07" type="published">2020-10-07</date>
+                <orgName ref="2031351-2" type="digitizing">BSB</orgName>
+                <placeName ref="4127793-4" type="digitizing">München</placeName>
+              </bibl>
+            	<bibl>
+                <ref type="manifest" subtype="completeFromOriginal"
+                  target="https://iiif.ub.uni-leipzig.de/0000009090/manifest.json"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009090/00000057.jpx/full/500,/0/default.jpg"/>
+              <ref type="completeness"
+                                                         target="http://normdaten.staatsbibliothek-berlin.de/vocabulary/completeness/complete"/>
+                <date when="2020-10-06" type="digitized">2020-11-06</date>
+                <date when="2020-10-07" type="published">2020-10-12</date>
+                <orgName ref="5036103-X" type="digitizing">Staatsbibliothek zu Berlin</orgName>
+                <placeName ref="4005728-8" type="digitizing">Berlin</placeName>
+              </bibl>
+            	<bibl>
+                <ref type="manifest" subtype="completeFromOriginal"
+                  target="https://iiif.ub.uni-leipzig.de/0000009091/manifest.json"/>
+                <ref type="thumbnail"
+                  target="https://iiif.ub.uni-leipzig.de/fcgi-bin/iipsrv.fcgi?iiif=/j2k/0000/0090/0000009091/00000057.jpx/full/500,/0/default.jpg"/>
+                <ref type="completeness"
+                                           target="http://normdaten.staatsbibliothek-berlin.de/vocabulary/completeness/complete"/>
+                <date when="2020-10-06" type="digitized">2020-11-06</date>
+                <date when="2020-10-07" type="published">2020-10-12</date>
+                <orgName ref="5036103-X" type="digitizing">Staatsbibliothek zu Berlin</orgName>
+                <placeName ref="4005728-8" type="digitizing">Berlin</placeName>
+              </bibl>
+            </surrogates>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p>Some text here.</p>
+    </body>
+  </text>
+</TEI>

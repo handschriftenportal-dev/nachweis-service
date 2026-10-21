@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="utf-8"?>
+<teiCorpus xmlns="http://www.tei-c.org/ns/1.0"
+  xml:lang="de" xml:id="catalog_illum">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Die illuminierten Handschriften der Herzog August Bibliothek. Teil 1: 6. bis 11.
+          Jahrhundert
+        </title>
+        <author>Stefanie Westphal</author>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Neukatalogisiert.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <TEI xml:lang="de" xml:id="HAB_mss_113-noviss-4f_tei-msDesc_Westphal">
+    <teiHeader>
+      <fileDesc>
+        <titleStmt>
+          <title>Beschreibung von Cod. Guelf. 113 Noviss. 4°(Die illuminierten Handschriften der
+            Herzog August Bibliothek. Teil 1: 6. bis 12. Jahrhundert, beschrieben von Stefanie
+            Westphal (in Bearbeitung))
+          </title>
+          <respStmt>
+            <resp>Katalogisiert durch</resp>
+            <name type="person">Stefanie Westphal</name>
+          </respStmt>
+        </titleStmt>
+        <editionStmt>
+          <edition>Elektronische Ausgabe nach TEI P5</edition>
+          <respStmt>
+            <resp>TEI-P5 konforme Kodierung durch</resp>
+            <name type="person">Stefanie Westphal</name>
+            <name type="org">Herzog August Bibliothek Wolfenbüttel</name>
+          </respStmt>
+        </editionStmt>
+        <publicationStmt>
+          <publisher>
+            <name type="org">Herzog August Bibliothek Wolfenbüttel</name>
+            <ptr target="http://www.hab.de"/>
+          </publisher>
+          <distributor>Herzog August Bibliothek Wolfenbüttel</distributor>
+          <availability status="restricted">
+            <p>Herzog August Bibliothek Wolfenbüttel (<ref target="http://diglib.hab.de/?link=012">
+              copyright information</ref>)
+            </p>
+          </availability>
+          <pubPlace>
+            <ptr type="purl" subtype="digitisation"
+              target="http://diglib.hab.de/mss/113-noviss-4f/start.htm"/>
+            <ptr type="purl" subtype="description"
+              target="http://diglib.hab.de/?db=mss&amp;list=ms&amp;id=113-noviss-4f&amp;catalog=Westphal"/>
+            <ptr type="thumbnailForPresentations"
+              target="http://diglib.hab.de/mss/113-noviss-4f/thumbs/00001.jpg"/>
+          </pubPlace>
+        </publicationStmt>
+        <sourceDesc>
+          <p>Neukatalogisiert durch <name type="person">Stefanie Westphal</name>.
+          </p>
+        </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+        <projectDesc>
+          <p>Beschreibung erstellt im Rahmen des Projektes <name type="project">Katalogisierung der
+            illuminierten Handschriften der Herzog August Bibliothek Wolfenbüttel</name>.
+          </p>
+        </projectDesc>
+      </encodingDesc>
+    </teiHeader>
+    <text>
+      <body>
+        <msDesc type="illum" xml:id="mss_113-noviss-4f_tei-msDesc_Westphal" xml:lang="de">
+          <msIdentifier>
+            <settlement>Wolfenbüttel</settlement>
+            <repository rend="HAB">Herzog August Bibliothek</repository>
+            <collection>Novissimi Handschriften in quart</collection>
+            <idno sortKey="wf_hab_noviss-0113-4f">Cod. Guelf. 113 Noviss. 4°</idno>
+          </msIdentifier>
+          <head>
+            <title>Psalter (Bernward-Psalter)</title>
+            <origPlace ref="http://www.geonames.org/2904789 http://d-nb.info/gnd/4024881-1">
+              Hildesheim
+            </origPlace>
+            <origDate notBefore="0999" notAfter="1019">1000-1020</origDate>
+          </head>
+          <msContents>
+            <textLang mainLang="la"/>
+            <msItem>
+              <locus from="4r" to="4v">4rv</locus>
+              <title>Orationes</title>
+            </msItem>
+            <msItem>
+              <locus from="5r" to="110v">5r-110v</locus>
+              <title>Psalmen</title>
+            </msItem>
+            <msItem>
+              <locus from="110v" to="119r">110v-119r</locus>
+              <title>Cantica</title>
+            </msItem>
+            <msItem>
+              <locus from="119r" to="120r">119r-120r</locus>
+              <title>Te Deum laudamus</title>
+            </msItem>
+            <msItem>
+              <locus from="120r" to="121v">120r-121v</locus>
+              <title>Fides catholica Athanasii episcopi</title>
+            </msItem>
+            <msItem>
+              <locus from="121v" to="122r">121v-122r</locus>
+              <title>Oratio dominica</title>
+            </msItem>
+            <msItem>
+              <locus from="122r" to="122r">122r</locus>
+              <title>Symbolum apostolorum</title>
+            </msItem>
+            <msItem>
+              <locus from="122v" to="122v">122v</locus>
+              <title>Angelica Laus
+                <note>(zu den Texten vgl.
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 140-146
+                  </bibl>
+                  ).
+                </note>
+              </title>
+            </msItem>
+            <msItem>
+              <locus from="122v" to="125r">122v-125r</locus>
+              <title>Bußoffizium
+                <note>(zu den Texten:
+                  <bibl>
+                    <author>M. S. Discroll</author>, The Seven Penitential Psalms. Their Designation
+                    and Usages from the Middle Ages onwards, in: Ecclesia Orans, Bd. 17 (2000),
+                    153-201, hier 196-199
+                  </bibl>
+                  ;
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 177-201
+                  </bibl>
+                  ).
+                </note>
+              </title>
+            </msItem>
+            <msItem>
+              <locus from="125r" to="128v">125r-128v</locus>
+              <title>Allerheiligenlitanei
+                <note>(
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 39-41
+                  </bibl>
+                  ).
+                </note>
+              </title>
+            </msItem>
+            <msItem>
+              <locus from="129r" to="129r">129r</locus>
+              <rubric>A periculo mortis libera nos domine</rubric>
+            </msItem>
+            <msItem>
+              <locus from="129v" to="130v">129v-130v</locus>
+              <title>Orationes
+                <note>(ähnlich:
+                  <bibl>
+                    <abbr>PL</abbr>
+                    101, Sp. 596D-597B
+                  </bibl>
+                  ).
+                </note>
+              </title>
+            </msItem>
+            <msItem>
+              <locus from="131r" to="136v">131r-136v</locus>
+              <title>Offizien
+                <note>(zu den Texten vgl.
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 41-42
+                  </bibl>
+                  ).
+                </note>
+              </title>
+            </msItem>
+            <msItem>
+              <locus from="137r" to="139v">137r-139v</locus>
+              <title>De sancta Trinitate
+                <note>(unvollständig, zu den Lectiones vgl.
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 42-43
+                  </bibl>
+                  ).
+                </note>
+              </title>
+            </msItem>
+            <msItem>
+              <note>Nachgetragene Texte: <locus>4v</locus>,  <locus>5r-7v</locus>, <locus>
+                9r-12r</locus>, <locus>14r-15v</locus>, <locus>16v-20v</locus>, <locus>
+                22rv</locus>, <locus>25v</locus>, <locus>27v</locus>, <locus>
+                28v-29r</locus>, <locus>
+                30r</locus>, <locus>31r-32r</locus>, <locus>33r-35r</locus>, <locus>
+                36r</locus>, <locus>37r</locus>, <locus>38rv</locus>, <locus>
+                39v-41r</locus>, <locus>
+                42r-45r</locus>, <locus>46r</locus>, <locus>47v</locus>, <locus>49v</locus>, <locus>
+                51r</locus>, <locus>52r</locus>, <locus>53r</locus>, <locus>54rv</locus>,  <locus>
+                55v</locus>, <locus>58v-59r</locus>, <locus>60r-62v</locus>, <locus>
+                63v-64v</locus>, <locus>66v</locus>, <locus>67v</locus>, <locus>68r</locus>, <locus>
+                69r</locus>, <locus>70r-73r</locus>, <locus>74v</locus>, <locus>75v</locus>, <locus>
+                77r</locus>, <locus>79r</locus>, <locus>81r</locus>, <locus>83rv</locus>, <locus>
+                84v-85v</locus>, <locus>97v</locus>, <locus>99v</locus>, <locus>106v</locus>, <locus>
+                130r
+              </locus> Marginalglossen (Mitte 11. Jh.). <locus>73v</locus> Rätseltext (anonym - Ende
+                12. Jh.; Druck:
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Bernward-Psalter</hi>
+                  </abbr>
+                  , 44
+                </bibl>
+                ). <locus>140r</locus> oberer Blattrand Federprobe; Psalmenvorrede, <hi
+                  rend="italic">
+                  Origo prophetiae David
+                </hi> (Nachtrag, um 1022;
+                <bibl>
+                  <abbr>Stegmüller RB</abbr>
+                  414
+                </bibl>
+                ;
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Bernward-Psalter</hi>
+                  </abbr>
+                  , 203-204
+                </bibl>
+                ); <locus>140v</locus> Mariengebete (Nachtrag, um 1140; Druck:
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Bernward-Psalter</hi>
+                  </abbr>
+                  , 44, 45, 207, 208
+                </bibl>
+                ); untere Blatthälfte Kolophon (Ende 14. Jh.; Druck:
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Bernward-Psalter</hi>
+                  </abbr>
+                  , 45
+                </bibl>
+                ). <locus>141r</locus> Reliquien- und Schatzverzeichnis (Mitte 12. Jh.; Druck:
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Buch als Reliquie</hi>
+                  </abbr>
+                  , 47-48
+                </bibl>
+                ); Kolophon (erste Hälfte 15. Jh.; Druck:
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Bernward-Psalter</hi>
+                  </abbr>
+                  , 45
+                </bibl>
+                ).
+              </note>
+            </msItem>
+          </msContents>
+          <physDesc>
+            <objectDesc form="codex">
+              <supportDesc material="perg">
+                <support>
+                  <p>
+                    <material>Pergament</material>
+                  </p>
+                </support>
+                <extent>
+                  <measure type="leavesCount">138 Bl.</measure>
+                  <dimensions type="leaf" unit="cm">
+                    <height quantity="25.5">25,5</height>
+                    <width quantity="21.5">21,5</width>
+                  </dimensions>
+                  <measure type="format"/>
+                </extent>
+                <foliation>Moderne Tintenfoliierung.</foliation>
+                <collation>
+                  <formula>I+1 (3). IV-1 (10).3 IV-1 (34). IV-1 (41). 4 IV (73). IV-1 (80). 6 IV
+                    (128). I (130). IV-2 (136). III-1 (141). IV+1 (150).
+                  </formula>
+                  Die erste und die letzte Lage Papier (17. Jh.) in der Lagenformel berücksichtigt.
+                  Zwischen <locus>Bl. 4 und 5</locus>, <locus>Bl. 37 und 38</locus> sowie <locus>
+                  nach
+                  Bl. 73
+                </locus> (den wesentlichen Gliederungsstellen zu Ps 1, 51 und 101 des Psalters)
+                  Blattverluste (ausführlrche Besprechung des Buchblocks bei
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernwward-Psalter</hi>
+                    </abbr>
+                    , 20ff.
+                  </bibl>
+                  ).
+                </collation>
+              </supportDesc>
+              <layoutDesc>
+                <layout columns="1" writtenLines="23">
+                  <p>
+                    <dimensions type="written" unit="cm">
+                      <height>21,5</height>
+                      <width>15,5</width>
+                    </dimensions>
+                    , einspaltig, 23 Zeilen.
+                  </p>
+                </layout>
+              </layoutDesc>
+            </objectDesc>
+            <handDesc hands="1">
+              <summary>Karolingische Minuskel von einer Hand.</summary>
+              <handNote scribeRef="#guntbald_hildesheim" script="carolmin" medium="ink">
+                <p>Die Handschrift wurde hauptsächlich von dem Regensburger Diakon <rs
+                  ref="#guntbald"
+                  type="person">Guntbald
+                </rs> im sogenannten schräg-ovalen Stil geschrieben (Hand A: <locus>5r-37v, Z.
+                  17</locus>, <locus>38r-73r</locus>, <locus>74r-128v</locus>, <locus>
+                  131r-139v</locus>). Ergänzungen, Nachträge und Korrekturen von mehreren, etwas
+                  späteren Händen: Hand B: <locus>4rv</locus>, <locus>37v, Z. 18-22</locus>, <locus>
+                    129r-130r, Z. 15</locus>, Marginalglossen: <locus>22v</locus>, <locus>
+                    28v</locus>, <locus>
+                    74v</locus>, <locus>99v</locus> und <locus>106v</locus> (um 1038); Hand C: <locus>
+                    130r, Z. 16-130v
+                  </locus> (Mitte 11. Jh.); Hand D: Marginalglossen: <locus>5r-7v</locus>, <locus>
+                    9r-11r</locus>, <locus>12r</locus>, <locus>14r-15v</locus>, <locus>
+                    16v-20v</locus>, <locus>
+                    22rv</locus>, <locus>23v</locus>, <locus>24r</locus>, <locus>
+                    25v</locus>, <locus>
+                    27v</locus>, <locus>28v</locus>, <locus>29r</locus>, <locus>30r</locus>, <locus>
+                    31r-32r</locus>, <locus>33r-35r</locus>, <locus>36r</locus>, <locus>
+                    37r</locus>, <locus>38rv</locus>, <locus>39v-41r</locus>, <locus>42r-45r</locus>, <locus>
+                    46r</locus>, <locus>47v</locus>, <locus>49v</locus>, <locus>51r</locus>, <locus>
+                    52r</locus>, <locus>53r</locus>, <locus>54rv</locus>, <locus>
+                    55v</locus>, <locus>
+                    58v-59r</locus>, <locus>60r</locus>, <locus>60v-62v</locus>, <locus>
+                    63v-64v</locus>, <locus>66v</locus>, <locus>67v-68r</locus>, <locus>
+                    69r</locus>, <locus>70r-73r</locus>, <locus>74v</locus>, <locus>
+                    75v</locus>, <locus>77r</locus>, <locus>79r</locus>, <locus>81r</locus>, <locus>
+                    83rv</locus>, <locus>84v-85v</locus>, <locus>97v</locus> (Mitte 11. Jh.); Hand
+                  E:  <locus>
+                    140r
+                  </locus> (zwischen 1014 und 1022); Hand F: <locus>26r, Z. 1 und 7</locus>, <locus>
+                    58r, Z. 8 und 10</locus>, <locus>70r, Z. 10</locus>; Hand G: <locus>73v</locus> (Ende
+                  12. Jh.); Hand h: <locus>75v, Z. 20</locus>, <locus>125r, Z. 3</locus> (13. Jh.);
+                  Hand I: <locus>140v</locus> (1. Drittel/1. Hälfte 12. Jh.). Zusammenstellung der
+                  Hände vgl.
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 36, 37
+                  </bibl>
+                  ; Textbeispiele der Schreiber vgl.
+                  <bibl><abbr>Bernward-Psalter</abbr>, Abb. 4-6
+                  </bibl>
+                  . Zum Schräg-ovalen Stil in Regensburg und Hildesheim vgl.
+                  <bibl>
+                    <abbr>Bischoff
+                      <hi rend="normal">Kalligraphie in Bayern</hi>
+                    </abbr>
+                    , 34f.;
+                  </bibl>
+                  <bibl>
+                    <abbr>Bischoff
+                      <hi rend="normal">Paläographie</hi>
+                    </abbr>
+                    , 162
+                  </bibl>
+                  ;
+                  <bibl>
+                    <abbr>Hoffmann
+                      <hi rend="normal">Buchkunst</hi>
+                    </abbr>
+                    , Bd. 1, 276-285
+                  </bibl>
+                  ;
+                  <bibl>
+                    <abbr>Hoffmann
+                      <hi rend="normal">Buchkunst</hi>
+                    </abbr>
+                    , Bd. 1, 285-289, 297f. (<author>H. J. Schuffels</author>)
+                  </bibl>
+                  . Besondere Parallelen finden sich, nach M. Müller, in einem Regensburger
+                  Sakramentar- und einem Missale-Fragment (<ref type="altMs"
+                    target="https://opacplus.bsb-muenchen.de/title/BV039761155">München, BSB, Cgm
+                    839</ref>, vorderes Vorsatzblatt;
+                  <bibl>
+                    <abbr>Hoffmann
+                      <hi rend="normal">Buchkunst</hi>
+                    </abbr>
+                    , 293
+                  </bibl>
+                  und <ref type="mss" cRef="9-7-aug-4f">Cod. Guelf. 9.7 Aug. 4°</ref>) sowie einem
+                  Evangelistar aus Stuttgart (<ref type="altMs"
+                    target="http://digital.wlb-stuttgart.de/purl/bsz349882398">Stuttgart, WLB, Cod.
+                    bibl. 4° 11</ref>, <rs
+                    ref="http://www.geonames.org/2849483 http://d-nb.info/gnd/4048989-9"
+                    type="place">
+                    Regensburg</rs>/<rs
+                    ref="http://www.geonames.org/2766824 http://d-nb.info/gnd/4076982-3"
+                    type="place">
+                    Salzburg</rs>, um 1000;
+                  <bibl>
+                    <abbr>Burkhart
+                      <hi rend="normal">Vorromanische Hss.</hi>
+                    </abbr>
+                    , Nr. 39, Abb. 134-138
+                  </bibl>
+                  ) und insbesondere im Sakramentar Heinrichs II. (<ref type="altMs"
+                    target="https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00050763/canvas/1/view">
+                    München, BSB, Clm 4456</ref>, Regensburg, zwischen 1002 und 1014;
+                  <bibl>
+                    <abbr>Klemm
+                      <hi rend="normal">Ill. Hss. 2</hi>
+                    </abbr>
+                    , Nr. 9, Abb. II-III, 10-17
+                  </bibl>
+                  ; Zusammenstellung vgl.
+                  <bibl>
+                    <abbr>Müller
+                      <hi rend="normal">Bernward-Psalter</hi>
+                    </abbr>
+                    , 57f.
+                  </bibl>
+                  ).
+                </p>
+              </handNote>
+            </handDesc>
+            <scriptDesc>
+              <summary>Zu Beginn der Psalmen entweder Zierinitialen oder rubrizierte Initial- oder
+                Satzmajuskeln mit silberfarbenen Binnengründen. Die ersten Worte jedes Psalms der
+                Dekaden, anliegend an die Initiale, in Capitalis quadrata, ausgeführt in
+                Silbertinte.
+                Zu Beginn der restlichen Psalmen die Worte Psalmus David in Capitalis rustica
+                rubriziert, anschließend der erste Vers in Tintenfarbe, ebenfalls in Capitalis
+                rustica. Am Textrand Interpunktionszeichen in Form von roten Kreuzen, nachgetragene
+                Positurae und Neumen (zu den nachgetragenen Zeichen ausführlich
+                <bibl>
+                  <abbr>Müller
+                    <hi rend="normal">Bernward-Psalter</hi>
+                  </abbr>
+                  , 208-220
+                </bibl>
+                ).
+              </summary>
+              <scriptNote script="caprust capquad ">
+                <p/>
+              </scriptNote>
+            </scriptDesc>
+            <decoDesc>
+              <summary>14 Zierinitialen.</summary>
+              <decoNote rend="initial">
+                <p rend="break">Zierinitialen: Zu den Dekadenstellen des Psalters bei den Psalmen 11
+                  (<locus
+                    from="9v">9v</locus>), 21 (<locus>15v</locus>), 31 (<locus>22r</locus>), 41
+                  (<locus>
+                    31r</locus>), 61 (<locus from="43r">43r</locus>), 71 (<locus>51r</locus>), 81
+                  (<locus>60v</locus>), 91 (<locus>68r</locus>), 111 (<locus>85v</locus>), 121
+                  (<locus>96v</locus>), 131 (<locus>99v</locus>) und 141 (<locus>105v</locus>), zum
+                  Canticum Esaiae Prophete (<locus>110v</locus>) und zum Osteroffizium (<locus>
+                    131r</locus>) randständige Spaltleisteninitialen (
+                  <dimensions type="illustration" unit="cm">
+                    <height>4-7,5</height>
+                    <width>3,8-4</width>
+                  </dimensions>
+                  ). Die Initialen mit goldfarbenen Buchstabenkörpern und farbig hinterlegten
+                  Binnenfeldern. Die Initialstämme teilweise farbig (<locus>15v</locus>, <locus>
+                    22r</locus>) oder mit Minium (<locus from="9v">9v</locus>, <locus>96v</locus>)
+                  gefüllt und durch Spangen geklammert, selten mit Knospenansätzen (vgl. <locus>
+                    105v</locus>); die Enden gelegentlich als Rankenverlauf (<locus>60v</locus>)
+                  oder
+                  mit Profilpalmette (<locus>31r</locus>). In den Binnenfeldern aus dem Initialstamm
+                  und den Spangen entspringend eng spiralförmig verlaufende Ranken mit windmühlartig
+                  angeordneten, kurzen Trieben. Die Zweigstellen durch einfach genagelte Spangen
+                  gegegliedert. Als Endmotive der Ranken und der angefügten Rankentriebe
+                  dreiteilige,
+                  mittig zugespitze Blätter oder Knollen, teils gekernte Trifolien (<locus
+                    from="9v">
+                    9v</locus>, <locus>85v</locus>, <locus>99v</locus>, <locus>131r</locus>) und
+                  Herzblätter (<locus>105v</locus>).
+                </p>
+                <index indexName="bmicon">
+                  <term>Buchschmuck, Ikonographie und Einbände</term>
+                  <index>
+                    <term>Initialen</term>
+                    <index>
+                      <term>Zierinitiale</term>
+                    </index>
+                  </index>
+                </index>
+                <index indexName="bmicon">
+                  <term>Buchschmuck, Ikonographie und Einbände</term>
+                  <index>
+                    <term>Buchschmuck</term>
+                    <index>
+                      <term>11. Jh.</term>
+                    </index>
+                  </index>
+                </index>
+              </decoNote>
+              <decoNote>
+                <p rend="break">Farben: Initialen mit reichem Goldauftrag und mit Menningkontur
+                  umfasst. Rankenverläufe überwiegend in Silber (Silbertusche), teils aber auch in
+                  Gold (Goldtusche, vgl. <locus from="43r">43r</locus>). Die Spangen des
+                  Initialkörpers in Silber und der Ranken in Gold gehalten. Das Silber der Spangen
+                  und
+                  Ranken oxidiert. Die Binnenfelder der Initialen grün (Kupfergrünpigment) und blau
+                  (Lapislazuliblau) hinterlegt (genauere Farb- und Malanalyse der Hildesheimer
+                  Bernwardhandschriften vgl.
+                  <bibl>
+                    <abbr>Fuchs
+                      <hi rend="normal">Farbmaterialien und Technik</hi>
+                    </abbr>
+                  </bibl>
+                  ).
+                </p>
+              </decoNote>
+            </decoDesc>
+            <bindingDesc>
+              <binding>
+                <p>Neuer Einband von 1936 (Buchbinderei Dürselen Münster); Pappdeckel mit
+                  hellbraunem
+                  Leder überzogen und rautenförmiger Verzierung in Blindprägung. Im Aussehen sollte
+                  dieser vermutlich dem vorherigen, frühneuzeitlichem ähneln, welchen die
+                  Handschrift
+                  1615 noch in Hildesheim erhielt. Ein Vermerk des Abtes <rs
+                    ref="#jacke_johannes_abt_hildesheim" type="person">Johannes Jacke
+                  </rs> von St. Michael (1614-1668) vermerkte den konservatorischen Vorgang auf
+                  einem
+                  neu vorgeheftetem Vorblatt,
+                  <locus>3v</locus>
+                  <quote>Psalterium scriptum manibus sancti Bernwardi et fratre Johanne abbate de
+                    novo
+                    compactum et restauratum, 2° maij 1615</quote>. Vermutlich handelte es sich bei
+                  diesem um einen Holzdeckeleinband überzogen mit weißem, rollen- und
+                  stempelgeprägten
+                  Schweinsleder, wie er für zahlreiche andere Hildesheimer Prachtbände belegt ist
+                  (vgl. <ref type="altMs">Hildesheim, Domschatz, Nr. 33 (Guntbald-Evangeliar)</ref> und <ref
+                    type="altMs">Hildesheim, Domschatz, Nr. 61 (Bernwardbibel)</ref>).
+                </p>
+              </binding>
+            </bindingDesc>
+          </physDesc>
+          <history>
+            <summary>Die Verbundenheit des vorliegenden <hi rend="italic">Psalterium gallicanum non
+              feriatum
+            </hi> mit dem <rs ref="http://www.geonames.org/2904789 http://d-nb.info/gnd/4024881-1"
+              type="place">Hildesheimer
+            </rs> Michaeliskoster und mit der Person <rs ref="http://d-nb.info/gnd/1089123124"
+              type="person">Bischof Bernwards
+            </rs> (amt. 993-1022) ist durch Einträge belegt (vgl. Provenienz). Die Patrone des
+              Hildesheimer Domes und St. Michaels sind in der Litanei des Psalters aufgenommen;
+              desweiteren auch Heilige aus dem süddeutschen Raum, wie Regensburg und der Reichenau -
+              eine Verbindung, die sich auch paläographisch bestätigen lässt. Die im Psalter
+              vorliegende Schrift des Regensburger/Hildesheimer Diakons Guntbald (s.o.) im
+              schräg-ovalen Stil, die Bernhard Bischoff als Charateristikum des Skriptoriums St.
+              Emmeram in Regensburg seit dem 1. Jahrzehnt des 11. Jh. ansieht, verbindet die
+              Wolfenbütteler Handschrift mit 3 weiteren Codices (<ref type="altMs">Hildesheim,
+                Domschatz, Nr. 19 (Guntbald-Sakramentar)</ref>, Hildesheim, um 1014; <ref
+                type="altMs">Hildesheim, Domschatz, Nr. 33 (Guntbald-Evangeliar)</ref>, Hildesheim,
+              1011 und <ref type="altMs">Nürnberg, GNM, Cod. 29770 (Guntbald-Perikopenbuch)</ref>,
+              Hildesheim, 1010; zu den Guntbald-Handschriften vgl.
+              <bibl>
+                <abbr>Bauer
+                  <hi rend="normal">Bernward-Handschriften</hi>
+                </abbr>
+                , 216, 233
+              </bibl>
+              ;
+              <bibl>
+                <abbr>Hoffmann
+                  <hi rend="normal">Buchkunst</hi>
+                </abbr>
+                , Bd. 1, 285-289 [<author>H. J. Schuffels</author>]
+              </bibl>
+              ;
+              <bibl><abbr>Schätze im Himmel</abbr>, Nr. 14, 15, 16, 17 [M. Müller]
+              </bibl>
+              ;
+              <bibl>
+                <abbr>Exner
+                  <hi rend="normal">Guntbald-Evangeliar</hi>
+                </abbr>
+              </bibl>
+              , hier andere Entstehungsreihenfolge: Evangelistar, Sakramentar, Perikopenbuch und
+              Psalter). Monika Müller konnte nachweisen, dass der wohl urprünglich für Bischof
+              Bernward bestimmte Psalter durch Änderungen im Wortlaut des Dedikationsgebtes (4rv)
+              und
+              Abänderungen der Fürbittenformel in der Litanei um das Jahr 1038 dem monastischen
+              Kontext angepasst und für den allgemeinen Gebrauch im <rs
+                ref="http://d-nb.info/gnd/16206740-9" type="org">Michaelskloster
+              </rs> eingerichtet wurde (
+              <bibl><abbr>Schätze im Himmel</abbr>, 316
+              </bibl>
+              ). Strichförmige Vortragszeichen im gesamten Text des Psalters unterstreichen seine
+              Nutzung in diesem Umfeld. Der von Guntbald geschriebene, unvollständig gebliebene Text
+              der Homelie des Stundenoffiziums zur Ehre der Trinität (137r-139v) sowie das Fehlen
+              zeitgleicher Neumen veranlasste Müller zu der Annahme, dass es sich beim
+              Wolfenbütteler
+              Psalter um die letzte der vier erhaltenen Guntbaldhandschriften handelt (
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Bernward-Psalter</hi>
+                </abbr>
+                , 316
+              </bibl>
+              ). Die an den Dekadenstellen der Handschrift eingefügten Initialen bilden den einzigen
+              Buchschmuck. Blattverluste an den zentralen Stellen des Palters (zu Ps 1, Ps, 51 und
+              Ps
+              101, s.o.) lassen vermuten, dass hier usrprünglich vorhandene Zierseiten entfernt
+              wurden
+              (vermutlich Initialzierseiten). Ranken- und Besatzdetails der Spalteleisteninitialen
+              haben, wie auch die Schrift, ihre Entsprechungen in den Guntbald-Handschriften
+              (Detailvergleiche bei
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Bernward-Psalter</hi>
+                </abbr>
+                , 106
+              </bibl>
+              ). Die äußerst homogen gearbeiteten Ranken/Initialen lassen kaum eine Stilentwiklung
+              erkennen und geben kaum Auskunft über die Enstehungsreihenfolge der Handschriften. M.
+              Exner bemerkte im Sakramentar eine etwas lockerere und freiere Gestaltung der
+              Rankenverschlingungen als im Evangelistar und datiert ersteres nach dem zweiten (
+              <bibl>
+                <abbr>Exner
+                  <hi rend="normal">Guntbald-Evangeliar</hi>
+                </abbr>
+                , 69
+              </bibl>
+              ). Die bisherigen Datierungen (s.o.) erfolgten auf textlichen Grundlagen.
+              Berührungspunkte zur Regensburger Buchmalerei finden sich in <ref type="altMs"
+                target="https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00050763/canvas/1/view">
+                München, BSB, Clm 4456 (Sakramentar Heinrichs II.)</ref>, 33v, Regensburg, zwischen
+              1002 und 1014 (
+              <bibl>
+                <abbr>Klemm
+                  <hi rend="normal">Illuminierte Hss. 2</hi>
+                </abbr>
+                , Nr. 9, Abb. II-III, 10-17
+              </bibl>
+              ). Äußerst ähnlich arbeitet eine Regensburger Hand in <ref type="altMs">Lucca, SB, Ms.
+                1275 (Lucceser Sakramentar)</ref>, <rs
+                ref="http://www.geonames.org/2923822 http://d-nb.info/gnd/4018859-0" type="place">
+                Fulda
+              </rs> mit Beteiligung Regensburger Schreiber, 2. Hälfte 10. Jh. (
+              <bibl>
+                <abbr>Winterer
+                  <hi rend="normal">Fuldaer Sakamentar</hi>
+                </abbr>
+                , 224-232
+              </bibl>
+              ).
+            </summary>
+            <provenance>
+              <p>Die vermutlich auf Bischof <rs ref="http://d-nb.info/gnd/1089123124" type="person"
+                role="owner_previous">Bernward von Hildesheim
+              </rs> ausgerichtete Handschrift (vgl. Besonderheiten in den Bußpsalmen und der
+                Heiligenlitanei) wurde nachträglich für den Gebrauch an das monastische Umfeld im <rs
+                  ref="http://d-nb.info/gnd/16206740-9" type="org" role="owner_previous">
+                  Benediktinerkloster St. Michael
+                </rs> in Hildesheim angepasst (vgl. Fürbittenformel der Litanei;
+                <bibl><abbr>Schätze im Himmel</abbr>, Nr. 17 [M. Müller]
+                </bibl>
+                ). Spätere Nachträge unterstreichen diese Bindung an Bischof Bernward (vgl.
+                Kolophone), sowie auf 4r am Ende der Titelzeile der Zusatz des Michaeliskonventualen
+                <rs ref="#rose-henning" type="person">Henning Rose</rs>
+                <quote>Presulis Bernwardi</quote>
+                (Ende 15./Anfang 16. Jh.). Der Hildesheimer Abt Johannes VI. Jacke (1614-1668)
+                nannte
+                Bernward 1615 im Zuge der Neubindung der Handschrift als Schreiber, vgl. 3v (Papier) <quote>
+                  Psalterium scriptum manibus sancti Bernwardi
+                </quote> (vgl. Einband). Einem schriftlich überlieferten Exlibris zufolge, befand
+                sich
+                der Psalter im 17./18. Jh. im Besitz des Freiherren <rs
+                  ref="#schmising_zu_tatenhausen" type="person" role="owner_previous">Dietrich Otto
+                  von Korff gen. Schmising zu Tatenhausen
+                </rs> (
+                <bibl>
+                  <author>L. Schmitz</author>, Inventare der nichtstaatlichen Archive des Kreises
+                  Borken, hrsg. von der historischen Kommission der Provinz Westfalen, Münster 1901,
+                  Bd. 1, 100/156
+                </bibl>
+                ;
+                <bibl>
+                  <author>A. Böhmer</author>, Handschriftenschätze westfälischer Bibliotheken, in:
+                  Zentralblatt für Bibliothekswesen, Bd. 26 (1909), 338-359, 351
+                </bibl>
+                ). Schmising war ab 1669 Domherr zu <rs
+                  ref="http://www.geonames.org/2867543 http://d-nb.info/gnd/4040608-8" type="place">
+                  Münster
+                </rs> und und seine Anwesenheit ist für das Jahr 1674 in Hildesheim belegt, wo er
+                1676
+                in das Kapitel aufgenommen wurde. Vermutlich aufgrund der engen Verbindungen
+                Schmisings zum Haus Landsberg-Velen gelangte der Psalter in dessen Besitz,
+                vermutlich
+                über <rs ref="#theodor_franz_josef_von_landsberg" type="person"
+                  role="owner_previous">
+                  Theodor Franz Josef von Landsberg
+                </rs> (1659-1727), der seine schulische Ausbildung ebenfalls in Hildesheim
+                absolvierte. Der Psalter ist seit der ersten Registrierung des Landsbergischen
+                Gesamtarchivs im 19. Jh. dort im Besitz des Adelshauses verzeichnet. 2007 wurde der
+                Psalter von der Herzog August Bibliothek erworben. Miteigentümer ist die Ernst von
+                Siemens-Kunststiftung.
+              </p>
+            </provenance>
+          </history>
+          <additional>
+            <adminInfo>
+              <recordHist>
+                <source>
+                  <bibl>Die illuminierten Handschriften der Herzog August Bibliothek. Teil 1: 6. bis
+                    12. Jahrhundert, beschrieben von Stefanie Westphal (in Bearbeitung)
+                  </bibl>
+                </source>
+              </recordHist>
+            </adminInfo>
+            <listBibl>
+              <bibl>
+                <abbr>Bischoff
+                  <hi rend="normal">Schreibschulen</hi>
+                </abbr>
+                , 235, 238.
+              </bibl>
+              <bibl>
+                <abbr>Swarzenski
+                  <hi rend="normal">Regensburger Buchmalerei</hi>
+                </abbr>
+                , 85.
+              </bibl>
+              <bibl>
+                <abbr>Hoffmann
+                  <hi rend="normal">Buchkunst</hi>
+                </abbr>
+                , Bd.1, 297f., 285-289 (<author>H. J. Schuffels</author>)
+              </bibl>
+              <bibl>
+                <abbr>Bauer
+                  <hi rend="normal">Bernward-Handschriften</hi>
+                </abbr>
+                , 216.
+              </bibl>
+              <bibl>
+                <abbr>Fuchs
+                  <hi rend="normal">Farbmaterialien und Maltechnik</hi>
+                </abbr>
+                , 185f.
+              </bibl>
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Ordnung der Bücher</hi>
+                </abbr>
+                , 97.
+              </bibl>
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Quasi reliquiae</hi>
+                </abbr>
+                .
+              </bibl>
+              <bibl><abbr>Bernward-Psalter</abbr>.
+              </bibl>
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Bibliothek St. Michael in Hildesheim</hi>
+                </abbr>
+                , 188f., 200.
+              </bibl>
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Bernward-Psalter</hi>
+                </abbr>
+                .
+              </bibl>
+              <bibl>
+                <author>T. Labusiak</author>, Legitimation durch Tradition. Die Buchkunst der
+                Ottonen
+                und Erzbischof Egbert von Trier (977-993), in: <editor>A. Ranft</editor>, <editor>W.
+                Schenkluhn
+              </editor> (Hg.), Kunst und Kultur in ottonischer Zeit, Regensburg 2013, 198 Anm. 50.
+              </bibl>
+              <bibl><abbr>Hildesheim im Mittelalter</abbr>, 62.
+              </bibl>
+              <bibl>
+                <abbr>Müller
+                  <hi rend="normal">Vorlage zum Modell</hi>
+                </abbr>
+                , 139.
+              </bibl>
+            </listBibl>
+          </additional>
+        </msDesc>
+      </body>
+    </text>
+  </TEI>
+</teiCorpus>

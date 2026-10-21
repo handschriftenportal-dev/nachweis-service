@@ -1,0 +1,11 @@
+<div xmlns:h="jakarta.faces.html" xmlns:ui="jakarta.faces.facelets">
+    <div>
+        <h:outputText value="#{msg.dateiupload_spracheguidetext}"/>
+    </div>
+    <div>
+        <ui:include src="../vorlagebutton.xhtml">
+            <ui:param name="content" value="#{guideContentController.spracheteiVorlage}"/>
+        </ui:include>
+    </div>
+</div>
+

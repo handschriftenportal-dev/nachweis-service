@@ -1,0 +1,12 @@
+{
+  "id": "8eb42a5c-ba8f-40f7-a8d2-ab4e367c40d8",
+  "name": "Handschriftenportal-Normdatenservice",
+  "active": true,
+  "gndIDs": [
+    "119273616",
+    "104239883",
+    "102396493"
+  ],
+  "intervalInMinutes": 30,
+  "jobs": []
+}

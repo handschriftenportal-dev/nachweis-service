@@ -1,0 +1,172 @@
+<?xml version="1.0" standalone="yes"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+        <title>Kulturobjektdokument von New Haven, Conn., Yale Center for British Art. Paul Mellon
+          Collection, U860.F46 1450
+        </title>
+        <respStmt>
+          <resp>Herausgegeben vom</resp>
+          <name type="org">Handschriftenportal</name>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>Elektronische Ausgabe nach TEI P5</edition>
+        <respStmt>
+          <resp>Automatisch generierte Ausgabe</resp>
+          <orgName>Handschriftenportal</orgName>
+        </respStmt>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>
+          <name type="org">Handschriftenportal</name>
+          <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+        <date when="2022-11-30" type="issued">2022-11-30</date>
+        <distributor>Handschriftenportal</distributor>
+        <availability status="free">
+          <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+            <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+              Nutzungsrechte.
+            </p>
+            <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+              Lizenzen. Vgl. die
+              <ref target="http://www.handschriftenportal.de">Copyright
+                Information
+              </ref>
+              des Handschriftenportals.
+            </p>
+          </licence>
+        </availability>
+        <pubPlace>
+          <ptr xml:id="HSP-eb18ad9f-056e-3f4e-aefe-369828b369ac" subtype="hsp" type="purl"
+            target="https://resolver.staatsbibliothek-berlin.de/HSP000347E100000000"/>
+        </pubPlace>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="HSP-fb0f8564-3ba1-3971-a1b7-9d8e7471acd5" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement ref="4117854-3" key="NORM-576863a0-418e-3774-8758-6aee0d013283">New Haven,
+              Conn.
+            </settlement>
+            <repository ref="5311318-4" key="NORM-3a6fff7d-84a5-33a8-8033-83b3ef5a0110">Yale Center
+              for British Art. Paul Mellon Collection
+            </repository>
+            <idno>U860.F46 1450</idno>
+            <altIdentifier type="alternative">
+              <idno>Memb. II 109</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ms. Memb. II 109</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <head>
+            <index indexName="norm_title" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="title">Fechtbuch · Lope Felix de Vega Carpio: El testimonio vengado
+                (Fragm.)
+              </term>
+            </index>
+            <index indexName="norm_material" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="material">Pergament / Papier</term>
+              <term type="material_type">parchment</term>
+              <term type="material_type">paper</term>
+            </index>
+            <index indexName="norm_measure" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="measure">56 + 44 Bl.</term>
+              <term type="measure_noOfLeaves">100</term>
+            </index>
+            <index indexName="norm_dimensions" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="dimensions">16,5 × 17,5</term>
+              <term type="height">16,5</term>
+              <term type="width">17,5</term>
+              <term type="depth"/>
+              <term type="dimensions_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_format" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="format">octavo</term>
+              <term type="format_typeOfInformation">computed</term>
+            </index>
+            <index indexName="norm_format" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="format">square</term>
+              <term type="format_typeOfInformation">computed</term>
+            </index>
+            <index indexName="norm_origPlace">
+              <term type="origPlace"/>
+              <term type="origPlace_norm"/>
+            </index>
+            <index indexName="norm_origDate" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="origDate">15. Jh.</term>
+              <term type="origDate_notBefore">1401</term>
+              <term type="origDate_notAfter">1500</term>
+              <term type="origDate_type">datable</term>
+            </index>
+            <index indexName="norm_origDate" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="origDate">17. Jh.</term>
+              <term type="origDate_notBefore">1601</term>
+              <term type="origDate_notAfter">1700</term>
+              <term type="origDate_type">datable</term>
+            </index>
+            <index indexName="norm_textLang" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="textLang">spanisch / französisch / lateinisch</term>
+              <term type="textLang-ID">es</term>
+              <term type="textLang-ID">fr</term>
+              <term type="textLang-ID">la</term>
+            </index>
+            <index indexName="norm_form" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="form">codex</term>
+            </index>
+            <index indexName="norm_status">
+              <term type="status"/>
+            </index>
+            <index indexName="norm_decoration" copyOf="#HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005468900000000">
+              <term type="decoration">yes</term>
+            </index>
+            <index indexName="norm_musicNotation">
+              <term type="musicNotation"/>
+            </index>
+          </head>
+          <additional>
+            <adminInfo>
+              <availability status="free">
+                <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+                  <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+                    Nutzungsrechte.
+                  </p>
+                  <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+                    Lizenzen. Vgl. die
+                    <ref target="http://www.handschriftenportal.de">Copyright
+                      Information
+                    </ref>
+                    des Handschriftenportals.
+                  </p>
+                </licence>
+              </availability>
+            </adminInfo>
+            <listBibl>
+              <bibl>
+                <ref target="HSP-7d71fd00-850c-32e2-8aaf-dba2f864f365"/>
+              </bibl>
+            </listBibl>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

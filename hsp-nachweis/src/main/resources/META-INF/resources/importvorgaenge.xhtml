@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:c="jakarta.tags.core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <p:remoteCommand name="updateTableFromServer"
+                         form="importvorgaengeForm"
+                         update=":importvorgaengeForm:importvorgaengeTable"
+                         actionListener="#{importVorgangModel.loadAllVorgaenge}"/>
+
+        <ui:param name="kannLesen" value="#{importRechte.kannAlleImportvorgaengeAnschauen()}"/>
+        <div class="ui-g">
+
+            <div class="ui-g-6" style="display: flex">
+                <h1 id="importTableHeader">
+                    #{msg.importvorgaenge_header}
+                </h1>
+            </div>
+
+
+            <div class="ui-g-12">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannLesen}"/>
+                </ui:include>
+            </div>
+            <h:form id="importvorgaengeForm" style="width: 100%" rendered="#{kannLesen}">
+                <div class="ui-g-12 actionsBar" id="importvorgaengeactions">
+
+                    <p:commandButton id="deleteButton"
+                                     action="#{importVorgangModel.deleteSelectedVorgange()}"
+                                     update="importvorgaengeForm"
+                                     process="importvorgaengeForm"
+                                     styleClass="rounded-button shadow-3"
+                                     icon="pi pi-trash"
+                                     disabled="#{empty importVorgangModel.selectedVorgaenge}">
+                        <p:tooltip id="deleteButtonTip" for="deleteButton" position="top"
+                                   value="Jobs löschen"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="refreshButton"
+                                     action="#{importVorgangModel.resetTable}"
+                                     update="importvorgaengeForm"
+                                     styleClass="rounded-button shadow-3"
+                                     icon="hsp-icon-undo_table">
+                        <p:tooltip id="refreshButtonTip" for="refreshButton" position="top"
+                                   value="#{msg.table_reset_layout_to_defaults}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="togglerImportvorgaengeTable" type="button"
+                                     styleClass="rounded-button shadow-3"
+                                     icon="hsp-icon-edit_table">
+                        <p:tooltip id="togglerImportvorgaengeTableTip"
+                                   for="togglerImportvorgaengeTable" position="top"
+                                   value="#{msg.table_toggle_visable_columns}"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="excelDownloadCommandLinkID"
+                                     ajax="false"
+                                     styleClass="rounded-button shadow-3"
+                                     icon="hsp-icon-download_file">
+                        <p:tooltip for="excelDownloadCommandLinkID" position="top"
+                                   value="#{msg.datenuebernahme_tooltip_excel}"/>
+                        <p:dataExporter type="xlsx" target="importvorgaengeTable"
+                                        fileName="HSPImportTabelle"
+                                        pageOnly="false"/>
+                    </p:commandButton>
+
+                </div>
+
+                <div class="ui-g-12" style="display: flex">
+
+                    <p:columnToggler id="columntogglerImportvorgaengeTable"
+                                     datasource="importvorgaengeTable"
+                                     trigger="importvorgaengeForm:togglerImportvorgaengeTable">
+                        <p:ajax event="toggle" listener="#{importVorgangModel.onToggleColumns}"/>
+                    </p:columnToggler>
+
+                    <p:dataTable var="vorgaenge"
+                                 rowKey="#{vorgaenge.id}"
+                                 id="importvorgaengeTable"
+                                 widgetVar="vorgaengeTableWidget"
+                                 rendered="#{kannLesen}"
+                                 value="#{importVorgangModel.vorgaenge}"
+                                 filteredValue="#{importVorgangModel.filteredVorgaenge}"
+                                 selection="#{importVorgangModel.selectedVorgaenge}"
+                                 multipleSelection="true"
+                                 layout="grid"
+                                 reflow="true"
+                                 sortMode="multiple"
+                                 multiViewState="true"
+                                 sortBy="#{importVorgangModel.sortMetaColumns.values()}"
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 draggableColumns="true"
+                                 rows="#{importVorgangModel.currentHitProPage}"
+                                 first="#{importVorgangModel.currentPage}"
+                                 paginator="true"
+                                 rowSelectMode="checkbox"
+                                 paginatorPosition="both"
+                                 style="vertical-align:top"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                                 rowsPerPageTemplate="#{importVorgangModel.allPossibleHitProPage}"
+                                 pageLinks="5">
+                        <p:ajax event="rowSelectCheckbox"
+                                partialSubmit="true"
+                                update=":importvorgaengeForm:deleteButton"/>
+                        <p:ajax event="rowUnselectCheckbox"
+                                partialSubmit="true"
+                                update=":importvorgaengeForm:deleteButton"/>
+                        <p:ajax event="toggleSelect"
+                                partialSubmit="true"
+                                update=":importvorgaengeForm:deleteButton"/>
+                        <p:ajax event="sort" listener="#{importVorgangModel.onSort}"/>
+                        <p:ajax event="filter" partialSubmit="true" ignoreAutoUpdate="true"/>
+                        <p:ajax event="colReorder"
+                                listener="#{importVorgangModel.columnsReordered}"/>
+                        <p:ajax event="colResize" listener="#{importVorgangModel.columnsResized}"/>
+                        <c:forEach items="#{importVorgangModel.positionColumnIDs}" var="columnID">
+                            <c:choose>
+                                <c:when test="#{columnID eq 'selection'}">
+                                    <p:column id="#{columnID}"
+                                              rendered="true"
+                                              selectionMode="multiple"
+                                              headerText=" "
+                                              width="#{importVorgangModel.getColumnWidth(0)}"
+                                              style="max-width:32px;text-align: center;"
+                                              visible="true"
+                                              selectionBox="true"
+                                              toggleable="false"
+                                              exportable="false">
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'statusIndicator'}">
+                                    <p:column id="#{columnID}"
+                                              width="#{importVorgangModel.getColumnWidth(1)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              style="vertical-align:top"
+                                              exportable="false">
+                                        <svg width="20" height="20">
+                                            <rect width="20" height="20"
+                                                  style="fill:#{importVorgangController.convertStatusToColor(vorgaenge.status)};stroke-width:1;stroke:rgb(0,0,0)"/>
+                                        </svg>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'status'}">
+                                    <ui:param name="statusText"
+                                              value="#{empty vorgaenge.status ? '' : msg['importjobresult_'.concat(vorgaenge.status)]}"/>
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_status}"
+                                              width="#{importVorgangModel.getColumnWidth(2)}"
+                                              visible="true"
+                                              toggleable="false"
+                                              style="vertical-align:top"
+                                              sortBy="#{statusText}"
+                                              filterBy="#{statusText}"
+                                              filterMatchMode="contains">
+                                        <p:link rendered="#{not empty vorgaenge.status and not vorgaenge.otherStatus}"
+                                                outcome="importvorgang-detail-view.xhtml?faces-redirect=true"
+                                                value="#{statusText}">
+                                            <f:param name="id" value="#{vorgaenge.id}"/>
+                                        </p:link>
+                                        <h:outputText value="#{statusText}"
+                                                      rendered="#{not empty vorgaenge.status and vorgaenge.otherStatus}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'datum'}">
+                                    <ui:param name="datumFormatted"
+                                              value="#{vorgaenge.datumFormatted}"/>
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_datum}"
+                                              width="#{importVorgangModel.getColumnWidth(3)}"
+                                              visible="#{importVorgangModel.isColumnVisible(3)}"
+                                              style="vertical-align:top"
+                                              sortBy="#{vorgaenge.datum}"
+                                              filterBy="#{datumFormatted}"
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{datumFormatted}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'datentyp'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.dateiupload_selectdatatype}"
+                                              width="#{importVorgangModel.getColumnWidth(4)}"
+                                              visible="#{importVorgangModel.isColumnVisible(4)}"
+                                              style="vertical-align:top"
+                                              sortBy="#{vorgaenge.datentyp}"
+                                              filterBy="#{vorgaenge.datentyp}"
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{vorgaenge.datentyp}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'dateiname'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_dateiname}"
+                                              width="#{importVorgangModel.getColumnWidth(5)}"
+                                              visible="#{importVorgangModel.isColumnVisible(5)}"
+                                              style="vertical-align:top"
+                                              sortBy="#{vorgaenge.name}"
+                                              filterBy="#{vorgaenge.name}"
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{vorgaenge.name}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'datenformat'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_datenformat}"
+                                              width="#{importVorgangModel.getColumnWidth(6)}"
+                                              visible="#{importVorgangModel.isColumnVisible(6)}"
+                                              style="vertical-align:top"
+                                              sortBy="#{vorgaenge.dateiFormatAsString}"
+                                              filterBy="#{vorgaenge.dateiFormatAsString}"
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{vorgaenge.dateiFormatAsString}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'benutzerName'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_benutzer}"
+                                              width="#{importVorgangModel.getColumnWidth(7)}"
+                                              visible="#{importVorgangModel.isColumnVisible(7)}"
+                                              style="vertical-align:top"
+                                              sortBy="#{vorgaenge.benutzerName}"
+                                              filterBy="#{vorgaenge.benutzerName}"
+                                              filterMatchMode="contains">
+                                        <h:outputText
+                                                value="#{importVorgangModel.mapBenutzernameToBearbeitername(vorgaenge.benutzerName)}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'fehlerTeil1'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_fehler}1"
+                                              width="#{importVorgangModel.getColumnWidth(8)}"
+                                              visible="#{importVorgangModel.isColumnVisible(8)}"
+                                              sortBy="#{vorgaenge.getFehlerTeil(0)}"
+                                              filterBy="#{vorgaenge.getFehlerTeil(0)}"
+                                              filterMatchMode="contains"
+                                              style="white-space:normal !important;vertical-align:top">
+                                        <h:outputText value="#{vorgaenge.getFehlerTeil(0)}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'fehlerTeil2'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_fehler}2"
+                                              width="#{importVorgangModel.getColumnWidth(9)}"
+                                              visible="#{importVorgangModel.isColumnVisible(9)}"
+                                              sortBy="#{vorgaenge.getFehlerTeil(1)}"
+                                              filterBy="#{vorgaenge.getFehlerTeil(1)}"
+                                              filterMatchMode="contains"
+                                              style="white-space:normal !important;vertical-align:top">
+                                        <h:outputText value="#{vorgaenge.getFehlerTeil(1)}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'fehlerTeil3'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_fehler}3"
+                                              width="#{importVorgangModel.getColumnWidth(10)}"
+                                              visible="#{importVorgangModel.isColumnVisible(10)}"
+                                              sortBy="#{vorgaenge.getFehlerTeil(2)}"
+                                              filterBy="#{vorgaenge.getFehlerTeil(2)}"
+                                              filterMatchMode="contains"
+                                              style="white-space:normal !important;vertical-align:top">
+                                        <h:outputText value="#{vorgaenge.getFehlerTeil(2)}"/>
+                                    </p:column>
+                                </c:when>
+                                <c:when test="#{columnID eq 'fehlerTeil4'}">
+                                    <p:column id="#{columnID}"
+                                              headerText="#{msg.datenuebernahme_fehler}4"
+                                              width="#{importVorgangModel.getColumnWidth(11)}"
+                                              visible="#{importVorgangModel.isColumnVisible(11)}"
+                                              sortBy="#{vorgaenge.getFehlerTeil(3)}"
+                                              filterBy="#{vorgaenge.getFehlerTeil(3)}"
+                                              filterMatchMode="contains"
+                                              style="white-space:normal !important;vertical-align:top">
+                                        <h:outputText value="#{vorgaenge.getFehlerTeil(3)}"/>
+                                    </p:column>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

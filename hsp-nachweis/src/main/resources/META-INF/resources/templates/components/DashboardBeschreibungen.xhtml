@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html"
+        xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <p:dataTable id="#{id}_data_table"
+                 var="beschreibung"
+                 value="#{dataList}"
+                 emptyMessage="#{msg.beschreibungList_noRecordsFound}"
+                 reflow="true"
+                 liveResize="true"
+                 tableStyle="'width:auto'"
+                 style="width: auto !important;">
+        <p:column id="signatur"
+                  headerText="#{msg.beschreibungList_validSignature}">
+            <p:link style="font-weight: bold;white-space: pre-wrap;"
+                    outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                    value="#{beschreibung.gueltigeSignatur}">
+                <f:param name="id" value="#{beschreibung.hspId}"/>
+            </p:link>
+        </p:column>
+        <p:column id="besitzer"
+                  headerText="#{msg.beschreibungList_besitzer}">
+            <h:outputText style="white-space: pre-wrap;"
+                          value="#{beschreibung.besitzer}"/>
+        </p:column>
+        <p:column id="aufbewahrungsOrt"
+                  headerText="#{msg.beschreibungList_aufbewahrungsort}">
+            <h:outputText style="white-space: pre-wrap;"
+                          value="#{beschreibung.aufbewahrungsort}"/>
+        </p:column>
+        <p:column id="hspID"
+                  headerText="#{msg.beschreibungList_hspid}">
+            <p:link style="font-weight: bold;white-space: pre-wrap;"
+                    outcome="/beschreibung/beschreibung.xhtml?faces-redirect=true"
+                    value="#{beschreibung.hspId}">
+                <f:param name="id" value="#{beschreibung.hspId}"/>
+            </p:link>
+        </p:column>
+        <p:column id="kodId"
+                  headerText="#{msg.beschreibungList_kodid}">
+            <p:link style="font-weight: bold;white-space: pre-wrap;"
+                    outcome="/kulturObjektDokument/kulturObjektDokument.xhtml?id=#{beschreibung.kodId}"
+                    value="#{beschreibung.kodId}">
+            </p:link>
+        </p:column>
+        <ui:insert name="extraColumns">
+            <p:column id="erstellDatum"
+                      headerText="#{msg.beschreibungList_erstellungsdatum}">
+                #{beschreibung.erstellungsdatumString}
+            </p:column>
+            <p:column id="aenderungsdatum"
+                      headerText="#{msg.beschreibungList_aenderungsdatum}">
+                #{beschreibung.aenderungsdatumString}
+            </p:column>
+        </ui:insert>
+    </p:dataTable>
+</ui:composition>
+</html>

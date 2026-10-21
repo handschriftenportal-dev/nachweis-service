@@ -1,0 +1,40 @@
+<div xmlns:h="jakarta.faces.html"
+     xmlns:ui="jakarta.faces.facelets"
+     xmlns:c="jakarta.tags.core"
+     xmlns:p="http://primefaces.org/ui">
+
+    <c:if test="#{datenHochladenController.selectedXMLFormat == 'TEI_ALL' or datenHochladenController.selectedXMLFormat == 'MXML'}">
+        <div class="ui-g">
+            <h:panelGrid>
+                <p:selectBooleanCheckbox value="#{datenHochladenController.hspFormatCheck}"
+                                         itemLabel="#{msg.dateiupload_hspformatcheck}" style="width: 100%">
+                    <p:ajax/>
+                </p:selectBooleanCheckbox>
+            </h:panelGrid>
+        </div>
+    </c:if>
+
+    <p/>
+
+    <div>
+        <c:if test="#{datenHochladenController.selectedXMLFormat == 'TEI_ALL'}">
+            <h:outputText style="white-space: pre-wrap;" value="#{msg.dateiupload_beschreibungguidetext_tei}"/>
+        </c:if>
+        <c:if test="#{datenHochladenController.selectedXMLFormat == 'MXML'}">
+            <h:outputText style="white-space: pre-wrap;" value="#{msg.dateiupload_beschreibungguidetext_mxml}"/>
+        </c:if>
+    </div>
+
+    <div class="ui-g">
+        <p/>
+    </div>
+
+    <c:if test="#{datenHochladenController.selectedXMLFormat == 'TEI_ALL'}">
+        <ui:include src="../vorlagebutton.xhtml">
+            <ui:param name="content" value="#{guideContentController.beschreibungteivorlage}"/>
+        </ui:include>
+    </c:if>
+
+    <p/>
+
+</div>

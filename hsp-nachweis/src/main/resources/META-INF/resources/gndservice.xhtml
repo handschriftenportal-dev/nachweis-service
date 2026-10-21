@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                template="templates/default.xhtml">
+  <ui:define name="content">
+    <f:view>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h1>#{msg.gndservice_title}</h1>
+        </div>
+        <div class="ui-g-12">
+          #{msg.gndservice_description}
+        </div>
+        <p:staticMessage severity="error"
+                         summary="#{msg.gndservice_error}"
+                         style="width: 100%;margin-top:20px"
+                         detail="#{gNDServiceController.error.getMessage()}"
+                         closable="true"
+                         rendered="#{not empty gNDServiceController.error}">
+        </p:staticMessage>
+        <section class="ui-md-6 ui-sm-12">
+          <h:form id="syncForm">
+            <p:panel
+              rendered="#{empty gNDServiceController.error and empty gNDServiceController.synchronization}">
+              <div>
+                <h5 style="margin-top:0">#{msg.gndservice_config_title}</h5>
+                <span class="ui-float-label toptwenty">
+                                    <p:inputText id="interval"
+                                                 value="#{gNDServiceController.intervalInMinutes}">
+                                      <p:ajax event="keyup"/>
+                                    </p:inputText>
+                                    <p:outputLabel for="@previous"
+                                                   value="#{msg.gndservice_interval_label}"/>
+                                </span>
+
+                <span class="ui-float-label toptwenty">
+                                    <p:selectBooleanCheckbox
+                                      value="#{gNDServiceController.active}"
+                                      itemLabel="#{msg.gndservice_activ_lable}">
+                                      <p:ajax/>
+                                    </p:selectBooleanCheckbox>
+                                </span>
+
+                <span class="ui-float-label toptwenty">
+                                  <p:inputText id="kafkaTopic"
+                                               value="#{gNDServiceController.kafkaTopicName}">
+                                    <p:ajax event="keyup"/>
+                                  </p:inputText>
+                                  <p:outputLabel for="@previous"
+                                                 value="#{msg.gndservice_messagetopic_name}"/>
+                                </span>
+
+                <span class="ui-float-label toptwenty">
+
+                                  <p:commandButton
+                                    value="#{msg.gndservice_createbutton_label}"
+                                    actionListener="#{gNDServiceController.anlegen()}"
+                                    ajax="true" update="@all" process="@all"/>
+                                </span>
+              </div>
+            </p:panel>
+
+            <p:panel
+              rendered="#{empty gNDServiceController.error and not empty gNDServiceController.synchronization}">
+              <div>
+                <h5 style="margin-top:0">
+                  #{msg.gndservice_config_setup_title}</h5>
+                <p:commandButton
+                  actionListener="#{gNDServiceController.loeschen()}"
+                  ajax="true"
+                  update="@all"
+                  process="@all"
+                  style="margin: 5px 5px 5px 0px;"
+                  value="#{msg.gndservice_deletebutton_label}"/>
+                <p:commandButton
+                  value="#{msg.gndservice_changebutton_label}"
+                  ajax="true"
+                  update="@form"
+                  rendered="#{!gNDServiceController.isSubsetFormEditable()}"
+                  action="#{gNDServiceController.setSubsetFormEditable(true)}"/>
+                <p:commandButton
+                  rendered="#{gNDServiceController.isSubsetFormEditable()}"
+                  style="margin: 5px 5px 5px 0px;"
+                  actionListener="#{gNDServiceController.aendern()}"
+                  ajax="true"
+                  update="@all"
+                  process="@all"
+                  value="#{msg.gndservice_savebutton_label}"/>
+                <p:commandButton
+                  rendered="#{gNDServiceController.isSubsetFormEditable()}"
+                  update="@form"
+                  action="#{gNDServiceController.setSubsetFormEditable(false)}"
+                  value="#{msg.gndservice_cancelbutton_label}"/>
+                <p:panelGrid columns="2">
+
+                  <h:outputText
+                    value="#{msg.gndservice_table_id}"/>
+                  <h:outputText
+                    value="#{gNDServiceController.synchronization.id()}"/>
+
+                  <h:outputText
+                    value="#{msg.gndservice_table_name}"/>
+                  <h:outputText
+                    value="#{gNDServiceController.synchronization.name()}"/>
+
+                  <h:outputText
+                    value="#{msg.gndservice_table_interval}"/>
+                  <h:outputText
+                    rendered="#{!gNDServiceController.isSubsetFormEditable()}"
+                    value="#{gNDServiceController.synchronization.intervalInMinutes()}"/>
+                  <p:inputText id="intervalChange"
+                               rendered="#{gNDServiceController.isSubsetFormEditable()}"
+                               value="#{gNDServiceController.intervalInMinutes}">
+                    <p:ajax event="keyup"/>
+                  </p:inputText>
+
+                  <h:outputText
+                    value="#{msg.gndservice_table_activ}"/>
+                  <h:outputText
+                    rendered="#{!gNDServiceController.isSubsetFormEditable()}"
+                    value="#{gNDServiceController.synchronization.active()}"/>
+                  <p:selectBooleanCheckbox
+                    rendered="#{gNDServiceController.isSubsetFormEditable()}"
+                    value="#{gNDServiceController.active}">
+                    <p:ajax/>
+                  </p:selectBooleanCheckbox>
+
+                  <h:outputText
+                    value="#{msg.gndservice_table_message}"/>
+                  <h:outputText
+                    rendered="#{!gNDServiceController.isSubsetFormEditable()}"
+                    value="#{gNDServiceController.synchronization.kafkaTopicName()}"/>
+                  <p:inputText id="kafkaTopicChange"
+                               rendered="#{gNDServiceController.isSubsetFormEditable()}"
+                               value="#{gNDServiceController.kafkaTopicName}">
+                    <p:ajax event="keyup"/>
+                  </p:inputText>
+
+                  <h:outputText
+                    value="#{msg.gndservice_table_gndids}"/>
+                  <h:outputText
+                    value="#{gNDServiceController.synchronization.gndids().size()}"/>
+
+                </p:panelGrid>
+              </div>
+            </p:panel>
+          </h:form>
+        </section>
+        <section class="ui-md-6 ui-sm-12">
+          <h:form id="jobtableform">
+            <p:panel
+              rendered="#{empty gNDServiceController.error}">
+              <h5 style="margin-top:0">#{msg.gndservice_jobs_title}</h5>
+              <p:dataTable id="batchJobTable" var="job"
+                           paginatorAlwaysVisible="true"
+                           paginator="true"
+                           paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                           currentPageReportTemplate="{startRecord}-{endRecord} #{msg.paginator_of} {totalRecords} #{msg.paginator_records}"
+                           rowsPerPageTemplate="10,50,100"
+                           rows="10"
+                           paginatorPosition="bottom"
+                           emptyMessage="#{msg.gndservice_jobs_emptymessage}"
+                           value="#{gNDServiceController.synchronization.jobs()}"
+                           sortMode="single"
+                           sortBy="#{job.creationDate()}"
+                           rowKey="#{job.id}">
+                <p:column
+                  headerText="#{msg.gndservice_jobs_table_startdate}"
+                  sortBy="#{job.creationDate()}"
+                  sortOrder="desc">
+                  <h:outputText
+                    value="#{job.creationDate()}">
+                    <f:convertDateTime
+                      pattern="dd.MM.yyyy HH:mm:ss"
+                      type="localDateTime"/>
+                  </h:outputText>
+                </p:column>
+                <p:column
+                  headerText="#{msg.gndservice_jobs_table_enddate}">
+                  <h:outputText
+                    value="#{job.endDate()}">
+                    <f:convertDateTime
+                      pattern="dd.MM.yyyy HH:mm:ss"
+                      type="localDateTime"/>
+                  </h:outputText>
+                </p:column>
+                <p:column
+                  headerText="#{msg.gndservice_jobs_table_numberofrecords}">
+                  <h:outputText
+                    value="#{job.numberOfExportedRecord()}"/>
+                </p:column>
+                <p:column
+                  headerText="#{msg.gndservice_jobs_table_status}">
+                  <h:outputText
+                    value="#{job.status()}"/>
+                </p:column>
+              </p:dataTable>
+            </p:panel>
+          </h:form>
+        </section>
+      </div>
+    </f:view>
+  </ui:define>
+</ui:composition>

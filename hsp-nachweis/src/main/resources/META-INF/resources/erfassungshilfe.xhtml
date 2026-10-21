@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{languageController.locale}" transient="false">
+    <f:metadata>
+        <f:viewParam name="lang" value="#{requestController.locale}"/>
+    </f:metadata>
+</f:view>
+<h:head>
+    <ui:param name="contextPath" value="#{request.contextPath}" />
+    <link rel="apple-touch-icon" sizes="57x57"  href="#{contextPath}/favicon/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60"  href="#{contextPath}/favicon/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72"  href="#{contextPath}/favicon/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76"  href="#{contextPath}/favicon/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="#{contextPath}/favicon/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="#{contextPath}/favicon/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="#{contextPath}/favicon/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="#{contextPath}/favicon/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="#{contextPath}/favicon/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192" href="#{contextPath}/favicon/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32"  href="#{contextPath}/favicon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96"  href="#{contextPath}/favicon/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16"  href="#{contextPath}/favicon/favicon-16x16.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="#{contextPath}/favicon/favicon-256x256.png"/>
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="theme-color" content="#{guestPreferences.themeColors[guestPreferences.theme]}"/>
+    </f:facet>
+    <title>
+        <ui:insert id="erfassungtitle"
+                   name="title">#{erfassungsTitleController.getTitle()}</ui:insert>
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description"
+          content="Zentrales Erfassungssystem für mittelalterliche Handschriften"/>
+
+    <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+    <h:outputScript name="js/layout.js" library="ultima-layout"/>
+    <h:outputScript name="js/layout-animations.js" library="ultima-layout"/>
+    <h:outputScript name="js/ripple.js" library="ultima-layout"/>
+    <h:outputScript name="js/prism.js" library="ultima-layout"/>
+    <h:outputScript name="js/swipe.js" library="ultima-layout"/>
+
+    <h:outputStylesheet name="css/primeflex.min.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/primeflex-v2.min.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/primeicons.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/ripple.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+    <h:outputStylesheet name="css/hspnachweis.css"/>
+
+</h:head>
+<h:body styleClass="erfassungshilfe-wrapper">
+    <div class="hilfe-layout">
+        <div class="hilfe-header-row">
+            <h1>Handbuch zum Nachweis und Erfassung des Handschriftenportals</h1>
+            <p:commandButton value="Drucken" icon="pi pi-print"
+                             onclick="window.print(); return false;" styleClass="druck-button"/>
+        </div>
+
+        <div class="hilfe-toc">
+            <h2>Inhaltsverzeichnis</h2>
+            <ul>
+                <li><a href="#hilfe-meine-uebersicht">Was ist in “Meine Übersicht” zu finden?</a></li>
+                <li><a href="#hilfe-suche">Wie funktioniert die Suche im Nachweis?</a></li>
+                <li><a href="#hilfe-kulturobjekte">Wie kann nach Kulturobjekten gefiltert werden?</a></li>
+                <li><a href="#hilfe-beschreibungen">Wie kann nach Beschreibungen gefiltert werden?</a></li>
+                <li><a href="#hilfe-orte">Wie kann nach Orten gefiltert werden?</a></li>
+                <li><a href="#hilfe-koerperschaften">Wie kann nach Körperschaften gefiltert werden?</a></li>
+                <li><a href="#hilfe-personen">Wie kann nach Personen gefiltert werden?</a></li>
+                <li><a href="#hilfe-sprachen">Wie kann nach Sprachen gefiltert werden?</a></li>
+                <li><a href="#hilfe-initien">Wie kann nach Initien gefiltert werden?</a></li>
+                <li><a href="#hilfe-kataloge">Wie kann nach Katalogen gefiltert werden?</a></li>
+                <li><a href="#hilfe-anzeigemodus">Wie kann eine Beschreibung angezeigt werden?</a></li>
+                <li><a href="#hilfe-bearbeitungsmodus">Wie funktioniert die Anlage und Bearbeitung einer Beschreibung?</a></li>
+                <li><a href="#hilfe-schulungsunterlagen">Schulungsunterlagen</a></li>
+                <li><a href="#hilfe-literaturliste">Abgekürzte Literatur</a></li>
+            </ul>
+        </div>
+
+        <div class="hilfe-content-block">
+
+            <!-- Hilfetext für Meine Übersicht -->
+            <h:panelGroup id="hilfe-meine-uebersicht"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Was ist in “Meine Übersicht” zu finden?</h2>
+                <p>
+                    In “Meine Übersicht” finden Sie einen schnellen Überblick über Ihre Beschreibungen und Annotationen im Portal.
+                    Aufgeklappt sehen Sie eine Liste Ihrer Beschreibungen. Im Akkordeonmenü darunter können Sie Ihre zuletzt publizierten
+                    Beschreibungen sowie Ihre im Review befindlichen bzw. zur Überarbeitung vorgesehenen Beschreibungen sehen.
+                    Zudem können Sie unter "Alle Beschreibungen" die aktuellsten und zuletzt publizierten Beschreibungen im Portal
+                    und aktuelle Annotationen sehen.
+                </p>
+                <p>
+                    Wenn Sie nach bestimmten Kulturobjekten (Handschriften) oder Beschreibungen suchen oder filtern möchten,
+                    können Sie dies über das Seitenmenü links tun. Erklärungen zu den Suchfunktionalitäten finden Sie auf der Seite „Suche“.
+                    Bei den Filterlisten wählen Sie zunächst im Aufklappmenü, wonach Sie filtern möchten.
+                    Weitere Erklärungen finden Sie auf der jeweiligen Filterlisten-Seite.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Suche -->
+            <h:panelGroup id="hilfe-suche"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie funktioniert die Suche im Nachweis?</h2>
+                <p>
+                    Die Suche im Nachweis des HSP unterscheidet sich grundsätzlich von der Suche in der Präsentation,
+                    da sie primär auf die Metadaten der Beschreibungen fokussiert.
+                </p>
+                <p>
+                    So können Sie in der Leiste auf der linken Seite die Suchergebnisse einschränken, z.B. nach Dokumenttyp
+                    (Kulturobjekte oder Beschreibungen); nach Verwaltungstyp (externe oder interne Beschreibungen - nur interne
+                    können im Editor bearbeitet werden); nach besitzenden Einrichtungen; nach Bearbeiter:innen.
+                </p>
+                <p>
+                    Im Gegensatz zur Präsentation werden hier Kulturobjekte und zugehörige Beschreibungen als einzelne Treffer angezeigt,
+                    in der linken Spalte wird der Dokumenttyp durch das Kürzel KOD bzw. BS angegeben.
+                    Das Suchfeld ermöglicht eine Volltextsuche über alle Dokumente. Mehrere Suchbegriffe werden als UND-Verknüpfung interpretiert.
+                    Für eine exakte Suche müssen die gesuchten Begriffe in Anführungszeichen gesetzt werden.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für kulturobjekten -->
+            <h:panelGroup id="hilfe-kulturobjekte"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Kulturobjekten gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Kulturobjekte“ können die im Portal verzeichneten Kulturobjekte nach Signatur,
+                    besitzender Einrichtung, Ort und verschiedenen IDs gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden.
+                    Mit den Pfeilen neben den jeweiligen Kategorien kann ausgewählt werden,
+                    welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden,
+                    das Spaltenlayout zurücksetzen und die Daten als Exceltabelle herunterladen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Beschreibungen -->
+            <h:panelGroup id="hilfe-beschreibungen"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Beschreibungen gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Beschreibungen“ können die im Portal enthaltenen Handschriftenbeschreibungen nach Signatur,
+                    besitzender Einrichtung, Ort, Beschreibungsautor:in, HSP-ID, Änderungsdatum und Bearbeiter:innen gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden, das Spaltenlayout zurücksetzen
+                    und die Daten als Exceltabelle herunterladen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Orte -->
+            <h:panelGroup id="hilfe-orte"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Orten gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Orte“ können die im Portal enthaltenen Orts-Normdaten nach Ortsname (Ansetzungsform),
+                    alternativen Ortsnamen sowie verschiedenen IDs gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden und das Spaltenlayout zurücksetzen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Körperschaften -->
+            <h:panelGroup id="hilfe-koerperschaften"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Körperschaften gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Körperschaften“ können die im Portal enthaltenen Körperschafts-Normdaten nach Körperschaftsname
+                    (Ansetzungsform), alternativen Namen sowie verschiedenen IDs gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden und das Spaltenlayout zurücksetzen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Personen -->
+            <h:panelGroup id="hilfe-personen"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Personen gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Personen“ können die im Portal enthaltenen Personen-Normdaten nach Personenname (Ansetzungsform),
+                    alternativen Namen sowie verschiedenen IDs gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden und das Spaltenlayout zurücksetzen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Sprachen -->
+            <h:panelGroup id="hilfe-sprachen"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Sprachen gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Sprachen“ können die im Portal enthaltenen Sprachen-Normdaten zur Grundsprache der Kulturobjekte
+                    nach Sprachenname (Ansetzungsform), alternativen Namen sowie verschiedenen IDs gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden und das Spaltenlayout zurücksetzen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Initien -->
+            <h:panelGroup id="hilfe-initien"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Initien gefiltert werden?</h2>
+                <p>
+                    In der Filterliste "Initien" können die im Portal enthaltenen Initien-Normdaten nach HSP-ID, Initientext
+                    und Sprache gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden und das Spaltenlayout zurücksetzen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Kataloge -->
+            <h:panelGroup id="hilfe-kataloge"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann nach Katalogen gefiltert werden?</h2>
+                <p>
+                    In der Filterliste „Kataloge“ können die ins Portal eingespielten Kataloge nach Titel, Autor:innen, Publikationsjahr,
+                    Verlag, Lizenz und Datum der letzten Änderung der Daten im HSP gefiltert werden.
+                </p>
+                <p>
+                    Die Anordnung der Kategorien kann per drag&amp;drop verändert werden. Mit den Pfeilen neben den jeweiligen Kategorien
+                    kann ausgewählt werden, welche Kategorie als Grundlage für die Anordnung der Treffer dient.
+                </p>
+                <p>
+                    Mit den Buttons oben rechts können Sie Spalten ein- und ausblenden, das Spaltenlayout zurücksetzen
+                    und die Daten als Exceltabelle herunterladen.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Anzeigemodus -->
+            <h:panelGroup id="hilfe-anzeigemodus"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie kann eine Beschreibung angezeigt werden?</h2>
+                <p>
+                    Im Anzeigemodus haben Sie eine Übersicht zur ausgewählten Beschreibung. Sie können sich diese als Textansicht,
+                    als Normdatenansicht (zeigt alle in der Beschreibung verknüpften Normdaten), als TEI-XML-Ansicht
+                    (zeigt die Beschreibung im XML-Format) oder als Vorschau (wie sie im Workspace des HSP/in der Präsentation
+                    aussehen wird) anzeigen lassen.
+                </p>
+                <p>
+                    Mit dem Button ganz rechts können Sie in den Bearbeitungsmodus wechseln.
+                </p>
+            </h:panelGroup>
+
+            <!-- Hilfetext für Bearbeitungsmodus -->
+            <h:panelGroup id="hilfe-bearbeitungsmodus"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Wie funktioniert die Anlage und Bearbeitung einer Beschreibung?</h2>
+                <p>
+                    Die Beschreibung setzt sich aus Komponenten zusammen, die sich in einer Baumstruktur befinden.
+                    Die Komponenten Identifikation und Kopf werden beim Anlegen einer Beschreibung automatisch generiert
+                    und können auch nicht gelöscht werden. Über das Punktemenü können Sie jeweils weitere Komponenten hinzufügen:
+                    mit dem Pluszeichen eine Komponente, die der aktuellen auf derselben Ebene folgt, mit dem untergeordneten
+                    Pluszeichen eine Komponente, die der aktuellen als Kindelement untergeordnet ist.
+                    Sie können jeweils nur diejenigen Komponententypen anlegen, die nach den DFG-Handschriftenerschließungs-Richtlinien
+                    an der entsprechenden Stelle in der Beschreibung vorgesehen sind.
+                    Die angelegten Komponenten können über das Menü auch wieder gelöscht werden.
+                </p>
+                <p>
+                    Über die Button-Leiste können Sie sich eine TEI-Ansicht der Beschreibung anzeigen lassen, Sonderzeichen einfügen,
+                    die Ansicht ändern (Komponenten zusammenklappen, Vollbildmodus), die Beschreibung validieren, neu laden und speichern
+                    sowie den Bearbeitungsmodus verlassen.
+                </p>
+                <p>
+                    Sie können Textbausteine zwischen einzelnen Komponenten oder auch von außerhalb des Editors mittels Copy-Paste einfügen.
+                    Innerhalb des Editors können Sie entweder die Formatierung mit übernehmen (STRG+C / STRG+V) oder nur den Plain Text
+                    ohne Formatierung einfügen (STRG+C / STRG+SHIFT+V). Wenn Sie kopierten Text aus anderen Dokumenten außerhalb des
+                    Editors übernehmen, wird dieser immer ohne Formatierung eingefügt.
+                </p>
+                <p>
+                    Grundsätzlich sind in den Freitextfeldern des Editors keine optischen Formatierungen wie Kursiv- oder Fettsetzung,
+                    Kapitälchen u.ä. möglich. Es können nur die angebotenen Sonderzeichen bzw. Unicode-Zeichen verwendet werden.
+                </p>
+                <p>
+                    Für Erläuterungen zu den einzelnen Komponenten und Eingabefeldern klicken Sie auf den Fragezeichen-Button
+                    in der jeweiligen Komponente.
+                </p>
+
+                <h2>Komponenten einer Beschreibung:</h2>
+
+                <h3>Identifikation</h3>
+
+                <ul>
+                    <li>
+                        In der Komponente Identifikation erfassen Sie alle Signaturen oder anderweitigen identifizierenden Angaben
+                        zur Handschrift.
+                    </li>
+                    <li>
+                        Hier finden Sie bereits die aktuellen Minimalinformationen zur Handschrift vor. Der Ort, die besitzende Institution,
+                        sowie die HSP-ID-Kulturobjekt sind für Ihre Beschreibung bereits durch das Kulturobjekt festgelegt.
+                        Als Signatur ist gleichfalls die führende Signatur der Handschrift aus dem Kulturobjekt eingetragen.
+                        Hier können Sie sich aber - so vorhanden - über das Aufklapp-Menü auch für eine der im Kulturobjekt festgehaltenen
+                        Alternativen Signaturen der Handschrift entscheiden.
+                    </li>
+                    <li>
+                        Die Komponente Identifikation wird auch als Unterkomponente der materiell selbständigen Teile der Handschrift
+                        verwendet: Einband, Fragment, Faszikel und Beigabe. Anders als bei der Identifikation der Gesamthandschrift
+                        wird die Komponente dort nur bei Bedarf erfasst.
+                    </li>
+                </ul>
+
+                <h3>Kopf</h3>
+
+                <ul>
+                    <li>
+                        In der Komponente Kopf erfassen Sie die Kerninformationen zu Ihrer Handschrift.
+                        Diese umfassen im Wesentlichen die Informationen zu Titel und Schlagzeile.
+                    </li>
+                    <li>
+                        Titel: Erfassen Sie den Titel der Handschrift so, wie er im Portal angezeigt werden soll.
+                        Nutzen Sie hierfür bitte Groß- und Kleinschreibung sowie den hochgestellten Punkt (aus dem Sonderzeichendialog)
+                        als Trennzeichen zwischen Titelbestandteilen.
+                    </li>
+                    <li>
+                        Titel weitere Publikation (optional): Erfassen Sie bei Bedarf zusätzlich den Titel der Handschrift so,
+                        wie er in einer weiteren Publikation (außerhalb der primären Beschreibung im HSP) dargestellt werden soll.
+                    </li>
+                    <li>
+                        Schlagzeile: Erfassen Sie die Informationen der Schlagzeile gemäß den DFG-Richtlinien als Freitext.
+                        Die einzelnen Bestandteile der Schlagzeile werden in den weiteren Feldern zu Recherchezwecken
+                        mit einem passenden Normdatum verknüpft.
+                    </li>
+                </ul>
+
+                <h3>Beschreibstoff</h3>
+
+                <p>
+                    Erfassen Sie den Beschreibstoff im Freitextfeld so, wie er im Portal angezeigt werden soll (Bsp.: „Papier“).
+                    Im Normdatenfeld verknüpfen Sie diese Angabe zu Recherchezwecken mit einem passenden Normdatum aus der Auswahlliste
+                    (Bsp.: „Papier“). Bei mehreren Materialien (Bsp.: Freitext: „Papier und Pergament“) können Sie mehrere Normdaten
+                    verknüpfen. Hierzu verwenden Sie den Button +Normdaten und können dann weitere Normdatenverknüpfungen anlegen
+                    (Bsp.: Normdaten: „Papier“; Normdaten: „Pergament“).
+                </p>
+
+                <h3>Umfang</h3>
+
+                <p>
+                    Erfassen Sie den Umfang im Freitextfeld so, wie er im Portal angezeigt werden soll (Bsp.: „I+187+I* Bl.“).
+                    Im Feld Blattzahl reduzieren Sie die Umfangsangabe zu Recherchezwecken auf eine Zahl (Bsp.: „187“).
+                    Vorsatzblätter werden hierbei nicht berücksichtigt.
+                    Bei paginierten Objekten rechnen Sie die Seitenzahl bitte auf Blattangaben um (Bsp.: Freitext: „264 S.“; Blattzahl: „132“).
+                    Ungerade Seitenangaben runden Sie bitte nach oben auf (Bsp.: Freitext: „263 S.“; Blattzahl: „132“).
+                </p>
+
+                <h3>Abmessungen</h3>
+
+                <p>
+                    Erfassen Sie die Abmessungen im Freitextfeld so, wie sie im Portal angezeigt werden sollen (Bsp.: „13,5 x 10,5“).
+                    Die Einheit ist „cm“. In den Feldern Höhe, Breite und Tiefe teilen Sie die Abmessungen zu Recherchezwecken
+                    entsprechend auf (Bsp.: Höhe: „13,5“; Breite: „10,5“). Die Angabe der Tiefe ist optional.
+                    Ihre Angaben werden grundsätzlich als die Abmessungen des vorliegenden Objekts behandelt (Option vorliegend ist angehakt).
+                    Zusätzlich – etwa für ein beschnittenes Fragment – können Sie eine von Ihnen erschlossene Ursprungsgröße angeben.
+                    Hierzu drücken Sie den Button +Abmessungen, erfassen die von Ihnen erschlossenen Werte und haken außerdem
+                    die Option erschlossen an.
+                </p>
+
+                <h3>Format</h3>
+
+                <p>
+                    Wählen Sie das Format der Handschrift anhand der Auswahlliste. Ihre Angabe wird grundsätzlich als das Format
+                    des vorliegenden Objekts behandelt (Option "vorliegend" ist angehakt). Sie können über den Button +Format auch
+                    eine weitere Formatangabe hinzufügen, etwa wenn Sie z.B. "Folio (Größe)" mit "Querformat" verbinden möchten.
+                    Haken Sie hierfür auch die Option "vorliegend" an.
+                </p>
+                <p>
+                    Zusätzlich – etwa für ein beschnittenes Fragment – können Sie ein von Ihnen erschlossenes Ursprungsformat angeben.
+                    Hierzu drücken Sie den Button +Format, wählen den gewünschten Wert und haken außerdem die Option "erschlossen" an.
+                </p>
+
+                <h3>Entstehungsort</h3>
+
+                <p>
+                    Erfassen Sie den Entstehungsort im Freitextfeld so, wie er im Portal angezeigt werden soll (Bsp.: „Bodenseegebiet“).
+                    Im Normdatenfeld verknüpfen Sie diese Ortsangabe zu Recherchezwecken mit einem passenden Normdatum aus der
+                    Auswahlliste (Bsp.: „Bodensee-Gebiet“). Unsichere Ortsangaben können im Freitext entsprechend gekennzeichnet
+                    werden (Bsp.: „Elsass (?)“), in den Normdaten wird die Unsicherheit der Zuweisung aber nicht berücksichtigt
+                    (Bsp.: „Elsass“). Bei mehreren Ortsangaben (Bsp.: Freitext: „Mittelrhein (?); Hessen (?)“) können Sie mehrere
+                    Normdaten verknüpfen. Hierzu geben Sie die weiteren Ortsangaben in das Normdaten-Suchfeld ein und wählen sie
+                    aus der Liste aus.
+                </p>
+
+                <h3>Entstehungszeit</h3>
+
+                <p>
+                    Erfassen Sie die Entstehungszeit im Freitextfeld so, wie sie im Portal angezeigt werden soll (Bsp.: „1320er Jahre“).
+                    In "frühestens" und "spätestens" tragen Sie zu Recherchezwecken den entsprechenden Anfangs- bzw. Endzeitpunkt ein
+                    (Bsp.: frühestens: „1320“; spätestens: „1329“). Verbal umschriebene Zeiträume im Freitextfeld
+                    (Bsp.: „Anfang des 14. Jh.“) können Sie in "frühestens" und "spätestens" in Zahlenwerte umsetzen
+                    (Bsp.: frühestens: „1300“; spätestens: „1315“). Unsichere Zeitangaben können im Freitext entsprechend
+                    gekennzeichnet werden (Bsp.: „13. Jh., 1. Viertel (?)“), in "frühestens" und "spätestens" wird die Unsicherheit
+                    der Zuweisung aber nicht berücksichtigt (Bsp.: frühestens: „1200"; spätestens: „1225“).
+                    Bei erschlossenen Entstehungszeiträumen haken Sie die Option "Datierung erschlossen" an, bei datierten Objekten
+                    die Option "datiert". Sie können mehrere Entstehungszeiten erfassen, z.B. bei zusammengesetzten Handschriften.
+                    Hierzu drücken Sie den Button +Entstehungszeit und erfassen weitere Angaben.
+                </p>
+
+                <h3>Grundsprache</h3>
+
+                <p>
+                    Erfassen Sie die Grundsprache der Handschrift im Freitextfeld so, wie sie im Portal angezeigt werden soll
+                    (Bsp.: „deutsch“). Im Normdatenfeld verknüpfen Sie diese Sprachangabe zu Recherchezwecken mit einem passenden
+                    Normdatum aus der Auswahlliste (Bsp.: „deutsch“). Bei mehreren Sprachangaben (Bsp.: Freitext: „deutsch und
+                    lateinisch“) können Sie mehrere Normdaten verknüpfen. Hierzu klappen Sie die Auswahlliste wieder auf und wählen
+                    weitere Sprachen an. An dieser Stelle werden nur die Grundsprachen der Handschrift erfasst.
+                    Angaben zu Schreibsprachen werden an anderer Stelle erfasst.
+                </p>
+
+                <h3>Form</h3>
+
+                <p>
+                    Wählen Sie die Form des Objekts anhand der Normdaten-Auswahlliste aus. Wenn Sie in der Auswahlliste auf das rote
+                    Kästchen mit der Notation des Normdatums (z.B. "FORM-X963") klicken, gelangen Sie auf die Normdatenübersichtsseite
+                    mit Definitionen zu den Begriffen. Bei der Form-Angabe ist keine Mehrfachauswahl möglich.
+                </p>
+
+                <h3>Status</h3>
+
+                <p>
+                    Wählen Sie den Status des Objekts anhand der Auswahlliste aus. Hier ist keine Mehrfachauswahl möglich.
+                </p>
+
+                <h3>Buchschmuck</h3>
+
+                <p>
+                    Vermerken Sie über die Option ja oder nein, ob das Objekt Buchschmuck enthält.
+                </p>
+
+                <h3>Musiknotation</h3>
+
+                <p>
+                    Vermerken Sie über die Option ja oder nein, ob das Objekt Musiknotation enthält.
+                </p>
+
+                <h3>Äußeres</h3>
+
+                <p>
+                    In der Komponente Äußeres erfassen Sie die Beschreibung des Äußeren der Handschrift oder eines ihrer Teile
+                    (wenn Sie “Äußeres” als Unterkomponente von Einband, Faszikel, Fragment oder Beigabe angelegt haben).
+                    Die Binnenstrukturierung dieser Komponente soll den DFG-Richtlinien Handschriftenerschließung folgen:
+                </p>
+                <ul>
+                    <li>Angaben zu Foliierung/Paginierung der Hs.</li>
+                    <li>Angaben zum Erhaltungszustand der Hs.</li>
+                    <li>ggf. Angaben zur Zusammensetzung der Hs. (bei zusammengesetzten Hss.)</li>
+                    <li>Angaben zur Lagenstruktur</li>
+                    <li>Angaben zum Beschreibstoff</li>
+                    <li>ggf. Angaben zu den Wasserzeichen</li>
+                    <li>Angaben zur Seiteneinrichtung / dem Layout</li>
+                    <li>Angaben zur Schrift</li>
+                    <li>ggf. Angaben zur Schreibsprache (bei volkssprachigen Hss. oder Hss.-teilen)</li>
+                    <li>ggf. Angaben zur Musiknotation</li>
+                    <li>ggf. Angaben zur Ausstattung mit Buchschmuckelementen <br/>
+                        Sie können Ihre Beschreibung im Freitextfeld mit Normdaten anreichern sowie semantische Formatierungsmerkmale
+                        einbringen. Dafür markieren Sie den zu verknüpfenden bzw. zu formatierenden Text und wählen im Button-Menü
+                        die gewünschte Aktion aus.
+                    </li>
+                    <li>
+                        Über "Normdaten verknüpfen" gelangen Sie in den Normdaten-Dialog, in dem Sie zunächst den Normdaten-Typ auswählen.
+                        Je nach Auswahl öffnet sich ein Dialog zur Suche nach Normdaten in der GND, ein Dialog zum Durchsuchen des
+                        jeweiligen Themenbereichs im handschriftenkundlichen Fachvokabular des Portals oder ein Dialog zur Suche nach
+                        Initien. Wenn Sie die gewünschten Normdaten verknüpft haben, erscheint der verknüpfte Beschreibungstext farblich
+                        hinterlegt. Durch Klicken auf den farblich hinterlegten Text gelangen Sie wiederum in den Verknüpfungsdialog,
+                        wenn Sie beispielsweise eine Verknüpfung löschen oder bearbeiten möchten.
+                    </li>
+                    <li>
+                        Über "Semantisch auszeichnen" gelangen Sie in einen Dialog, der die semantische Auszeichnung des markierten
+                        Textabschnitts als Autorname, Werktitel, Incipit, Explicit oder anderes Zitat aus der Handschrift erlaubt.
+                        Der so ausgezeichnete Text erscheint in der Folge in Kapitälchen oder Kursivsatz.
+                        Bitte beachten Sie, dass die semantische Formatierung nur für Autornamen und Werktitel von in den Handschriften
+                        enthaltenen Texten verwendet wird, nicht aber für die Autor:innen und Titel zitierter Forschungsliteratur.
+                    </li>
+                    <li>
+                        Über "Weitere Auszeichnung" können Sie den markierten Textabschnitt mit Literaturangaben aus der abgekürzten
+                        Liste des Portals oder mit beliebigen externen Links verknüpfen. Über "Literatur" gelangen Sie in einen Dialog,
+                        in dem Sie Standardwerke verknüpfen können, die im Portal feste Abkürzungen haben. "Externe Links" können Sie
+                        verwenden, um den markierten Textabschnitt mit einer beliebigen Webadresse zu verknüpfen; ein häufiger
+                        Anwendungsfall ist dabei die Verknüpfung von Literaturangaben, die Sie als Kurzangabe machen
+                        (Autor:in, Titelstichwort, Jahr), mit einem Eintrag in der DNB oder in anderen Bibliothekskatalogen zu verknüpfen.
+                        Unter "Weitere Auszeichnung" finden Sie außerdem die Möglichkeit, markierte Zeichen hochzustellen,
+                        um beispielsweise die Blattzahlen in einer Lagenformel wiederzugeben.
+                        Alternativ können Sie dies auch über Sonderzeichen &gt; Zahlen &gt; hochgestellte Zahlen tun.
+                    </li>
+                    <li>
+                        Wenn Sie summarische Informationen zum Buchschmuck eigens kennzeichnen möchten, können Sie eine über das
+                        Punktmenü in der linken Seitenleiste bei "Äußeres" eine Unterkomponente "Äußeres (Kunst)" anlegen.
+                    </li>
+                </ul>
+
+                <h3>Einband</h3>
+
+                <p>
+                    In der Komponente Einband erfassen Sie im Freitextfeld die Beschreibung des Einbands.
+                    Sie können die Beschreibung mit Normdatenreferenzen verknüpfen (s. dazu den Hilfetext bei "Äußeres").
+                    Bei Bedarf können Sie weitere Unterkomponenten zum Einband anlegen, um z.B. Einbandfragmente zu beschreiben.
+                </p>
+
+                <h3>Geschichte</h3>
+
+                <p>
+                    In Geschichte erfassen Sie die Geschichte der Handschrift oder eines ihrer Teile
+                    (dann als Unterkomponente von Einband, Faszikel, Fragment oder Beigabe).
+                    Hierfür steht Ihnen eine Freitexteingabe zur Verfügung. Zudem können Sie Referenzen zu Normdaten anlegen
+                    sowie semantische Formatierungsmerkmale, z.B. für Autor:innen von Primärtexten und Werktitel, einfügen
+                    (zur Normdatenverknüpfung s. den Hilfetext bei "Äußeres").
+                </p>
+
+                <h3>Literatur</h3>
+
+                <p>
+                    In Literatur erfassen Sie im Freitextfeld die Literaturangaben zur Handschrift oder zu einem ihrer Teile
+                    (dann als Unterkomponente von Einband, Faszikel, Fragment oder Beigabe).
+                    Die Literatur soll nach Möglichkeit wie folgt angegeben werden:
+                </p>
+                <ul>
+                    <li>
+                        Monografien werden in abgekürzter Form (Autor:in, Hauptwort des Titels (Erscheinungsjahr), ggf. relevante Seiten)
+                        angeführt. Der Kurztitel wird markiert und über den Verknüpfungsdialog "Weitere Auszeichnung/Externer Link"
+                        mit dem entsprechenden bibliographischen Datensatz in der DNB verknüpft. Sollte das Werk in der DNB nicht
+                        nachgewiesen sein, kann auch auf einen bibliographischen Datensatz in einem lokalen Verbundkatalog verwiesen werden.
+                    </li>
+                    <li>
+                        Bei Aufsätzen in Sammelbänden soll der Kurztitel des Sammelbandes verlinkt werden, bei Aufsätzen in Zeitschriften
+                        der entsprechende Zeitschriftentitel; Autor:in und Titel des betreffenden Aufsatzes bzw. Beitrages sind
+                        vollumfänglich anzuführen, wenn kein bibliographischer Datensatz für den Aufsatz in der DNB vorhanden ist.
+                    </li>
+                    <li>
+                        Graue Literatur bzw. weder in der DNB noch im Verbundkatalog auffindbare Literatur soll mit einem vollständigen
+                        bibliographischen Zitat angeführt werden: Vorname Nachname, Titel. Untertitel, Ort Jahr, S. bzw. Vorname Nachname,
+                        Titel. Untertitel, in: Vorname Nachname / Vorname Nachname (Hg.), Titel. Untertitel, Ort Jahr, S. …, hier S. …
+                        bzw. Vorname Nachname, Titel. Untertitel, in: Titel der Zeitschrift Jahrgang (Jahr), S. …, hier S.
+                    </li>
+                    <li>
+                        Liegt eine permanent adressierbare elektronische Version bzw. ein Digitalisat einer Publikation vor,
+                        kann auch darauf verlinkt werden. Auch Datenbanken sind direkt zu verlinken.
+                    </li>
+                </ul>
+                <p>
+                    Verwenden Sie bei der Angabe von Forschungsliteratur keine semantischen Formatierungen.
+                    Diese sind nur für Autor:innen und Werktitel von in den Handschriften überlieferten Primärtexten vorgesehen.
+                </p>
+
+                <h3>Inhalt</h3>
+
+                <p>
+                    In der Komponente Inhalt und ihren Unterkomponenten erfassen Sie die Inhaltsbeschreibung aller Texte der Handschrift
+                    oder eines ihrer Teile (dann als Unterkomponente von Faszikel, Fragment oder Beigabe).
+                    Hierfür werden Ihnen automatisch die Unterkomponenten Abschnitt und Inhalt (Text) zur Verfügung gestellt.
+                </p>
+
+                <h3>Abschnitt</h3>
+
+                <p>
+                    Sie haben die Möglichkeit, die Texte der Handschrift mit je einer Komponente „Inhalt (Text)“ in einem Abschnitt
+                    zu erfassen. Wenn Sie Gruppen von Texten zusammenfassen möchten - etwa bei Textsammlungen -, können Sie für jede
+                    Gruppe einen eigenen Abschnitt mit mehreren "Inhalt (Text)"-Unterkomponenten oder auch Abschnitte als
+                    Unterkomponenten eines Abschnitts anlegen.
+                    Die grundsätzliche Empfehlung ist jedoch, die Gliederung des Inhalts möglichst flach zu halten.
+                </p>
+                <p>
+                    Als Unterkomponenten eines Abschnitts können Sie neben "Inhalt (Text)" auch die Komponenten "Äußeres (Kunst)",
+                    "Inhalt (Kunst)" und "Inhalt (Musik)" anlegen, um Buchschmuck und Musiknotation detailliert zu beschreiben.
+                    Die Komponenten "Inhalt (Text)", "Inhalt (Kunst)" und "Inhalt (Musik)" können über das Punkt-Menü beliebig oft
+                    dupliziert werden.
+                </p>
+
+                <h3>Inhalt (Text)</h3>
+
+                <p>
+                    In "Inhalt (Text)" erfassen Sie im Freitextfeld die Inhaltsbeschreibung eines Textes.
+                    Sie können zudem Referenzen zu Normdaten anlegen sowie Autor:innen von Primärtexten und Werktitel semantisch
+                    auszeichnen. Für die Beschreibung weiterer in der Handschrift enthaltener Texte fügen Sie weitere Komponenten
+                    Inhalt (Text) ein.
+                </p>
+
+                <h3>Inhalt (Kunst)</h3>
+
+                <p>
+                    Wenn Sie eine ausführliche inhaltliche (ikonografische) Beschreibung des Buchschmucks anlegen möchten
+                    (z.B. bei kunsthistorischen Katalogisaten), haben Sie die Möglichkeit, eine Komponente "Inhalt (Kunst)" anzulegen.
+                    Bei mehreren Buchschmuckelementen können Sie weitere Komponenten "Inhalt (Kunst)" einfügen.
+                </p>
+
+                <h3>Inhalt (Musik)</h3>
+
+                <p>
+                    Wenn Sie eine ausführliche inhaltliche Beschreibung eines Musikstücks vornehmen möchten, die den Rahmen der
+                    Komponente „Äußeres“ sprengt, können Sie eine Komponente "Inhalt (Musik)" anlegen.
+                    Für weitere Musikstücke können Sie weitere Komponenten "Inhalt (Musik)" einfügen.
+                </p>
+
+                <h3>Äußeres (Kunst)</h3>
+
+                <p>
+                    Alternativ zur zusammenfassenden Beschreibung der Buchschmuckelemente in der Komponente „Äußeres“ können Sie auch
+                    eine Unterkomponente "Äußeres (Kunst)" anlegen und die einzelnen Buchschmuckelemente in der Handschrift
+                    ausführlich beschreiben. Dies bietet sich insbesondere für kunsthistorische Katalogisate an.
+                </p>
+
+                <h3>Faszikel</h3>
+
+                <p>
+                    In der Komponente "Faszikel" und ihren Unterkomponenten erfassen Sie bei zusammengesetzten Handschriften die
+                    Beschreibung der ursprünglich selbständigen Handschriftenteile. Die Komponente enthält automatisch die
+                    Unterkomponenten Identifikation und Kopf. Je nach Bedarf ergänzen Sie weitere Unterkomponenten wie Äußeres,
+                    Geschichte, Literatur und Inhalt.
+                </p>
+
+                <h3>Fragment</h3>
+
+                <p>
+                    In der Komponente "Fragment" und ihren Unterkomponenten erfassen Sie die Beschreibung eines Fragments.
+                    Hierfür werden Ihnen automatisch die Unterkomponenten Identifikation und Kopf zur Verfügung gestellt.
+                    Je nach Bedarf ergänzen Sie weitere Unterkomponenten (Bsp.: Äußeres, Geschichte, Literatur oder Inhalt).
+                    Fragmente in situ können entweder als Unterkomponenten von "Einband" (bei Einbandmakulatur) oder am Ende der
+                    Beschreibung, nach der Komponente "Inhalt", angelegt und beschrieben werden.
+                </p>
+
+                <h3>Beigabe</h3>
+
+                <p>
+                    In der Komponente "Beigabe" und ihren Unterkomponenten erfassen Sie die Beschreibung einer Beigabe.
+                    Hierfür werden Ihnen automatisch die Unterkomponenten Identifikation und Kopf zur Verfügung gestellt.
+                    Je nach Bedarf ergänzen Sie weitere Unterkomponenten (Bsp.: Äußeres, Geschichte, Literatur oder Inhalt).
+                </p>
+
+                <h3>Sonstiges</h3>
+
+                <p>
+                    In der Komponente "Sonstiges" können Sie interne Notizen ablegen.
+                    Diese Komponente wird in der Webpräsentation nicht angezeigt.
+                </p>
+
+                <h3>Registereinträge (Altdaten)</h3>
+
+                <p>
+                    Diese Komponente kann durch Sie als Erschließer:in weder angelegt, bearbeitet noch gelöscht werden.
+                    Sie erscheint nur bei Altdaten aus Manuscripta Mediaevalia und enthält Registereinträge,
+                    die noch keine Auszeichnung mit Normdaten haben.
+                </p>
+
+            </h:panelGroup>
+
+            <h:panelGroup id="hilfe-schulungsunterlagen"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Schulungsunterlagen</h2>
+                <div class="hilfe-item">
+                    <i class="pi pi-circle-fill hilfe-bullet">
+                    </i>
+                    <span class="hilfe-item-text">
+        Einführung in den Nachweis und in die Erfassung</span>
+                    <p:button value="Download PDF"
+                              icon="pi pi-download"
+                              href="#{request.contextPath}/schulungsunterlagen/einfuehrung.pdf"
+                              target="_blank"
+                              styleClass="hilfe-download-btn"/>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup id="hilfe-literaturliste"
+                          styleClass="hilfe-text"
+                          layout="block">
+                <h2>Abgekürzte Literatur</h2>
+                <div class="hilfe-item">
+                    <i class="pi pi-circle-fill hilfe-bullet">
+                    </i>
+                    <span class="hilfe-item-text">
+                    Literaturliste</span>
+                    <p:button value="Download PDF"
+                              icon="pi pi-download"
+                              href="#{request.contextPath}/literaturliste/Literaturliste.pdf"
+                              target="_blank"
+                              styleClass="hilfe-download-btn"/>
+                </div>
+            </h:panelGroup>
+
+        </div>
+
+        <h:outputScript>
+            window.addEventListener("load", function() {
+            if (window.location.hash) {
+            const anchor = document.getElementById(window.location.hash.substring(1));
+            if (anchor) {
+            anchor.scrollIntoView({ behavior: "smooth" });
+            }
+            }
+            });
+        </h:outputScript>
+    </div>
+</h:body>
+</html>

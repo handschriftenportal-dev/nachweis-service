@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:hsp="jakarta.faces.composite/handschriftenportal"
+                template="templates/default.xhtml">
+
+  <ui:define name="content">
+
+    <ui:param name="kannLesen" value="#{kODRechte.kannRegistrieren()}"/>
+
+    <div class="ui-g dashboard-wrapper kod-verwalten-page">
+
+      <p:outputPanel styleClass="ui-g-12 dashboard">
+
+        <h1>#{msg.document_titel_kodverwalten}</h1>
+
+        <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+          <ui:param name="hasAccess" value="#{kannLesen}"/>
+        </ui:include>
+
+        <ui:fragment rendered="#{kannLesen}">
+
+          <p:accordionPanel id="kodAccordion"
+                              styleClass="kod-verwalten-accordion"
+                              activeIndex="-1"
+                              multiple="true">
+
+            <p:tab title="#{msg.document_titel_kodregistrieren}">
+
+              <h:form id="kodRegistrierenForm" enctype="multipart/form-data">
+
+                <div class="ui-g">
+
+                  <div class="ui-g-8">
+                    <p><h:outputText value="#{msg.kod_registrieren_line_1}"/>
+                    </p>
+
+                    <p><h:outputText escape="false"
+                                     value="#{msg.kod_registrieren_line_2}"/>
+                    </p>
+
+                    <div style="border: black solid thin;padding: 5px">
+                      <p><h:outputText
+                          value="#{msg.kod_registrieren_line_3}"/></p>
+                      <p><h:outputText
+                          value="#{msg.kod_registrieren_line_4}"/></p>
+                      <p><h:outputText
+                          value="#{msg.kod_registrieren_line_5}"/></p>
+                    </div>
+
+                    <p class="toptwenty">
+                      <h:outputText escape="false"
+                                    value="#{msg.kod_registrieren_line_6}"/>
+                    </p>
+                  </div>
+
+                  <div class="ui-g-8">
+
+                    <p:remoteCommand name="updateProgressbar"
+                                     update="progressbarRegistrieren"
+                                     action="#{kulturObjektRegistrierenController.setRenderProgressbar(true)}"/>
+
+                    <div class="toptwenty">
+                      <p><h:outputText
+                          value="#{msg.kod_registrieren_line_7}"/></p>
+
+                      <p:autoComplete id="orteAutocomplete"
+                                      value="#{kulturObjektRegistrierenController.orteViewModel}"
+                                      completeMethod="#{autocompleteNormdatenController.autocompleteOrt}"
+                                      placeholder="#{msg.kod_registrieren_orteingeben_placeholder}"
+                                      converter="normdatenReferenzConverter"
+                                      scrollHeight="200"
+                                      appendTo="orteAutocomplete"
+                                      forceSelection="true"
+                                      var="ort"
+                                      itemValue="#{ort}"
+                                      itemLabel="#{ort.name}"
+                                      style="width: 350px;"
+                                      inputStyle="width: 350px;">
+
+                        <p:ajax event="change"
+                                update="koerperschaftSelect"
+                                listener="#{kulturObjektRegistrierenController.placeChangedListener}"/>
+
+                        <p:column>#{ort.name}</p:column>
+
+                        <p:column styleClass="gnd-cell">
+                          <h:outputLink value="#{ort.gndUrl}"
+                                        rendered="#{not empty ort.gndID}"
+                                        target="_blank"
+                                        onclick="event.stopPropagation()">
+                            #{ort.gndID}
+                          </h:outputLink>
+                        </p:column>
+                      </p:autoComplete>
+                    </div>
+
+                    <div class="toptwenty">
+                      <p:selectOneMenu id="koerperschaftSelect"
+                                       converter="normdatenReferenzConverter"
+                                       style="width: 350px;"
+                                       disabled="#{empty kulturObjektRegistrierenController.orteViewModel}"
+                                       value="#{kulturObjektRegistrierenController.koerperschaftViewModel}">
+                        <p:ajax update="upload"/>
+
+                        <f:selectItem
+                            itemLabel="#{msg.kod_registrieren_koerperschaft_auswaehlen}"
+                            itemValue="#{null}"
+                            noSelectionOption="true"
+                            itemDisabled="true"/>
+
+                        <f:selectItems var="koerperschaft"
+                                       itemValue="#{koerperschaft}"
+                                       value="#{kulturObjektRegistrierenController.koerperschaftViewModelMap}"/>
+                      </p:selectOneMenu>
+                    </div>
+
+                    <div class="toptwenty">
+                      <h:outputText
+                          value="#{msg.kod_registrieren_csv_hochladen}"/>
+
+                      <p:fileUpload id="upload"
+                                    style="margin-top: 20px;"
+                                    onstart="updateProgressbar()"
+                                    listener="#{kulturObjektRegistrierenController.handleFileUpload}"
+                                    mode="advanced"
+                                    disabled="#{kulturObjektRegistrierenController.koerperschaftViewModel == null or kulturObjektRegistrierenController.orteViewModel == null}"
+                                    allowTypes="/(\.|\/)(csv)$/"
+                                    sizeLimit="100000000"
+                                    uploadLabel="#{msg.upload}"
+                                    label="#{msg.selection}"
+                                    cancelLabel="#{msg.cancel}"
+                                    update="@form"
+                                    multiple="false"
+                                    invalidFileMessage="#{msg.kod_registrieren_dateiupload_invalidfiletypemessage}"
+                                    invalidSizeMessage="#{msg.kod_registrieren_dateiupload_invalidfilesizemessage}"/>
+                    </div>
+
+                    <h:panelGroup id="progressbarRegistrieren" layout="block">
+                      <p:graphicImage name="images/ajax-loader.gif"
+                                      rendered="#{kulturObjektRegistrierenController.renderProgressbar}"/>
+
+                      <h:outputText
+                          value="#{msg.kod_registrieren_progressbar_text}"
+                          rendered="#{kulturObjektRegistrierenController.renderProgressbar}"
+                          styleClass="margin-top-5 font-bold"/>
+                    </h:panelGroup>
+
+
+                  </div>
+
+                </div>
+
+              </h:form>
+
+            </p:tab>
+
+            <p:tab title="#{msg.kod_sortkeys_tab}">
+
+              <h:form id="sortkeyImportForm" enctype="multipart/form-data">
+
+                <div class="ui-g-8">
+
+                  <p>
+                    <h:outputText value="#{msg.kod_sortkeys_description}"/>
+                  </p>
+
+                  <p>
+                    <h:outputText value="#{msg.kod_sortkeys_format_title}"
+                                  escape="false"/>
+                  </p>
+
+                  <div style="border: black solid thin; padding: 5px;">
+                    <p>
+                      <h:outputText value="#{msg.kod_sortkeys_format_line1}"/>
+                    </p>
+                    <p>
+                      <h:outputText value="#{msg.kod_sortkeys_format_line2}"/>
+                    </p>
+                  </div>
+
+                  <p class="toptwenty">
+                    <h:outputText value="#{msg.kod_sortkeys_file_select}"/>
+                  </p>
+
+                  <p:remoteCommand
+                      name="updateSortkeyProgressbar"
+                      update="progressbarSortkey"
+                      action="#{sortkeyUpdateController.showProgressbar}"/>
+
+                  <p:fileUpload id="sortkeysUpload"
+                                style="margin-top: 20px;"
+                                listener="#{sortkeyUpdateController.handleSortkeysUpload}"
+                                mode="advanced"
+                                auto="false"
+                                multiple="false"
+                                allowTypes="/(\.|\/)(csv|zip)$/"
+                                sizeLimit="100000000"
+                                label="#{msg.selection}"
+                                uploadLabel="#{msg.upload}"
+                                cancelLabel="#{msg.cancel}"
+                                invalidFileMessage="#{msg.kod_sortkeys_invalid_file}"
+                                invalidSizeMessage="#{msg.kod_sortkeys_upload_error}"
+                                update="@form"
+                                onstart="updateSortkeyProgressbar();PF('sortkeyPoll').start();"/>
+
+                  <h:panelGroup id="progressbarSortkey" layout="block">
+                    <p:graphicImage name="images/ajax-loader.gif"
+                                    rendered="#{sortkeyUpdateController.renderProgressbar}"/>
+
+                    <h:outputText value="#{msg.kod_sortkey_progressbar_text}"
+                                  rendered="#{sortkeyUpdateController.renderProgressbar}"
+                                  styleClass="margin-top-5 font-bold"/>
+                  </h:panelGroup>
+
+                  <p:poll
+                      widgetVar="sortkeyPoll"
+                      interval="3"
+                      listener="#{sortkeyUpdateController.checkImportStatus}"
+                      update="progressbarSortkey"
+                      autoStart="true"
+                      stop="#{not sortkeyUpdateController.renderProgressbar}"/>
+
+                </div>
+
+              </h:form>
+
+            </p:tab>
+
+            <p:tab title="#{msg.kod_externe_ressourcen_import_tab}">
+
+              <h:form id="externeRessourcenImportForm" enctype="multipart/form-data">
+                <hsp:externeRessourcen importMode="true"/>
+              </h:form>
+
+            </p:tab>
+
+          </p:accordionPanel>
+
+          <h:form id="sortkeyReportForm">
+            <p:dialog id="sortkeyReportDialog"
+                      header="Ergebnis"
+                      widgetVar="sortkeyReportDialog"
+                      modal="true"
+                      closable="true"
+                      resizable="false"
+                      width="500">
+
+              <h:panelGroup rendered="#{
+                                   sortkeyUpdateController.dataModel.report.updatedCount == 0
+                                   and empty sortkeyUpdateController.dataModel.report.unknownUuids
+                                   and empty sortkeyUpdateController.dataModel.report.missingOrEmptySortkeyLines}">
+                <p><b>#{msg.kod_sortkeys_no_changes}</b>
+                </p>
+              </h:panelGroup>
+
+              <!-- Updated count -->
+              <p>
+                <b>
+                  #{sortkeyUpdateController.dataModel.report.updatedCount}
+                  #{msg.kod_sortkeys_updated}
+                </b>
+              </p>
+
+              <!-- Unknown UUIDs -->
+              <h:panelGroup
+                  rendered="#{not empty sortkeyUpdateController.dataModel.report.unknownUuids}">
+                <p><b>#{msg.kod_sortkeys_unknown}</b>
+                </p>
+                <ui:repeat
+                    value="#{sortkeyUpdateController.dataModel.report.unknownUuids}"
+                    var="uuid">
+                  <div>- #{uuid}</div>
+                </ui:repeat>
+              </h:panelGroup>
+
+              <!-- Missing sortkeys -->
+              <h:panelGroup
+                  rendered="#{not empty sortkeyUpdateController.dataModel.report.missingOrEmptySortkeyLines}">
+                <p><b>#{msg.kod_sortkeys_missing}</b>
+                </p>
+                <ui:repeat
+                    value="#{sortkeyUpdateController.dataModel.report.missingOrEmptySortkeyLines}"
+                    var="line">
+                  <div>- #{line}</div>
+                </ui:repeat>
+              </h:panelGroup>
+
+            </p:dialog>
+          </h:form>
+
+        </ui:fragment>
+
+      </p:outputPanel>
+
+    </div>
+
+  </ui:define>
+
+</ui:composition>

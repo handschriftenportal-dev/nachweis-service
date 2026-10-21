@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:c="jakarta.tags.core"
+      xmlns:comp="jakarta.faces.composite"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets">
+
+<comp:interface>
+
+  <comp:attribute
+      name="importMode"
+      default="false"
+      type="java.lang.Boolean"/>
+
+  <comp:attribute
+      name="externeRessourcen"
+      type="java.util.List"/>
+
+  <comp:attribute
+      name="kODRechte"
+      type="de.staatsbibliothek.berlin.hsp.nachweis.application.controller.permission.KODRechte"/>
+
+  <comp:attribute
+      name="addExterneRessourceListener"
+      type="jakarta.el.MethodExpression"/>
+
+</comp:interface>
+
+<comp:implementation>
+
+  <ui:fragment rendered="#{not cc.attrs.importMode}">
+
+  <p:confirmDialog
+      id="confirmExterneRessourceDialog"
+      global="true"
+      showEffect="fade"
+      hideEffect="fade"
+      responsive="true"
+      width="750"
+      styleClass="kod-confirm-dialog"
+      closable="false">
+
+    <p:commandButton
+        value="#{msg.common_no}"
+        type="button"
+        styleClass="ui-confirmdialog-no ui-button-flat"/>
+
+    <p:commandButton
+        value="#{msg.common_yes}"
+        type="button"
+        styleClass="ui-confirmdialog-yes"/>
+
+  </p:confirmDialog>
+
+  <div class="margin-bottom-15">
+
+    <p:dataTable
+        id="externe-ressourcen-dt"
+        var="externeRessource"
+        value="#{cc.attrs.externeRessourcen}"
+        size="small"
+        cellNavigation="false"
+        styleClass="externe-ressourcen-table">
+
+      <p:column headerText="#{msg.kod_externe_ressource_ressource}">
+        <h:outputText value="#{msg[externeRessource.typ().messageKey]}"/>
+      </p:column>
+
+      <p:column headerText="#{msg.kod_externe_ressource_link}"
+                styleClass="externe-ressourcen-link-column">
+        <h:outputLink
+            value="#{externeRessource.url()}"
+            target="_blank">
+          <h:outputText value="#{externeRessource.url()}"/>
+        </h:outputLink>
+      </p:column>
+
+      <p:column styleClass="margin-right-30 float-right externe-ressourcen-action-column">
+        <!-- Disabled while any edit form of this view is open: that form owns the Sperre for the
+             KOD, and deleting from underneath it would edit the same document in a second flow. -->
+        <p:commandButton
+            update="@form"
+            disabled="#{not cc.attrs.kODRechte.kannBearbeiten()
+                or kulturObjektDokumentViewController.bearbeitungAktiv}"
+            icon="pi pi-trash fa-2x"
+            title="#{msg.kod_tooltip_delete}"
+            styleClass="shadow-3 rounded-button externe-ressourcen-delete-button"
+            actionListener="#{kulturObjektDokumentViewController.externeRessourceLoeschen(externeRessource)}">
+
+          <p:confirm
+              header="#{kulturObjektDokumentViewController.deleteExterneRessourceConfirmMessage(externeRessource)}"/>
+
+        </p:commandButton>
+      </p:column>
+    </p:dataTable>
+
+  </div>
+
+  <p:outputPanel
+      layout="block"
+      styleClass="ui-g-12 ui-g-nopad-bottom"
+      rendered="#{kulturObjektDokumentViewController.addExterneRessource}">
+
+    <div class="ui-g-12 ui-g-nopad-bottom margin-top-10">
+
+      <h:outputText
+          value="#{msg.kod_externe_ressource_typ}"
+          styleClass="font-bold margin-right-10"/>
+
+      <p:selectOneMenu
+          id="typ"
+          value="#{kulturObjektDokumentViewController.neueExterneRessourceTyp}"
+          required="true"
+          requiredMessage="#{msg.kod_externe_ressource_typ_required}"
+          style="margin-right:30px;">
+
+        <f:selectItem
+            itemLabel="#{msg.common_please_select}"
+            itemValue="#{null}"
+            noSelectionOption="true"/>
+
+        <f:selectItems
+            value="#{kulturObjektDokumentViewController.externeRessourceTypen}"
+            var="typ"
+            itemValue="#{typ}"
+            itemLabel="#{msg[typ.messageKey]}"/>
+
+      </p:selectOneMenu>
+
+      <h:outputText
+          value="#{msg.kod_externe_ressource_url}"
+          styleClass="font-bold margin-right-10"/>
+
+      <p:inputText
+          id="url"
+          placeholder="https://example.org/objekt/1"
+          value="#{kulturObjektDokumentViewController.neueExterneRessourceUrl}"
+          required="true"
+          requiredMessage="#{msg.kod_externe_ressource_url_required}"
+          validator="externeRessourceUrlValidator"
+          style="width:350px;margin-right:30px;"/>
+
+      <p:commandButton
+          id="saveExterneRessourceButton"
+          title="#{msg.common_save}"
+          actionListener="#{kulturObjektDokumentViewController.externeRessourceBestaetigen}"
+          process="@this typ url"
+          update="typ url addExterneRessourceConfirmDialog"
+          icon="pi pi-save"
+          styleClass="shadow-3 rounded-button"/>
+
+      <p:commandButton
+          title="#{msg.common_cancel}"
+          actionListener="#{kulturObjektDokumentViewController.disableAddExterneRessource}"
+          process="@this"
+          update="@form"
+          icon="pi pi-times-circle"
+          styleClass="shadow-3 rounded-button"
+          style="margin-left:10px;"/>
+
+    </div>
+
+    <!-- Opened from externeRessourceBestaetigen(), i.e. only after validation passed. -->
+    <p:confirmDialog
+        id="addExterneRessourceConfirmDialog"
+        widgetVar="addExterneRessourceConfirm"
+        header="#{kulturObjektDokumentViewController.addExterneRessourceConfirmMessage()}"
+        showEffect="fade"
+        hideEffect="fade"
+        responsive="true"
+        width="750"
+        styleClass="kod-confirm-dialog"
+        closable="false">
+
+      <p:commandButton
+          value="#{msg.common_no}"
+          type="button"
+          onclick="PF('addExterneRessourceConfirm').hide()"
+          styleClass="ui-confirmdialog-no ui-button-flat"/>
+
+      <p:commandButton
+          value="#{msg.common_yes}"
+          actionListener="#{cc.attrs.addExterneRessourceListener}"
+          process="@this"
+          update="kodform"
+          oncomplete="PF('addExterneRessourceConfirm').hide()"
+          styleClass="ui-confirmdialog-yes"/>
+
+    </p:confirmDialog>
+
+  </p:outputPanel>
+
+  <div class="ui-g-12 ui-g-nopad-horizontal">
+
+    <c:if test="#{!kulturObjektDokumentViewController.addExterneRessource}">
+
+      <p:commandButton
+          actionListener="#{kulturObjektDokumentViewController.enableAddExterneRessource}"
+          title="#{msg.kod_tooltip_add}"
+          disabled="#{!cc.attrs.kODRechte.kannBearbeiten()}"
+          update="@form"
+          icon="pi pi-plus"
+          styleClass="shadow-3 rounded-button margin-left-5"/>
+
+    </c:if>
+
+  </div>
+
+  </ui:fragment>
+
+  <ui:fragment rendered="#{cc.attrs.importMode}">
+
+    <div class="ui-g-8">
+
+      <p>
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_description}"/>
+      </p>
+
+      <div style="margin-top: 25px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_format_title}"
+                      escape="false"/>
+      </div>
+
+      <div style="border: black solid thin; padding: 5px; margin-top: 10px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_format_header}"/>
+      </div>
+
+      <ul style="margin-top: 25px;">
+        <li>
+          <h:outputText value="#{msg.kod_externe_ressourcen_import_reference_per_line}"/>
+          <ul style="list-style-type: circle;">
+            <li>
+              <h:outputText value="#{msg.kod_externe_ressourcen_import_different_resources}"/>
+            </li>
+            <li>
+              <h:outputText value="#{msg.kod_externe_ressourcen_import_identical_resources}"/>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h:outputText value="#{msg.kod_externe_ressourcen_import_resource_values_title}"/>
+          <ul style="list-style-type: circle;">
+            <ui:repeat
+                value="#{externeRessourcenImportController.supportedResourceTypes}"
+                var="resourceType">
+              <li>
+                <h:outputText value="#{resourceType}"/>
+              </li>
+            </ui:repeat>
+          </ul>
+        </li>
+      </ul>
+
+      <p style="margin-top: 25px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_optional_fields_hint}"
+                      escape="false"/>
+      </p>
+
+      <div style="margin-top: 25px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_uuid_hint}"/>
+      </div>
+      <div style="border: black solid thin; padding: 5px; margin-top: 10px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_uuid_format}"/>
+      </div>
+
+      <div style="margin-top: 25px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_resolver_hint}"/>
+      </div>
+      <div style="border: black solid thin; padding: 5px; margin-top: 10px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_resolver_format}"/>
+      </div>
+
+      <div style="margin-top: 25px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_signature_hint}"
+                      escape="false"/>
+      </div>
+      <div style="border: black solid thin; padding: 5px; margin-top: 10px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_signature_format}"/>
+      </div>
+
+      <p style="margin-top: 25px;">
+        <h:outputText value="#{msg.kod_externe_ressourcen_import_file_select}"/>
+      </p>
+
+      <p:fileUpload
+          id="externeRessourcenImportUpload"
+          style="margin-top: 20px;"
+          listener="#{externeRessourcenImportController.handleFileUpload}"
+          mode="advanced"
+          auto="false"
+          multiple="false"
+          allowTypes="/(\.|\/)(csv)$/"
+          sizeLimit="100000000"
+          label="#{msg.selection}"
+          uploadLabel="#{msg.upload}"
+          cancelLabel="#{msg.cancel}"
+          invalidFileMessage="#{msg.kod_externe_ressourcen_import_invalid_file}"
+          invalidSizeMessage="#{msg.kod_externe_ressourcen_import_invalid_size}"
+          update="@form"
+          onstart="PF('externeRessourcenImportPoll').start();"/>
+
+      <h:panelGroup id="externeRessourcenImportState" layout="block">
+
+        <p:graphicImage
+            name="images/ajax-loader.gif"
+            rendered="#{externeRessourcenImportController.running}"/>
+
+        <h:outputText
+            value="#{msg.kod_externe_ressourcen_import_status}: #{externeRessourcenImportController.statusText}"
+            rendered="#{not empty externeRessourcenImportController.status}"
+            styleClass="margin-top-5 font-bold"/>
+
+        <p:commandButton
+            value="#{msg.kod_externe_ressourcen_import_download}"
+            rendered="#{externeRessourcenImportController.successful}"
+            ajax="false"
+            icon="pi pi-download"
+            style="margin-left: 80px;">
+          <p:fileDownload value="#{externeRessourcenImportController.resultCsv}"/>
+        </p:commandButton>
+
+      </h:panelGroup>
+
+      <p:poll
+          widgetVar="externeRessourcenImportPoll"
+          interval="3"
+          listener="#{externeRessourcenImportController.checkImportStatus}"
+          update="externeRessourcenImportState"
+          autoStart="true"
+          stop="#{not externeRessourcenImportController.polling}"/>
+
+    </div>
+
+  </ui:fragment>
+
+</comp:implementation>
+
+</html>

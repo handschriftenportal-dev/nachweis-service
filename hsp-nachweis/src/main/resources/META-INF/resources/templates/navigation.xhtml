@@ -1,0 +1,426 @@
+<ui:composition
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="jakarta.faces.html"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:jsf="jakarta.faces">
+
+  <h:form id="menuform" rendered="#{loginController.loggedIn}">
+    <div class="layout-menu-wrapper layout-menu">
+      <div class="layout-menu-container nano-content menu-scroll-content">
+        <ui:fragment>
+          <div class="layout-inline-menu navigationstaticpanel">
+            <a href="#"
+               data-p-styleclass="{ selector: '@next', enterClass: 'hidden', enterActiveClass: 'slidedown', leaveToClass: 'hidden', leaveActiveClass: 'slideup', hideOnOutsideClick: false }"
+               class="layout-inline-menu-action flex flex-row align-items-center p-3">
+                                <span class="profile-name">#{loginController.name}
+                                  <br/><small>(#{loginController.role}:in)</small></span>
+              <i class="material-icons">&#xE313;</i>
+            </a>
+
+            <ul id="profile-menu" class="navigationstaticpanel hidden">
+              <ui:param name="currentRight"
+                        value="#{bearbeiterRechte.kannAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/bearbeiter.xhtml?faces-redirect=true"/>
+              <li role="menuitem" style="pointer-events:none;"
+                  class="layout-inline-menu-action-item">
+                <p:commandLink role="menuitem"
+                               action="#{bearbeiterRechte.getAllowedAction(currentAction, currentRight)}"
+                               class="ripplelink"
+                               style="#{bearbeiterRechte.getAllowedStyle(currentRight)}"
+                               onstart="PF('statusDialog').show()"
+                               onsuccess="PF('statusDialog').hide();">
+                  <i class="material-icons">&#xE7FD;</i>
+                  <span>#{msg.nav_user_profile}</span>
+                </p:commandLink>
+              </li>
+              <li role="menuitem" style="pointer-events:none;opacity:0.6;"
+                  jsf:rendered="false" class="layout-inline-menu-action-item">
+                <a href="#" class="ripplelink">
+                  <i class="material-icons">&#xE8B9;</i>
+                  <span>#{msg.nav_settings}</span>
+                </a>
+              </li>
+              <li role="menuitem" class="layout-inline-menu-action-item">
+                <p:commandLink role="menuitem" update="@all"
+                               action="#{loginController.logout()}"
+                               class="ripplelink">
+                  <i class="material-icons">&#xE8AC;</i>
+                  <span>#{msg.nav_logout}</span>
+                </p:commandLink>
+              </li>
+            </ul>
+          </div>
+        </ui:fragment>
+        <ul class="navigationstaticpanel">
+          <ui:param name="currentAction"
+                    value="/dashboard.xhtml?faces-redirect=true"/>
+          <li role="menuitem" style="pointer-events:none;"
+              class="layout-inline-menu-action-item">
+            <p:commandLink role="menuitem"
+                           action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                           class="ripplelink"
+                           style="#{kODRechte.getAllowedStyle(currentRight)}"
+                           onstart="PF('statusDialog').show()"
+                           onsuccess="PF('statusDialog').hide();">
+              <i class="pi pi-home"/>
+              <span>#{msg.nav_dashboard}</span>
+            </p:commandLink>
+          </li>
+
+          <ui:param name="currentRight" value="#{sucheRechte.kannAufrufen()}"/>
+          <ui:param name="currentAction"
+                    value="/suche.xhtml?faces-redirect=true"/>
+          <li role="menuitem" style="pointer-events:none;"
+              class="layout-inline-menu-action-item">
+            <p:commandLink role="menuitem"
+                           action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                           class="ripplelink"
+                           style="#{kODRechte.getAllowedStyle(currentRight)}"
+                           onstart="PF('statusDialog').show()"
+                           onsuccess="PF('statusDialog').hide();">
+              <i class="pi pi-search"/>
+              <span>#{msg.nav_search}</span>
+            </p:commandLink>
+          </li>
+        </ul>
+        <div class="layout-menu">
+          <p:panelMenu widgetVar="mainmenuwidget" id="maninnavigationmenu"
+                       autoDisplay="true" statefulGlobal="true">
+
+            <p:submenu label="#{msg.nav_data}" icon="pi pi-database"
+                       id="submenudatatype"
+                       expanded="#{navigationModel.dataTypeSubmenuOpen}">
+              <ui:param name="currentRight"
+                        value="#{kODRechte.kannListeLesen()}"/>
+              <ui:param name="currentAction"
+                        value="/kulturobjekte.xhtml"/>
+              <p:menuitem id="datatypekod"
+                          outcome="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/kulturobjekte.xhtml' ?  'active-menuitem':''}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_kod}"
+                          icon="pi pi-book"/>
+
+              <ui:param name="currentRight"
+                        value="#{beschreibungsRechte.kannListeAllerDritterLesen()}"/>
+              <ui:param name="currentAction"
+                        value="/beschreibung/beschreibungen.xhtml"/>
+              <p:menuitem immediate="true"
+                          id="datatypedescription"
+                          outcome="#{beschreibungsRechte.getAllowedAction(currentAction, currentRight)}"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/beschreibung/beschreibungen.xhtml' ?  'active-menuitem':''}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_manueldescription}"
+                          icon="pi pi-file"
+                          actionListener="#{beschreibungModel.resetBearbeiterFilter}"/>
+
+              <ui:param name="currentRight"
+                        value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/orte.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="datatypeplaces"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/orte.xhtml' ?  'active-menuitem':''}"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                          actionListener="#{orteController.setup}"
+                          value="#{msg.nav_places}" icon="pi pi-map-marker"/>
+
+              <ui:param name="currentRight"
+                        value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/koerperschaften.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true" value="#{msg.nav_repository}"
+                          icon="pi pi-building"
+                          id="datatypecoporatebody"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/koerperschaften.xhtml' ?  'active-menuitem':''}"
+                          style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                          actionListener="#{koerperschaftModel.setup}"/>
+
+              <ui:param name="currentRight"
+                        value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/person/personen.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true" value="#{msg.nav_person}"
+                          icon="pi pi-users"
+                          id="datatypeperson"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/person/personen.xhtml' ?  'active-menuitem':''}"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                          actionListener="#{personModel.setup}"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"/>
+
+              <ui:param name="currentRight"
+                        value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/sprachen.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true" value="#{msg.nav_writelanguage}"
+                          icon="pi pi-language"
+                          id="datatypelanguage"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/sprachen.xhtml' ?  'active-menuitem':''}"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                          actionListener="#{spracheModel.setup}"/>
+              <ui:param name="currentRight"
+                        value="#{normdatenRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/initium.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          value="#{msg.nav_initien}"
+                          icon="pi pi-list"
+                          id="datatypeinitien"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/initium.xhtml' ? 'active-menuitem' : ''}"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                          actionListener="#{initiumModel.setup}"/>
+              <ui:param name="currentRight"
+                        value="#{katalogRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/kataloge.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="datatypecatalog"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/kataloge.xhtml' ?  'active-menuitem':''}"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{normdatenRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_cataloges}" icon="pi pi-print"/>
+            </p:submenu>
+            <p:submenu label="#{msg.nav_dataimport}" icon="pi pi-cloud"
+                       id="submenuimport"
+                       expanded="#{navigationModel.importSubmenuOpen}">
+              <ui:param name="currentRight"
+                        value="#{importRechte.kannDateiupload()}"/>
+              <ui:param name="currentAction"
+                        value="/dateiupload.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="importupload"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/dateiupload.xhtml' ?  'active-menuitem':''}"
+                          action="#{importRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{importRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_dateiupload}" icon="pi pi-upload"/>
+
+              <ui:param name="currentRight"
+                        value="#{importRechte.kannAlleImportvorgaengeAnschauen()}"/>
+              <ui:param name="currentAction"
+                        value="/importvorgaenge.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="importjobs"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/importvorgaenge.xhtml' ?  'active-menuitem':''}"
+                          action="#{importRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{importRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_importjobs}" icon="pi pi-server"
+                          actionListener="#{importVorgangController.loadAllVorgaenge}"/>
+            </p:submenu>
+            <p:submenu label="#{msg.nav_projects}" icon="pi pi-pencil"
+                       id="submenuprojects"
+                       rendered="false">
+            </p:submenu>
+            <p:submenu id="submenuredaction" label="#{msg.nav_redaction}"
+                       icon="pi pi-pencil"
+                       expanded="#{navigationModel.redactionSubmenuOpen}"
+                       rendered="#{navigationRechte.kannRedaktionAnzeigen()}">
+              <ui:param name="currentRight"
+                        value="#{kODRechte.kannRegistrieren()}"/>
+              <ui:param name="currentAction"
+                        value="/datenuebernahme.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactiondatatakeover"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/datenuebernahme.xhtml' ?  'active-menuitem':''}"
+                          action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          icon="pi pi-check-circle"
+                          actionListener="#{datenuebernahmeModel.alleImporteAnzeigen}"
+                          value="#{msg.nav_datatakeover}"/>
+
+              <ui:param name="currentRight"
+                        value="#{beschreibungsRechte.kannPublikationSehen()}"/>
+              <ui:param name="currentAction"
+                        value="/genehmigungs-verfahren.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactionpublikationapproval"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/genehmigungs-verfahren.xhtml' ? 'active-menuitem' : ''}"
+                          action="#{beschreibungsRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{beschreibungsRechte.getAllowedStyle(currentRight)}"
+                          icon="pi pi-book"
+                          value="#{msg.nav_approval}"/>
+
+              <ui:param name="currentRight"
+                        value="#{kODRechte.kannRegistrieren()}"/>
+              <ui:param name="currentAction"
+                        value="/kod-verwalten.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactionregisterkods"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/kod-verwalten.xhtml' ?  'active-menuitem':''}"
+                          action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_managekod}"
+                          icon="pi pi-plus-circle"/>
+
+              <ui:param name="currentRight"
+                        value="#{pURLsRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/purls.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactionpurls"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/purls.xhtml' ?  'active-menuitem':''}"
+                          action="#{pURLsRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_purls}"
+                          actionListener="#{pURLsModel.setup}"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"
+                          icon="pi pi-link"/>
+
+              <ui:param name="currentRight"
+                        value="#{werkzeugeRechte.kannWerkzeugeAnwenden()}"/>
+              <ui:param name="currentAction"
+                        value="/werkzeuge.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactiontools"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/werkzeuge.xhtml' ?  'active-menuitem':''}"
+                          action="#{werkzeugeRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_werkzeuge}"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"
+                          icon="pi pi-wrench"/>
+
+              <ui:param name="currentRight"
+                        value="#{schemaPflegeRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/schemapflege.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactionschema"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/schemapflege.xhtml' ?  'active-menuitem':''}"
+                          action="#{schemaPflegeRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{schemaPflegeRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_schema}"
+                          icon="pi pi-cog"
+                          ajax="true"
+                          update="@all"/>
+
+              <ui:param name="currentRight"
+                        value="#{papierkorbRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/papierkorb.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactiontrash"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/papierkorb.xhtml' ?  'active-menuitem':''}"
+                          action="#{pURLsRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          value="#{msg.nav_papierkorb}"
+                          icon="pi pi-trash"
+                          actionListener="#{papierkorbModel.setup}"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"/>
+
+              <ui:param name="currentRight"
+                        value="#{gndserviceRechte.kannGNDServiceVerwalten()}"/>
+              <ui:param name="currentAction"
+                        value="/gndservice.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactiongndservice"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/gndservice.xhtml' ?  'active-menuitem':''}"
+                          action="#{gndserviceRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          value="#{msg.nav_gndservice}"
+                          icon="pi pi-arrows-h"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"/>
+
+              <ui:param name="currentRight"
+                        value="#{normdatenRechte.kannNormdatenerkennung()}"/>
+              <ui:param name="currentAction"
+                        value="/normdatenerkennung.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true"
+                          id="redactionnormdatenerkennung"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/normdatenerkennung.xhtml' ?  'active-menuitem':''}"
+                          action="#{normdatenRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          value="#{msg.nav_normdatenerkennung}"
+                          icon="pi pi-sparkles"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"/>
+
+            </p:submenu>
+            <p:submenu id="submenumanagement" label="#{msg.nav_usermanagement}"
+                       icon="&#xE7FB;"
+                       disabled="true"
+                       style="pointer-events:none;opacity:0.6;"
+                       rendered="false">
+            </p:submenu>
+            <p:submenu id="submenulocks" label="#{msg.nav_misc}"
+                       icon="pi pi-microsoft"
+                       expanded="#{navigationModel.otherSubmenuOpen}">
+              <ui:param name="currentRight"
+                        value="#{sperrenRechte.kannAlsListeAnzeigen()}"/>
+              <ui:param name="currentAction"
+                        value="/sperren.xhtml?faces-redirect=true"/>
+              <p:menuitem immediate="true" id="locksbestand"
+                          action="/bestand.xhtml?faces-redirect=true"
+                          style="#{navigationRechte.getAllowedStyle(true)}"
+                          icon="pi pi-chart-bar"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/bestand.xhtml' ?  'active-menuitem':''}"
+                          value="#{msg.bestand_navigationpage}"/>
+              <p:menuitem immediate="true"
+                          id="locksalllocks"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/sperren.xhtml' ?  'active-menuitem':''}"
+                          action="#{kODRechte.getAllowedAction(currentAction, currentRight)}"
+                          disabled="#{not currentRight}"
+                          style="#{kODRechte.getAllowedStyle(currentRight)}"
+                          icon="pi pi-lock"
+                          actionListener="#{sperrenModel.alleSperrenAnzeigen}"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"
+                          value="#{msg.nav_lock}"/>
+
+              <p:menuitem immediate="true"
+                          id="datensicherung"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/datensicherung.xhtml' ?  'active-menuitem':''}"
+                          action="/datensicherung.xhtml?faces-redirect=true"
+                          style="#{kODRechte.getAllowedStyle(true)}"
+                          icon="pi pi-database"
+                          value="#{msg.nav_datensicherung}"/>
+
+              <p:menuitem immediate="true"
+                          id="locksaccessibility"
+                          containerStyleClass="#{facesContext.viewRoot.viewId eq '/barrierefreiheit.xhtml' ?  'active-menuitem':''}"
+                          action="/barrierefreiheit.xhtml?faces-redirect=true"
+                          style="#{navigationRechte.getAllowedStyle(true)}"
+                          icon="pi pi-code"
+                          styleClass="menuitem-datenschutzt-barrierefreiheit"
+                          onstart="PF('statusDialog').show()"
+                          onsuccess="PF('statusDialog').hide();"
+                          value="#{msg.nav_barrierefreiheit}"/>
+            </p:submenu>
+          </p:panelMenu>
+        </div>
+      </div>
+    </div>
+    <p:remoteCommand name="collapsedTrue"
+                     actionListener="#{sideBarController.setSidebarCollapsed(true)}"
+                     style="display: none;"/>
+    <p:remoteCommand name="collapsedFalse"
+                     actionListener="#{sideBarController.setSidebarCollapsed(false)}"
+                     style="display: none;"/>
+  </h:form>
+</ui:composition>

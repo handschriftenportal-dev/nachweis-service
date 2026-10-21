@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Liste der Beziehungen zwischen Normdaten</title>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <listRelation>
+        <relation type="SCHEMA_NAME_OF_RELATION" name="NAME_OF_RELATION" active="ID_SUBJECT" passive="ID_OBJECTS"/>
+      </listRelation>
+    </body>
+  </text>
+</TEI>

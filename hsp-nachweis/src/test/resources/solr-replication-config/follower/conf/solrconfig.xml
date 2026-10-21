@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Minimal Solr 9 follower core used ONLY by SolrAdminClientIT.
+
+  The core polls the leader container (network alias solr-leader) for the same core name,
+  mirroring the production leader/follower setup, so the details/disablepoll/enablepoll
+  commands and the actual index replication behave like production. The poll interval is
+  deliberately short to keep the replication end-to-end test fast.
+-->
+<config>
+  <luceneMatchVersion>9.4.1</luceneMatchVersion>
+
+  <dataDir>${solr.data.dir:}</dataDir>
+  <directoryFactory name="DirectoryFactory"
+    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+  <updateHandler class="solr.DirectUpdateHandler2"/>
+
+  <requestDispatcher>
+    <httpCaching never304="true"/>
+  </requestDispatcher>
+
+  <requestHandler name="/select" class="solr.SearchHandler"/>
+
+  <!-- Values taken from the production solrconfig.xml (both roles in one handler, switched
+       via system properties). Adapted for the test: sections and params renamed
+       master->leader, slave->follower, masterUrl->leaderUrl (Solr 9 dropped the legacy names).
+       The container enables the follower role and sets leader host/port plus a short poll
+       interval via SOLR_OPTS, like production ops does (production defaults: follower
+       disabled, pollInterval 00:30:00). -->
+  <requestHandler name="/replication" class="solr.ReplicationHandler">
+    <lst name="leader">
+      <str name="enable">${replication.master.enable:true}</str>
+      <str name="replicateAfter">${replication.master.backupAfter:commit}</str>
+      <str name="backupAfter">${replication.master.backupAfter:optimize}</str>
+    </lst>
+
+    <lst name="follower">
+      <str name="enable">${replication.slave.enable:false}</str>
+      <!-- Must stay on one line: ReplicationHandler does not trim this value, a wrapped
+           element yields a URL with embedded whitespace and every poll fails silently. -->
+      <str name="leaderUrl">http://${replication.slave.masterHost:}:${replication.slave.masterPort:}/solr/${solr.core.name}</str>
+      <str name="pollInterval">${replication.pollInterval:00:30:00}</str>
+    </lst>
+
+    <int name="maxNumberOfBackups">${replication.maxNumberOfBackups:1}</int>
+    <lst name="invariants">
+      <str name="maxWriteMBPerSec">${replication.maxWriteMBPerSec:50}</str>
+    </lst>
+  </requestHandler>
+</config>

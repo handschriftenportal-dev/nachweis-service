@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{languageController.locale}" transient="false">
+  <f:metadata>
+    <f:viewAction action="#{beschreibungCardController.loadPublikation()}"/>
+  </f:metadata>
+</f:view>
+<h:head>
+  <h:outputScript name="js/nanoscroller.js" library="ultima-layout"/>
+  <h:outputScript name="js/layout.js" library="ultima-layout"/>
+  <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/hspnachweis.css"/>
+
+  <h:outputText id="headerTitle" style="font-size: 20px;"
+                value="#{msg.publikation_history_dialog_title}"/>
+</h:head>
+<h:body class="hsp-dialog">
+  <h:form id="historyForm" styleClass="hsp-form">
+
+    <h:panelGroup
+        rendered="#{beschreibungCardController.activeApprovalRequest == null}">
+      <p:panel header="#{msg.publikation_history_current_request}" styleClass="margin-bottom-10">
+        <p:outputLabel value="#{msg.publikation_history_no_active_request}"/>
+      </p:panel>
+    </h:panelGroup>
+
+    <h:panelGroup
+        rendered="#{beschreibungCardController.activeApprovalRequest != null}">
+      <p:panel header="#{msg.publikation_history_current_request}" styleClass="margin-bottom-10">
+        <h:panelGrid columns="2" cellpadding="5" styleClass="ui-fluid">
+          <p:outputLabel value="#{msg.publikation_history_status}:"/>
+          <h:outputText
+              value="#{msg['approval_status_' += beschreibungCardController.activeApprovalRequest.status]}"
+              styleClass="font-bold"/>
+
+          <p:outputLabel value="#{msg.publikation_history_requested_by}:"/>
+          <h:outputText
+              value="#{beschreibungCardController.activeApprovalRequest.requestedBy}"/>
+
+          <p:outputLabel value="#{msg.publikation_history_requested_at}:"/>
+          <h:outputText
+              value="#{beschreibungCardController.activeApprovalRequest.requestedAt}">
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+          </h:outputText>
+
+          <p:outputLabel value="#{msg.publikation_history_assigned_to}:"
+                         rendered="#{not empty beschreibungCardController.activeApprovalRequest.assignedTo}"/>
+          <h:outputText
+              value="#{beschreibungCardController.activeApprovalRequest.assignedTo}"
+              rendered="#{not empty beschreibungCardController.activeApprovalRequest.assignedTo}"/>
+
+          <p:outputLabel value="#{msg.publikation_history_assigned_at}:"
+                         rendered="#{beschreibungCardController.activeApprovalRequest.assignedAt != null}"/>
+          <h:outputText
+              value="#{beschreibungCardController.activeApprovalRequest.assignedAt}"
+              rendered="#{beschreibungCardController.activeApprovalRequest.assignedAt != null}">
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+          </h:outputText>
+        </h:panelGrid>
+      </p:panel>
+    </h:panelGroup>
+
+
+    <p:panel header="#{msg.publikation_history_events}">
+      <p:dataTable
+          value="#{beschreibungCardController.approvalRequestsHistory}"
+          var="event"
+          emptyMessage="#{msg.publikation_history_no_events}">
+
+        <p:column headerText="#{msg.publikation_history_event_type}">
+          <h:outputText value="#{msg['approval_event_type_' += event.eventType]}"/>
+        </p:column>
+
+        <p:column headerText="#{msg.publikation_history_event_actor}">
+          <h:outputText value="#{event.actor}"/>
+        </p:column>
+
+        <p:column headerText="#{msg.publikation_history_event_date}">
+          <h:outputText value="#{event.createdAt}">
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+          </h:outputText>
+        </p:column>
+
+        <p:column headerText="#{msg.publikation_history_event_comment}">
+          <h:outputText value="#{event.comment}"/>
+        </p:column>
+      </p:dataTable>
+    </p:panel>
+
+    <div style="margin-top: 1rem; padding: 15px; display: flex; justify-content: flex-end;">
+      <p:commandButton value="#{msg.publikation_history_close}"
+                       ajax="false"
+                       action="#{beschreibungCardController.dialogSchliessen(null)}"
+                       styleClass="ui-button-secondary"/>
+    </div>
+  </h:form>
+</h:body>
+</html>

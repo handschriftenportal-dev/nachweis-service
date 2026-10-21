@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="jakarta.faces.core"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <ui:param name="kannLesen" value="#{kODRechte.kannRegistrieren()}"/>
+
+        <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+            <ui:param name="hasAccess" value="#{kannLesen}"/>
+        </ui:include>
+
+        <p:outputPanel id="kodregistrationsuccess"
+                       rendered="#{kannLesen and not empty kulturObjektRegistrierenController.registrierteKODs}">
+            <div class="ui-g">
+                <div class="ui-g-10">
+                    <p:panelGrid layout="grid" columns="1">
+                        <p:column>
+                            <p:row>
+                                <h4>#{msg.kod_registrieren_success_title}</h4>
+                            </p:row>
+                            <p:row>
+                                <h:outputText value="vom "/>
+                                <h:outputText
+                                        value="#{kulturObjektRegistrierenController.regisrierungsZeit}">
+                                    <f:convertDateTime type="localDateTime"
+                                                       pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </p:row>
+                            <p:row>
+                                <h:outputText
+                                        value="#{msg.kod_registrieren_success_message.replaceAll('NUMBER',kulturObjektRegistrierenController.registrierteKODs.size())}"></h:outputText>
+                            </p:row>
+                            <p:row>
+                                <h:outputText
+                                        value="#{kulturObjektRegistrierenController.orteViewModel.ortsName}, "/>
+                                <h:outputText
+                                        value="#{kulturObjektRegistrierenController.koerperschaftViewModel.preferredName}"/>
+                            </p:row>
+                        </p:column>
+                    </p:panelGrid>
+                </div>
+                <br/>
+                <div class="ui-g-10">
+                    <h:form id="kodregistrieren"
+                            rendered="#{kannLesen and not empty kulturObjektRegistrierenController.registrierteKODs}">
+                        <p:dataTable var="kod"
+                                     value="#{kulturObjektRegistrierenController.registrierteKODs}"
+                                     emptyMessage="#{kod_registrieren_keinekulturobjekte}"
+                                     id="kulturobjektSucess"
+                                     widgetVar="kodTableWidget"
+                                     rowKey="#{kod.id}"
+                                     rows="5"
+                                     ajax="true"
+                                     reflow="true"
+                                     paginator="true"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="top"
+                                     paginatorAlwaysVisible="false"
+                                     liveScroll="true"
+                                     resizableColumns="true"
+                                     style="width: auto !important;"
+                                     pageLinks="5">
+
+                            <p:column headerText="#{msg.kod_registrieren_success_id}">
+                                <h:outputText style="white-space: pre-wrap;"
+                                              value="#{kod.id}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.kod_registrieren_success_signatur}">
+                                <h:outputText style="white-space: pre-wrap;"
+                                              value="#{kod.signatur}"/>
+                            </p:column>
+                            <p:column
+                                    headerText="#{msg.kod_registrieren_success_alternativesignatur}">
+                                <h:outputText style="white-space: pre-wrap;"
+                                              value="#{kod.alternativeSignaturen}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton value="#{msg.kod_registrieren_neuregistrieren}"
+                                         update="@form"
+                                         styleClass="toptwenty"
+                                         action="#{kulturObjektRegistrierenController.neuRegistrieren()}"></p:commandButton>
+
+                    </h:form>
+                </div>
+            </div>
+        </p:outputPanel>
+        <p:outputPanel id="kodregistrationfailure"
+                       rendered="#{kannLesen and not empty kulturObjektRegistrierenController.error}">
+            <div class="ui-g">
+                <div class="ui-g-10" style="display: flex">
+                    <p:panelGrid layout="grid" columns="1">
+                        <p:column>
+                            <p:row>
+                                <h4>Registrierung von Kulturobjekte</h4>
+                            </p:row>
+                            <p:row>
+                                <h:outputText value="vom ">
+                                </h:outputText>
+                                <h:outputText
+                                        value="#{kulturObjektRegistrierenController.regisrierungsZeit}">
+                                    <f:convertDateTime type="localDateTime"
+                                                       pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </p:row>
+                            <p:row>
+                                <h:outputText value="#{msg.kod_registrieren_fehler}"/>
+                            </p:row>
+                            <p:row>
+                                <h:outputText
+                                        value="#{kulturObjektRegistrierenController.error.message}"/>
+                            </p:row>
+                        </p:column>
+                    </p:panelGrid>
+                </div>
+                <div class="ui-g-11" style="display: flex">
+                    <h:form id="kodregistrierenfailure">
+                        <p:dataTable var="kod"
+                                     value="#{kulturObjektRegistrierenController.failureKODs}"
+                                     emptyMessage="#{msg.kod_registrieren_keinekulturobjekte}"
+                                     id="kulturobjektFailure"
+                                     widgetVar="kodTableWidget"
+                                     rowKey="#{kod.id}"
+                                     rows="5"
+                                     ajax="true"
+                                     paginator="true"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="top"
+                                     paginatorAlwaysVisible="false"
+                                     liveScroll="true"
+                                     resizableColumns="true" style="width: auto !important;"
+                                     pageLinks="5">
+
+                            <p:column headerText="#{msg.kod_registrieren_success_id}">
+                                <h:outputText style="white-space: pre-wrap;"
+                                              value="#{kod.id}"/>
+                            </p:column>
+                            <p:column headerText="#{msg.kod_registrieren_success_signatur}">
+                                <h:outputText style="white-space: pre-wrap;"
+                                              value="#{kod.signatur}"/>
+                            </p:column>
+                            <p:column
+                                    headerText="#{msg.kod_registrieren_success_alternativesignatur}">
+                                <h:outputText style="white-space: pre-wrap;"
+                                              value="#{kod.alternativeSignaturen}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton value="#{msg.kod_registrieren_neuregistrieren}"
+                                         update="@form"
+                                         styleClass="toptwenty"
+                                         action="#{kulturObjektRegistrierenController.neuRegistrieren()}"></p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:outputPanel>
+    </ui:define>
+</ui:composition>

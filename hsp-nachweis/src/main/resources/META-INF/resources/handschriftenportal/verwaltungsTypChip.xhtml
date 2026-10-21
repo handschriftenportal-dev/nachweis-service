@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="jakarta.faces.composite">
+
+  <composite:interface>
+    <composite:attribute name="id"/>
+    <composite:attribute name="value"
+                         type="de.staatsbibliothek.berlin.hsp.domainmodel.valueobjects.VerwaltungsTyp"
+                         required="true"/>
+    <composite:attribute name="styleClass" type="java.lang.String"/>
+  </composite:interface>
+
+  <composite:implementation>
+    <p:chip id="#{cc.attrs.id}_intern"
+            rendered="#{cc.attrs.value eq 'INTERN'}"
+            styleClass="#{cc.attrs.styleClass}"
+            label="#{msg.beschreibung_card_verwaltungstyp_INTERN}"
+            image="#{request.contextPath}/images/HSP_Twitter_RGB.svg"/>
+    <p:chip id="#{cc.attrs.id}_extern"
+            rendered="#{cc.attrs.value eq 'EXTERN'}"
+            styleClass="#{cc.attrs.styleClass}"
+            label="#{msg.beschreibung_card_verwaltungstyp_EXTERN}"
+            icon="pi pi-lock"/>
+  </composite:implementation>
+</ui:composition>

@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS bearbeiter
+    ADD COLUMN IF NOT EXISTS editor_config TEXT;

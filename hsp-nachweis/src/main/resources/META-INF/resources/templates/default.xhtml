@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{languageController.locale}" transient="false">
+  <f:metadata>
+    <f:viewParam name="lang" value="#{requestController.locale}"/>
+  </f:metadata>
+</f:view>
+<h:head>
+  <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"/>
+  <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png"/>
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
+  <link rel="icon" type="image/png" sizes="256x256" href="/favicon/favicon-256x256.png"/>
+  <meta name="msapplication-TileColor" content="#ffffff"/>
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
+  <meta name="theme-color" content="#ffffff"/>
+  <f:facet name="first">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="theme-color" content="#{guestPreferences.themeColors[guestPreferences.theme]}"/>
+  </f:facet>
+  <title>
+    <ui:insert id="erfassungtitle"
+               name="title">#{erfassungsTitleController.getTitle()}
+    </ui:insert>
+  </title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description"
+        content="Zentrales Erfassungssystem für mittelalterliche Handschriften"/>
+
+  <h:outputStylesheet name="css/primeflex.min.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/primeflex-v2.min.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/primeicons.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/animate.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/ripple.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout"/>
+  <h:outputStylesheet name="css/hspnachweis.css"/>
+
+  <script>
+    function onMessage(message, channel, event) {
+      console.log(
+          'jsf push message::' + message + ", channel ::" + channel + ", event::"
+          + event);
+
+      PF('websocketclient').renderMessage({
+        "summary": "Update Importvorgänge",
+        "detail": message,
+        "severity": "info"
+      });
+
+      updateTableFromServer();
+    }
+  </script>
+
+</h:head>
+<h:body
+    styleClass="main-body ui-input-filled #{guestPreferences.compact ? 'layout-compact' : null}"
+    style="--layout-mobile-breakpoint: 960px;">
+  <f:event listener="#{loginController.checkLogin}" type="preRenderView"/>
+  <f:event listener="#{viewExpiredController.addMessageIfViewExpired}" type="preRenderView"/>
+  <p:dialog widgetVar="idleDialog" closable="false" minHeight="40" responsive="true"
+            height="80">
+    <p:graphicImage name="images/ajax-loader.gif"/>
+  </p:dialog>
+  <h:form id="sessionform">
+    <p:dialog
+        id="sessionTimeoutDialog"
+        widgetVar="sessionTimeoutDialog"
+        modal="true"
+        visible="#{sessionController.isExpired()}"
+        closable="false"
+        header="#{msg.sessiontimeout_header}"
+        width="400"
+    >
+      <div class="ui-g-12">
+        <h:outputText style="text-align: justify" value="#{msg.sessiontimeout}"/>
+      </div>
+      <div class="ui-g-12">
+        <p:commandButton
+            value="#{msg.nav_dashboard}"
+            onclick="window.location='/dashboard.xhtml'"
+            action="#{sessionController.invalidateSession}"/>
+
+      </div>
+    </p:dialog>
+    <p:poll interval="30" update="@form"/>
+    <p:remoteCommand
+        name="executeSessionAktualisieren"
+        id="sessionAktualisierenRemoteCommand"
+        actionListener="#{sessionController.renewSession}"
+    />
+  </h:form>
+
+  <div class="layout-wrapper layout-menu-static
+            #{loginController.loggedIn ? 'layout-menu-active' : 'layout-menu-inactive'}
+            #{!loginController.loggedIn ? 'login-view' : ''}">
+    <ui:include src="topbar.xhtml"/>
+    <ui:fragment rendered="#{loginController.loggedIn}">
+      <ui:include src="navigation.xhtml"/>
+    </ui:fragment>
+    <main id="maincontent" class="layout-main">
+      <p:growl widgetVar="websocketclient" globalOnly="true" redisplay="false"/>
+      <p:growl id="hspGrowl" showDetail="true" life="4000">
+        <p:autoUpdate/>
+      </p:growl>
+      <p:messages id="globalmessages" showDetail="true" closable="true" redisplay="false"
+                  forIgnores="alternativeKODMessage">
+        <p:autoUpdate/>
+      </p:messages>
+      <div class="layout-content">
+        <ui:insert name="content"/>
+      </div>
+    </main>
+  </div>
+  <p:dialog widgetVar="statusDialog" draggable="false" closable="false"
+            resizable="false"
+            showHeader="false">
+    <p:graphicImage name="images/ajax-loader.gif"/>
+  </p:dialog>
+  <f:websocket channel="importMessagePush" onmessage="onMessage"/>
+
+  <h:outputScript name="js/layout.js" library="ultima-layout" target="body"/>
+  <h:outputScript name="js/layout.config.js" library="ultima-layout" target="body"/>
+  <h:outputScript name="js/layout.menu.js" library="ultima-layout" target="body"/>
+  <h:outputScript name="js/ripple.js" library="ultima-layout" target="body"/>
+  <h:outputScript name="js/prism.js" library="ultima-layout" target="body"/>
+
+</h:body>
+
+<script type="text/javascript">
+  function openHelpTab(anchorId) {
+    const url = '/erfassungshilfe.xhtml#' + anchorId;
+    const tabName = 'hsp-docs';
+    const helpTab = window.open(url, tabName);
+    if (helpTab) {
+      helpTab.focus();
+    }
+  }
+</script>
+
+</html>

@@ -1,0 +1,156 @@
+/* Add your customizations of theme here only change style here*/
+
+body .ui-datatable tbody tr.ui-datatable-even {
+  background-color: #f4f4f4;
+}
+
+body .ui-datatable tbody tr.ui-widget-content {
+  border: 1px solid #bdbdbd;
+}
+
+body .ui-chkbox {
+  margin-right: 4px;
+}
+
+body .ui-commandlink, body .ui-link {
+  color: #00838B;
+}
+
+body .ui-widget-content {
+  background-color: #ffffff;
+  border: 1px solid #bdbdbd;
+  padding: 0.857em 1em;
+}
+
+body .ui-toggleswitch-checked > .ui-toggleswitch-slider {
+  background-color: #D35150 !important;
+}
+
+body .ui-dialog .ui-dialog-content {
+  padding: 1.5em 1.5rem 1.5rem 1.5rem;
+}
+
+.kod-confirm-dialog .ui-dialog-title {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 2rem;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.text-disabled {
+  color: #6D6B68;
+}
+
+.kod-altlinks-wrapper {
+  background-color: #dedad5;
+  padding-top: 27px;
+}
+
+.kod-altlinks-accordion {
+  margin: 16px 0;
+}
+
+.kod-altlinks-wrapper .ui-accordion .ui-accordion-header {
+  font-weight: bold;
+}
+
+.ui-dialog .ui-dialog-content {
+  max-height: calc(100vh - 120px);
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 104px);
+  padding: 100px 16px 60px;
+  width: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+.login-page .login-card {
+  width: 520px;
+  min-height: 190px;
+  margin: 60px auto 0;
+  padding: 30px 40px 30px;
+  border: none;
+  border-radius: 0;
+  box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.30),
+  0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.login-page .login-title,
+.login-page .login-subtitle {
+  display: block;
+}
+
+.login-page .login-title {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 900;
+  margin: 0 0 6px;
+}
+
+.login-page .login-subtitle {
+  font-size: 12px;
+  color: #0b0000;
+  line-height: 1.4;
+  margin-top: 6px;
+  margin-bottom: 25px;
+  font-weight: 550;
+}
+
+.login-page .login-btn {
+  width: 100%;
+  border-radius: 0;
+  font-weight: 550;
+}
+
+@media (max-height: 740px) {
+  .login-page {
+    padding-top: 90px;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-page .login-card {
+    width: 92vw;
+    padding: 20px;
+  }
+}
+
+.login-view .layout-main {
+  margin-left: 0 !important;
+}
+
+.layout-footer,
+.footer {
+  font-weight: 550;
+  color: #111;
+}
+
+.login-view .layout-footer,
+.login-view .footer {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 38px;
+  font-weight: 550;
+  color: #111;
+  background: transparent;
+}
+
+.login-view,
+.login-page {
+  overflow-y: hidden;
+  height: 100vh;
+}

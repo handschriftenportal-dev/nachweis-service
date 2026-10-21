@@ -1,0 +1,167 @@
+<?xml version="1.0" standalone="yes"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+        <title>Kulturobjektdokument von Emden, Stiftung Johannes a Lasco Bibliothek Große Kirche
+          Emden, Emden, JALB, Hs 4º 30
+        </title>
+        <respStmt>
+          <resp>Herausgegeben vom</resp>
+          <name type="org">Handschriftenportal</name>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>Elektronische Ausgabe nach TEI P5</edition>
+        <respStmt>
+          <resp>Automatisch generierte Ausgabe</resp>
+          <orgName>Handschriftenportal</orgName>
+        </respStmt>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>
+          <name type="org">Handschriftenportal</name>
+          <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+        <date when="2022-11-30" type="issued">2022-11-30</date>
+        <distributor>Handschriftenportal</distributor>
+        <availability status="free">
+          <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+            <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+              Nutzungsrechte.
+            </p>
+            <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+              Lizenzen. Vgl. die
+              <ref target="http://www.handschriftenportal.de">Copyright
+                Information
+              </ref>
+              des Handschriftenportals.
+            </p>
+          </licence>
+        </availability>
+        <pubPlace>
+          <ptr xml:id="HSP-004e814a-544a-30be-b49d-7da716191f0a" subtype="hsp" type="purl"
+            target="https://resolver.staatsbibliothek-berlin.de/HSP000347EA00000000"/>
+        </pubPlace>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="HSP-26fe0b64-3c9d-3d4b-bbea-aec4238e19ad" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement ref="4014564-5" key="NORM-5d17d30a-9a43-3d37-be43-0d912b75d692">Emden
+            </settlement>
+            <repository ref="2179343-8" key="NORM-986f6658-4e69-345e-9d5e-c01ceaab4b35">Stiftung
+              Johannes a Lasco Bibliothek Große Kirche Emden
+            </repository>
+            <idno>Emden, JALB, Hs 4º 30</idno>
+            <altIdentifier type="alternative">
+              <idno>Emden, JALB, Hs 4° 30</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Emden, BGro K, Hs. quart 30</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Hs. 4o 30</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Hs. 4° 30</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Hs. 4º 30</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Hs. quart 30</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <head>
+            <index indexName="norm_title" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="title">Brevier, lat.-dt.</term>
+            </index>
+            <index indexName="norm_material" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="material">Pergament</term>
+              <term type="material_type">parchment</term>
+            </index>
+            <index indexName="norm_measure" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="measure">108 Bl.</term>
+              <term type="measure_noOfLeaves">108</term>
+            </index>
+            <index indexName="norm_dimensions" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="dimensions">20,5 × 15</term>
+              <term type="height">20,5</term>
+              <term type="width">15</term>
+              <term type="depth"/>
+              <term type="dimensions_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_format" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="format">quarto</term>
+              <term type="format_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_origPlace">
+              <term type="origPlace"/>
+              <term type="origPlace_norm"/>
+            </index>
+            <index indexName="norm_origDate" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="origDate">16. Jh.</term>
+              <term type="origDate_notBefore">1501</term>
+              <term type="origDate_notAfter">1600</term>
+              <term type="origDate_type">datable</term>
+            </index>
+            <index indexName="norm_textLang" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="textLang">lateinisch / deutsch</term>
+              <term type="textLang-ID">la</term>
+              <term type="textLang-ID">de</term>
+            </index>
+            <index indexName="norm_form" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="form">codex</term>
+            </index>
+            <index indexName="norm_status" copyOf="#HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0005474700000000">
+              <term type="status">existent</term>
+            </index>
+            <index indexName="norm_decoration">
+              <term type="decoration"/>
+            </index>
+            <index indexName="norm_musicNotation">
+              <term type="musicNotation"/>
+            </index>
+          </head>
+          <additional>
+            <adminInfo>
+              <availability status="free">
+                <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+                  <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+                    Nutzungsrechte.
+                  </p>
+                  <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+                    Lizenzen. Vgl. die
+                    <ref target="http://www.handschriftenportal.de">Copyright
+                      Information
+                    </ref>
+                    des Handschriftenportals.
+                  </p>
+                </licence>
+              </availability>
+            </adminInfo>
+            <listBibl>
+              <bibl>
+                <ref target="HSP-4917480c-f22d-3c0d-a664-b2c181aac88a"/>
+              </bibl>
+            </listBibl>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

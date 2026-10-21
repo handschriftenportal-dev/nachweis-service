@@ -1,0 +1,7 @@
+# Solr consumes these configsets verbatim. The ReplicationHandler does not trim
+# element text, so values like leaderUrl must stay on a single line - keep the
+# IDE formatter from wrapping long lines here.
+[**.xml]
+max_line_length = off
+ij_xml_text_wrap = off
+ij_xml_keep_line_breaks = true

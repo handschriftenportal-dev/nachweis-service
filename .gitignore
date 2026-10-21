@@ -1,0 +1,49 @@
+data-backups
+data-backups-test
+target
+.claude
+.classpath
+.project
+.settings
+.idea
+.mvn
+mvnw
+mvnw.cmd
+*.iml
+audit.log
+hs_err_*
+META-INF.JAXB
+.env
+claude.md
+.sdkmanrc
+
+### STS ###
+.apt_generated
+.factorypath
+.springBeans
+
+### IntelliJ IDEA ###
+*.iws
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+/hsp-nachweis/ObjectStore/
+/jacoco-quarkus.exec
+/jacoco-report/
+
+### Jenkins ###
+target/
+.scannerwork
+.git
+dependency-check*
+sonar-report
+mvnw*
+*.versionsBackup
+mvnsettings.xml
+.bash_history

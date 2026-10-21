@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="jakarta.tags.core"
+                xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core"
+                template="../templates/default.xhtml">
+  <ui:define name="content">
+    <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+      <ui:param name="hasAccess"
+                value="#{digitalisatsRechte.kannManuellAnlegen() or digitalisatsRechte.kannBearbeiten()}"/>
+    </ui:include>
+    <h:form id="digitalisaterfassenform"
+            rendered="#{digitalisatsRechte.kannManuellAnlegen() or digitalisatsRechte.kannBearbeiten()}">
+      <script type="application/javascript">
+        $(window).on("beforeunload", function () {
+          kodEntsperren();
+        });
+      </script>
+      <p:remoteCommand name="kodEntsperren"
+                       action="#{digitalisatErfassenController.kodEntsperren}"
+                       process="@this"/>
+
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+            <ui:param name="hasAccess" value="#{digitalisatsRechte.kannBearbeiten()}"/>
+          </ui:include>
+
+          <c:if test="#{digitalisatErfassenController.kulturObjektDokumentViewModel == null}">
+            <h4 class="beschreibungs-header-label">
+              <p:outputLabel value="#{msg.kod_nicht_gefunden}"/>
+            </h4>
+          </c:if>
+          <c:if test="#{digitalisatErfassenController.kulturObjektDokumentViewModel != null}">
+            <div style="margin-bottom: 50px;">
+              <h1>
+                <h:outputFormat value="#{msg.kod_detail_digitalisat}">
+                  <f:param
+                    value="#{digitalisatErfassenController.kulturObjektDokumentViewModel.signatur}"/>
+                </h:outputFormat>
+              </h1>
+            </div>
+            <p:panelGrid columns="1">
+              <h:panelGroup>
+                <p:inputText styleClass="width50 marginRight10"
+                             requiredMessage="#{msg.digitalisat_erfassen_manifesturl_required}"
+                             required="#{empty digitalisatErfassenController.digitalisatViewModel.alternativeUrl}"
+                             value="#{digitalisatErfassenController.digitalisatViewModel.manifestURL}">
+                  <p:ajax/>
+                </p:inputText>
+                <label>#{msg.digitalisat_erfassen_manifesturi}</label>
+
+                <i class="material-icons" title="#{msg.digitalisat_erfassen_help}">help_outline</i>
+
+              </h:panelGroup>
+              <h:panelGroup styleClass="md-inputfield">
+                <p:inputText styleClass="width50 marginRight10"
+                             requiredMessage="#{msg.digitalisat_erfassen_alternativeurl_required}"
+                             required="#{empty digitalisatErfassenController.digitalisatViewModel.manifestURL}"
+                             value="#{digitalisatErfassenController.digitalisatViewModel.alternativeUrl}">
+                  <p:ajax/>
+                </p:inputText>
+                <label>#{msg.digitalisat_erfassen_alternativeurl}</label>
+              </h:panelGroup>
+              <h:panelGroup styleClass="md-inputfield">
+                <p:inputText styleClass="width50 marginRight10"
+                             value="#{digitalisatErfassenController.digitalisatViewModel.thumbnail}">
+                  <p:ajax/>
+                </p:inputText>
+                <label>#{msg.digitalisat_erfassen_thumbnailurl}</label>
+              </h:panelGroup>
+
+              <p:outputLabel value="#{msg.digitalisat_erfassen_einrichtung}"
+                             style="font-weight: bolder;"></p:outputLabel>
+
+              <h:panelGroup styleClass="md-inputfield toptwenty">
+                <p:autoComplete id="orteAutocomplete"
+                                styleClass="width50"
+                                value="#{digitalisatErfassenController.digitalisatViewModel.ort}"
+                                completeMethod="#{autocompleteNormdatenController.autocompleteOrt}"
+                                placeholder="#{msg.kod_registrieren_orteingeben_placeholder}"
+                                converter="normdatenReferenzConverter"
+                                scrollHeight="200"
+                                appendTo="orteAutocomplete"
+                                var="ort"
+                                itemLabel="#{ort.name}"
+                                itemValue="#{ort}" inputStyleClass="width100 marginRight10">
+                  <p:ajax event="change" update="koerperschaftSelect"
+                          listener="#{digitalisatErfassenController.placeChangedListener}"></p:ajax>
+                  <p:column>#{ort.name}</p:column>
+                  <p:column styleClass="gnd-cell">
+                    <h:outputLink
+                      value="#{ort.gndUrl}"
+                      rendered="#{not empty ort.gndID}"
+                      target="_blank"
+                      onclick="event.stopPropagation()">#{ort.gndID}
+                    </h:outputLink>
+                  </p:column>
+                </p:autoComplete>
+              </h:panelGroup>
+
+              <h:panelGroup styleClass="toptwenty">
+                <p:selectOneMenu id="koerperschaftSelect"
+                                 converter="normdatenReferenzConverter"
+                                 disabled="#{digitalisatErfassenController.digitalisatViewModel.ort == null}"
+                                 value="#{digitalisatErfassenController.digitalisatViewModel.einrichtung}"
+                                 styleClass="width50 marginRight10">
+                  <f:selectItem itemLabel="#{msg.kod_registrieren_koerperschaft_auswaehlen}"
+                                itemValue="#{null}"
+                                noSelectionOption="true" itemDisabled="true"></f:selectItem>
+                  <f:selectItems var="koerperschaft" itemValue="#{koerperschaft}"
+                                 value="#{digitalisatErfassenController.koerperschaftViewModelMap}"/>
+                  <p:ajax></p:ajax>
+                </p:selectOneMenu>
+              </h:panelGroup>
+
+              <p:outputLabel value="#{msg.kod_digitalisaterfassen_digitalisatkonzepte}"
+                             style="font-weight: bolder;"></p:outputLabel>
+
+              <h:panelGroup styleClass="toptwenty">
+                <p:orderList
+                  id="conceptlist"
+                  value="#{digitalisatErfassenController.digitalisatViewModel.digitalisatTypKonzepte}"
+                  var="concept" itemValue="#{concept}" styleClass="width50 marginRight10"
+                  style="float:left"
+                  converter="normdatenReferenzConverter" controlsLocation="none"
+                  responsive="true">
+
+                  <p:ajax event="select"
+                          listener="#{digitalisatErfassenController.selectConceptForDeletion}"/>
+                  <p:ajax event="unselect"
+                          listener="#{orderListView.unSelectConceptForDeletion}"/>
+
+                  <p:column styleClass="ui-g-6 ui-g-nopad">
+                    <h:outputText
+                      value="#{kulturObjektDokumentViewController.findLabelForConceptScheme(concept.typeName)}:">
+                    </h:outputText>
+                  </p:column>
+
+                  <p:column styleClass="ui-g-6 ui-g-nopad">
+                    <h:outputLink target="_blank" value="#{concept.uri}">
+                      #{concept.getVariantName(languageController.getLanguage())}
+                    </h:outputLink>
+                  </p:column>
+                </p:orderList>
+                <p:commandButton id="deleteConceptButton"
+                                 update="@form"
+                                 process="@this"
+                                 actionListener="#{digitalisatErfassenController.removeSelectedConceptFromView}"
+                                 icon="pi pi-trash"
+                                 styleClass="rounded-button shadow-3">
+                </p:commandButton>
+              </h:panelGroup>
+
+              <h:panelGroup>
+                <p:selectOneMenu style="width: 50%"
+                                 converter="normdatenReferenzConverter"
+                                 value="#{digitalisatErfassenController.activeSchemeType}">
+                  <p:ajax event="change" update="@form"
+                          listener="#{digitalisatErfassenController.selectConceptSchemeListener}"/>
+                  <f:selectItem
+                    itemLabel="#{msg.kod_digitalisaterfassen_digitalisatkonzepte_selectschema}"
+                    itemDisabled="true"/>
+                  <f:selectItems value="#{digitalisatErfassenController.digitalisatSchemeTypenValues}"
+                                 var="normdatenreferenz"
+                                 itemValue="#{normdatenreferenz}"
+                                 itemLabel="#{normdatenreferenz.getVariantName(languageController.getLanguage())}">
+                  </f:selectItems>
+                </p:selectOneMenu>
+              </h:panelGroup>
+
+              <h:panelGroup rendered="#{digitalisatErfassenController.activeSchemeType != null}">
+                <p:selectOneMenu converter="normdatenReferenzConverter"
+                                 style="width: 50%"
+                                 value="#{digitalisatErfassenController.activeConceptType}">
+                  <p:ajax/>
+                  <f:selectItem
+                    itemLabel="#{msg.kod_digitalisaterfassen_digitalisatkonzepte_selectconcept}"
+                    itemDisabled="true"/>
+                  <f:selectItems value="#{digitalisatErfassenController.digitalisatConceptTypenValues}"
+                                 var="normdatenreferenz"
+                                 itemValue="#{normdatenreferenz}"
+                                 itemLabel="#{normdatenreferenz.getVariantName(languageController.getLanguage())}">
+                  </f:selectItems>
+                </p:selectOneMenu>
+
+                <div class="toptwenty">
+                  <p:commandButton value="#{msg.cancel}"
+                                   update="@form"
+                                   process="@form"
+                                   styleClass="marginRight10"
+                                   actionListener="#{digitalisatErfassenController.conceptTypenZuruecksetzen}"/>
+                  <p:commandButton value="#{msg.common_add}"
+                                   update="@form"
+                                   process="@this"
+                                   partialSubmit="true"
+                                   actionListener="#{digitalisatErfassenController.conceptTypenHinzufuegen}"
+                                   styleClass="marginRight10"/>
+                </div>
+              </h:panelGroup>
+
+              <h:panelGroup styleClass="md-inputfield toptwenty">
+                <p:calendar
+                  value="#{digitalisatErfassenController.digitalisatViewModel.digitalisierungsdatum}"
+                  id="datumdigitalisierung" pattern="dd.MM.yyyy" styleClass="width50"
+                  autocomplete="off" inputStyleClass="width50 marginRight10">
+                  <p:ajax event="dateSelect"></p:ajax>
+                </p:calendar>
+                <p:outputLabel for="datumdigitalisierung"
+                               value="#{msg.digitalisat_erfassen_datum}"></p:outputLabel>
+              </h:panelGroup>
+              <h:panelGroup styleClass="md-inputfield toptwenty">
+                <p:calendar
+                  value="#{digitalisatErfassenController.digitalisatViewModel.publikationsDatum}"
+                  id="datumpublikation" pattern="dd.MM.yyyy" styleClass="width50"
+                  autocomplete="off" inputStyleClass="width50 marginRight10">
+                  <p:ajax event="dateSelect"></p:ajax>
+                </p:calendar>
+                <p:outputLabel for="datumpublikation"
+                               value="#{msg.digitalisat_publikation_datum}"></p:outputLabel>
+              </h:panelGroup>
+            </p:panelGrid>
+
+            <div class="toptwenty">
+              <p:commandButton value="#{msg.cancel}"
+                               immediate="true"
+                               styleClass="marginRight10"
+                               action="#{digitalisatErfassenController.abbrechen}"/>
+              <p:commandButton value="#{msg.save}"
+                               action="#{digitalisatErfassenController.digitalisatHinzufuegen}"
+                               onstart="PF('statusDialog').show()"
+                               styleClass="marginRight10"
+                               oncomplete="PF('statusDialog').hide();"/>
+            </div>
+          </c:if>
+        </div>
+      </div>
+    </h:form>
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <p:commandButton action="importvorgaenge.xhtml?faces-redirect=true"
+                                 value="#{msg.importvorgaenge_zurueck_zu_importvorgaenge}"
+                                 icon="pi pi-arrow-left">
+                </p:commandButton>
+                <br/>
+                <br/>
+                <br/>
+                <h4><p:outputLabel id="importvorgangdetailHeader"
+                                   value="#{msg.importvorgaenge_datenuebernehmen}"
+                                   rendered="#{!importvorgangDetailController.error}"/>
+                    <p:outputLabel id="importvorgangdetailErrorHeader"
+                                   value="#{msg.importvorgaenge_fehlerdetailstitel}"
+                                   rendered="#{importvorgangDetailController.error}"/>
+                </h4>
+            </div>
+
+            <div class="ui-g-12">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{importRechte.kannDateiupload()}"/>
+                </ui:include>
+
+                <h:form id="importvorgangdetailform" rendered="#{importRechte.kannDateiupload()}">
+
+                    <p:panel id="vorgangErrors"
+                             rendered="#{importvorgangDetailController.error}">
+                        <div class="card clearfix" style="text-align:center">
+
+                            <p><h:outputText value="#{msg.datenuebernahme_dateiname}"/>:
+                                <b><h:outputText value="#{importvorgangDetailController.selectedVorgang.name}"/></b>
+                            </p>
+                            <p>
+                                <b><h:outputText
+                                        rendered="#{not empty importvorgangDetailController.selectedVorgang.status}"
+                                        value="#{msg['importjobresult_'.concat(importvorgangDetailController.selectedVorgang.status)]}"/></b>:
+                                <h:outputText value="#{importvorgangDetailController.selectedVorgang.fehler}"/>
+                            </p>
+                        </div>
+                        <p:dataTable var="importFile" paginator="false"
+                                     value="#{importvorgangDetailController.selectedVorgang.importFiles}">
+                            <p:column headerText="#{msg.importvorgaenge_dataentityid}">
+                                <h:outputText value="#{importFile.id}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.datenuebernahme_dateiname}">
+                                <h:outputText value="#{importFile.dateiName}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.importvorgaenge_fehlerdetailstitel}">
+                                <h:outputText
+                                        value="#{importFile.getMessageIfExists(importvorgangDetailController.selectedVorgang.fehler)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel id="vorgangDetail"
+                             rendered="#{!importvorgangDetailController.error}">
+                        <div class="card clearfix" style="text-align:center">
+
+                            <p><h:outputText value="#{msg.datenuebernahme_dateiname}"/>:
+                                <b><h:outputText value="#{importvorgangDetailController.selectedVorgang.name}"/></b>
+                            </p>
+                            <p>
+                                <b><h:outputText
+                                        rendered="#{not empty importvorgangDetailController.selectedVorgang.status}"
+                                        value="#{msg['importjobresult_'.concat(importvorgangDetailController.selectedVorgang.status)]}"/></b>
+                            </p>
+                        </div>
+                        <p:dataTable var="entity" paginator="false"
+                                     sortBy="#{entity.label}"
+                                     sortOrder="descending"
+                                     value="#{importvorgangDetailController.selectedVorgang.dataEntities}">
+                            <p:column headerText="#{msg.importvorgaenge_dataentityid}">
+                                <h:outputText value="#{entity.id}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.datenuebernahme_dateiname}">
+                                <h:outputText value="#{entity.dateiName}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.importvorgaenge_dataentitylabel}">
+                                <h:outputText value="#{entity.label}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.importvorgaenge_dataentityurl}">
+                                <h:outputLink target="_blank" value="#{entity.url}">#{msg.anzeige}</h:outputLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+
+            <div class="ui-g-6">
+                <p:commandButton action="importvorgaenge.xhtml?faces-redirect=true"
+                                 value="#{msg.importvorgaenge_zurueck_zu_importvorgaenge}"
+                                 icon="pi pi-arrow-left">
+                </p:commandButton>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

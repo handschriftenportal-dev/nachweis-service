@@ -1,0 +1,205 @@
+<?xml version="1.0" standalone="yes"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader xml:lang="de">
+    <fileDesc>
+      <titleStmt>
+        <title>Kulturobjektdokument von Berlin, Staatsbibliothek zu Berlin, Ms. Ham. 166
+        </title>
+        <respStmt>
+          <resp>Herausgegeben vom</resp>
+          <name type="org">Handschriftenportal</name>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>Elektronische Ausgabe nach TEI P5</edition>
+        <respStmt>
+          <resp>Automatisch generierte Ausgabe</resp>
+          <orgName>Handschriftenportal</orgName>
+        </respStmt>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>
+          <name type="org">Handschriftenportal</name>
+          <ptr target="http://www.handschriftenportal.de"/>
+        </publisher>
+        <date when="2022-11-30" type="issued">2022-11-30</date>
+        <distributor>Handschriftenportal</distributor>
+        <availability status="free">
+          <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+            <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+              Nutzungsrechte.
+            </p>
+            <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+              Lizenzen. Vgl. die
+              <ref target="http://www.handschriftenportal.de">Copyright
+                Information
+              </ref>
+              des Handschriftenportals.
+            </p>
+          </licence>
+        </availability>
+        <pubPlace>
+          <ptr xml:id="HSP-9f317006-7c43-38c9-812b-82f4358158b0" subtype="hsp" type="purl"
+            target="https://resolver.staatsbibliothek-berlin.de/HSP000376B700000000"/>
+        </pubPlace>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="HSP-814ec961-7bf0-382f-86ff-ebb16b3f4469" xml:lang="de" type="hsp:object">
+          <msIdentifier>
+            <settlement ref="4005728-8" key="NORM-ee1611b6-1f56-38e7-8c12-b40684dbb395">Berlin
+            </settlement>
+            <repository ref="5036103-X" key="NORM-774909e2-f687-30cb-a5c4-ddc95806d6be">
+              Staatsbibliothek zu Berlin
+            </repository>
+            <idno>Ms. Ham. 166</idno>
+            <altIdentifier type="alternative">
+              <idno>Ms. ham. 166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ms.ham.166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ham. 166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ham.166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>ham. 166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>ham.166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ms. Hamilt. 166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ms. Hamilton 166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ms Ham. 166</idno>
+            </altIdentifier>
+            <altIdentifier type="alternative">
+              <idno>Ms. HAM. 166</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <head>
+            <index indexName="norm_title" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="title">Cicero: Epistolae</term>
+            </index>
+            <index indexName="norm_material" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="material">Pergament</term>
+              <term type="material_type">parchment</term>
+            </index>
+            <index indexName="norm_measure" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="measure">I + 163 Bl.</term>
+              <term type="measure_noOfLeaves">163</term>
+            </index>
+            <index indexName="norm_dimensions" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="dimensions">33 × 23,5</term>
+              <term type="height">33</term>
+              <term type="width">23,5</term>
+              <term type="depth"/>
+              <term type="dimensions_typeOfInformation">factual</term>
+            </index>
+            <index indexName="norm_format">
+              <term type="format"/>
+              <term type="format_typeOfInformation"/>
+            </index>
+            <index indexName="norm_origPlace" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="origPlace">Florenz</term>
+              <term type="origPlace_norm" ref="http://d-nb.info/gnd/4017581-9"
+                key="NORM-8cade569-ab38-3136-9c45-5e9fb526e960">Florenz
+              </term>
+            </index>
+            <index indexName="norm_origDate" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="origDate">1408</term>
+              <term type="origDate_notBefore">1408</term>
+              <term type="origDate_notAfter">1408</term>
+              <term type="origDate_type">dated</term>
+            </index>
+            <index indexName="norm_textLang" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="textLang">lateinisch</term>
+              <term type="textLang-ID">la</term>
+            </index>
+            <index indexName="norm_form" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="form">codex</term>
+            </index>
+            <index indexName="norm_status" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="status">existent</term>
+            </index>
+            <index indexName="norm_decoration" copyOf="#HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"
+              source="https://resolver.staatsbibliothek-berlin.de/HSP0006A22200000000">
+              <term type="decoration">yes</term>
+            </index>
+            <index indexName="norm_musicNotation">
+              <term type="musicNotation"/>
+            </index>
+          </head>
+          <additional>
+            <adminInfo>
+              <availability status="free">
+                <licence target="https://creativecommons.org/publicdomain/zero/1.0/deed.de">
+                  <p>Für das Kulturobjektdokument verzichtet das Handschriftenportal auf alle
+                    Nutzungsrechte.
+                  </p>
+                  <p>Für die Nutzung weiterer Daten wie Digitalisaten gelten gegebenenfalls andere
+                    Lizenzen. Vgl. die
+                    <ref target="http://www.handschriftenportal.de">Copyright
+                      Information
+                    </ref>
+                    des Handschriftenportals.
+                  </p>
+                </licence>
+              </availability>
+            </adminInfo>
+            <surrogates>
+              <bibl>
+                <idno>HSP-d1a00969-8254-3100-8da3-570c9d1ee0e5</idno>
+                <ref type="manifest"
+                  target="https://content.staatsbibliothek-berlin.de/dc/812464044/manifest"/>
+                <ref type="other"
+                  target="http://resolver.staatsbibliothek-berlin.de/SBB000188AC00000000"/>
+                <ref type="thumbnail"
+                  target="https://content.staatsbibliothek-berlin.de/dc/PPN812464044-00000001/full/200,/0/default.png"/>
+                <ref type="completeness"
+                  target="https://normdaten.staatsbibliothek-berlin.de/vocabulary/completeness/complete"/>
+                <date when="2014-01-01" type="digitized">01.01.2014</date>
+                <date when="2024-05-28" type="issued">28.05.2024</date>
+                <date when="2014-01-01" type="published">01.01.2014</date>
+                <placeName type="digitizing" ref="NORM-ee1611b6-1f56-38e7-8c12-b40684dbb395">
+                  Berlin
+                </placeName>
+                <orgName ref="NORM-774909e2-f687-30cb-a5c4-ddc95806d6be" type="digitizing">
+                  Staatsbibliothek zu Berlin
+                </orgName>
+              </bibl>
+            </surrogates>
+            <listBibl>
+              <bibl>
+                <ref target="HSP-5e68e7d3-f276-3181-97b0-b8072deefc31"/>
+              </bibl>
+              <bibl>
+                <ref target="HSP-6b37745b-e98d-4077-860c-0edc6bca77be"/>
+              </bibl>
+            </listBibl>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p/>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+>
+
+
+    <ui:fragment id="pageAccessDeniedMessage" rendered="#{not hasAccess}">
+        <p:spacer/><br/>
+        <p:spacer/><br/>
+        <p:spacer/><br/>
+        <div class="card clearfix" style="vertical-align: center">
+            <h3><h:outputText value="#{msg.page_access_denied_header}"/></h3>
+            <h4><h:outputText value="#{msg.page_access_denied_body}"/></h4>
+        </div>
+    </ui:fragment>
+
+</ui:composition>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/default.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <p:commandButton action="orte.xhtml?faces-redirect=true" value="#{msg.ort_zurueck_zu_orten}"
+                                 icon="pi pi-arrow-left">
+                </p:commandButton>
+                <h1 class="detail-view">#{msg.document_titel_ort}</h1>
+            </div>
+            <ui:param name="kannLesen" value="#{normdatenRechte.kannAnzeigen()}"/>
+            <div class="ui-g-12">
+                <ui:include src="/templates/components/pageAccessDeniedComponent.xhtml">
+                    <ui:param name="hasAccess" value="#{kannLesen}"/>
+                </ui:include>
+
+                <h:form id="ortdetailform" rendered="#{kannLesen}">
+                    <p:panel id="detailOrt" style="padding-left:0px">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="#{msg.ort_ortsName}:"/>
+                            <h:outputText value="#{orteDetailController.viewModel.name} "/>
+                            <h:outputText value="#{msg.ort_ortid}:"/>
+                            <h:outputText value="#{orteDetailController.viewModel.id} "/>
+                            <h:outputText value="#{msg.ort_alternativeNamen}:"/>
+                            <h:outputText value="#{orteDetailController.viewModel.varianteNamenAlsString}"/>
+                            <h:outputText value="#{msg.ort_gndID}:"/>
+                            <h:outputText value="#{orteDetailController.viewModel.gndID} "/>
+                            <h:outputText value="#{msg.ort_geonamesID}:"/>
+                            <ui:param name="geonames"
+                                      value="#{orteDetailController.findGeonamesIdentifikator()}"/>
+                            <p:link target="_blank"
+                                    href="#{geonames.url}"
+                                    value="#{geonames.text}"
+                                    rendered="#{not empty geonames}">
+                            </p:link>
+                            <h:outputText value="" rendered="#{empty geonames}"/>
+                            <h:outputText value="#{msg.ort_gettyID}:"/>
+                            <ui:param name="getty"
+                                      value="#{orteDetailController.findGettyIdentifikator()}"/>
+                            <p:link target="_blank"
+                                    href="#{getty.url}"
+                                    value="#{getty.text}"
+                                    rendered="#{not empty getty}">
+                            </p:link>
+                            <h:outputText value="" rendered="#{empty getty}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                <br/>
+                <p:commandButton update="@all" process="@all" style="margin-top: 10px;"
+                                 rendered="#{kannLesen}"
+                                 actionListener="#{orteDetailController.ortLoeschen}"
+                                 disabled="true"
+                                 value="#{msg.ort_loeschen}"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

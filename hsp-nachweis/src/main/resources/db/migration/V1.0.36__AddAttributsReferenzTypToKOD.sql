@@ -1,0 +1,1 @@
+ALTER TABLE kulturobjektdokument ADD COLUMN IF NOT EXISTS attributsstatustyp VARCHAR(50) null;

@@ -1,0 +1,339 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="jakarta.tags.core"
+                xmlns:jsf="jakarta.faces"
+                xmlns:hspcc="jakarta.faces.composite/composite_components">
+    <ui:param name="kannLesen" value="#{kODRechte.kannLesen()}"/>
+    <ui:param name="kannBearbeiten" value="#{kODRechte.kannBearbeiten()}"/>
+    <p:importEnum type="de.staatsbibliothek.berlin.hsp.domainmodel.valueobjects.AttributsTyp"
+                  var="AttributsTyp" allSuffix="values"/>
+
+    <h:panelGroup id="kerndatenPanel"
+                  layout="block"
+                  styleClass="ui-g"
+                  style="padding-top: 0;"
+                  rendered="#{kannLesen and not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel}">
+        <div class="ui-g-12 ui-g-nopad-horizontal ui-g-nopad-top">
+            <p:separator/>
+        </div>
+        <div class="ui-g-10 ui-g-nopad-horizontal">
+            <h2>
+                <h:outputText value="#{msg.kod_detail_kerndaten}"/>
+            </h2>
+        </div>
+        <div class="ui-g-2 ui-g-nopad-horizontal">
+            <div class="button-align-right">
+                <p:commandButton
+                        icon="pi pi-pencil"
+                        disabled="#{not kannBearbeiten
+                                or not kodKerndatenModel.editable
+                                or kulturObjektDokumentViewController.fremdeSperreVorhanden}"
+                        styleClass="rounded-button shadow-3"
+                        action="#{kulturObjektDokumentViewController.kerndatenBearbeiten()}"
+                        process="@this"
+                        update="@form"
+                        onstart="PF('statusDialog').show()"
+                        oncomplete="PF('statusDialog').hide();"
+                        rendered="#{!kulturObjektDokumentViewController.editKerndaten}">
+                </p:commandButton>
+            </div>
+        </div>
+
+        <p:confirmDialog id="confirmSignatureDialog"
+                         showEffect="fade" hideEffect="fade" responsive="true"
+                         width="750" widgetVar="confirmDialog"
+                         closable="false"
+                         header="#{kulturObjektDokumentViewController.signatureChangeConfirmMessage}"
+        >
+            <p:commandButton value="#{msg.common_yes}"
+                             styleClass="ui-confirmdialog-yes"
+                             actionListener="#{kulturObjektDokumentViewController.gueltigeSignaturBearbeiten()}"
+                             update="@form"
+                             oncomplete="PF('confirmDialog').hide()"/>
+            <p:commandButton value="#{msg.common_no}"
+                             styleClass="ui-confirmdialog-no ui-button-flat"
+                             onclick="PF('confirmDialog').hide();"/>
+        </p:confirmDialog>
+        <div class="ui-g-12 card" style="padding:30px; margin-top: 8px; margin-bottom: 0;">
+            <div class="ui-g-12 ui-lg-6 ui-g spreadsheet">
+                <div class="ui-g-4">#{msg.kod_detail_hsp_id}:</div>
+                <div class="ui-g-8">
+                    <h:outputText styleClass="text-disabled"
+                                  rendered="#{not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.id}"
+                                  value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.id}"/>
+                </div>
+                <div class="ui-g-4">#{msg.kod_detail_ort}:</div>
+                <div class="ui-g-8">
+                    <h:outputText styleClass="text-disabled"
+                                  rendered="#{not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.bestandhaltendeInstitutionOrt}"
+                                  value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.bestandhaltendeInstitutionOrt}"/>
+                </div>
+                <div class="ui-g-4">#{msg.kod_detail_einrichtung}:</div>
+                <div class="ui-g-8">
+                    <h:outputText styleClass="text-disabled"
+                                  rendered="#{not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.bestandhaltendeInstitutionName}"
+                                  value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.bestandhaltendeInstitutionName}"/>
+                </div>
+                <div class="ui-g-4">#{msg.kod_detail_signatur}:</div>
+                <div class="ui-g-8">
+                    <c:if test="#{!kulturObjektDokumentViewController.editSignature}">
+                        <h:outputText styleClass="text-disabled"
+                                      rendered="#{not empty kulturObjektDokumentViewController.kulturObjektDokumentViewModel.signatur}"
+                                      value="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.signatur}"/>
+                        <p:commandButton
+                                actionListener="#{kulturObjektDokumentViewController.enableEditSignature()}"
+                                title="#{msg.common_edit}"
+                                disabled="#{!kODRechte.kannBearbeiten()}"
+                                update="@form" icon="pi pi-pencil" style="float: right;"
+                                styleClass="shadow-3 rounded-button"/>
+                    </c:if>
+
+                    <c:if test="#{kulturObjektDokumentViewController.editSignature}">
+                        <h:inputText id="signaturinputtext" styleClass="ui-inputfield"
+                                     style="width: 70%; color: #6D6B68; font-size: 16px;"
+                                     value="#{kulturObjektDokumentViewController.neueSignature}">
+                        </h:inputText>
+                        <p:commandButton title="#{msg.common_cancel}" update="@form" process="@form"
+                                         style="float: right; margin-left: 5px;"
+                                         actionListener="#{kulturObjektDokumentViewController.disableEditSignature()}"
+                                         icon="pi pi-times-circle"
+                                         styleClass="shadow-3 rounded-button"/>
+                        <p:commandButton title="#{msg.common_save}"
+                                         update=":kodform:confirmSignatureDialog"
+                                         icon="pi pi-save" style="float: right;"
+                                         styleClass="shadow-3 rounded-button"
+                                         oncomplete="PF('confirmDialog').show();"/>
+                    </c:if>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-6 ui-g spreadsheet">
+                <hspcc:kerndatumComponent id="status"
+                                          labelKey="kod_detail_status"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.status}"
+                                          attributsRefrenzen="#{kodKerndatenModel.status}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.STATUS]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          textKey="kod_kerndaten_status_"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="titel"
+                                          labelKey="kod_detail_titel"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.titel}"
+                                          attributsRefrenzen="#{kodKerndatenModel.titel}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.TITEL]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="beschreibstoff"
+                                          labelKey="kod_detail_beschreibstoff"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.beschreibstoff}"
+                                          attributsRefrenzen="#{kodKerndatenModel.beschreibstoffe}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.BESCHREIBSTOFF]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="umfang"
+                                          labelKey="kod_detail_umfang"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.umfang}"
+                                          attributsRefrenzen="#{kodKerndatenModel.umfange}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.UMFANG]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"
+                                          styleClass="merge"/>
+                <hspcc:kerndatumComponent id="abmessung"
+                                          labelKey="kod_detail_abmessungen"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.abmessung}"
+                                          attributsRefrenzen="#{kodKerndatenModel.abmessungen}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.ABMESSUNG]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="format"
+                                          labelKey="kod_detail_format"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.format}"
+                                          attributsRefrenzen="#{kodKerndatenModel.formate}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.FORMAT]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          textKey="kod_kerndaten_format_"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="entstehungsort"
+                                          labelKey="kod_detail_entstehungsort"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.entstehungsort}"
+                                          attributsRefrenzen="#{kodKerndatenModel.entstehungsorte}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.ENTSTEHUNGSORT]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="entstehungszeit"
+                                          labelKey="kod_detail_entstehungszeit"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.entstehungszeit}"
+                                          attributsRefrenzen="#{kodKerndatenModel.entstehungszeiten}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.ENTSTEHUNGSZEIT]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="grundsprache"
+                                          labelKey="kod_detail_grundsprache"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.grundsprache}"
+                                          attributsRefrenzen="#{kodKerndatenModel.grundsprachen}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.GRUNDSPRACHE]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="handschriftentyp"
+                                          labelKey="kod_detail_handschriftentyp"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.handschriftentyp}"
+                                          attributsRefrenzen="#{kodKerndatenModel.handschriftentypen}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.HANDSCHRIFTENTYP]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          textKey="kod_kerndaten_handschriftentyp_"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="buchschmuck"
+                                          labelKey="kod_detail_buchschmuck"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.buchschmuck}"
+                                          attributsRefrenzen="#{kodKerndatenModel.buchschmuck}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.BUCHSCHMUCK]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          textKey="kod_kerndaten_buchschmuck_"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+
+                <hspcc:kerndatumComponent id="musiknotation"
+                                          labelKey="kod_detail_musiknotation"
+                                          attributsRefrenz="#{kulturObjektDokumentViewController.kulturObjektDokumentViewModel.musiknotation}"
+                                          attributsRefrenzen="#{kodKerndatenModel.musiknotationen}"
+                                          selectedAttributsRefrenzId="#{kodKerndatenModel.selectedIds[AttributsTyp.MUSIKNOTATION]}"
+                                          beschreibungen="#{kodKerndatenModel.beschreibungen}"
+                                          textKey="kod_kerndaten_musiknotation_"
+                                          edit="#{kulturObjektDokumentViewController.editKerndaten}"/>
+            </div>
+            <p:outputPanel layout="block"
+                           class="ui-g-12 ui-g"
+                           style="padding: 0;"
+                           rendered="#{kulturObjektDokumentViewController.editKerndaten}">
+                <div class="ui-g-12">
+                    <p:separator style="border-color: #000000;"/>
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <h:outputLabel for="kerndatenBeschreibungenSOM"
+                                   value="#{msg.kod_kerndaten_beschreibungen}:"
+                                   style="line-height: 29px;font-weight: bold;"/>
+                </div>
+                <div class="ui-g-12 ui-lg-6 ui-fluid">
+                    <p:selectOneMenu id="kerndatenBeschreibungenSOM"
+                                     value="#{kodKerndatenModel.selectedBeschreibungId}"
+                                     styleClass="kerndaten_auswahl"
+                                     style="margin-left: 8px;"
+                                     var="bspId"
+                                     autoWidth="false">
+                        <f:selectItem itemLabel="#{msg.select}" itemValue="#{null}"
+                                      noSelectionOption="true" itemDisabled="true"/>
+                        <f:selectItems value="#{kodKerndatenModel.beschreibungen.values()}"
+                                       var="beschreibung"
+                                       itemValue="#{beschreibung.id}"
+                                       itemLabel="#{beschreibung.titel}"/>
+                        <p:column>
+                            <p class="compact">
+                                <strong>#{kodKerndatenModel.beschreibungen[bspId].titel}</strong>
+                            </p>
+                            <p class="compact"
+                               jsf:rendered="#{not empty kodKerndatenModel.beschreibungen[bspId].datumErstpublikation}">
+                                #{msg.kod_kerndaten_info_publiziert}:
+                                <h:outputText
+                                        value="#{kodKerndatenModel.beschreibungen[bspId].datumErstpublikation}">
+                                    <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </p>
+                            <p class="compact"
+                               jsf:rendered="#{not empty kodKerndatenModel.beschreibungen[bspId].autoren}">
+                                #{msg.kod_kerndaten_info_von}:
+                                #{kodKerndatenModel.beschreibungen[bspId].formattedAutoren}
+                            </p>
+                        </p:column>
+                        <p:ajax event="valueChange"
+                                listener="#{kodKerndatenModel.beschreibungswerteUebernehmen}"
+                                onstart="PF('statusDialog').show()"
+                                oncomplete="PF('statusDialog').hide();"
+                                update="@form"/>
+                    </p:selectOneMenu>
+                </div>
+                <div class="ui-g-12">
+                    <p:separator style="border-color: #000000;"/>
+                </div>
+            </p:outputPanel>
+            <p:outputPanel layout="block"
+                           class="ui-g-12"
+                           style="text-align:right;"
+                           rendered="#{kulturObjektDokumentViewController.editKerndaten}">
+                <p:commandButton
+                        id="kerndatenBestaetigenBtn"
+                        ajax="true"
+                        style="margin-top: 24px;"
+                        icon="pi pi-save"
+                        update="@form"
+                        process="@form"
+                        action="#{kodKerndatenModel.kerndatenBestaetigen()}"
+                        title="#{msg.save}"
+                        value="#{msg.save}"
+                        disabled="#{not kodKerndatenModel.selectionChanged}"
+                        onstart="PF('statusDialog').show();"
+                        oncomplete="PF('statusDialog').hide();PF('kerndatenBestaetigenDialog').show()"/>
+                <p:commandButton
+                        id="kerndatenAbbrechenBtn"
+                        ajax="true"
+                        immediate="true"
+                        style="margin-top: 24px; margin-left:12px;"
+                        icon="pi pi-times"
+                        update="@form"
+                        process="@this"
+                        action="#{kulturObjektDokumentViewController.kerndatenBearbeitenAbbrechen()}"
+                        title="#{msg.cancel}"
+                        value="#{msg.cancel}"
+                        onstart="PF('statusDialog').show()"
+                        oncomplete="PF('statusDialog').hide()"/>
+            </p:outputPanel>
+        </div>
+    </h:panelGroup>
+
+    <p:dialog id="kerndatenBestaetigenDialog"
+              widgetVar="kerndatenBestaetigenDialog"
+              width="600px"
+              closable="false"
+              header="#{msg.kod_kerndaten_referenzen_dialog}">
+
+        #{msg.kod_kerndaten_referenzen_bestaetigen}
+        <ul>
+            <ui:repeat var="meldung" value="#{kodKerndatenModel.bestaetigungsMeldungen}">
+                <li>#{meldung}</li>
+            </ui:repeat>
+        </ul>
+        <f:facet name="footer">
+            <div style="text-align: right;">
+                <p:commandButton id="kerndatenSpeichernBtn"
+                                 value="#{msg.ja}"
+                                 action="#{kulturObjektDokumentViewController.kerndatenSpeichern()}"
+                                 process="@this"
+                                 update="@form"
+                                 onstart="PF('kerndatenBestaetigenDialog').hide();PF('statusDialog').show()"
+                                 oncomplete="PF('statusDialog').hide()"/>
+                <p:commandButton id="kerndatenBearbeitenAbbrechenBtn"
+                                 value="#{msg.nein}"
+                                 action="#{kulturObjektDokumentViewController.kerndatenBearbeitenAbbrechen()}"
+                                 process="@this"
+                                 update="@form"
+                                 onstart="PF('kerndatenBestaetigenDialog').hide();PF('statusDialog').show()"
+                                 oncomplete="PF('statusDialog').hide()"
+                                 style="margin-left: 14px;"/>
+                <p:commandButton id="kerndatenBestaetigenAbbrechenBtn"
+                                 value="#{msg.cancel}"
+                                 onclick="PF('kerndatenBestaetigenDialog').hide()"
+                                 style="margin-left: 14px;"/>
+            </div>
+        </f:facet>
+    </p:dialog>
+
+</ui:composition>
